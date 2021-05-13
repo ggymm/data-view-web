@@ -1,4 +1,4 @@
-import { BasicLayout } from '@/layouts'
+import { BasicLayout, BlankLayout } from '@/layouts'
 
 const RouteView = {
   name: 'RouteView',
@@ -67,6 +67,29 @@ export const asyncRouterMap = [
             component: () => import('@/views/dataView/index'),
             meta: {
               title: '可视化大屏管理'
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    path: '/',
+    name: 'blankIndex',
+    component: BlankLayout,
+    children: [
+      {
+        path: '/dataViewInstance',
+        redirect: '/dataViewInstance/index',
+        name: 'DataViewInstance',
+        component: RouteView,
+        hidden: true,
+        children: [
+          {
+            path: 'index/:instance_id/:is_copy',
+            component: () => import('@/views/dataView/instance/index'),
+            meta: {
+              title: '可视化大屏编辑'
             }
           }
         ]
