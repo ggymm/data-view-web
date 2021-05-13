@@ -1,0 +1,215 @@
+@font-face {
+  font-family: "iconfont"; /* Project id 2545603 */
+  src: url('iconfont.woff2?t=1620886435148') format('woff2'),
+       url('iconfont.woff?t=1620886435148') format('woff'),
+       url('iconfont.ttf?t=1620886435148') format('truetype');
+}
+
+.iconfont {
+  font-family: "iconfont" !important;
+  font-size: 16px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.example:before {
+  content: "\e602";
+}
+
+.clock:before {
+  content: "\e603";
+}
+
+.gauge:before {
+  content: "\e604";
+}
+
+.data_view:before {
+  content: "\e605";
+}
+
+.eye-open:before {
+  content: "\e606";
+}
+
+.counter:before {
+  content: "\e607";
+}
+
+.eye:before {
+  content: "\e608";
+}
+
+.histogramGradientHorizontal:before {
+  content: "\e609";
+}
+
+.heatMapLargePiecewise:before {
+  content: "\e60a";
+}
+
+.heatProvince:before {
+  content: "\e60b";
+}
+
+.link:before {
+  content: "\e60c";
+}
+
+.histogramComplex:before {
+  content: "\e60d";
+}
+
+.form:before {
+  content: "\e60e";
+}
+
+.lineStackingArea:before {
+  content: "\e60f";
+}
+
+.data_source:before {
+  content: "\e610";
+}
+
+.lineNormal:before {
+  content: "\e611";
+}
+
+.histogramStacking:before {
+  content: "\e612";
+}
+
+.picture:before {
+  content: "\e613";
+}
+
+.pie2D:before {
+  content: "\e614";
+}
+
+.pieNormal:before {
+  content: "\e615";
+}
+
+.nested:before {
+  content: "\e616";
+}
+
+.histogramGradient:before {
+  content: "\e617";
+}
+
+.piePercent:before {
+  content: "\e618";
+}
+
+.mapReduce:before {
+  content: "\e619";
+}
+
+.heatBasic:before {
+  content: "\e61a";
+}
+
+.pieRings:before {
+  content: "\e61b";
+}
+
+.password:before {
+  content: "\e61c";
+}
+
+.relationThree:before {
+  content: "\e61d";
+}
+
+.relationFive:before {
+  content: "\e61e";
+}
+
+.relationFour:before {
+  content: "\e61f";
+}
+
+.lineCoordinate:before {
+  content: "\e620";
+}
+
+.user:before {
+  content: "\e621";
+}
+
+.pieRing:before {
+  content: "\e622";
+}
+
+.table:before {
+  content: "\e623";
+}
+
+.radarBasic:before {
+  content: "\e624";
+}
+
+.titleText:before {
+  content: "\e625";
+}
+
+.rotationList:before {
+  content: "\e626";
+}
+
+.plotBubble:before {
+  content: "\e627";
+}
+
+.plotMap:before {
+  content: "\e628";
+}
+
+.mapChina:before {
+  content: "\e629";
+}
+
+.tree:before {
+  content: "\e62a";
+}
+
+.relationTwo:before {
+  content: "\e62b";
+}
+
+.heatMap:before {
+  content: "\e62c";
+}
+
+.lineStacking:before {
+  content: "\e62d";
+}
+
+.mapProvince:before {
+  content: "\e62e";
+}
+
+.progressBar:before {
+  content: "\e62f";
+}
+
+.relationOne:before {
+  content: "\e630";
+}
+
+.wordCloud:before {
+  content: "\e631";
+}
+
+.mapWorld:before {
+  content: "\e632";
+}
+
+.pieRings1:before {
+  content: "\e633";
+}
+
