@@ -43,7 +43,7 @@
 </template>
 
 <script>
-import { getRotationListConfig } from '../../config/rotation-list-config'
+import { getRotationListConfig } from '../../config/other/rotation-list-config'
 
 export default {
   name: 'RotationList',

@@ -5,14 +5,14 @@
     :theme="theme"
     :auto-resize="true"
     :init-options="initOption"
-    :options="option"
+    :option="option"
     element-loading-text="Loading..."
     class="chart"
     @click="handleChartClick"
   />
 </template>
 <script>
-import { getLineNormalConfig } from '../../config/line-normal-config'
+import { getLineNormalConfig } from '../../config/line/line-normal-config'
 
 export default {
   name: 'LineNormal',

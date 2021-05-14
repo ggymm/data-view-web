@@ -12,7 +12,7 @@
   />
 </template>
 <script>
-import { getHistogramComplexConfig } from '../../config/histogram-complex-config'
+import { getHistogramComplexConfig } from '../../config/histogram/histogram-complex-config'
 
 export default {
   name: 'HistogramComplex',

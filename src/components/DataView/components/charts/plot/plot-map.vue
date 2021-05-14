@@ -12,7 +12,7 @@
   />
 </template>
 <script>
-import { getPlotMapConfig } from '../../config/plot-map-config'
+import { getPlotMapConfig } from '../../config/plot/plot-map-config'
 
 export default {
   name: 'PlotMap',

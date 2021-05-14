@@ -12,7 +12,7 @@
   />
 </template>
 <script>
-import { getRelationFiveConfig } from '../../config/relation-five-config'
+import { getRelationFiveConfig } from '../../config/relation/relation-five-config'
 
 export default {
   name: 'RelationFive',

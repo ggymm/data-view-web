@@ -12,7 +12,7 @@
   />
 </template>
 <script>
-import { getWordCloudConfig } from '../../config/word-cloud-config'
+import { getWordCloudConfig } from '../../config/other/word-cloud-config'
 
 export default {
   name: 'WordCloud',

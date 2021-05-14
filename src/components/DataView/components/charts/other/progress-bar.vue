@@ -11,7 +11,7 @@
 </template>
 
 <script>
-import { getProgressBarConfig } from '../../config/progress-bar-config'
+import { getProgressBarConfig } from '../../config/other/progress-bar-config'
 
 export default {
   name: 'ProgressBar',

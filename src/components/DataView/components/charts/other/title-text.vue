@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import { getTitleTextConfig } from '../../config/title-text-config'
+import { getTitleTextConfig } from '../../config/other/title-text-config'
 
 export default {
   name: 'TitleText',

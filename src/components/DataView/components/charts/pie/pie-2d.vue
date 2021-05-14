@@ -12,7 +12,7 @@
   />
 </template>
 <script>
-import { getPie2DConfig } from '../../config/pie-2d-config'
+import { getPie2DConfig } from '../../config/pie/pie-2d-config'
 
 export default {
   name: 'Pie2D',

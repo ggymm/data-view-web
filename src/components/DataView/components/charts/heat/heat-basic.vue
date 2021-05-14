@@ -12,7 +12,7 @@
   />
 </template>
 <script>
-import { getHeatBasicConfig } from '../../config/heat-basic-config'
+import { getHeatBasicConfig } from '../../config/heat/heat-basic-config'
 import BMap from 'echarts/extension/bmap/bmap'
 
 export default {

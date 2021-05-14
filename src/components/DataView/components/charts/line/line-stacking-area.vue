@@ -12,7 +12,7 @@
   />
 </template>
 <script>
-import { getLineStackingAreaConfig } from '../../config/line-stacking-area-config'
+import { getLineStackingAreaConfig } from '../../config/line/line-stacking-area-config'
 
 export default {
   name: 'LineStackingArea',

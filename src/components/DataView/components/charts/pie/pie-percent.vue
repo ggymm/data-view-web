@@ -12,7 +12,7 @@
   />
 </template>
 <script>
-import { getPiePercentConfig } from '../../config/pie-percent-config'
+import { getPiePercentConfig } from '../../config/pie/pie-percent-config'
 
 export default {
   name: 'PiePercent',

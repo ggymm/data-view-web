@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import { getMapChinaConfig } from '../../config/map-china-config'
+import { getMapChinaConfig } from '../../config/map/map-china-config'
 
 export default {
   name: 'MapChina',

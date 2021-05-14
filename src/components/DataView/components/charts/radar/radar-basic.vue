@@ -12,7 +12,7 @@
   />
 </template>
 <script>
-import { getRadarBasicConfig } from '../../config/radar-basic-config'
+import { getRadarBasicConfig } from '../../config/radar/radar-basic-config'
 
 export default {
   name: 'RadarBasic',

@@ -34,7 +34,7 @@
 </template>
 
 <script>
-import { getCounterConfig } from '../../config/counter-config'
+import { getCounterConfig } from '../../config/other/counter-config'
 
 export default {
   name: 'Counter',

@@ -12,7 +12,7 @@
   />
 </template>
 <script>
-import { getGaugeConfig } from '../../config/gauge-config'
+import { getGaugeConfig } from '../../config/other/gauge-config'
 
 export default {
   name: 'Gauge',

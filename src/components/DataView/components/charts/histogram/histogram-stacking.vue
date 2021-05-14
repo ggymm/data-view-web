@@ -12,7 +12,7 @@
   />
 </template>
 <script>
-import { getHistogramStackingConfig } from '../../config/histogram-stacking-config'
+import { getHistogramStackingConfig } from '../../config/histogram/histogram-stacking-config'
 
 export default {
   name: 'HistogramStacking',

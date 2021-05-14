@@ -12,7 +12,7 @@
   />
 </template>
 <script>
-import { getRelationFourConfig } from '../../config/relation-four-config'
+import { getRelationFourConfig } from '../../config/relation/relation-four-config'
 
 export default {
   name: 'RelationFour',

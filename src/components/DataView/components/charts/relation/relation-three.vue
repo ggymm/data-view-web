@@ -12,7 +12,7 @@
   />
 </template>
 <script>
-import { getRelationThreeConfig } from '../../config/relation-three-config'
+import { getRelationThreeConfig } from '../../config/relation/relation-three-config'
 
 export default {
   name: 'RelationThree',

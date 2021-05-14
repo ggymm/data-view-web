@@ -12,7 +12,7 @@
   />
 </template>
 <script>
-import { getRelationTwoConfig } from '../../config/relation-two-config'
+import { getRelationTwoConfig } from '../../config/relation/relation-two-config'
 
 export default {
   name: 'RelationTwo',

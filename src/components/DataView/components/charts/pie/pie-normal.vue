@@ -12,7 +12,7 @@
   />
 </template>
 <script>
-import { getPieNormalConfig } from '../../config/pie-normal-config'
+import { getPieNormalConfig } from '../../config/pie/pie-normal-config'
 
 export default {
   name: 'PieNormal',

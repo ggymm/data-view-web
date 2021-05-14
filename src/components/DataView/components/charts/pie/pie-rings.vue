@@ -12,7 +12,7 @@
   />
 </template>
 <script>
-import { getPieRingsConfig } from '../../config/pie-rings-config'
+import { getPieRingsConfig } from '../../config/pie/pie-rings-config'
 
 export default {
   name: 'PieRings',

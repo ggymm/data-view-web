@@ -12,7 +12,7 @@
   />
 </template>
 <script>
-import { getPlotBubbleConfig } from '../../config/plot-bubble-config'
+import { getPlotBubbleConfig } from '../../config/plot/plot-bubble-config'
 
 export default {
   name: 'PlotBubble',

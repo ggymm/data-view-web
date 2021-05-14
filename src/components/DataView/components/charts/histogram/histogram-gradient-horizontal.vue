@@ -12,7 +12,7 @@
   />
 </template>
 <script>
-import { getHistogramGradientHorizontalConfig } from '../../config/histogram-gradient-horizontal-config'
+import { getHistogramGradientHorizontalConfig } from '../../config/histogram/histogram-gradient-horizontal-config'
 
 export default {
   name: 'HistogramGradientHorizontal',

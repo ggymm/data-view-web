@@ -12,7 +12,7 @@
   />
 </template>
 <script>
-import { getLineStackingConfig } from '../../config/line-stacking-config'
+import { getLineStackingConfig } from '../../config/line/line-stacking-config'
 
 export default {
   name: 'LineStacking',

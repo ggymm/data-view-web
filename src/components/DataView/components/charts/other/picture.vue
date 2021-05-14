@@ -7,7 +7,7 @@
 </template>
 
 <script>
-import { getPictureConfig } from '../../config/picture-config'
+import { getPictureConfig } from '../../config/other/picture-config'
 
 export default {
   name: 'PictureV',

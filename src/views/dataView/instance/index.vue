@@ -12,9 +12,9 @@
       >
         <a-sub-menu v-for="menu in menus" :key="menu.key">
           <span slot="title" class="submenu-title-wrapper">{{ menu.title }}</span>
-          <a-menu-item v-for="child in menu.children" :key="child.key">
+          <a-menu-item v-for="child in menu.children" :key="child.key" :draggable="true" @dragstart="dragItem($event, child.key)">
             <icon :type="child.icon" />
-            <span :draggable="true" @dragstart="dragItem($event, child.key)">{{ child.title }}</span>
+            <span>{{ child.title }}</span>
           </a-menu-item>
         </a-sub-menu>
       </a-menu>
