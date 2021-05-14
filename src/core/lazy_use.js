@@ -114,4 +114,4 @@ const MyIcon = Icon.createFromIconfontCN({
   scriptUrl: scriptUrl
 })
 
-Vue.component('my-icon', MyIcon)
+Vue.component('icon', MyIcon)

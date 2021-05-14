@@ -8,3 +8,11 @@ export function getDataViewPage(params) {
     params: params
   })
 }
+
+export function getImageBgList() {
+
+}
+
+export function getChartData() {
+
+}

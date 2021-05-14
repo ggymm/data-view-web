@@ -8,3 +8,10 @@ export function getDataSourcePage(params) {
     params: params
   })
 }
+
+export function getDataSourceList() {
+  return request({
+    url: baseUrl + 'dataSource/list',
+    method: 'get'
+  })
+}

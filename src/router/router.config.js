@@ -86,6 +86,13 @@ export const asyncRouterMap = [
         hidden: true,
         children: [
           {
+            path: 'index',
+            component: () => import('@/views/dataView/instance/index'),
+            meta: {
+              title: '可视化大屏编辑'
+            }
+          },
+          {
             path: 'index/:instance_id/:is_copy',
             component: () => import('@/views/dataView/instance/index'),
             meta: {

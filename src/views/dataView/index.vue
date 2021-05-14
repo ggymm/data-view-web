@@ -2,6 +2,21 @@
 <template>
   <div>
     <a-card :bordered="false">
+      <div class="handle">
+        <div class="table-operator">
+          <a-button type="primary" icon="plus" @click="handleCreate">新建</a-button>
+        </div>
+        <div class="space" />
+        <div class="handle-query">
+          <a-input
+            v-model="query.instanceName"
+            class="handle-item handle-item-width handle-item-margin"
+            style="width: 200px"
+            allow-clear
+          />
+          <a-button class="handle-item" type="primary" @click="handleFilter">查询</a-button>
+        </div>
+      </div>
       <a-list :grid="{ gutter: 20, xs: 1, sm: 2, md: 4, lg: 4, xl: 6, xxl: 4 }" :data-source="list">
         <a-list-item slot="renderItem" slot-scope="item">
           <a-card :title="item.title">
@@ -36,6 +51,9 @@ export default {
       pagination: {
         current: 1,
         pageSize: 10
+      },
+      query: {
+        instanceName: null
       }
     }
   },
@@ -53,6 +71,12 @@ export default {
         this.list = response.data.list
         this.pagination.total = response.data.count
       })
+    },
+    handleFilter() {
+
+    },
+    handleCreate() {
+      window.open('/dataViewInstance/index')
     },
     handlePreview() {
 
