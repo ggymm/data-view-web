@@ -3,7 +3,7 @@
     ref="chart"
     :loading="loading"
     :theme="theme"
-    :auto-resize="true"
+    :autoresize="true"
     :init-options="initOption"
     :option="option"
     element-loading-text="Loading..."
