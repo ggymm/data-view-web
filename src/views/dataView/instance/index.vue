@@ -1,4 +1,4 @@
-<!--suppress JSUnresolvedVariable -->
+<!--suppress JSUnresolvedVariable, JSUnusedLocalSymbols -->
 <template>
   <div class="data-view-container">
     <v-loading v-show="loading" />
@@ -11,7 +11,7 @@
         :sub-menu-close-delay="0"
       >
         <a-sub-menu v-for="menu in menus" :key="menu.key">
-          <span slot="title" class="submenu-title-wrapper">{{ menu.title }}</span>
+          <span slot="title">{{ menu.title }}<a-icon type="caret-down" style="margin-left: 5px" /></span>
           <a-menu-item v-for="child in menu.children" :key="child.key" :draggable="true" @dragstart="dragItem($event, child.key)">
             <icon :type="child.icon" />
             <span>{{ child.title }}</span>
@@ -22,7 +22,6 @@
         <a-button type="primary" @click="handleSave">保存</a-button>
         <a-button v-if="Object.keys(chooseItem).length >= 0" type="info" @click="chooseItem = {}">画板设置</a-button>
         <a-button type="success" @click="previewScreen">预览</a-button>
-        <a-button type="success" @click="debugMethod">调试接口</a-button>
       </div>
     </div>
     <div class="data-view-main">
@@ -63,6 +62,13 @@
         </div>
       </div>
       <div class="data-view-option">
+        <div v-show="Object.keys(chooseItem).length === 0" class="data-view-option-panel">
+          <a-form-model :model="panelConfig" layout="horizontal" :label-col="{span: 4}" :wrapper-col="{span: 14}">
+            <a-form-model-item label="标题">
+              <a-input v-model="panelConfig.title" />
+            </a-form-model-item>
+          </a-form-model>
+        </div>
         <ChartOption
           v-show="Object.keys(chooseItem).length >= 0"
           :data-source-list="dataSourceList"
@@ -105,6 +111,7 @@ export default {
       slices: [],
       startIndex: 0,
       dataSourceList: [],
+      backgroundImgList: [],
       panelConfig: {
         title: '',
         // panelWidth: 1920,
@@ -122,7 +129,8 @@ export default {
   },
   inject: ['reload'],
   created() {
-    // 获取对象
+    this.getDataSourceList()
+    this.getImageBgList()
     const instanceId = this.$route.params.instance_id
     const isCopy = this.$route.params.is_copy
     this.initPageStyle()
@@ -161,7 +169,7 @@ export default {
     },
     getDataSourceList() {
       getDataSourceList().then(response => {
-        this.dataSourceList = response.data
+        this.dataSourceList = response.data.list
       })
     },
     getImageBgList() {
@@ -173,26 +181,34 @@ export default {
       // 获取大屏实例信息
       console.log(instanceId)
     },
+    handleLayoutUpdated(layout) {
+      this.slices = this.slices.map((item) => {
+        if (item.i === layout.id) {
+          item.x = layout.x
+          item.y = layout.y
+        }
+        return item
+      })
+    },
+    handleSizeUpdate(size) {
+      this.slices = this.slices.map((item) => {
+        if (item.i === size.id) {
+          item.width = size.w
+          item.height = size.h
+        }
+        return item
+      })
+    },
+    handleItemChoose(item) {
+      // 此处应该显示对应的Options
+      // 对应类别显示，数据则从数组里面取
+      this.chooseItem = item
+    },
     handleSave() {
-
     },
     previewScreen() {
-
-    },
-    debugMethod() {
-
-    },
-    handleLayoutUpdated() {
-
-    },
-    handleSizeUpdate() {
-
-    },
-    handleItemChoose() {
-
     },
     handleDelete() {
-
     }
   }
 }
@@ -244,8 +260,18 @@ export default {
       height: 100%;
       overflow: auto;
 
+      &::-webkit-scrollbar {
+        height: 6px;
+        width: 6px;
+        background-color: #909090;
+      }
+
       &::-webkit-scrollbar-thumb {
         background-color: #909090;
+      }
+
+      &::-webkit-scrollbar-track {
+        background-color: #F5F5F5;
       }
 
       .data-view-screen {
@@ -308,9 +334,25 @@ export default {
       }
 
       .data-view-option-panel {
+        .ant-form {
+          padding: 20px;
+
+          .ant-form-item-label {
+            padding: 0 10px 0 0 !important;
+          }
+        }
       }
 
       .data-view-chart-option {
+        .ant-tabs-nav {
+          width: 100%;
+
+          .ant-tabs-tab {
+            width: 50%;
+            margin: 0;
+            text-align: center;
+          }
+        }
       }
     }
   }

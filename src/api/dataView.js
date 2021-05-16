@@ -10,7 +10,10 @@ export function getDataViewPage(params) {
 }
 
 export function getImageBgList() {
-
+  return request({
+    url: baseUrl + 'dataView/imageList',
+    method: 'get'
+  })
 }
 
 export function getChartData() {
