@@ -12,8 +12,9 @@ const LineNormalConfig = function() {
       database: '',
       fileName: '',
       sql: 'select x,y,name from line_normal',
-      x: 'x',
-      y: 'y'
+      legend: '无',
+      name: 'x',
+      value: 'y'
     },
     data: [],
     interval: 8000,
@@ -28,13 +29,6 @@ const LineNormalConfig = function() {
       tooltip: {
         trigger: 'axis'
       },
-      legend: {
-        data: [],
-        left: 'left',
-        textStyle: {
-          color: '#fff'
-        }
-      },
       grid: {
         left: '1%',
         right: '4%',
@@ -42,29 +36,9 @@ const LineNormalConfig = function() {
         containLabel: true
       },
       xAxis: {
-        name: '',
-        type: 'category', // 坐标轴类型 time category log value,存在时间轴折线图
-        axisLabel: { show: true, textStyle: { color: '#fff' }, rotate: 0 },
-        splitLine: { show: true, lineStyle: { color: '#ffffff' }},
-        axisTick: { show: false },
-        boundaryGap: false,
-        data: ['周一', '周二', '周三', '周四', '周五', '周六', '周日'],
-        axisLine: { show: true, lineStyle: { color: '#FFFFFF' }}
+        type: 'category'
       },
-      yAxis: {
-        name: '',
-        type: 'value',
-        axisTick: { show: false },
-        axisLabel: { show: true, textStyle: { color: '#fff' }},
-        splitLine: { show: true, lineStyle: { color: '#ffffff' }},
-        axisLine: { show: true, lineStyle: { color: '#FFFFFF' }}
-      },
-      calculable: true,
-      toolbox: {
-        feature: {
-          saveAsImage: {}
-        }
-      },
+      yAxis: {},
       series: [],
       backgroundColor: 'rgba(255,255,255,0)'
     }

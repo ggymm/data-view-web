@@ -18,6 +18,29 @@
               </a-select-option>
             </a-select>
           </a-form-model-item>
+          <a-form-model-item v-if="item.chartData.dataSourceType === 'DataBase'" label="数据源">
+            <a-select v-model="item.chartData.database">
+              <a-select-option
+                v-for="dataSource in dataSourceList"
+                :key="dataSource.data_source_id"
+                :value="dataSource.data_source_id"
+              >
+                {{ dataSource.data_source_name }}
+              </a-select-option>
+            </a-select>
+          </a-form-model-item>
+          <a-form-item v-if="item.chartData.dataSourceType === 'DataBase'" label="分类字段">
+            <a-input v-model="item.chartData.legend" />
+          </a-form-item>
+          <a-form-item v-if="item.chartData.dataSourceType === 'DataBase'" label="x轴字段">
+            <a-input v-model="item.chartData.name" />
+          </a-form-item>
+          <a-form-item v-if="item.chartData.dataSourceType === 'DataBase'" label="y轴字段">
+            <a-input v-model="item.chartData.value" />
+          </a-form-item>
+          <a-form-item v-if="item.chartData.dataSourceType === 'DataBase'" label="SQL">
+            <a-textarea v-model="item.chartData.sql" />
+          </a-form-item>
         </a-form-model>
       </a-tab-pane>
     </a-tabs>
@@ -74,22 +97,6 @@ export default {
   },
   methods: {
     handleDelete() {
-      this.$confirm('是否删除该图表?', '系统提示', {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
-        type: 'warning'
-      }).then(() => {
-        this.$emit('handleDeleteItem', this.item)
-        this.$message({
-          type: 'success',
-          message: '删除成功!'
-        })
-      }).catch(() => {
-        this.$message({
-          type: 'info',
-          message: '已取消删除'
-        })
-      })
     },
     handleEditSql() {
       this.$emit('handleEditSql', this.item.chartData.sql)

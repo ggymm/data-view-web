@@ -61,28 +61,11 @@ export default {
     handleChartClick(param) {
     },
     setData() {
-      this.option.legend.data = this.apiData.legend
-      var _data = this.apiData.y
-      this.option.series = []
-      for (var i = 0; i < _data.length; i++) {
-        var series = {
-          name: _data[i].name,
-          type: 'line',
-          data: _data[i].value,
-          markPoint: {
-            data: [
-              { type: 'max', name: '最大值' },
-              { type: 'min', name: '最小值' }
-            ]
-          },
-          markLine: {
-            data: [
-              { type: 'average', name: '平均值' }
-            ]
-          }
-        }
-        this.option.series.push(series)
-      }
+      console.log(this.apiData)
+      this.option.dataset = this.apiData
+      this.option.series.push({
+        type: 'line'
+      })
     }
   }
 }

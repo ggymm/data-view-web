@@ -212,7 +212,7 @@ export default {
           if (this.checkDataKey(_chartDataConfig)) {
             _chartDataConfig.chartType = this.item.chartType
             getChartData(_chartDataConfig).then(response => {
-              this.chartData = JSON.parse(response.data)
+              this.chartData = response.data
               this.loading = false
             })
           }

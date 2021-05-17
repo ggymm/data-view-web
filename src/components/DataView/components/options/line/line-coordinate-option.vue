@@ -30,22 +30,6 @@ export default {
   },
   methods: {
     handleDelete() {
-      this.$confirm('是否删除该图表?', '系统提示', {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
-        type: 'warning'
-      }).then(() => {
-        this.$emit('handleDeleteItem', this.item)
-        this.$message({
-          type: 'success',
-          message: '删除成功!'
-        })
-      }).catch(() => {
-        this.$message({
-          type: 'info',
-          message: '已取消删除'
-        })
-      })
     },
     handleEditOption() {
       this.$emit('handleEditOption', this.item.option)

@@ -16,6 +16,10 @@ export function getImageBgList() {
   })
 }
 
-export function getChartData() {
-
+export function getChartData(params) {
+  return request({
+    url: baseUrl + 'dataView/chartData',
+    method: 'get',
+    params
+  })
 }
