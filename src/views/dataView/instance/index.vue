@@ -152,10 +152,12 @@ export default {
       console.group('添加图表')
       const key = event.dataTransfer.getData('key')
       console.log('图表类型', key)
-      console.log(event)
+      console.log('图表位置', 'x: ', event.offsetX, 'y: ', event.offsetY)
       const newItem = OptionConfigMap[key]()
       newItem.slice_id = this.startIndex
       newItem.i = 'chart' + this.startIndex
+      newItem.x = event.offsetX
+      newItem.y = event.offsetY
       this.slices.push(newItem)
       // this.$set(this.slices, this.startIndex, newItem)
       this.startIndex += 1

@@ -1,5 +1,5 @@
 // 全量引入echarts
-import * as echarts from 'echarts/core'
+import * as echarts from 'echarts'
 
 import ECharts from 'vue-echarts'
 

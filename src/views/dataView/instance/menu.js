@@ -22,22 +22,12 @@ export const menus = [
       {
         'key': 'lineNormal',
         'icon': 'lineNormal',
-        'title': '标准折线图'
+        'title': '折线图'
       },
       {
         'key': 'lineCoordinate',
         'icon': 'lineCoordinate',
         'title': '时间轴折线图'
-      },
-      {
-        'key': 'lineStacking',
-        'icon': 'lineStacking',
-        'title': '堆叠折线图'
-      },
-      {
-        'key': 'lineStackingArea',
-        'icon': 'lineStackingArea',
-        'title': '堆叠面积图'
       }
     ]
   },
