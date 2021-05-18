@@ -63,10 +63,29 @@
       </div>
       <div class="data-view-option">
         <div v-show="Object.keys(chooseItem).length === 0" class="data-view-option-panel">
-          <a-form-model :model="panelConfig" layout="horizontal" :label-col="{span: 4}" :wrapper-col="{span: 14}">
+          <a-form-model :model="panelConfig" layout="horizontal" :label-col="{span: 6}" :wrapper-col="{span: 14}">
             <a-form-model-item label="标题">
               <a-input v-model="panelConfig.title" />
             </a-form-model-item>
+            <a-form-model-item label="画板宽度">
+              <a-input-number v-model="panelConfig.panelWidth" :min="1" :step="10" />
+            </a-form-model-item>
+            <a-form-model-item label="画板高度">
+              <a-input-number v-model="panelConfig.panelHeight" :min="1" :step="10" />
+            </a-form-model-item>
+            <a-form-model-item label="背景色">
+              <a-input v-model="panelConfig.backgroundColor" type="color" />
+            </a-form-model-item>
+            <a-form-model-item label="背景图">
+              <a-select v-model="panelConfig.backgroundImg">
+                <a-select-option
+                  v-for="backgroundImg in backgroundImgList"
+                  :key="backgroundImg.image_id"
+                  :value="backgroundImg.image_id"
+                >
+                  {{ backgroundImg.image_name }}
+                </a-select-option>
+              </a-select></a-form-model-item>
           </a-form-model>
         </div>
         <ChartOption
@@ -90,8 +109,9 @@ import VLoading from '@/components/Loading/loading-modal'
 
 import OptionConfigMap from '@/components/DataView/config/option-config-map'
 
-import { getImageBgList } from '@/api/dataView'
+import { getImageList } from '@/api/image'
 import { getDataSourceList } from '@/api/dataSource'
+import { getDataView } from '@/api/dataView'
 
 export default {
   name: 'Index',
@@ -130,14 +150,14 @@ export default {
   inject: ['reload'],
   created() {
     this.getDataSourceList()
-    this.getImageBgList()
+    this.getImageList()
     const instanceId = this.$route.params.instance_id
     const isCopy = this.$route.params.is_copy
     this.initPageStyle()
     if (instanceId) {
       this.instanceId = instanceId + ''
       this.isCopy = parseInt(isCopy)
-      this.getScreenInstanceParams(instanceId)
+      this.getDataView(instanceId)
     }
     this.loading = false
   },
@@ -152,6 +172,7 @@ export default {
       console.group('添加图表')
       const key = event.dataTransfer.getData('key')
       console.log('图表类型', key)
+      console.log('图表ID', this.startIndex)
       console.log('图表位置', 'x: ', event.offsetX, 'y: ', event.offsetY)
       const newItem = OptionConfigMap[key]()
       newItem.slice_id = this.startIndex
@@ -166,7 +187,7 @@ export default {
     initPageStyle() {
       const width = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth
       const height = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight
-      this.panelConfig.panelWidth = width * 0.75 - 20 * 2 - 5
+      this.panelConfig.panelWidth = width - 450 - 20 * 2 - 5
       this.panelConfig.panelHeight = height - 50 - 20 * 2 - 5
     },
     getDataSourceList() {
@@ -174,14 +195,23 @@ export default {
         this.dataSourceList = response.data.list
       })
     },
-    getImageBgList() {
-      getImageBgList().then(response => {
+    getImageList() {
+      getImageList().then(response => {
         this.backgroundImgList = response.data
       })
     },
-    getScreenInstanceParams(instanceId) {
-      // 获取大屏实例信息
-      console.log(instanceId)
+    getDataView(instanceId) {
+      console.group('初始化获取可视化大屏信息')
+      console.log('初始化获取可视化大屏信息')
+      try {
+        getDataView(instanceId).then(response => {
+          console.log('获取大屏信息返回值', response.data)
+        })
+      } catch (e) {
+        console.log('获取大屏信息或解析大屏信息失败', e)
+      } finally {
+        console.groupEnd()
+      }
     },
     handleLayoutUpdated(layout) {
       this.slices = this.slices.map((item) => {
@@ -258,7 +288,7 @@ export default {
       bottom: 0;
       top: 0;
       padding: 0;
-      width: 75%;
+      width: calc(100% - 450px);
       height: 100%;
       overflow: auto;
 
@@ -327,7 +357,7 @@ export default {
       bottom: 0;
       top: 0;
       padding: 0;
-      width: 25%;
+      width: 450px;
       height: 100%;
       overflow: auto;
 

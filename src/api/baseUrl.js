@@ -1,3 +1,3 @@
-const baseUrl = 'http://localhost:8888/api/v1/'
+const baseUrl = 'http://localhost:9421/api/v1/'
 
 export default baseUrl

@@ -9,9 +9,9 @@ export function getDataViewPage(params) {
   })
 }
 
-export function getImageBgList() {
+export function getDataView(params) {
   return request({
-    url: baseUrl + 'dataView/imageList',
+    url: baseUrl + 'dataView/' + params,
     method: 'get'
   })
 }
