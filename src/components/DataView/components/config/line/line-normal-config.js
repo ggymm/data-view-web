@@ -20,27 +20,42 @@ const LineNormalConfig = function() {
     interval: 8000,
     option: {
       title: {
+        show: true,
         text: '标准折线图',
         left: 'center',
         textStyle: {
-          color: '#fff'
+          color: '#ffffff'
         }
       },
-      tooltip: {
-        trigger: 'axis'
-      },
+      legend: {},
       grid: {
-        left: '1%',
-        right: '4%',
-        bottom: '10%',
-        containLabel: true
+        left: '10%',
+        top: '60',
+        right: '10%',
+        bottom: '60'
       },
       xAxis: {
-        type: 'category'
+        show: true,
+        type: 'category',
+        axisLine: {
+          show: true,
+          lineStyle: {
+            color: '#ffffff'
+          }
+        },
+        axisLabel: {
+          show: true,
+          color: '#ffffff'
+        },
+        splitLine: {
+          show: false,
+          lineStyle: {
+            color: ['#cccccc']
+          }
+        }
       },
       yAxis: {},
-      series: [],
-      backgroundColor: 'rgba(255,255,255,0)'
+      series: []
     }
   }
 }

@@ -1,7 +1,6 @@
 import Vue from 'vue'
 import scriptUrl from '@/assets/icon/iconfont.js'
 
-// base library
 import {
   ConfigProvider,
   Button,
@@ -29,6 +28,7 @@ import {
   Avatar,
   Badge,
   Card,
+  Collapse,
   Descriptions,
   List,
   Popover,
@@ -50,8 +50,6 @@ import {
   message,
   notification
 } from 'ant-design-vue'
-
-// ext library
 
 Vue.use(ConfigProvider)
 Vue.use(Button)
@@ -79,6 +77,7 @@ Vue.use(Upload)
 Vue.use(Avatar)
 Vue.use(Badge)
 Vue.use(Card)
+Vue.use(Collapse)
 Vue.use(Descriptions)
 Vue.use(List)
 Vue.use(Popover)

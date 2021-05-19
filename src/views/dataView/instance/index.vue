@@ -20,8 +20,9 @@
       </a-menu>
       <div class="data-view-handler">
         <a-button type="primary" @click="handleSave">保存</a-button>
-        <a-button v-if="Object.keys(chooseItem).length >= 0" type="info" @click="chooseItem = {}">画板设置</a-button>
-        <a-button type="success" @click="previewScreen">预览</a-button>
+        <a-button v-if="Object.keys(chooseItem).length >= 0" type="primary" @click="chooseItem = {}">画板设置</a-button>
+        <a-button type="primary" @click="previewScreen">预览</a-button>
+        <a-button type="primary" @click="previewDebug">调试</a-button>
       </div>
     </div>
     <div class="data-view-main">
@@ -34,7 +35,7 @@
         >
           <layout
             :background-color="panelConfig.backgroundColor"
-            :background-img="panelConfig.backgroundImg"
+            :background-img="'url(' + panelConfig.backgroundImg + ')'"
             @layoutUpdated="handleLayoutUpdated"
             @sizeUpdate="handleSizeUpdate"
           >
@@ -63,30 +64,31 @@
       </div>
       <div class="data-view-option">
         <div v-show="Object.keys(chooseItem).length === 0" class="data-view-option-panel">
-          <a-form-model :model="panelConfig" layout="horizontal" :label-col="{span: 6}" :wrapper-col="{span: 14}">
-            <a-form-model-item label="标题">
+          <a-form :model="panelConfig" layout="horizontal" :label-col="{span: 6}" :wrapper-col="{span: 14}">
+            <a-form-item label="大屏标题">
               <a-input v-model="panelConfig.title" />
-            </a-form-model-item>
-            <a-form-model-item label="画板宽度">
+            </a-form-item>
+            <a-form-item label="画板宽度">
               <a-input-number v-model="panelConfig.panelWidth" :min="1" :step="10" />
-            </a-form-model-item>
-            <a-form-model-item label="画板高度">
+            </a-form-item>
+            <a-form-item label="画板高度">
               <a-input-number v-model="panelConfig.panelHeight" :min="1" :step="10" />
-            </a-form-model-item>
-            <a-form-model-item label="背景色">
+            </a-form-item>
+            <a-form-item label="背景色">
               <a-input v-model="panelConfig.backgroundColor" type="color" />
-            </a-form-model-item>
-            <a-form-model-item label="背景图">
+            </a-form-item>
+            <a-form-item label="背景图">
               <a-select v-model="panelConfig.backgroundImg">
                 <a-select-option
                   v-for="backgroundImg in backgroundImgList"
-                  :key="backgroundImg.image_id"
-                  :value="backgroundImg.image_id"
+                  :key="backgroundImg.image_path"
+                  :value="backgroundImg.image_path"
                 >
                   {{ backgroundImg.image_name }}
                 </a-select-option>
-              </a-select></a-form-model-item>
-          </a-form-model>
+              </a-select>
+            </a-form-item>
+          </a-form>
         </div>
         <ChartOption
           v-show="Object.keys(chooseItem).length >= 0"
@@ -135,9 +137,9 @@ export default {
       panelConfig: {
         title: '',
         // panelWidth: 1920,
-        panelWidth: 1400,
+        panelWidth: 1425,
         // panelHeight: 1080,
-        panelHeight: 843,
+        panelHeight: 842,
         backgroundColor: '#263546',
         backgroundImg: '',
         instanceViewImg: '',
@@ -177,8 +179,8 @@ export default {
       const newItem = OptionConfigMap[key]()
       newItem.slice_id = this.startIndex
       newItem.i = 'chart' + this.startIndex
-      newItem.x = event.offsetX
-      newItem.y = event.offsetY
+      newItem.x = event.offsetX - newItem.width / 2
+      newItem.y = event.offsetY - newItem.height / 2
       this.slices.push(newItem)
       // this.$set(this.slices, this.startIndex, newItem)
       this.startIndex += 1
@@ -187,12 +189,13 @@ export default {
     initPageStyle() {
       const width = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth
       const height = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight
-      this.panelConfig.panelWidth = width - 450 - 20 * 2 - 5
-      this.panelConfig.panelHeight = height - 50 - 20 * 2 - 5
+      // this.panelConfig.panelWidth = width - 450 - 20 * 2 - 5
+      // this.panelConfig.panelHeight = height - 50 - 20 * 2 - 5
+      console.log('自动初始化', width, height)
     },
     getDataSourceList() {
       getDataSourceList().then(response => {
-        this.dataSourceList = response.data.list
+        this.dataSourceList = response.data
       })
     },
     getImageList() {
@@ -240,6 +243,9 @@ export default {
     },
     previewScreen() {
     },
+    previewDebug() {
+      console.log(this.slices)
+    },
     handleDelete() {
     }
   }
@@ -259,10 +265,6 @@ export default {
       height: 50px;
       line-height: 50px;
       background-color: #545c64;
-
-      svg {
-        fill: white;
-      }
     }
 
     .data-view-handler {
@@ -303,7 +305,7 @@ export default {
       }
 
       &::-webkit-scrollbar-track {
-        background-color: #F5F5F5;
+        background-color: #fff;
       }
 
       .data-view-screen {
@@ -322,7 +324,7 @@ export default {
           .data-view-item {
             .adaptation {
               &.choose {
-                border: 1px solid #DCDEE3;
+                outline: 1px solid #DCDEE3;
               }
 
               .chart {
@@ -337,7 +339,7 @@ export default {
               height: 100%;
 
               &.choose {
-                border: 1px solid #DCDEE3;
+                outline: 1px solid #DCDEE3;
               }
 
               .chart {
@@ -390,6 +392,15 @@ export default {
   }
 }
 
+.ant-menu-item {
+  cursor: default;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
 .ant-menu-submenu {
   svg {
     fill: white;
@@ -400,12 +411,34 @@ export default {
   background-color: #545c64;
 }
 
-.ant-menu-item {
-  cursor: default;
-  -webkit-touch-callout: none;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
+.data-view-chart-option {
+  .ant-tabs-bar {
+    margin: 0;
+  }
+
+  .ant-form {
+    padding: 20px;
+  }
+
+  .ant-collapse-content-box {
+    padding: 0;
+  }
+
+  .ant-collapse-borderless > .ant-collapse-item > .ant-collapse-content {
+    background-color: #ffffff;
+  }
+
+  .ant-collapse-borderless > .ant-collapse-item {
+    border: none;
+  }
+
+  .ant-collapse > .ant-collapse-item {
+    border: none;
+  }
+
+  .ant-collapse-header {
+    background-color: #f2f2f2;
+    border-bottom: 1px solid #e2e2e2;
+  }
 }
 </style>

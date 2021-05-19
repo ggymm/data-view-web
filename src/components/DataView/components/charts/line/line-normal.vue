@@ -61,11 +61,21 @@ export default {
     handleChartClick(param) {
     },
     setData() {
-      console.log(this.apiData)
       this.option.dataset = this.apiData
-      this.option.series.push({
-        type: 'line'
-      })
+      const legend = this.apiData.source[0]
+      const series = []
+      if (legend !== null && legend !== undefined && legend.length > 1) {
+        for (let i = 1; i < legend.length; i++) {
+          series.push({
+            type: 'line'
+          })
+        }
+      } else {
+        series.push({
+          type: 'line'
+        })
+      }
+      this.option.series = series
     }
   }
 }
