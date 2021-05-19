@@ -63,21 +63,23 @@ export default {
     setData() {
       this.option.dataset = this.apiData
       const legend = this.apiData.source[0]
-      const series = []
-      if (legend !== null && legend !== undefined && legend.length > 1) {
-        for (let i = 1; i < legend.length; i++) {
+      if (this.option.series.length === 0) {
+        const series = []
+        if (legend !== null && legend !== undefined && legend.length > 1) {
+          for (let i = 1; i < legend.length; i++) {
+            series.push({
+              type: 'line',
+              lineStyle: {}
+            })
+          }
+        } else {
           series.push({
             type: 'line',
             lineStyle: {}
           })
         }
-      } else {
-        series.push({
-          type: 'line',
-          lineStyle: {}
-        })
+        this.option.series = series
       }
-      this.option.series = series
     }
   }
 }
