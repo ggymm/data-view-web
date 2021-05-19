@@ -18,3 +18,9 @@ export const orientList = [
   { label: '纵向', value: 'vertical' },
   { label: '横向', value: 'horizontal' }
 ]
+
+export const lineTypeList = [
+  { label: '实线', value: 'solid' },
+  { label: '虚线', value: 'dashed' },
+  { label: '点线', value: 'dotted' }
+]

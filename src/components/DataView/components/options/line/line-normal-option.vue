@@ -35,6 +35,9 @@
               </a-form-item>
             </a-form>
           </a-collapse-panel>
+          <a-collapse-panel key="图例配置" header="图例配置">
+            <a-form layout="horizontal" :label-col="{span: 6}" :wrapper-col="{span: 14, offset: 1}" />
+          </a-collapse-panel>
           <a-collapse-panel key="网格配置" header="网格配置">
             <a-form layout="horizontal" :label-col="{span: 6}" :wrapper-col="{span: 14, offset: 1}">
               <a-form-item label="上">
@@ -111,6 +114,21 @@
                   />
                 </a-space>
               </a-form-item>
+              <a-form-item label="折线类型">
+                <a-select
+                  v-for="series in item.option.series"
+                  :key="series.name"
+                  v-model="series.lineStyle.type"
+                >
+                  <a-select-option
+                    v-for="lineType in lineTypeList"
+                    :key="lineType.value"
+                    :value="lineType.value"
+                  >
+                    {{ lineType.label }}
+                  </a-select-option>
+                </a-select>
+              </a-form-item>
             </a-form>
           </a-collapse-panel>
         </a-collapse>
@@ -158,7 +176,7 @@
 </template>
 
 <script>
-import { refreshList, dataSourceTypeList, positionList, orientList } from '../common'
+import { refreshList, dataSourceTypeList, lineTypeList, positionList, orientList } from '../common'
 
 export default {
   name: 'LineNormalOption',
@@ -182,6 +200,7 @@ export default {
       fileNameList: [],
       refreshList,
       dataSourceTypeList,
+      lineTypeList,
       positionList,
       orientList
     }

@@ -67,12 +67,14 @@ export default {
       if (legend !== null && legend !== undefined && legend.length > 1) {
         for (let i = 1; i < legend.length; i++) {
           series.push({
-            type: 'line'
+            type: 'line',
+            lineStyle: {}
           })
         }
       } else {
         series.push({
-          type: 'line'
+          type: 'line',
+          lineStyle: {}
         })
       }
       this.option.series = series
