@@ -401,6 +401,17 @@ export default {
   user-select: none;
 }
 
+.data-view-menu {
+  .ant-menu-submenu {
+    &:hover {
+      color: #ffffff !important;
+    }
+  }
+  .ant-menu-submenu-open {
+    color: #ffffff!important;
+  }
+}
+
 .ant-menu-submenu {
   svg {
     fill: white;
