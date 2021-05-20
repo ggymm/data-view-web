@@ -19,10 +19,10 @@
         </a-sub-menu>
       </a-menu>
       <a-space class="data-view-handler">
-        <a-button type="primary" @click="handleSave">保存</a-button>
-        <a-button v-if="Object.keys(chooseItem).length >= 0" type="primary" @click="chooseItem = {}">画板设置</a-button>
-        <a-button type="primary" @click="previewScreen">预览</a-button>
-        <a-button type="primary" @click="previewDebug">调试</a-button>
+        <a-button type="primary" size="small" @click="handleSave">保存</a-button>
+        <a-button v-if="Object.keys(chooseItem).length >= 0" type="primary" size="small" @click="chooseItem = {}">画板设置</a-button>
+        <a-button type="primary" size="small" @click="previewScreen">预览</a-button>
+        <a-button type="primary" size="small" @click="previewDebug">调试</a-button>
       </a-space>
     </div>
     <div class="data-view-main">

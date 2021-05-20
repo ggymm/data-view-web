@@ -181,7 +181,16 @@ export default {
   }
 
   .ant-tabs-bar {
+    position: fixed;
+    top: 50px;
+    width: 450px;
     margin: 0;
+    z-index: 99;
+    background: #ffffff;
+  }
+
+  .ant-tabs-content {
+    margin-top: 45px;
   }
 
   .ant-form {
