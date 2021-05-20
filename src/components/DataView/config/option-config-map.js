@@ -4,8 +4,6 @@ import {
 
   getLineNormalConfig,
   getLineCoordinateConfig,
-  getLineStackingConfig,
-  getLineStackingAreaConfig,
 
   getHistogramGradientConfig,
   getHistogramGradientHorizontalConfig,
@@ -50,8 +48,6 @@ const OptionConfigMap = {
 
   'lineNormal': getLineNormalConfig,
   'lineCoordinate': getLineCoordinateConfig,
-  'lineStacking': getLineStackingConfig,
-  'lineStackingArea': getLineStackingAreaConfig,
 
   'histogramGradient': getHistogramGradientConfig,
   'histogramGradientHorizontal': getHistogramGradientHorizontalConfig,

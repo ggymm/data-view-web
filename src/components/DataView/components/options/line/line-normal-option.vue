@@ -1,7 +1,7 @@
 <!--suppress JSUnresolvedVariable, JSUnusedLocalSymbols -->
 <template>
-  <div class="data-view-chart-option">
-    <a-tabs default-active-key="style" style="width: 100%;">
+  <div class="data-view-chart-option two">
+    <a-tabs>
       <a-tab-pane key="style" tab="样式">
         <a-collapse :bordered="false" :accordion="true">
           <a-collapse-panel key="颜色配置" header="颜色配置">
@@ -129,6 +129,14 @@
                   </a-select-option>
                 </a-select>
               </a-form-item>
+              <a-form-item label="区域颜色">
+                <a-input
+                  v-for="series in item.option.series"
+                  :key="series.name"
+                  v-model="series.areaStyle.color"
+                  type="color"
+                />
+              </a-form-item>
             </a-form>
           </a-collapse-panel>
         </a-collapse>
@@ -196,7 +204,6 @@ export default {
   },
   data() {
     return {
-      activeName: 'style',
       fileNameList: [],
       refreshList,
       dataSourceTypeList,

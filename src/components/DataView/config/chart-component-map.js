@@ -4,8 +4,6 @@ const ChartComponentMap = {
 
   'lineNormal': 'LineNormal',
   'lineCoordinate': 'LineCoordinate',
-  'lineStacking': 'LineStacking',
-  'lineStackingArea': 'LineStackingArea',
 
   'histogramGradient': 'HistogramGradient',
   'histogramGradientHorizontal': 'HistogramGradientHorizontal',

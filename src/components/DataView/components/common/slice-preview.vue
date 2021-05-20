@@ -21,26 +21,32 @@
 import {
   PlotBubble,
   PlotMap,
+
   LineNormal,
-  LineStacking,
-  LineStackingArea,
+
   HistogramGradient,
   HistogramGradientHorizontal,
   HistogramStacking,
   HistogramComplex,
+
   MapChina,
+
   PieNormal,
   PieRing,
   PieRings,
   Pie2D,
   PiePercent,
+
   RadarBasic,
+
   HeatBasic,
+
   RelationOne,
   RelationTwo,
   RelationThree,
   RelationFour,
   RelationFive,
+
   WordCloud,
   RotationList,
   Counter,
@@ -58,26 +64,32 @@ export default {
   components: {
     PlotBubble,
     PlotMap,
+
     LineNormal,
-    LineStacking,
-    LineStackingArea,
+
     HistogramGradient,
     HistogramGradientHorizontal,
     HistogramStacking,
     HistogramComplex,
+
     MapChina,
+
     PieNormal,
     PieRing,
     PieRings,
     Pie2D,
     PiePercent,
+
     RadarBasic,
+
     HeatBasic,
+
     RelationOne,
     RelationTwo,
     RelationThree,
     RelationFour,
     RelationFive,
+
     WordCloud,
     RotationList,
     Counter,

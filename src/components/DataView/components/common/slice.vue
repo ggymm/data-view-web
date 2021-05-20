@@ -12,6 +12,7 @@
       :loading="loading"
       :api-data="chartData"
       :option="item.option"
+      :update-options="updateOptions"
       :i="item.i"
       :theme="ThemeConfigMap[theme]"
       @init="chartInit"
@@ -23,26 +24,32 @@
 import {
   PlotBubble,
   PlotMap,
+
   LineNormal,
-  LineStacking,
-  LineStackingArea,
+
   HistogramGradient,
   HistogramGradientHorizontal,
   HistogramStacking,
   HistogramComplex,
+
   MapChina,
+
   PieNormal,
   PieRing,
   PieRings,
   Pie2D,
   PiePercent,
+
   RadarBasic,
+
   HeatBasic,
+
   RelationOne,
   RelationTwo,
   RelationThree,
   RelationFour,
   RelationFive,
+
   WordCloud,
   RotationList,
   Counter,
@@ -87,26 +94,32 @@ export default {
   components: {
     PlotBubble,
     PlotMap,
+
     LineNormal,
-    LineStacking,
-    LineStackingArea,
+
     HistogramGradient,
     HistogramGradientHorizontal,
     HistogramStacking,
     HistogramComplex,
+
     MapChina,
+
     PieNormal,
     PieRing,
     PieRings,
     Pie2D,
     PiePercent,
+
     RadarBasic,
+
     HeatBasic,
+
     RelationOne,
     RelationTwo,
     RelationThree,
     RelationFour,
     RelationFive,
+
     WordCloud,
     RotationList,
     Counter,
@@ -133,6 +146,10 @@ export default {
   data() {
     return {
       loading: true,
+      updateOptions: {
+        notMerge: true,
+        lazyUpdate: false
+      },
       chart: null,
       chartData: null,
       lastChartData: {},

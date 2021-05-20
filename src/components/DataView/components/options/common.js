@@ -1,3 +1,8 @@
+export const fontWeightList = [
+  { label: '普通', value: 'normal' },
+  { label: '加粗', value: 'bold' }
+]
+
 export const refreshList = [
   { label: '开启', value: true },
   { label: '关闭', value: false }

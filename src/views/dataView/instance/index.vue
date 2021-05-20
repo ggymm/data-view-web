@@ -244,7 +244,7 @@ export default {
     previewScreen() {
     },
     previewDebug() {
-      console.log(this.slices)
+      console.log(JSON.stringify(this.slices))
     },
     handleDelete() {
     }
@@ -376,18 +376,6 @@ export default {
           }
         }
       }
-
-      .data-view-chart-option {
-        .ant-tabs-nav {
-          width: 100%;
-
-          .ant-tabs-tab {
-            width: 50%;
-            margin: 0;
-            text-align: center;
-          }
-        }
-      }
     }
   }
 }
@@ -420,36 +408,5 @@ export default {
 
 .ant-menu-dark, .ant-menu-dark .ant-menu-sub {
   background-color: #545c64;
-}
-
-.data-view-chart-option {
-  .ant-tabs-bar {
-    margin: 0;
-  }
-
-  .ant-form {
-    padding: 20px;
-  }
-
-  .ant-collapse-content-box {
-    padding: 0;
-  }
-
-  .ant-collapse-borderless > .ant-collapse-item > .ant-collapse-content {
-    background-color: #ffffff;
-  }
-
-  .ant-collapse-borderless > .ant-collapse-item {
-    border: none;
-  }
-
-  .ant-collapse > .ant-collapse-item {
-    border: none;
-  }
-
-  .ant-collapse-header {
-    background-color: #f2f2f2;
-    border-bottom: 1px solid #e2e2e2;
-  }
 }
 </style>
