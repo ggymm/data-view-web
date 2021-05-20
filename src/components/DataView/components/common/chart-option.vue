@@ -168,6 +168,18 @@ export default {
     }
   }
 
+  &.three {
+    .ant-tabs-nav {
+      width: 100%;
+
+      .ant-tabs-tab {
+        width: 33.33%;
+        margin: 0;
+        text-align: center;
+      }
+    }
+  }
+
   .ant-tabs-bar {
     margin: 0;
   }

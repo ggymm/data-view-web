@@ -7,7 +7,7 @@
     :init-options="initOption"
     :option="option"
     :update-options="updateOptions"
-    element-loading-text="Loading..."
+    element-loading-text="加载中"
     class="chart"
     @click="handleChartClick"
   />
