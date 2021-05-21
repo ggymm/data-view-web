@@ -23,15 +23,11 @@
         </a-select-option>
       </a-select>
     </a-form-item>
-    <a-form-item v-if="item.chartData.dataSourceType === 'DataBase'" label="分类字段">
-      <a-input v-model="item.chartData.legend" />
-    </a-form-item>
-    <a-form-item v-if="item.chartData.dataSourceType === 'DataBase'" :label="name">
-      <a-input v-model="item.chartData.name" />
-    </a-form-item>
-    <a-form-item v-if="item.chartData.dataSourceType === 'DataBase'" :label="value">
-      <a-input v-model="item.chartData.value" />
-    </a-form-item>
+    <div v-if="item.chartData.dataSourceType === 'DataBase'">
+      <a-form-item v-for="(param, index) in params" :key="index" :label="param.label">
+        <a-input v-model="item.chartData[param.value]" />
+      </a-form-item>
+    </div>
     <a-form-item v-if="item.chartData.dataSourceType === 'DataBase'" label="SQL">
       <a-textarea v-model="item.chartData.sql" />
     </a-form-item>
@@ -56,16 +52,10 @@ export default {
         return []
       }
     },
-    name: {
-      type: String,
+    params: {
+      type: Array,
       default() {
-        return ''
-      }
-    },
-    value: {
-      type: String,
-      default() {
-        return ''
+        return []
       }
     }
   },

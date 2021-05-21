@@ -1,12 +1,11 @@
+import Vue from 'vue'
+
 import PlotBubble from './plot/plot-bubble'
 import PlotMap from './plot/plot-map'
 
 import LineNormal from './line/line-normal'
 
-import HistogramGradient from './histogram/histogram-gradient'
-import HistogramGradientHorizontal from './histogram/histogram-gradient-horizontal'
-import HistogramStacking from './histogram/histogram-stacking'
-import HistogramComplex from './histogram/histogram-complex'
+import HistogramNormal from './histogram/histogram-normal'
 
 import MapChina from './map/map-china'
 
@@ -34,16 +33,46 @@ import ProgressBar from './other/progress-bar'
 import PictureV from './other/picture'
 import Gauge from './other/gauge'
 
+Vue.component('PlotBubble', PlotBubble)
+Vue.component('PlotMap', PlotMap)
+
+Vue.component('LineNormal', LineNormal)
+
+Vue.component('HistogramNormal', HistogramNormal)
+
+Vue.component('MapChina', MapChina)
+
+Vue.component('PieNormal', PieNormal)
+Vue.component('PieRing', PieRing)
+Vue.component('PieRings', PieRings)
+Vue.component('Pie2D', Pie2D)
+Vue.component('PiePercent', PiePercent)
+
+Vue.component('RadarBasic', RadarBasic)
+
+Vue.component('HeatBasic', HeatBasic)
+
+Vue.component('RelationOne', RelationOne)
+Vue.component('RelationTwo', RelationTwo)
+Vue.component('RelationThree', RelationThree)
+Vue.component('RelationFour', RelationFour)
+Vue.component('RelationFive', RelationFive)
+
+Vue.component('WordCloud', WordCloud)
+Vue.component('RotationList', RotationList)
+Vue.component('Counter', Counter)
+Vue.component('TitleText', TitleText)
+Vue.component('ProgressBar', ProgressBar)
+Vue.component('PictureV', PictureV)
+Vue.component('Gauge', Gauge)
+
 export {
   PlotBubble,
   PlotMap,
 
   LineNormal,
 
-  HistogramGradient,
-  HistogramGradientHorizontal,
-  HistogramStacking,
-  HistogramComplex,
+  HistogramNormal,
 
   MapChina,
 

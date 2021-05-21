@@ -12,97 +12,11 @@
 </template>
 
 <script>
-import {
-  PlotBubbleOption,
-  PlotMapOption,
-
-  LineNormalOption,
-  LineCoordinateOption,
-
-  HistogramGradientOption,
-  HistogramGradientHorizontalOption,
-  HistogramStackingOption,
-  HistogramComplexOption,
-
-  MapChinaOption,
-  MapWorldOption,
-  MapProvinceOption,
-
-  PieNormalOption,
-  PieRingOption,
-  Pie2DOption,
-  PiePercentOption,
-  PieRingsOption,
-
-  RadarBasicOption,
-
-  HeatBasicOption,
-  HeatProvinceOption,
-  HeatMapOption,
-  HeatMapLargePiecewiseOption,
-
-  RelationOneOption,
-  RelationTwoOption,
-  RelationThreeOption,
-  RelationFourOption,
-  RelationFiveOption,
-
-  WordCloudOption,
-  RotationListOption,
-  CounterOption,
-  TitleTextOption,
-  ProgressBarOption,
-  PictureOption,
-  GaugeOption
-} from '../options'
-
+import '../options'
 import OptionComponentMap from '../../config/option-component-map'
 
 export default {
   name: 'ChartOption',
-  components: {
-    PlotBubbleOption,
-    PlotMapOption,
-
-    LineNormalOption,
-    LineCoordinateOption,
-
-    HistogramGradientOption,
-    HistogramGradientHorizontalOption,
-    HistogramStackingOption,
-    HistogramComplexOption,
-
-    MapChinaOption,
-    MapWorldOption,
-    MapProvinceOption,
-
-    PieNormalOption,
-    PieRingOption,
-    Pie2DOption,
-    PiePercentOption,
-    PieRingsOption,
-
-    RadarBasicOption,
-
-    HeatBasicOption,
-    HeatProvinceOption,
-    HeatMapOption,
-    HeatMapLargePiecewiseOption,
-
-    RelationOneOption,
-    RelationTwoOption,
-    RelationThreeOption,
-    RelationFourOption,
-    RelationFiveOption,
-
-    WordCloudOption,
-    RotationListOption,
-    CounterOption,
-    TitleTextOption,
-    ProgressBarOption,
-    PictureOption,
-    GaugeOption
-  },
   props: {
     item: {
       type: Object,

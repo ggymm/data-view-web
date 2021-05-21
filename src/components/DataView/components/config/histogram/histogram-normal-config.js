@@ -1,31 +1,28 @@
-const LineNormalConfig = function() {
+const HistogramNormalConfig = function() {
   this.config = {
     x: 0,
     y: 0,
     width: 350,
     height: 250,
-    chartType: 'lineNormal',
+    chartType: 'histogramNormal',
     choose: 'false',
     refresh: 'false',
     chartData: {
       dataSourceType: '',
       database: '',
       fileName: '',
-      sql: 'select x,y,name from line_normal',
       legend: '无',
-      name: 'x',
-      value: 'y'
+      name: 'product',
+      value: 'amount',
+      sql: 'select * from histogram_normal'
     },
     data: [],
     interval: 8000,
     option: {
       title: {
-        show: true,
-        text: '标准折线图',
+        text: '标准柱状图',
         left: 'center',
-        textStyle: {
-          color: '#ffffff'
-        }
+        textStyle: { color: '#fff' }
       },
       legend: {
         show: false
@@ -62,8 +59,8 @@ const LineNormalConfig = function() {
   }
 }
 
-const getLineNormalConfig = function() {
-  return new LineNormalConfig().config
+const getHistogramNormalConfig = function() {
+  return new HistogramNormalConfig().config
 }
 
-export { getLineNormalConfig }
+export { getHistogramNormalConfig }

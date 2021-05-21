@@ -20,44 +20,7 @@
   </div>
 </template>
 <script>
-
-import {
-  PlotBubble,
-  PlotMap,
-
-  LineNormal,
-
-  HistogramGradient,
-  HistogramGradientHorizontal,
-  HistogramStacking,
-  HistogramComplex,
-
-  MapChina,
-
-  PieNormal,
-  PieRing,
-  PieRings,
-  Pie2D,
-  PiePercent,
-
-  RadarBasic,
-
-  HeatBasic,
-
-  RelationOne,
-  RelationTwo,
-  RelationThree,
-  RelationFour,
-  RelationFive,
-
-  WordCloud,
-  RotationList,
-  Counter,
-  TitleText,
-  ProgressBar,
-  PictureV,
-  Gauge
-} from '../charts'
+import '../charts'
 import ThemeConfigMap from '../../config/theme-config-map'
 import ChartComponentMap from '../../config/chart-component-map'
 import { getChartData } from '@/api/dataView'
@@ -68,7 +31,7 @@ const clickOutside = {
   bind(el, binding, vnode) {
     function documentHandler(e) {
       // 这里判断点击的元素是否是本身，是本身，则返回
-      if (el.contains(e.target)) {
+      if (el.parentNode.contains(e.target)) {
         return false
       }
       // 判断指令中是否绑定了函数
@@ -91,43 +54,6 @@ const clickOutside = {
 
 export default {
   name: 'Slice',
-  components: {
-    PlotBubble,
-    PlotMap,
-
-    LineNormal,
-
-    HistogramGradient,
-    HistogramGradientHorizontal,
-    HistogramStacking,
-    HistogramComplex,
-
-    MapChina,
-
-    PieNormal,
-    PieRing,
-    PieRings,
-    Pie2D,
-    PiePercent,
-
-    RadarBasic,
-
-    HeatBasic,
-
-    RelationOne,
-    RelationTwo,
-    RelationThree,
-    RelationFour,
-    RelationFive,
-
-    WordCloud,
-    RotationList,
-    Counter,
-    TitleText,
-    ProgressBar,
-    PictureV,
-    Gauge
-  },
   directives: { clickOutside },
   props: {
     item: {
@@ -218,7 +144,6 @@ export default {
         index++
       }, 2000)
     },
-
     getChartData() {
       const _chartDataConfig = this.item.chartData
       if (!this.checkData(this.lastChartData, _chartDataConfig)) {
@@ -266,7 +191,6 @@ export default {
       this.$emit('transferHandleItemChoose', this.item)
     },
     handleItemUnChoose() {
-      // 此处只是不显示外边框，但是右侧的Options还应该在
       this.item.choose = 'false'
     },
     checkData(lastObject, newObject) {

@@ -62,8 +62,7 @@
         <common-data-option
           :item="item"
           :data-source-list="dataSourceList"
-          name="x轴字段"
-          value="y轴字段"
+          :params="params"
         />
       </a-tab-pane>
     </a-tabs>
@@ -102,17 +101,21 @@ export default {
   data() {
     return {
       fileNameList: [],
+      params: [
+        {
+          'label': '分类字段',
+          'value': 'legend'
+        },
+        {
+          'label': 'x轴字段',
+          'value': 'name'
+        },
+        {
+          'label': 'y轴字段',
+          'value': 'value'
+        }
+      ],
       lineTypeList
-    }
-  },
-  methods: {
-    handleDelete() {
-    },
-    handleEditSql() {
-      this.$emit('handleEditSql', this.item.chartData.sql)
-    },
-    handleEditOption() {
-      this.$emit('handleEditOption', this.item.option)
     }
   }
 }

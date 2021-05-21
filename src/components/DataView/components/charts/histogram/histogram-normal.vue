@@ -11,11 +11,12 @@
     class="chart"
   />
 </template>
+
 <script>
-import { getLineNormalConfig } from '@/components/DataView/components/config'
+import { getHistogramNormalConfig } from '@/components/DataView/components/config'
 
 export default {
-  name: 'LineNormal',
+  name: 'HistogramNormal',
   props: {
     loading: {
       type: Boolean,
@@ -24,7 +25,7 @@ export default {
     option: {
       type: Object,
       default() {
-        return getLineNormalConfig().option
+        return getHistogramNormalConfig().option
       }
     },
     updateOptions: {
@@ -48,8 +49,8 @@ export default {
   },
   data() {
     return {
-      chartType: 'lineNormal',
-      initOption: getLineNormalConfig().option
+      chartType: 'histogramNormal',
+      initOption: getHistogramNormalConfig().option
     }
   },
   watch: {
@@ -66,9 +67,8 @@ export default {
   methods: {
     setData() {
       const defaultSeries = {
-        type: 'line',
-        lineStyle: {},
-        areaStyle: {}
+        type: 'bar',
+        lineStyle: {}
       }
 
       // 判断是否有数据
@@ -98,3 +98,7 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+
+</style>

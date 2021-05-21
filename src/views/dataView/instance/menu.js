@@ -36,9 +36,9 @@ export const menus = [
     'title': '柱状图',
     'children': [
       {
-        'key': 'histogramGradient',
-        'icon': 'histogramGradient',
-        'title': '渐变柱状图'
+        'key': 'histogramNormal',
+        'icon': 'histogramNormal',
+        'title': '柱状图'
       },
       {
         'key': 'histogramGradientHorizontal',

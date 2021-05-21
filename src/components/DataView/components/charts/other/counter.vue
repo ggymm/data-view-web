@@ -34,10 +34,16 @@
 </template>
 
 <script>
-import { getCounterConfig } from '../../config/other/counter-config'
+import { getCounterConfig } from '@/components/DataView/components/config'
 
 export default {
   name: 'Counter',
+  filters: {
+    numFormat: function(value) {
+      if (!value) return ' '
+      return Number(value).toFixed(0).toString().replace(/(\d)(?=(?:\d{3})+$)/g, '$1,')
+    }
+  },
   props: {
     loading: {
       type: Boolean,
@@ -72,7 +78,7 @@ export default {
     apiData: {
       deep: true,
       handler() {
-        this.num = this.apiData.data
+        this.num = this.apiData.value
       }
     }
   }

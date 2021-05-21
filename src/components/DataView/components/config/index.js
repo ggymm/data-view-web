@@ -4,6 +4,7 @@ import { getPlotMapConfig } from './plot/plot-map-config'
 import { getLineNormalConfig } from './line/line-normal-config'
 import { getLineCoordinateConfig } from './line/line-coordinate-config'
 
+import { getHistogramNormalConfig } from './histogram/histogram-normal-config'
 import { getHistogramGradientConfig } from './histogram/histogram-gradient-config'
 import { getHistogramGradientHorizontalConfig } from './histogram/histogram-gradient-horizontal-config'
 import { getHistogramStackingConfig } from './histogram/histogram-stacking-config'
@@ -47,6 +48,7 @@ export {
   getLineNormalConfig,
   getLineCoordinateConfig,
 
+  getHistogramNormalConfig,
   getHistogramGradientConfig,
   getHistogramGradientHorizontalConfig,
   getHistogramStackingConfig,

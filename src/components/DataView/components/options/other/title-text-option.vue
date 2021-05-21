@@ -13,7 +13,7 @@
               <a-form-item label="文本颜色">
                 <a-input v-model="item.option.fontColor" type="color" />
               </a-form-item>
-              <a-form-item label="字体大小">
+              <a-form-item label="文本字体">
                 <a-input-number v-model="item.option.fontSize" :min="0" :precision="0" />
               </a-form-item>
               <a-form-item label="文本加粗">

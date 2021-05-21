@@ -17,87 +17,13 @@
   </div>
 </template>
 <script>
-
-import {
-  PlotBubble,
-  PlotMap,
-
-  LineNormal,
-
-  HistogramGradient,
-  HistogramGradientHorizontal,
-  HistogramStacking,
-  HistogramComplex,
-
-  MapChina,
-
-  PieNormal,
-  PieRing,
-  PieRings,
-  Pie2D,
-  PiePercent,
-
-  RadarBasic,
-
-  HeatBasic,
-
-  RelationOne,
-  RelationTwo,
-  RelationThree,
-  RelationFour,
-  RelationFive,
-
-  WordCloud,
-  RotationList,
-  Counter,
-  TitleText,
-  ProgressBar,
-  PictureV,
-  Gauge
-} from '../charts'
+import '../charts'
 import ThemeConfigMap from '../../config/theme-config-map'
 import ChartComponentMap from '../../config/chart-component-map'
 import { getChartData } from '@/api/dataView'
 
 export default {
   name: 'SlicePreview',
-  components: {
-    PlotBubble,
-    PlotMap,
-
-    LineNormal,
-
-    HistogramGradient,
-    HistogramGradientHorizontal,
-    HistogramStacking,
-    HistogramComplex,
-
-    MapChina,
-
-    PieNormal,
-    PieRing,
-    PieRings,
-    Pie2D,
-    PiePercent,
-
-    RadarBasic,
-
-    HeatBasic,
-
-    RelationOne,
-    RelationTwo,
-    RelationThree,
-    RelationFour,
-    RelationFive,
-
-    WordCloud,
-    RotationList,
-    Counter,
-    TitleText,
-    ProgressBar,
-    PictureV,
-    Gauge
-  },
   props: {
     item: {
       type: Object,

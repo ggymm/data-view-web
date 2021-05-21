@@ -5,6 +5,7 @@ const OptionComponentMap = {
   'lineNormal': 'LineNormalOption',
   'lineCoordinate': 'LineCoordinateOption',
 
+  'histogramNormal': 'HistogramNormalOption',
   'histogramGradient': 'HistogramGradientOption',
   'histogramGradientHorizontal': 'HistogramGradientHorizontalOption',
   'histogramStacking': 'HistogramStackingOption',

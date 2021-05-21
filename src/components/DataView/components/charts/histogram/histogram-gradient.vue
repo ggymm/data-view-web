@@ -12,7 +12,7 @@
   />
 </template>
 <script>
-import { getHistogramGradientConfig } from '../../config/histogram/histogram-gradient-config'
+import { getHistogramGradientConfig } from '@/components/DataView/components/config'
 
 export default {
   name: 'HistogramGradient',

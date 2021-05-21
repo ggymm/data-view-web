@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import { getTitleTextConfig } from '../../config/other/title-text-config'
+import { getTitleTextConfig } from '@/components/DataView/components/config'
 
 export default {
   name: 'TitleText',
