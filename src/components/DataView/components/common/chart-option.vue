@@ -190,7 +190,7 @@ export default {
   }
 
   .ant-tabs-content {
-    margin-top: 45px;
+    margin-top: 44px;
   }
 
   .ant-form {

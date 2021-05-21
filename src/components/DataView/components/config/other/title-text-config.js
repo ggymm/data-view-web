@@ -2,8 +2,8 @@ const TitleTextConfig = function() {
   this.config = {
     x: 0,
     y: 0,
-    width: 350,
-    height: 250,
+    width: 200,
+    height: 50,
     chartType: 'titleText',
     choose: 'false',
     refresh: 'false',
@@ -19,11 +19,10 @@ const TitleTextConfig = function() {
     interval: 8000,
     option: {
       title: '标题文本',
-      fontColor: 'rgba(255,255,255,1)',
-      fontSize: 12,
+      fontColor: '#ffffff',
+      fontSize: 16,
       fontWeight: 'normal',
-      textAlign: 'center',
-      backgroundColor: 'rgba(255,255,255,0)'
+      textAlign: 'center'
     }
   }
 }
