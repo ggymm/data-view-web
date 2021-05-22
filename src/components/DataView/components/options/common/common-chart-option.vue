@@ -1,7 +1,7 @@
 <!--suppress JSUnresolvedVariable, JSUnusedLocalSymbols -->
 <template>
   <a-collapse :bordered="false" :accordion="true">
-    <a-collapse-panel key="颜色配置" header="颜色配置">
+    <a-collapse-panel key="全局颜色配置" header="全局颜色配置">
       <a-form layout="horizontal" :label-col="{span: 6}" :wrapper-col="{span: 14, offset: 1}">
         <a-form-item label="颜色">
           <a-select v-model="item.option.color" mode="tags" />
@@ -13,7 +13,7 @@
         <a-form-item label="显示标题">
           <a-switch v-model="item.option.title.show" checked-children="显示" un-checked-children="不显示" />
         </a-form-item>
-        <div v-if="item.option.title.show">
+        <template v-if="item.option.title.show">
           <a-form-item label="图表标题">
             <a-input v-model="item.option.title.text" />
           </a-form-item>
@@ -31,7 +31,7 @@
               </a-select-option>
             </a-select>
           </a-form-item>
-        </div>
+        </template>
       </a-form>
     </a-collapse-panel>
     <a-collapse-panel key="图例配置" header="图例配置">
@@ -39,7 +39,7 @@
         <a-form-item label="显示图例">
           <a-switch v-model="item.option.legend.show" checked-children="显示" un-checked-children="不显示" />
         </a-form-item>
-        <div v-if="item.option.legend.show">
+        <template v-if="item.option.legend.show">
           <a-form-item label="图例类型">
             <a-select v-model="item.option.legend.type">
               <a-select-option
@@ -62,35 +62,45 @@
               </a-select-option>
             </a-select>
           </a-form-item>
-          <a-form-item label="距离顶部">
-            <a-input v-model="item.option.legend.top" />
+          <a-form-item label="图例位置">
+            <a-row :gutter="20">
+              <a-col :span="12">
+                <a-tooltip :trigger="['focus']" placement="topLeft">
+                  <template slot="title">
+                    left 的值可以是像 20 这样的具体像素值，可以是像 '20%' 这样相对于容器高宽的百分比，也可以是 'left', 'center', 'right'
+                  </template>
+                  <a-input v-model="item.option.legend.left" />
+                </a-tooltip>
+              </a-col>
+              <a-col :span="12">
+                <a-tooltip :trigger="['focus']" placement="topLeft">
+                  <template slot="title">
+                    top 的值可以是像 20 这样的具体像素值，可以是像 '20%' 这样相对于容器高宽的百分比，也可以是 'top', 'middle', 'bottom'
+                  </template>
+                  <a-input v-model="item.option.legend.top" />
+                </a-tooltip>
+              </a-col>
+            </a-row>
+            <a-row :gutter="20">
+              <a-col :span="12">
+                <a-tooltip :trigger="['focus']" placement="topLeft">
+                  <template slot="title">
+                    right 的值可以是像 20 这样的具体像素值，可以是像 '20%' 这样相对于容器高宽的百分比
+                  </template>
+                  <a-input v-model="item.option.legend.right" />
+                </a-tooltip>
+              </a-col>
+              <a-col :span="12">
+                <a-tooltip :trigger="['focus']" placement="topLeft">
+                  <template slot="title">
+                    bottom 的值可以是像 20 这样的具体像素值，可以是像 '20%' 这样相对于容器高宽的百分比
+                  </template>
+                  <a-input v-model="item.option.legend.bottom" />
+                </a-tooltip>
+              </a-col>
+            </a-row>
           </a-form-item>
-          <a-form-item label="距离底部">
-            <a-input v-model="item.option.legend.bottom" />
-          </a-form-item>
-          <a-form-item label="距离左侧">
-            <a-input v-model="item.option.legend.left" />
-          </a-form-item>
-          <a-form-item label="距离右侧">
-            <a-input v-model="item.option.legend.right" />
-          </a-form-item>
-        </div>
-      </a-form>
-    </a-collapse-panel>
-    <a-collapse-panel key="网格配置" header="网格配置">
-      <a-form layout="horizontal" :label-col="{span: 6}" :wrapper-col="{span: 14, offset: 1}">
-        <a-form-item label="上">
-          <a-input v-model="item.option.grid.top" />
-        </a-form-item>
-        <a-form-item label="下">
-          <a-input v-model="item.option.grid.bottom" />
-        </a-form-item>
-        <a-form-item label="左">
-          <a-input v-model="item.option.grid.left" />
-        </a-form-item>
-        <a-form-item label="右">
-          <a-input v-model="item.option.grid.right" />
-        </a-form-item>
+        </template>
       </a-form>
     </a-collapse-panel>
   </a-collapse>

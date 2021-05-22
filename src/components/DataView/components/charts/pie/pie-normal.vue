@@ -6,9 +6,9 @@
     :autoresize="true"
     :init-options="initOption"
     :option="option"
-    element-loading-text="Loading..."
+    :update-options="updateOptions"
+    element-loading-text="加载中"
     class="chart"
-    @click="handleChartClick"
   />
 </template>
 <script>
@@ -27,10 +27,16 @@ export default {
         return getPieNormalConfig().option
       }
     },
-    apiData: {
-      type: Array,
+    updateOptions: {
+      type: Object,
       default() {
-        return []
+        return {}
+      }
+    },
+    apiData: {
+      type: Object,
+      default() {
+        return {}
       }
     },
     theme: {
@@ -58,15 +64,34 @@ export default {
     })
   },
   methods: {
-    handleChartClick(param) {
-    },
     setData() {
-      const legendData = []
-      for (let i = 0; i < this.apiData.length; i++) {
-        legendData.push(this.apiData[i].name)
+      const defaultSeries = {
+        type: 'pie'
       }
-      this.option.legend.data = legendData
-      this.option.series[0].data = this.apiData
+
+      // 判断是否有数据
+      if (this.apiData.source.length <= 1) {
+        return
+      }
+
+      this.$set(this.option, 'dataset', this.apiData)
+      const legend = this.apiData.source[0]
+
+      const series = []
+      if (legend.length === 1) {
+        if (this.option.series.length === 0 || this.option.series.length !== legend.length) {
+          series.push(defaultSeries)
+          this.$set(this.option, 'series', series)
+        }
+      } else {
+        if (legend.length - 1 !== this.option.series.length) {
+          // 如果两次数据个数不一致，应该清空重新设置
+          for (let i = 1; i < legend.length; i++) {
+            series.push(defaultSeries)
+          }
+          this.$set(this.option, 'series', series)
+        }
+      }
     }
   }
 }

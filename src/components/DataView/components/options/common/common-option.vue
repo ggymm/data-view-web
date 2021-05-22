@@ -1,6 +1,6 @@
 <template>
   <a-collapse :bordered="false" :accordion="true">
-    <a-collapse-panel key="位置配置" header="位置配置">
+    <a-collapse-panel key="坐标配置" header="坐标配置">
       <a-form layout="horizontal" :label-col="{span: 6}" :wrapper-col="{span: 14, offset: 1}">
         <a-form-item label="距离左侧">
           <a-input-number v-model="item.x" :min="0" :precision="0" />

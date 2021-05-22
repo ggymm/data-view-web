@@ -362,6 +362,7 @@ export default {
       width: 450px;
       height: 100%;
       overflow: auto;
+      border-left: #e2e2e2 1px solid;
 
       &::-webkit-scrollbar {
         display: none;

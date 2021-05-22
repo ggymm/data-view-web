@@ -12,25 +12,25 @@
         </a-select-option>
       </a-select>
     </a-form-item>
-    <a-form-item v-if="item.chartData.dataSourceType === 'DataBase'" label="数据源">
-      <a-select v-model="item.chartData.database">
-        <a-select-option
-          v-for="dataSource in dataSourceList"
-          :key="dataSource.data_source_id"
-          :value="dataSource.data_source_id"
-        >
-          {{ dataSource.data_source_name }}
-        </a-select-option>
-      </a-select>
-    </a-form-item>
-    <div v-if="item.chartData.dataSourceType === 'DataBase'">
+    <template v-if="item.chartData.dataSourceType === 'DataBase'">
+      <a-form-item label="数据源">
+        <a-select v-model="item.chartData.database">
+          <a-select-option
+            v-for="dataSource in dataSourceList"
+            :key="dataSource.data_source_id"
+            :value="dataSource.data_source_id"
+          >
+            {{ dataSource.data_source_name }}
+          </a-select-option>
+        </a-select>
+      </a-form-item>
       <a-form-item v-for="(param, index) in params" :key="index" :label="param.label">
         <a-input v-model="item.chartData[param.value]" />
       </a-form-item>
-    </div>
-    <a-form-item v-if="item.chartData.dataSourceType === 'DataBase'" label="SQL">
-      <a-textarea v-model="item.chartData.sql" />
-    </a-form-item>
+      <a-form-item label="SQL">
+        <a-textarea v-model="item.chartData.sql" />
+      </a-form-item>
+    </template>
   </a-form>
 </template>
 
