@@ -29,3 +29,8 @@ export const lineTypeList = [
   { label: '虚线', value: 'dashed' },
   { label: '点线', value: 'dotted' }
 ]
+
+export const legendTypeList = [
+  { label: '普通图例', value: 'plain' },
+  { label: '可滚动翻页的图例', value: 'scroll' }
+]

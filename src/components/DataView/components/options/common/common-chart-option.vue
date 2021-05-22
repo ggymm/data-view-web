@@ -13,27 +13,69 @@
         <a-form-item label="显示标题">
           <a-switch v-model="item.option.title.show" checked-children="显示" un-checked-children="不显示" />
         </a-form-item>
-        <a-form-item v-if="item.option.title.show" label="图表标题">
-          <a-input v-model="item.option.title.text" />
-        </a-form-item>
-        <a-form-item v-if="item.option.title.show" label="标题颜色">
-          <a-input v-model="item.option.title.textStyle.color" type="color" />
-        </a-form-item>
-        <a-form-item v-if="item.option.title.show" label="标题位置">
-          <a-select v-model="item.option.title.left">
-            <a-select-option
-              v-for="position in positionList"
-              :key="position.value"
-              :value="position.value"
-            >
-              {{ position.label }}
-            </a-select-option>
-          </a-select>
-        </a-form-item>
+        <div v-if="item.option.title.show">
+          <a-form-item label="图表标题">
+            <a-input v-model="item.option.title.text" />
+          </a-form-item>
+          <a-form-item label="标题颜色">
+            <a-input v-model="item.option.title.textStyle.color" type="color" />
+          </a-form-item>
+          <a-form-item label="标题位置">
+            <a-select v-model="item.option.title.left">
+              <a-select-option
+                v-for="position in positionList"
+                :key="position.value"
+                :value="position.value"
+              >
+                {{ position.label }}
+              </a-select-option>
+            </a-select>
+          </a-form-item>
+        </div>
       </a-form>
     </a-collapse-panel>
     <a-collapse-panel key="图例配置" header="图例配置">
-      <a-form layout="horizontal" :label-col="{span: 6}" :wrapper-col="{span: 14, offset: 1}" />
+      <a-form layout="horizontal" :label-col="{span: 6}" :wrapper-col="{span: 14, offset: 1}">
+        <a-form-item label="显示图例">
+          <a-switch v-model="item.option.legend.show" checked-children="显示" un-checked-children="不显示" />
+        </a-form-item>
+        <div v-if="item.option.legend.show">
+          <a-form-item label="图例类型">
+            <a-select v-model="item.option.legend.type">
+              <a-select-option
+                v-for="legendType in legendTypeList"
+                :key="legendType.value"
+                :value="legendType.value"
+              >
+                {{ legendType.label }}
+              </a-select-option>
+            </a-select>
+          </a-form-item>
+          <a-form-item label="图例布局">
+            <a-select v-model="item.option.legend.orient">
+              <a-select-option
+                v-for="orient in orientList"
+                :key="orient.value"
+                :value="orient.value"
+              >
+                {{ orient.label }}
+              </a-select-option>
+            </a-select>
+          </a-form-item>
+          <a-form-item label="距离顶部">
+            <a-input v-model="item.option.legend.top" />
+          </a-form-item>
+          <a-form-item label="距离底部">
+            <a-input v-model="item.option.legend.bottom" />
+          </a-form-item>
+          <a-form-item label="距离左侧">
+            <a-input v-model="item.option.legend.left" />
+          </a-form-item>
+          <a-form-item label="距离右侧">
+            <a-input v-model="item.option.legend.right" />
+          </a-form-item>
+        </div>
+      </a-form>
     </a-collapse-panel>
     <a-collapse-panel key="网格配置" header="网格配置">
       <a-form layout="horizontal" :label-col="{span: 6}" :wrapper-col="{span: 14, offset: 1}">
@@ -55,7 +97,7 @@
 </template>
 
 <script>
-import { positionList } from '../common'
+import { positionList, legendTypeList, orientList } from '../common'
 
 export default {
   name: 'CommonChartOption',
@@ -69,7 +111,9 @@ export default {
   },
   data() {
     return {
-      positionList
+      positionList,
+      legendTypeList,
+      orientList
     }
   }
 }
