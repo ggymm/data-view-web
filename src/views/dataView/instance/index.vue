@@ -52,7 +52,7 @@
               drag-allow-from=".chart,.data-view-item"
               drag-ignore-from=""
             >
-              <Slice
+              <slice
                 :id="item.i"
                 :item="item"
                 :theme="panelConfig.instanceTheme"
@@ -90,7 +90,7 @@
             </a-form-item>
           </a-form>
         </div>
-        <ChartOption
+        <chart-option
           v-show="Object.keys(chooseItem).length >= 0"
           :data-source-list="dataSourceList"
           :item="chooseItem"
@@ -107,9 +107,8 @@ import Slice from '@/components/DataView/components/common/slice'
 import ChartOption from '@/components/DataView/components/common/chart-option'
 import Layout from '@/components/DataView/components/layout/layout'
 import Item from '@/components/DataView/components/layout/item'
+import OptionConfigMap from '@/components/DataView/components/config'
 import VLoading from '@/components/Loading/loading-modal'
-
-import OptionConfigMap from '@/components/DataView/config/option-config-map'
 
 import { getImageList } from '@/api/image'
 import { getDataSourceList } from '@/api/dataSource'

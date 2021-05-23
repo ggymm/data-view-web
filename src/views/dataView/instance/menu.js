@@ -20,9 +20,14 @@ export const menus = [
     'title': '折线图',
     'children': [
       {
-        'key': 'lineNormal',
-        'icon': 'lineNormal',
+        'key': 'LineNormal',
+        'icon': 'LineNormal',
         'title': '折线图'
+      },
+      {
+        'key': 'LineArea',
+        'icon': 'LineArea',
+        'title': '折线面积图'
       },
       {
         'key': 'lineCoordinate',
@@ -36,8 +41,8 @@ export const menus = [
     'title': '柱状图',
     'children': [
       {
-        'key': 'histogramNormal',
-        'icon': 'histogramNormal',
+        'key': 'HistogramNormal',
+        'icon': 'HistogramNormal',
         'title': '柱状图'
       },
       {
@@ -83,8 +88,8 @@ export const menus = [
     'title': '饼状图',
     'children': [
       {
-        'key': 'pieNormal',
-        'icon': 'pieNormal',
+        'key': 'PieNormal',
+        'icon': 'PieNormal',
         'title': '普通饼图'
       },
       {
@@ -192,13 +197,13 @@ export const menus = [
         'title': '轮播列表'
       },
       {
-        'key': 'counter',
-        'icon': 'counter',
+        'key': 'Counter',
+        'icon': 'Counter',
         'title': '计数器'
       },
       {
-        'key': 'titleText',
-        'icon': 'titleText',
+        'key': 'TitleText',
+        'icon': 'TitleText',
         'title': '标题文本'
       },
       {

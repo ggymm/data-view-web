@@ -4,7 +4,7 @@ const TitleTextConfig = function() {
     y: 0,
     width: 200,
     height: 50,
-    chartType: 'titleText',
+    chartType: 'TitleText',
     choose: 'false',
     refresh: 'false',
     chartData: {

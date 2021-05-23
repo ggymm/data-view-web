@@ -4,6 +4,7 @@ import PlotBubbleOption from './plot/plot-bubble-option'
 import PlotMapOption from './plot/plot-map-option'
 
 import LineNormalOption from './line/line-normal-option'
+import LineAreaOption from './line/line-area-option'
 import LineCoordinateOption from './line/line-coordinate-option'
 
 import HistogramNormalOption from './histogram/histogram-normal-option'
@@ -39,49 +40,52 @@ import ProgressBarOption from './other/progress-bar-option'
 import PictureOption from './other/picture-option'
 import GaugeOption from './other/gauge-option'
 
-Vue.component('PlotBubbleOption', PlotBubbleOption)
-Vue.component('PlotMapOption', PlotMapOption)
+Vue.component('plotBubbleOption', PlotBubbleOption)
+Vue.component('plotMapOption', PlotMapOption)
 
 Vue.component('LineNormalOption', LineNormalOption)
+Vue.component('LineAreaOption', LineAreaOption)
 
 Vue.component('HistogramNormalOption', HistogramNormalOption)
 
-Vue.component('MapChinaOption', MapChinaOption)
-Vue.component('MapWorldOption', MapWorldOption)
-Vue.component('MapProvinceOption', MapProvinceOption)
+Vue.component('mapChinaOption', MapChinaOption)
+Vue.component('mapWorldOption', MapWorldOption)
+Vue.component('mapProvinceOption', MapProvinceOption)
 
 Vue.component('PieNormalOption', PieNormalOption)
-Vue.component('PieRingOption', PieRingOption)
-Vue.component('PieRingsOption', PieRingsOption)
-Vue.component('Pie2DOption', Pie2DOption)
-Vue.component('PiePercentOption', PiePercentOption)
+Vue.component('pieRingOption', PieRingOption)
+Vue.component('pieRingsOption', PieRingsOption)
+Vue.component('pie2DOption', Pie2DOption)
+Vue.component('piePercentOption', PiePercentOption)
 
-Vue.component('RadarBasicOption', RadarBasicOption)
+Vue.component('radarBasicOption', RadarBasicOption)
 
-Vue.component('HeatBasicOption', HeatBasicOption)
-Vue.component('HeatProvinceOption', HeatProvinceOption)
-Vue.component('HeatMapOption', HeatMapOption)
-Vue.component('HeatMapLargePiecewiseOption', HeatMapLargePiecewiseOption)
+Vue.component('heatBasicOption', HeatBasicOption)
+Vue.component('heatProvinceOption', HeatProvinceOption)
+Vue.component('heatMapOption', HeatMapOption)
+Vue.component('heatMapLargePiecewiseOption', HeatMapLargePiecewiseOption)
 
-Vue.component('RelationOneOption', RelationOneOption)
-Vue.component('RelationTwoOption', RelationTwoOption)
-Vue.component('RelationThreeOption', RelationThreeOption)
-Vue.component('RelationFourOption', RelationFourOption)
-Vue.component('RelationFiveOption', RelationFiveOption)
+Vue.component('relationOneOption', RelationOneOption)
+Vue.component('relationTwoOption', RelationTwoOption)
+Vue.component('relationThreeOption', RelationThreeOption)
+Vue.component('relationFourOption', RelationFourOption)
+Vue.component('relationFiveOption', RelationFiveOption)
 
-Vue.component('WordCloudOption', WordCloudOption)
-Vue.component('RotationListOption', RotationListOption)
+Vue.component('wordCloudOption', WordCloudOption)
+Vue.component('rotationListOption', RotationListOption)
 Vue.component('CounterOption', CounterOption)
 Vue.component('TitleTextOption', TitleTextOption)
-Vue.component('ProgressBarOption', ProgressBarOption)
-Vue.component('PictureOption', PictureOption)
-Vue.component('GaugeOption', GaugeOption)
+Vue.component('progressBarOption', ProgressBarOption)
+Vue.component('pictureOption', PictureOption)
+Vue.component('gaugeOption', GaugeOption)
 
+Vue.component('undefinedOption', GaugeOption)
 export {
   PlotBubbleOption,
   PlotMapOption,
 
   LineNormalOption,
+  LineAreaOption,
   LineCoordinateOption,
 
   HistogramNormalOption,

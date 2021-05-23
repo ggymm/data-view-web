@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import { getTitleTextConfig } from '@/components/DataView/components/config'
+import OptionConfigMap from '@/components/DataView/components/config'
 
 export default {
   name: 'TitleText',
@@ -22,18 +22,10 @@ export default {
     option: {
       type: Object,
       default() {
-        return getTitleTextConfig().option
+        return OptionConfigMap['TitleText'].option
       }
-    }
-  },
-  data() {
-    return {
-      chartType: 'titleText'
     }
   }
 }
 </script>
 
-<style scoped>
-
-</style>

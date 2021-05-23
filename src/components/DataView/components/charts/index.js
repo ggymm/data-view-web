@@ -4,6 +4,7 @@ import PlotBubble from './plot/plot-bubble'
 import PlotMap from './plot/plot-map'
 
 import LineNormal from './line/line-normal'
+import LineArea from './line/line-area'
 
 import HistogramNormal from './histogram/histogram-normal'
 
@@ -37,6 +38,7 @@ Vue.component('PlotBubble', PlotBubble)
 Vue.component('PlotMap', PlotMap)
 
 Vue.component('LineNormal', LineNormal)
+Vue.component('LineArea', LineArea)
 
 Vue.component('HistogramNormal', HistogramNormal)
 
@@ -71,6 +73,7 @@ export {
   PlotMap,
 
   LineNormal,
+  LineArea,
 
   HistogramNormal,
 

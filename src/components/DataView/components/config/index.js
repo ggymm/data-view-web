@@ -2,6 +2,7 @@ import { getPlotBubbleConfig } from './plot/plot-bubble-config'
 import { getPlotMapConfig } from './plot/plot-map-config'
 
 import { getLineNormalConfig } from './line/line-normal-config'
+import { getLineAreaConfig } from './line/line-area-config'
 import { getLineCoordinateConfig } from './line/line-coordinate-config'
 
 import { getHistogramNormalConfig } from './histogram/histogram-normal-config'
@@ -41,47 +42,50 @@ import { getProgressBarConfig } from './other/progress-bar-config'
 import { getPictureConfig } from './other/picture-config'
 import { getGaugeConfig } from './other/gauge-config'
 
-export {
-  getPlotBubbleConfig,
-  getPlotMapConfig,
+const OptionConfigMap = {
+  'plotBubble': getPlotBubbleConfig,
+  'plotMap': getPlotMapConfig,
 
-  getLineNormalConfig,
-  getLineCoordinateConfig,
+  'LineNormal': getLineNormalConfig,
+  'LineArea': getLineAreaConfig(),
+  'lineCoordinate': getLineCoordinateConfig,
 
-  getHistogramNormalConfig,
-  getHistogramGradientConfig,
-  getHistogramGradientHorizontalConfig,
-  getHistogramStackingConfig,
-  getHistogramComplexConfig,
+  'HistogramNormal': getHistogramNormalConfig,
+  'histogramGradient': getHistogramGradientConfig,
+  'histogramGradientHorizontal': getHistogramGradientHorizontalConfig,
+  'histogramStacking': getHistogramStackingConfig,
+  'histogramComplex': getHistogramComplexConfig,
 
-  getMapChinaConfig,
-  getMapWorldConfig,
-  getMapProvinceConfig,
+  'mapChina': getMapChinaConfig,
+  'mapWorld': getMapWorldConfig,
+  'mapProvince': getMapProvinceConfig,
 
-  getPieNormalConfig,
-  getPieRingConfig,
-  getPie2DConfig,
-  getPiePercentConfig,
-  getPieRingsConfig,
+  'PieNormal': getPieNormalConfig,
+  'pieRing': getPieRingConfig,
+  'pie2D': getPie2DConfig,
+  'piePercent': getPiePercentConfig,
+  'pieRings': getPieRingsConfig,
 
-  getRadarBasicConfig,
+  'radarBasic': getRadarBasicConfig,
 
-  getHeatBasicConfig,
-  getHeatProvinceConfig,
-  getHeatMapConfig,
-  getHeatMapLargePiecewiseConfig,
+  'heatBasic': getHeatBasicConfig,
+  'heatProvince': getHeatProvinceConfig,
+  'heatMap': getHeatMapConfig,
+  'heatMapLargePiecewise': getHeatMapLargePiecewiseConfig,
 
-  getRelationOneConfig,
-  getRelationTwoConfig,
-  getRelationThreeConfig,
-  getRelationFourConfig,
-  getRelationFiveConfig,
+  'relationOne': getRelationOneConfig,
+  'relationTwo': getRelationTwoConfig,
+  'relationThree': getRelationThreeConfig,
+  'relationFour': getRelationFourConfig,
+  'relationFive': getRelationFiveConfig,
 
-  getWordCloudConfig,
-  getRotationListConfig,
-  getCounterConfig,
-  getTitleTextConfig,
-  getProgressBarConfig,
-  getPictureConfig,
-  getGaugeConfig
+  'wordCloud': getWordCloudConfig,
+  'rotationList': getRotationListConfig,
+  'Counter': getCounterConfig,
+  'TitleText': getTitleTextConfig,
+  'progressBar': getProgressBarConfig,
+  'picture': getPictureConfig,
+  'gauge': getGaugeConfig
 }
+
+export default OptionConfigMap

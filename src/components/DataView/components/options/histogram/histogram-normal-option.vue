@@ -55,7 +55,7 @@ export default {
       params: [
         {
           'label': '分类字段',
-          'value': 'legend'
+          'value': 'dimension'
         },
         {
           'label': 'x轴字段',

@@ -4,7 +4,7 @@ const PieNormalConfig = function() {
     y: 0,
     width: 350,
     height: 250,
-    chartType: 'pieNormal',
+    chartType: 'PieNormal',
     choose: 'false',
     refresh: 'false',
     chartData: {

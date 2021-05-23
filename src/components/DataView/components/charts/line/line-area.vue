@@ -11,12 +11,11 @@
     class="chart"
   />
 </template>
-
 <script>
 import OptionConfigMap from '@/components/DataView/components/config'
 
 export default {
-  name: 'HistogramNormal',
+  name: 'LineArea',
   props: {
     loading: {
       type: Boolean,
@@ -25,7 +24,7 @@ export default {
     option: {
       type: Object,
       default() {
-        return OptionConfigMap['HistogramNormal'].option
+        return OptionConfigMap['LineArea'].option
       }
     },
     updateOptions: {
@@ -43,7 +42,7 @@ export default {
   },
   data() {
     return {
-      initOption: OptionConfigMap['HistogramNormal'].option
+      initOption: OptionConfigMap['LineArea'].option
     }
   },
   async mounted() {

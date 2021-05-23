@@ -1,28 +1,31 @@
-const HistogramNormalConfig = function() {
+const LineAreaConfig = function() {
   this.config = {
     x: 0,
     y: 0,
     width: 350,
     height: 250,
-    chartType: 'HistogramNormal',
+    chartType: 'LineArea',
     choose: 'false',
     refresh: 'false',
     chartData: {
       dataSourceType: '',
       database: '',
       fileName: '',
+      sql: 'select * from line_normal',
       dimension: '无',
-      name: 'product',
-      value: 'amount',
-      sql: 'select * from histogram_normal'
+      name: 'x',
+      value: 'y'
     },
     data: [],
     interval: 8000,
     option: {
       title: {
-        text: '标准柱状图',
+        show: true,
+        text: '标准折线面积图',
         left: 'center',
-        textStyle: { color: '#fff' }
+        textStyle: {
+          color: '#ffffff'
+        }
       },
       legend: {
         show: false
@@ -59,8 +62,8 @@ const HistogramNormalConfig = function() {
   }
 }
 
-const getHistogramNormalConfig = function() {
-  return new HistogramNormalConfig().config
+const getLineAreaConfig = function() {
+  return new LineAreaConfig().config
 }
 
-export { getHistogramNormalConfig }
+export { getLineAreaConfig }

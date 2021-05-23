@@ -6,7 +6,7 @@
              'slice-wrapper': item.chartType !== 'progressBar'}"
   >
     <component
-      :is="ChartComponentMap[item.chartType]"
+      :is="item.chartType"
       :loading="loading"
       :api-data="chartData"
       :option="item.option"
@@ -18,8 +18,7 @@
 </template>
 <script>
 import '../charts'
-import ThemeConfigMap from '../../config/theme-config-map'
-import ChartComponentMap from '../../config/chart-component-map'
+import ThemeConfigMap from '../../themes/theme-config-map'
 import { getChartData } from '@/api/dataView'
 
 export default {
@@ -46,7 +45,6 @@ export default {
       lastChartData: {},
       timer: null,
       changeTimer: null,
-      ChartComponentMap,
       ThemeConfigMap
     }
   },

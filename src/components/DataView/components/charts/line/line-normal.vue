@@ -12,7 +12,7 @@
   />
 </template>
 <script>
-import { getLineNormalConfig } from '@/components/DataView/components/config'
+import OptionConfigMap from '@/components/DataView/components/config'
 
 export default {
   name: 'LineNormal',
@@ -24,7 +24,7 @@ export default {
     option: {
       type: Object,
       default() {
-        return getLineNormalConfig().option
+        return OptionConfigMap['LineNormal'].option
       }
     },
     updateOptions: {
@@ -48,8 +48,7 @@ export default {
   },
   data() {
     return {
-      chartType: 'lineNormal',
-      initOption: getLineNormalConfig().option
+      initOption: OptionConfigMap['LineNormal'].option
     }
   },
   watch: {
@@ -67,8 +66,7 @@ export default {
     setData() {
       const defaultSeries = {
         type: 'line',
-        lineStyle: {},
-        areaStyle: {}
+        lineStyle: {}
       }
 
       // 判断是否有数据

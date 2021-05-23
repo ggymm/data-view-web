@@ -34,7 +34,7 @@
 </template>
 
 <script>
-import { getCounterConfig } from '@/components/DataView/components/config'
+import OptionConfigMap from '@/components/DataView/components/config'
 
 export default {
   name: 'Counter',
@@ -52,7 +52,7 @@ export default {
     option: {
       type: Object,
       default() {
-        return getCounterConfig().option
+        return OptionConfigMap['Counter'].option
       }
     },
     apiData: {
@@ -70,7 +70,6 @@ export default {
   },
   data() {
     return {
-      chartType: 'counter',
       num: 0
     }
   },

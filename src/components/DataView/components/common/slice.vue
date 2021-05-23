@@ -8,7 +8,7 @@
     @click="handleItemChoose"
   >
     <component
-      :is="ChartComponentMap[item.chartType]"
+      :is="item.chartType"
       :loading="loading"
       :api-data="chartData"
       :option="item.option"
@@ -21,8 +21,7 @@
 </template>
 <script>
 import '../charts'
-import ThemeConfigMap from '../../config/theme-config-map'
-import ChartComponentMap from '../../config/chart-component-map'
+import ThemeConfigMap from '@/components/DataView/themes/theme-config-map'
 import { getChartData } from '@/api/dataView'
 
 // noinspection JSUnusedGlobalSymbols,JSUnusedLocalSymbols
@@ -81,7 +80,6 @@ export default {
       lastChartData: {},
       timer: null,
       changeTimer: null,
-      ChartComponentMap,
       ThemeConfigMap
     }
   },
@@ -89,6 +87,7 @@ export default {
     item: {
       deep: true,
       handler(item) {
+        console.log(JSON.stringify(item.option.series))
         // 取数据模块
         this.getChartData()
         // 刷新数据模块
@@ -145,24 +144,22 @@ export default {
       }, 2000)
     },
     getChartData() {
-      const _chartDataConfig = this.item.chartData
-      if (!this.checkData(this.lastChartData, _chartDataConfig)) {
-        if (_chartDataConfig.dataSourceType === 'DataBase' &&
-          _chartDataConfig.database !== '') {
+      const config = this.item.chartData
+      if (!this.checkData(this.lastChartData, config)) {
+        if (config.dataSourceType === 'DataBase' && config.database !== '') {
           // 数据库需要检查每一个值是否编写正确
-          delete _chartDataConfig.fileName
-          if (this.checkDataKey(_chartDataConfig)) {
-            _chartDataConfig.chartType = this.item.chartType
-            getChartData(_chartDataConfig).then(response => {
+          delete config.fileName
+          if (this.checkDataKey(config)) {
+            config.chartType = this.item.chartType
+            getChartData(config).then(response => {
               this.chartData = response.data
               this.loading = false
             })
           }
-        } else if (_chartDataConfig.dataSourceType === 'CSV' &&
-          _chartDataConfig.fileName !== '') {
-          // console.log('')
+        } else if (config.dataSourceType === 'CSV' && config.fileName !== '') {
+          console.log('')
         }
-        this.lastChartData = JSON.parse(JSON.stringify(_chartDataConfig))
+        this.lastChartData = JSON.parse(JSON.stringify(config))
       }
     },
     /**

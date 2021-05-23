@@ -1,7 +1,7 @@
 <template>
   <div>
     <component
-      :is="OptionComponentMap[item.chartType]"
+      :is="item.chartType + 'Option'"
       :item="item"
       :data-source-list="dataSourceList"
       @handleDeleteItem="handleDeleteItem"
@@ -13,7 +13,6 @@
 
 <script>
 import '../options'
-import OptionComponentMap from '../../config/option-component-map'
 
 export default {
   name: 'ChartOption',
@@ -33,7 +32,6 @@ export default {
   },
   data() {
     return {
-      OptionComponentMap
     }
   },
   mounted() {
@@ -43,8 +41,6 @@ export default {
       this.$emit('handleDeleteItem', item)
     },
     handleEditOption(option) {
-    },
-    changeOption() {
     },
     handleEditSql(sql) {
     }

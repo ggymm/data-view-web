@@ -8,52 +8,30 @@
         <coordinate-system-option :item="item" />
         <a-collapse :bordered="false" :accordion="true">
           <a-collapse-panel key="折线设置" header="折线设置">
-            <a-form :model="item" layout="horizontal" :label-col="{span: 6}" :wrapper-col="{span: 14, offset: 1}">
-              <a-form-item label="是否平滑">
-                <a-space>
+            <a-form layout="horizontal" :label-col="{span: 6}" :wrapper-col="{span: 14, offset: 1}">
+              <template v-for="(s, index) in item.option.series">
+                <a-form-item :key="'是否平滑' + index" :label="'是否平滑' + index">
+                  <input v-model="s.smooth">
+                </a-form-item>
+                <a-form-item :key="'是否显示折点' + index" :label="'是否显示折点' + index">
                   <a-switch
-                    v-for="series in item.option.series"
-                    :key="series.name"
-                    v-model="series.smooth"
-                    checked-children="平滑"
-                    un-checked-children="不平滑"
-                  />
-                </a-space>
-              </a-form-item>
-              <a-form-item label="是否显示符号">
-                <a-space>
-                  <a-switch
-                    v-for="series in item.option.series"
-                    :key="series.name"
-                    v-model="series.showSymbol"
+                    v-model="s.showSymbol"
                     checked-children="显示"
                     un-checked-children="不显示"
                   />
-                </a-space>
-              </a-form-item>
-              <a-form-item label="折线类型">
-                <a-select
-                  v-for="series in item.option.series"
-                  :key="series.name"
-                  v-model="series.lineStyle.type"
-                >
-                  <a-select-option
-                    v-for="lineType in lineTypeList"
-                    :key="lineType.value"
-                    :value="lineType.value"
-                  >
-                    {{ lineType.label }}
-                  </a-select-option>
-                </a-select>
-              </a-form-item>
-              <a-form-item label="区域颜色">
-                <a-input
-                  v-for="series in item.option.series"
-                  :key="series.name"
-                  v-model="series.areaStyle.color"
-                  type="color"
-                />
-              </a-form-item>
+                </a-form-item>
+                <a-form-item :key="'折线类型' + index" :label="'折线类型' + index">
+                  <a-select v-model="s.lineStyle.type">
+                    <a-select-option
+                      v-for="lineType in lineTypeList"
+                      :key="lineType.value"
+                      :value="lineType.value"
+                    >
+                      {{ lineType.label }}
+                    </a-select-option>
+                  </a-select>
+                </a-form-item>
+              </template>
             </a-form>
           </a-collapse-panel>
         </a-collapse>
@@ -104,7 +82,7 @@ export default {
       params: [
         {
           'label': '分类字段',
-          'value': 'legend'
+          'value': 'dimension'
         },
         {
           'label': 'x轴字段',

@@ -4,15 +4,15 @@ const LineNormalConfig = function() {
     y: 0,
     width: 350,
     height: 250,
-    chartType: 'lineNormal',
+    chartType: 'LineNormal',
     choose: 'false',
     refresh: 'false',
     chartData: {
       dataSourceType: '',
       database: '',
       fileName: '',
-      sql: 'select x,y,name from line_normal',
-      legend: '无',
+      sql: 'select * from line_normal',
+      dimension: '无',
       name: 'x',
       value: 'y'
     },

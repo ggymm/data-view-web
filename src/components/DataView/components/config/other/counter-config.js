@@ -4,7 +4,7 @@ const CounterConfig = function() {
     y: 0,
     width: 200,
     height: 50,
-    chartType: 'counter',
+    chartType: 'Counter',
     choose: 'false',
     refresh: 'false',
     chartData: {
