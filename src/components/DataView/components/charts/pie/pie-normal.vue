@@ -33,6 +33,12 @@ export default {
         return {}
       }
     },
+    apiData: {
+      type: Object,
+      default() {
+        return {}
+      }
+    },
     theme: {
       type: Object,
       default() {
@@ -45,11 +51,30 @@ export default {
       initOption: OptionConfigMap[''].option
     }
   },
+  watch: {
+    apiData: function() {
+      this.setData()
+    }
+  },
   async mounted() {
     const chart = this.$refs.chart
     this.$emit('init', {
       chart: chart
     })
+  },
+  methods: {
+    setData() {
+      if (this.apiData.source.length <= 0) {
+        return
+      }
+
+      this.$set(this.option, 'dataset', this.apiData)
+      const series = []
+      series.push({
+        type: 'pie'
+      })
+      this.$set(this.option, 'series', series)
+    }
   }
 }
 </script>

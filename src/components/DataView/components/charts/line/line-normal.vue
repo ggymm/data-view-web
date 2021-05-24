@@ -64,12 +64,6 @@ export default {
   },
   methods: {
     setData() {
-      const defaultSeries = {
-        type: 'line',
-        lineStyle: {}
-      }
-
-      // 判断是否有数据
       if (this.apiData.source.length <= 1) {
         return
       }
@@ -80,14 +74,20 @@ export default {
       const series = []
       if (legend.length === 1) {
         if (this.option.series.length === 0 || this.option.series.length !== legend.length) {
-          series.push(defaultSeries)
+          series.push({
+            type: 'line',
+            lineStyle: {}
+          })
           this.$set(this.option, 'series', series)
         }
       } else {
         if (legend.length - 1 !== this.option.series.length) {
           // 如果两次数据个数不一致，应该清空重新设置
           for (let i = 1; i < legend.length; i++) {
-            series.push(defaultSeries)
+            series.push({
+              type: 'line',
+              lineStyle: {}
+            })
           }
           this.$set(this.option, 'series', series)
         }

@@ -9,18 +9,22 @@
         <a-collapse :bordered="false" :accordion="true">
           <a-collapse-panel key="折线设置" header="折线设置">
             <a-form layout="horizontal" :label-col="{span: 6}" :wrapper-col="{span: 14, offset: 1}">
-              <template v-for="(s, index) in item.option.series">
-                <a-form-item :key="'是否平滑' + index" :label="'是否平滑' + index">
-                  <input v-model="s.smooth">
+              <div v-for="(s, i) in item.option.series" :key="i">
+                <a-form-item :label="'是否平滑' + i">
+                  <a-switch
+                    v-model="s.smooth"
+                    checked-children="显示"
+                    un-checked-children="不显示"
+                  />
                 </a-form-item>
-                <a-form-item :key="'是否显示折点' + index" :label="'是否显示折点' + index">
+                <a-form-item :label="'是否显示折点' + i">
                   <a-switch
                     v-model="s.showSymbol"
                     checked-children="显示"
                     un-checked-children="不显示"
                   />
                 </a-form-item>
-                <a-form-item :key="'折线类型' + index" :label="'折线类型' + index">
+                <a-form-item :label="'折线类型' + i">
                   <a-select v-model="s.lineStyle.type">
                     <a-select-option
                       v-for="lineType in lineTypeList"
@@ -31,7 +35,7 @@
                     </a-select-option>
                   </a-select>
                 </a-form-item>
-              </template>
+              </div>
             </a-form>
           </a-collapse-panel>
         </a-collapse>
