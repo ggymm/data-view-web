@@ -1,9 +1,8 @@
 <!--suppress JSUnresolvedVariable, JSUnusedLocalSymbols -->
 <template>
-  <div class="data-view-chart-option two">
+  <div class="data-view-chart-option three">
     <a-tabs>
       <a-tab-pane key="style" tab="样式">
-        <common-option :item="item" />
         <a-collapse :bordered="false" :accordion="true">
           <a-collapse-panel key="文本配置" header="文本配置">
             <a-form layout="horizontal" :label-col="{span: 6}" :wrapper-col="{span: 14, offset: 1}">
@@ -90,6 +89,9 @@
           </a-collapse-panel>
         </a-collapse>
       </a-tab-pane>
+      <a-tab-pane key="position" tab="位置">
+        <common-position-option :item="item" />
+      </a-tab-pane>
       <a-tab-pane key="data" tab="数据">
         <common-data-option
           :item="item"
@@ -102,14 +104,14 @@
 </template>
 
 <script>
-import CommonOption from '../common/common-option'
+import CommonPositionOption from '../common/common-position-option'
 import CommonDataOption from '../common/common-data-option'
 import { fontWeightList, positionList } from '../common'
 
 export default {
   name: 'CounterOption',
   components: {
-    CommonOption,
+    CommonPositionOption,
     CommonDataOption
   },
   props: {

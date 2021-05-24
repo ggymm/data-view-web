@@ -1,9 +1,8 @@
 <!--suppress JSUnresolvedVariable, JSUnusedLocalSymbols -->
 <template>
-  <div class="data-view-chart-option two">
+  <div class="data-view-chart-option three">
     <a-tabs>
       <a-tab-pane key="style" tab="样式">
-        <common-option :item="item" />
         <common-chart-option :item="item" />
         <coordinate-system-option :item="item" />
         <a-collapse :bordered="false" :accordion="true">
@@ -40,6 +39,9 @@
           </a-collapse-panel>
         </a-collapse>
       </a-tab-pane>
+      <a-tab-pane key="position" tab="位置">
+        <common-position-option :item="item" />
+      </a-tab-pane>
       <a-tab-pane key="data" tab="数据">
         <common-data-option
           :item="item"
@@ -52,18 +54,18 @@
 </template>
 
 <script>
-import CommonOption from '../common/common-option'
 import CommonChartOption from '../common/common-chart-option'
 import CoordinateSystemOption from '../common/coordinate-system-option'
+import CommonPositionOption from '../common/common-position-option'
 import CommonDataOption from '../common/common-data-option'
 import { lineTypeList } from '../common'
 
 export default {
   name: 'LineNormalOption',
   components: {
-    CommonOption,
     CommonChartOption,
     CoordinateSystemOption,
+    CommonPositionOption,
     CommonDataOption
   },
   props: {

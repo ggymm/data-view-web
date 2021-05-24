@@ -47,7 +47,7 @@ const OptionConfigMap = {
   'plotMap': getPlotMapConfig,
 
   'LineNormal': getLineNormalConfig,
-  'LineArea': getLineAreaConfig(),
+  'LineArea': getLineAreaConfig,
   'lineCoordinate': getLineCoordinateConfig,
 
   'HistogramNormal': getHistogramNormalConfig,

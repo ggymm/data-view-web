@@ -87,7 +87,6 @@ export default {
     item: {
       deep: true,
       handler(item) {
-        console.log(JSON.stringify(item.option.series))
         // 取数据模块
         this.getChartData()
         // 刷新数据模块

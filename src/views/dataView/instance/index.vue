@@ -91,7 +91,7 @@
           </a-form>
         </div>
         <chart-option
-          v-show="Object.keys(chooseItem).length >= 0"
+          v-show="Object.keys(chooseItem).length > 0"
           :data-source-list="dataSourceList"
           :item="chooseItem"
           @handleDeleteItem="handleDelete"

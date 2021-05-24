@@ -79,7 +79,6 @@ Vue.component('progressBarOption', ProgressBarOption)
 Vue.component('pictureOption', PictureOption)
 Vue.component('gaugeOption', GaugeOption)
 
-Vue.component('undefinedOption', GaugeOption)
 export {
   PlotBubbleOption,
   PlotMapOption,
