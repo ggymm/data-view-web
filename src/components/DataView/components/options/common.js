@@ -34,3 +34,9 @@ export const legendTypeList = [
   { label: '普通图例', value: 'plain' },
   { label: '可滚动翻页的图例', value: 'scroll' }
 ]
+
+export const labelPositionList = [
+  { label: '饼图扇区外侧', value: 'outside' },
+  { label: '饼图扇区内部', value: 'inside' },
+  { label: '饼图中心位置', value: 'center' }
+]

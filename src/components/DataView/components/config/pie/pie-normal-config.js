@@ -11,7 +11,7 @@ const PieNormalConfig = function() {
       dataSourceType: '',
       database: '',
       fileName: '',
-      sql: 'select name,value from pie',
+      sql: 'select * from pie_normal',
       name: 'name',
       value: 'value'
     },
@@ -32,7 +32,16 @@ const PieNormalConfig = function() {
         trigger: 'item',
         formatter: '{a}<br/>{b}:{c}({d}%)'
       },
-      series: []
+      series: [
+        {
+          type: 'pie',
+          center: ['50%', '50%'],
+          radius: [0, '70%'],
+          roseType: false,
+          label: {},
+          labelLine: {}
+        }
+      ]
     }
   }
 }

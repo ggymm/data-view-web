@@ -1,7 +1,7 @@
 import Vue from 'vue'
 
-import PlotBubble from './plot/plot-bubble'
-import PlotMap from './plot/plot-map'
+import ScatterNormal from './scatter/scatter-normal'
+import PlotMap from './scatter/plot-map'
 
 import LineNormal from './line/line-normal'
 import LineArea from './line/line-area'
@@ -11,10 +11,6 @@ import HistogramNormal from './histogram/histogram-normal'
 import MapChina from './map/map-china'
 
 import PieNormal from './pie/pie-normal'
-import PieRing from './pie/pie-ring'
-import PieRings from './pie/pie-rings'
-import Pie2D from './pie/pie-2d'
-import PiePercent from './pie/pie-percent'
 
 import RadarBasic from './radar/radar-basic'
 
@@ -34,7 +30,7 @@ import ProgressBar from './other/progress-bar'
 import PictureV from './other/picture'
 import Gauge from './other/gauge'
 
-Vue.component('PlotBubble', PlotBubble)
+Vue.component('ScatterNormal', ScatterNormal)
 Vue.component('PlotMap', PlotMap)
 
 Vue.component('LineNormal', LineNormal)
@@ -45,10 +41,6 @@ Vue.component('HistogramNormal', HistogramNormal)
 Vue.component('MapChina', MapChina)
 
 Vue.component('PieNormal', PieNormal)
-Vue.component('PieRing', PieRing)
-Vue.component('PieRings', PieRings)
-Vue.component('Pie2D', Pie2D)
-Vue.component('PiePercent', PiePercent)
 
 Vue.component('RadarBasic', RadarBasic)
 
@@ -69,7 +61,7 @@ Vue.component('PictureV', PictureV)
 Vue.component('Gauge', Gauge)
 
 export {
-  PlotBubble,
+  ScatterNormal,
   PlotMap,
 
   LineNormal,
@@ -80,10 +72,6 @@ export {
   MapChina,
 
   PieNormal,
-  PieRing,
-  PieRings,
-  Pie2D,
-  PiePercent,
 
   RadarBasic,
 

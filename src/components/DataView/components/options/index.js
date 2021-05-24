@@ -1,7 +1,7 @@
 import Vue from 'vue'
 
-import PlotBubbleOption from './plot/plot-bubble-option'
-import PlotMapOption from './plot/plot-map-option'
+import ScatterNormalOption from './scatter/scatter-normal-option'
+import PlotMapOption from './scatter/plot-map-option'
 
 import LineNormalOption from './line/line-normal-option'
 import LineAreaOption from './line/line-area-option'
@@ -14,10 +14,6 @@ import MapWorldOption from './map/map-world-option'
 import MapProvinceOption from './map/map-province-option'
 
 import PieNormalOption from './pie/pie-normal-option'
-import PieRingOption from './pie/pie-ring-option'
-import Pie2DOption from './pie/pie-2d-option'
-import PiePercentOption from './pie/pie-percent-option'
-import PieRingsOption from './pie/pie-rings-option'
 
 import RadarBasicOption from './radar/radar-basic-option'
 
@@ -40,7 +36,7 @@ import ProgressBarOption from './other/progress-bar-option'
 import PictureOption from './other/picture-option'
 import GaugeOption from './other/gauge-option'
 
-Vue.component('plotBubbleOption', PlotBubbleOption)
+Vue.component('ScatterNormalOption', ScatterNormalOption)
 Vue.component('plotMapOption', PlotMapOption)
 
 Vue.component('LineNormalOption', LineNormalOption)
@@ -53,10 +49,6 @@ Vue.component('mapWorldOption', MapWorldOption)
 Vue.component('mapProvinceOption', MapProvinceOption)
 
 Vue.component('PieNormalOption', PieNormalOption)
-Vue.component('pieRingOption', PieRingOption)
-Vue.component('pieRingsOption', PieRingsOption)
-Vue.component('pie2DOption', Pie2DOption)
-Vue.component('piePercentOption', PiePercentOption)
 
 Vue.component('radarBasicOption', RadarBasicOption)
 
@@ -80,7 +72,7 @@ Vue.component('pictureOption', PictureOption)
 Vue.component('gaugeOption', GaugeOption)
 
 export {
-  PlotBubbleOption,
+  ScatterNormalOption,
   PlotMapOption,
 
   LineNormalOption,
@@ -94,10 +86,6 @@ export {
   MapProvinceOption,
 
   PieNormalOption,
-  PieRingOption,
-  Pie2DOption,
-  PiePercentOption,
-  PieRingsOption,
 
   RadarBasicOption,
 

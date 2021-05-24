@@ -6,16 +6,17 @@
     :autoresize="true"
     :init-options="initOption"
     :option="option"
-    element-loading-text="Loading..."
+    :update-options="updateOptions"
+    element-loading-text="加载中"
     class="chart"
     @click="handleChartClick"
   />
 </template>
 <script>
-import { getPlotBubbleConfig } from '../../config/plot/plot-bubble-config'
+import { getScatterNormalConfig } from '../../config/plot/scatter-normal-config'
 
 export default {
-  name: 'PlotBubble',
+  name: 'ScatterNormal',
   props: {
     loading: {
       type: Boolean,
@@ -24,7 +25,13 @@ export default {
     option: {
       type: Object,
       default() {
-        return getPlotBubbleConfig().option
+        return getScatterNormalConfig().option
+      }
+    },
+    updateOptions: {
+      type: Object,
+      default() {
+        return {}
       }
     },
     apiData: {
@@ -43,7 +50,7 @@ export default {
   data() {
     return {
       chartType: 'plotBubble',
-      initOption: getPlotBubbleConfig().option
+      initOption: getScatterNormalConfig().option
     }
   },
   watch: {

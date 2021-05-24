@@ -9,13 +9,14 @@
     :update-options="updateOptions"
     element-loading-text="加载中"
     class="chart"
+    @click="handleChartClick"
   />
 </template>
 <script>
 import OptionConfigMap from '@/components/DataView/components/config'
 
 export default {
-  name: 'PieNormal',
+  name: 'ScatterNormal',
   props: {
     loading: {
       type: Boolean,
@@ -24,7 +25,7 @@ export default {
     option: {
       type: Object,
       default() {
-        return OptionConfigMap['PieNormal'].option
+        return OptionConfigMap['ScatterNormal'].option
       }
     },
     updateOptions: {
@@ -48,7 +49,7 @@ export default {
   },
   data() {
     return {
-      initOption: OptionConfigMap['PieNormal'].option
+      initOption: OptionConfigMap['ScatterNormal'].option
     }
   },
   watch: {
@@ -64,11 +65,32 @@ export default {
   },
   methods: {
     setData() {
-      if (this.apiData.source.length <= 0) {
+      if (this.apiData.source.length <= 1) {
         return
       }
 
       this.$set(this.option, 'dataset', this.apiData)
+      const legend = this.apiData.source[0]
+
+      const series = []
+      if (legend.length === 1) {
+        if (this.option.series.length === 0 || this.option.series.length !== legend.length) {
+          series.push({
+            type: 'scatter'
+          })
+          this.$set(this.option, 'series', series)
+        }
+      } else {
+        if (legend.length - 1 !== this.option.series.length) {
+          // 如果两次数据个数不一致，应该清空重新设置
+          for (let i = 1; i < legend.length; i++) {
+            series.push({
+              type: 'scatter'
+            })
+          }
+          this.$set(this.option, 'series', series)
+        }
+      }
     }
   }
 }

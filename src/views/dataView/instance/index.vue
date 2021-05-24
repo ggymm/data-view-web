@@ -63,7 +63,7 @@
         </div>
       </div>
       <div class="data-view-option">
-        <div v-show="Object.keys(chooseItem).length === 0" class="data-view-option-panel">
+        <div v-if="Object.keys(chooseItem).length === 0" class="data-view-option-panel">
           <a-form :model="panelConfig" layout="horizontal" :label-col="{span: 6}" :wrapper-col="{span: 14}">
             <a-form-item label="大屏标题">
               <a-input v-model="panelConfig.title" />
@@ -91,7 +91,7 @@
           </a-form>
         </div>
         <chart-option
-          v-show="Object.keys(chooseItem).length > 0"
+          v-else
           :data-source-list="dataSourceList"
           :item="chooseItem"
           @handleDeleteItem="handleDelete"

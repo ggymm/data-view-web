@@ -1,11 +1,16 @@
 export const menus = [
   {
-    'key': 'plot',
+    'key': 'scatter',
     'title': '散点图',
     'children': [
       {
-        'key': 'plotBubble',
-        'icon': 'plotBubble',
+        'key': 'ScatterNormal',
+        'icon': 'ScatterNormal',
+        'title': '散点图'
+      },
+      {
+        'key': 'ScatterBubble',
+        'icon': 'ScatterBubble',
         'title': '气泡散点图'
       },
       {
@@ -85,32 +90,12 @@ export const menus = [
   },
   {
     'key': 'pie',
-    'title': '饼状图',
+    'title': '饼图',
     'children': [
       {
         'key': 'PieNormal',
         'icon': 'PieNormal',
         'title': '普通饼图'
-      },
-      {
-        'key': 'pieRing',
-        'icon': 'pieRing',
-        'title': '环形饼图'
-      },
-      {
-        'key': 'pie2D',
-        'icon': 'pie2D',
-        'title': '2D饼图'
-      },
-      {
-        'key': 'piePercent',
-        'icon': 'piePercent',
-        'title': '环形百分比图'
-      },
-      {
-        'key': 'pieRings',
-        'icon': 'pieRings',
-        'title': '环形饼图列表'
       }
     ]
   },

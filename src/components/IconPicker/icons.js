@@ -21,7 +21,7 @@ const icons = [
   {
     key: 'data',
     title: '数据类图标',
-    icons: ['area-chart', 'pie-chart', 'bar-chart', 'dot-chart', 'line-chart', 'radar-chart', 'heat-map', 'fall', 'rise', 'stock', 'box-plot', 'fund', 'sliders']
+    icons: ['area-chart', 'pie-chart', 'bar-chart', 'dot-chart', 'line-chart', 'radar-chart', 'heat-map', 'fall', 'rise', 'stock', 'box-scatter', 'fund', 'sliders']
   },
   {
     key: 'brand_logo',

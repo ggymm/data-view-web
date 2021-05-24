@@ -1,4 +1,4 @@
-import { getPlotBubbleConfig } from './plot/plot-bubble-config'
+import { getScatterNormalConfig } from './plot/scatter-normal-config'
 import { getPlotMapConfig } from './plot/plot-map-config'
 
 import { getLineNormalConfig } from './line/line-normal-config'
@@ -16,10 +16,6 @@ import { getMapWorldConfig } from './map/map-world-config'
 import { getMapProvinceConfig } from './map/map-province-config'
 
 import { getPieNormalConfig } from './pie/pie-normal-config'
-import { getPieRingConfig } from './pie/pie-ring-config'
-import { getPie2DConfig } from './pie/pie-2d-config'
-import { getPiePercentConfig } from './pie/pie-percent-config'
-import { getPieRingsConfig } from './pie/pie-rings-config'
 
 import { getRadarBasicConfig } from './radar/radar-basic-config'
 
@@ -43,7 +39,7 @@ import { getPictureConfig } from './other/picture-config'
 import { getGaugeConfig } from './other/gauge-config'
 
 const OptionConfigMap = {
-  'plotBubble': getPlotBubbleConfig,
+  'ScatterNormal': getScatterNormalConfig,
   'plotMap': getPlotMapConfig,
 
   'LineNormal': getLineNormalConfig,
@@ -61,10 +57,6 @@ const OptionConfigMap = {
   'mapProvince': getMapProvinceConfig,
 
   'PieNormal': getPieNormalConfig,
-  'pieRing': getPieRingConfig,
-  'pie2D': getPie2DConfig,
-  'piePercent': getPiePercentConfig,
-  'pieRings': getPieRingsConfig,
 
   'radarBasic': getRadarBasicConfig,
 

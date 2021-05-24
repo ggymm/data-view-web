@@ -6,7 +6,7 @@
         <common-chart-option :item="item" />
         <coordinate-system-option :item="item" />
         <a-collapse :bordered="false" :accordion="true">
-          <a-collapse-panel key="折线设置" header="折线设置">
+          <a-collapse-panel key="折线配置" header="折线配置">
             <a-form layout="horizontal" :label-col="{span: 6}" :wrapper-col="{span: 14, offset: 1}">
               <div v-for="(s, i) in item.option.series" :key="i">
                 <a-form-item :label="'是否平滑' + i">
@@ -84,6 +84,7 @@ export default {
   },
   data() {
     return {
+      lineTypeList,
       fileNameList: [],
       params: [
         {
@@ -98,8 +99,7 @@ export default {
           'label': 'y轴字段',
           'value': 'value'
         }
-      ],
-      lineTypeList
+      ]
     }
   }
 }

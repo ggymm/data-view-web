@@ -4,11 +4,6 @@
       <a-tab-pane key="style" tab="样式">
         <common-chart-option :item="item" />
         <coordinate-system-option :item="item" />
-        <a-collapse :bordered="false" :accordion="true">
-          <a-collapse-panel key="柱配置" header="柱配置">
-            <a-form :model="item" layout="horizontal" :label-col="{span: 6}" :wrapper-col="{span: 14, offset: 1}" />
-          </a-collapse-panel>
-        </a-collapse>
       </a-tab-pane>
       <a-tab-pane key="position" tab="位置">
         <common-position-option :item="item" />
@@ -31,7 +26,7 @@ import CommonPositionOption from '../common/common-position-option'
 import CommonDataOption from '../common/common-data-option'
 
 export default {
-  name: 'HistogramNormalOption',
+  name: 'ScatterNormalOption',
   components: {
     CommonChartOption,
     CoordinateSystemOption,
@@ -54,6 +49,7 @@ export default {
   },
   data() {
     return {
+      fileNameList: [],
       params: [
         {
           'label': '分类字段',
