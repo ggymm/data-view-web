@@ -1,5 +1,5 @@
-import { getScatterNormalConfig } from './plot/scatter-normal-config'
-import { getPlotMapConfig } from './plot/plot-map-config'
+import { getScatterNormalConfig } from './scatter/scatter-normal-config'
+import { getPlotMapConfig } from './scatter/plot-map-config'
 
 import { getLineNormalConfig } from './line/line-normal-config'
 import { getLineAreaConfig } from './line/line-area-config'

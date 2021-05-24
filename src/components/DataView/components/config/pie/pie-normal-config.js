@@ -11,9 +11,9 @@ const PieNormalConfig = function() {
       dataSourceType: '',
       database: '',
       fileName: '',
-      sql: 'select * from pie_normal',
       name: 'name',
-      value: 'value'
+      value: 'value',
+      sql: 'select * from pie_normal'
     },
     data: [],
     interval: 8000,

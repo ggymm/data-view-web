@@ -11,10 +11,10 @@ const LineNormalConfig = function() {
       dataSourceType: '',
       database: '',
       fileName: '',
-      sql: 'select * from line_normal',
       dimension: '无',
       name: 'x',
-      value: 'y'
+      value: 'y',
+      sql: 'select * from line_normal'
     },
     data: [],
     interval: 8000,

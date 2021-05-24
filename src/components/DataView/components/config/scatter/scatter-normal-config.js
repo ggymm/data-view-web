@@ -11,11 +11,10 @@ const ScatterNormalConfig = function() {
       dataSourceType: '',
       database: '',
       fileName: '',
-      sql: 'select x,y,value,year from plot_bubble',
-      x: 'x',
-      y: 'y',
-      value: 'value',
-      legend: 'year'
+      dimension: '无',
+      name: 'x',
+      value: 'y',
+      sql: 'select * from scatter_normal'
     },
     data: [],
     interval: 8000,

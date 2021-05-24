@@ -13,7 +13,7 @@
   />
 </template>
 <script>
-import { getScatterNormalConfig } from '../../config/plot/scatter-normal-config'
+import { getScatterNormalConfig } from '../../config/scatter/scatter-normal-config'
 
 export default {
   name: 'ScatterNormal',
