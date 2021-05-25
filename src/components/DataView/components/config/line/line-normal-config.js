@@ -56,7 +56,24 @@ const LineNormalConfig = function() {
           }
         }
       },
-      yAxis: {},
+      yAxis: {
+        axisLine: {
+          show: true,
+          lineStyle: {
+            color: '#ffffff'
+          }
+        },
+        axisLabel: {
+          show: true,
+          color: '#ffffff'
+        },
+        splitLine: {
+          show: false,
+          lineStyle: {
+            color: ['#cccccc']
+          }
+        }
+      },
       series: []
     }
   }

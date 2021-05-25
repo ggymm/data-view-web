@@ -6,10 +6,6 @@ import { getLineAreaConfig } from './line/line-area-config'
 import { getLineCoordinateConfig } from './line/line-coordinate-config'
 
 import { getHistogramNormalConfig } from './histogram/histogram-normal-config'
-import { getHistogramGradientConfig } from './histogram/histogram-gradient-config'
-import { getHistogramGradientHorizontalConfig } from './histogram/histogram-gradient-horizontal-config'
-import { getHistogramStackingConfig } from './histogram/histogram-stacking-config'
-import { getHistogramComplexConfig } from './histogram/histogram-complex-config'
 
 import { getMapChinaConfig } from './map/map-china-config'
 import { getMapWorldConfig } from './map/map-world-config'
@@ -47,10 +43,6 @@ const OptionConfigMap = {
   'lineCoordinate': getLineCoordinateConfig,
 
   'HistogramNormal': getHistogramNormalConfig,
-  'histogramGradient': getHistogramGradientConfig,
-  'histogramGradientHorizontal': getHistogramGradientHorizontalConfig,
-  'histogramStacking': getHistogramStackingConfig,
-  'histogramComplex': getHistogramComplexConfig,
 
   'mapChina': getMapChinaConfig,
   'mapWorld': getMapWorldConfig,

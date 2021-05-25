@@ -51,11 +51,6 @@ export const menus = [
         'title': '柱状图'
       },
       {
-        'key': 'histogramGradientHorizontal',
-        'icon': 'histogramGradientHorizontal',
-        'title': '水平柱状图'
-      },
-      {
         'key': 'histogramStacking',
         'icon': 'histogramStacking',
         'title': '堆叠柱状图'

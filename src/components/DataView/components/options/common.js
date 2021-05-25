@@ -13,6 +13,11 @@ export const dataSourceTypeList = [
   { label: 'CSV文件数据源', value: 'CSV' }
 ]
 
+export const axisType = [
+  { value: 'category', label: '类目轴' },
+  { value: 'value', label: '数值轴' }
+]
+
 export const positionList = [
   { label: '居左', value: 'left' },
   { label: '居中', value: 'center' },

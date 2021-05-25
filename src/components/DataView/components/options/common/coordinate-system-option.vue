@@ -1,3 +1,4 @@
+<!--suppress JSUnresolvedVariable, JSUnusedLocalSymbols -->
 <template>
   <a-collapse :bordered="false" :accordion="true">
     <a-collapse-panel key="网格配置" header="网格配置">
@@ -20,6 +21,17 @@
       <a-form :model="item" layout="horizontal" :label-col="{span: 6}" :wrapper-col="{span: 14, offset: 1}">
         <a-form-item label="显示坐标轴">
           <a-switch v-model="item.option.xAxis.show" checked-children="显示" un-checked-children="不显示" />
+        </a-form-item>
+        <a-form-item label="坐标轴类型">
+          <a-select v-model="item.option.xAxis.type">
+            <a-select-option
+              v-for="axis in axisType"
+              :key="axis.value"
+              :value="axis.value"
+            >
+              {{ axis.label }}
+            </a-select-option>
+          </a-select>
         </a-form-item>
         <template v-if="item.option.xAxis.show">
           <a-form-item label="坐标轴名称">
@@ -50,12 +62,55 @@
       </a-form>
     </a-collapse-panel>
     <a-collapse-panel key="纵坐标轴配置" header="纵坐标轴配置">
-      <a-form :model="item" layout="horizontal" :label-col="{span: 6}" :wrapper-col="{span: 14, offset: 1}" />
+      <a-form :model="item" layout="horizontal" :label-col="{span: 6}" :wrapper-col="{span: 14, offset: 1}">
+        <a-form-item label="显示坐标轴">
+          <a-switch v-model="item.option.yAxis.show" checked-children="显示" un-checked-children="不显示" />
+        </a-form-item>
+        <a-form-item label="坐标轴类型">
+          <a-select v-model="item.option.yAxis.type">
+            <a-select-option
+              v-for="axis in axisType"
+              :key="axis.value"
+              :value="axis.value"
+            >
+              {{ axis.label }}
+            </a-select-option>
+          </a-select>
+        </a-form-item>
+        <template v-if="item.option.yAxis.show">
+          <a-form-item label="坐标轴名称">
+            <a-input v-model="item.option.yAxis.name" />
+          </a-form-item>
+          <a-form-item label="显示坐标轴线">
+            <a-switch v-model="item.option.yAxis.axisLine.show" checked-children="显示" un-checked-children="不显示" />
+          </a-form-item>
+          <a-form-item v-if="item.option.yAxis.axisLine.show" label="坐标轴线颜色">
+            <a-input v-model="item.option.yAxis.axisLine.lineStyle.color" type="color" />
+          </a-form-item>
+          <a-form-item label="显示坐标轴标签">
+            <a-switch v-model="item.option.yAxis.axisLabel.show" checked-children="显示" un-checked-children="不显示" />
+          </a-form-item>
+          <a-form-item v-if="item.option.yAxis.axisLabel.show" label="标签字体颜色">
+            <a-input v-model="item.option.yAxis.axisLabel.color" type="color" />
+          </a-form-item>
+          <a-form-item v-if="item.option.yAxis.axisLabel.show" label="标签旋转角度">
+            <a-input-number v-model="item.option.yAxis.axisLabel.rotate" :min="-90" :max="90" />
+          </a-form-item>
+          <a-form-item label="显示分割线">
+            <a-switch v-model="item.option.yAxis.splitLine.show" checked-children="显示" un-checked-children="不显示" />
+          </a-form-item>
+          <a-form-item v-if="item.option.yAxis.splitLine.show" label="分割线颜色">
+            <a-select v-model="item.option.yAxis.splitLine.lineStyle.color" mode="tags" />
+          </a-form-item>
+        </template>
+      </a-form>
     </a-collapse-panel>
   </a-collapse>
 </template>
 
 <script>
+import { axisType } from '../common'
+
 export default {
   name: 'CoordinateSystemOption',
   props: {
@@ -64,6 +119,11 @@ export default {
       default() {
         return {}
       }
+    }
+  },
+  data() {
+    return {
+      axisType
     }
   }
 }
