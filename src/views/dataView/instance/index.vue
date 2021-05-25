@@ -112,7 +112,7 @@ import VLoading from '@/components/Loading/loading-modal'
 
 import { getImageList } from '@/api/image'
 import { getDataSourceList } from '@/api/dataSource'
-import { getDataView } from '@/api/dataView'
+import { getDataView, saveDataView, updateDataView } from '@/api/dataView'
 
 export default {
   name: 'Index',
@@ -140,7 +140,7 @@ export default {
         // panelHeight: 1080,
         panelHeight: 842,
         backgroundColor: '#263546',
-        backgroundImg: '',
+        backgroundImg: null,
         instanceViewImg: '',
         instanceTheme: '',
         instanceVersion: 1
@@ -156,7 +156,7 @@ export default {
     const isCopy = this.$route.params.is_copy
     this.initPageStyle()
     if (instanceId) {
-      this.instanceId = instanceId + ''
+      this.instanceId = parseInt(instanceId)
       this.isCopy = parseInt(isCopy)
       this.getDataView(instanceId)
     }
@@ -207,7 +207,38 @@ export default {
       console.log('初始化获取可视化大屏信息')
       try {
         getDataView(instanceId).then(response => {
-          console.log('获取大屏信息返回值', response.data)
+          const items = JSON.parse(JSON.stringify(response.data.chart_items))
+          if (items !== null && items !== undefined && items.length > 0) {
+            items.map((item) => {
+              item.data = JSON.parse(item.data)
+              item.chartData = JSON.parse(item.chartData)
+              item.option = JSON.parse(item.option)
+              return item
+            })
+            const panelConfig = {
+              title: response.data.instance_title,
+              panelWidth: response.data.instance_width,
+              panelHeight: response.data.instance_height,
+              backgroundColor: response.data.instance_background_color,
+              backgroundImg: response.data.instance_background_img,
+              instanceVersion: response.data.instance_version
+            }
+            this.startIndex = response.data.start_index
+            this.panelConfig = JSON.parse(JSON.stringify(panelConfig))
+            this.slices = JSON.parse(JSON.stringify(items))
+          } else {
+            const panelConfig = {
+              title: response.data.instance_title,
+              panelWidth: response.data.instance_width,
+              panelHeight: response.data.instance_height,
+              backgroundColor: response.data.instance_background_color,
+              backgroundImg: response.data.instance_background_img,
+              instanceVersion: response.data.instance_version
+            }
+            this.startIndex = response.data.start_index
+            this.panelConfig = JSON.parse(JSON.stringify(panelConfig))
+            this.slices = []
+          }
         })
       } catch (e) {
         console.log('获取大屏信息或解析大屏信息失败', e)
@@ -239,6 +270,54 @@ export default {
       this.chooseItem = item
     },
     handleSave() {
+      const _this = this
+      const generateScreenCapture = new Promise(function(resolve) {
+        _this.$message.info('正在生成缩略图')
+        resolve()
+      })
+      generateScreenCapture.then(function() {
+        const items = JSON.parse(JSON.stringify(_this.slices))
+        items.map((item) => {
+          item.data = JSON.stringify(item.data)
+          item.chartData = JSON.stringify(item.chartData)
+          item.option = JSON.stringify(item.option)
+          return item
+        })
+        if (_this.isCopy === 1) {
+          // 证明是复制该模板，创建新的实例
+          // 需要将ID置为null
+          _this.instanceId = null
+        }
+        const screenInstance = {
+          instance_id: _this.instanceId,
+          instance_title: _this.panelConfig.title,
+          instance_width: _this.panelConfig.panelWidth,
+          instance_height: _this.panelConfig.panelHeight,
+          instance_background_color: _this.panelConfig.backgroundColor,
+          instance_background_img: _this.panelConfig.backgroundImg,
+          instance_view_thumbnail: _this.panelConfig.instanceViewImg,
+          instance_version: _this.panelConfig.instanceVersion,
+          chart_items: items
+        }
+        if (_this.instanceId) {
+          // 更新
+          updateDataView(screenInstance).then(response => {
+            const instanceId = response.data
+            _this.$message.success('更新成功')
+            // 新建会返回ID
+            // 访问编辑页面
+            window.location.href = '/dataViewInstance/index/' + instanceId + '/0'
+          })
+        } else {
+          saveDataView(screenInstance).then(response => {
+            const instanceId = response.data
+            _this.$message.success('保存成功')
+            // 新建会返回ID
+            // 访问编辑页面
+            window.location.href = '/dataViewInstance/index/' + instanceId + '/0'
+          })
+        }
+      })
     },
     previewScreen() {
     },
@@ -395,8 +474,9 @@ export default {
       color: #ffffff !important;
     }
   }
+
   .ant-menu-submenu-open {
-    color: #ffffff!important;
+    color: #ffffff !important;
   }
 }
 

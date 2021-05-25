@@ -86,6 +86,7 @@ export const asyncRouterMap = [
         hidden: true,
         children: [
           {
+            name: 'DataViewInstanceCreate',
             path: 'index',
             component: () => import('@/views/dataView/instance/index'),
             meta: {
@@ -93,6 +94,7 @@ export const asyncRouterMap = [
             }
           },
           {
+            name: 'DataViewInstanceEdit',
             path: 'index/:instance_id/:is_copy',
             component: () => import('@/views/dataView/instance/index'),
             meta: {

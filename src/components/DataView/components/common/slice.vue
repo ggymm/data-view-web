@@ -123,7 +123,7 @@ export default {
     }
   },
   mounted() {
-    const instanceId = this.$route.params.instanceId
+    const instanceId = this.$route.params.instance_id
     if (instanceId) {
       // 如果为编辑获取一次数据
       this.getChartData()

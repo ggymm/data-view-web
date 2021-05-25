@@ -16,6 +16,22 @@ export function getDataView(params) {
   })
 }
 
+export function saveDataView(params) {
+  return request({
+    url: baseUrl + 'dataView/',
+    method: 'post',
+    data: params
+  })
+}
+
+export function updateDataView(params) {
+  return request({
+    url: baseUrl + 'dataView/',
+    method: 'put',
+    data: params
+  })
+}
+
 export function getChartData(params) {
   return request({
     url: baseUrl + 'dataView/chartData',
