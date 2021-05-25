@@ -70,10 +70,6 @@ export default {
       fontWeightList,
       positionList
     }
-  },
-  methods: {
-    handleDelete() {
-    }
   }
 }
 </script>

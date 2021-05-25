@@ -23,7 +23,7 @@ import RelationFour from './relation/relation-four'
 import RelationFive from './relation/relation-five'
 
 import WordCloud from './other/word-cloud'
-import RotationList from './other/rotation-list'
+import CarouselList from './other/carousel-list'
 import Counter from './other/counter'
 import TitleText from './other/title-text'
 import ProgressBar from './other/progress-bar'
@@ -53,7 +53,7 @@ Vue.component('RelationFour', RelationFour)
 Vue.component('RelationFive', RelationFive)
 
 Vue.component('WordCloud', WordCloud)
-Vue.component('RotationList', RotationList)
+Vue.component('CarouselList', CarouselList)
 Vue.component('Counter', Counter)
 Vue.component('TitleText', TitleText)
 Vue.component('ProgressBar', ProgressBar)
@@ -84,7 +84,7 @@ export {
   RelationFive,
 
   WordCloud,
-  RotationList,
+  CarouselList,
   Counter,
   TitleText,
   ProgressBar,

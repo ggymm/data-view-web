@@ -29,7 +29,7 @@ import RelationFourOption from './relation/relation-four-option'
 import RelationFiveOption from './relation/relation-five-option'
 
 import WordCloudOption from './other/word-cloud-option'
-import RotationListOption from './other/rotation-list-option'
+import CarouselListOption from './other/carousel-list-option'
 import CounterOption from './other/counter-option'
 import TitleTextOption from './other/title-text-option'
 import ProgressBarOption from './other/progress-bar-option'
@@ -64,7 +64,7 @@ Vue.component('relationFourOption', RelationFourOption)
 Vue.component('relationFiveOption', RelationFiveOption)
 
 Vue.component('wordCloudOption', WordCloudOption)
-Vue.component('rotationListOption', RotationListOption)
+Vue.component('CarouselListOption', CarouselListOption)
 Vue.component('CounterOption', CounterOption)
 Vue.component('TitleTextOption', TitleTextOption)
 Vue.component('progressBarOption', ProgressBarOption)
@@ -101,7 +101,7 @@ export {
   RelationFiveOption,
 
   WordCloudOption,
-  RotationListOption,
+  CarouselListOption,
   CounterOption,
   TitleTextOption,
   ProgressBarOption,

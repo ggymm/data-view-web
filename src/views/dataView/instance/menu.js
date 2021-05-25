@@ -177,8 +177,8 @@ export const menus = [
         'title': '词云'
       },
       {
-        'key': 'rotationList',
-        'icon': 'rotationList',
+        'key': 'CarouselList',
+        'icon': 'CarouselList',
         'title': '轮播列表'
       },
       {

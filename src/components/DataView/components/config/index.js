@@ -31,7 +31,7 @@ import { getRelationFourConfig } from './relation/relation-four-config'
 import { getRelationFiveConfig } from './relation/relation-five-config'
 
 import { getWordCloudConfig } from './other/word-cloud-config'
-import { getRotationListConfig } from './other/rotation-list-config'
+import { getCarouselListConfig } from './other/carousel-list-config'
 import { getCounterConfig } from './other/counter-config'
 import { getTitleTextConfig } from './other/title-text-config'
 import { getProgressBarConfig } from './other/progress-bar-config'
@@ -72,7 +72,7 @@ const OptionConfigMap = {
   'relationFive': getRelationFiveConfig,
 
   'wordCloud': getWordCloudConfig,
-  'rotationList': getRotationListConfig,
+  'CarouselList': getCarouselListConfig,
   'Counter': getCounterConfig,
   'TitleText': getTitleTextConfig,
   'progressBar': getProgressBarConfig,
