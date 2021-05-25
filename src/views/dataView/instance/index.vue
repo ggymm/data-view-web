@@ -35,7 +35,7 @@
         >
           <layout
             :background-color="panelConfig.backgroundColor"
-            :background-img="'url(' + panelConfig.backgroundImg + ')'"
+            :background-img="'url(http://192.168.50.158:9000' + panelConfig.backgroundImg + ')'"
             @layoutUpdated="handleLayoutUpdated"
             @sizeUpdate="handleSizeUpdate"
           >
@@ -141,7 +141,7 @@ export default {
         panelHeight: 842,
         backgroundColor: '#263546',
         backgroundImg: null,
-        instanceViewImg: '',
+        instanceViewImg: null,
         instanceTheme: '',
         instanceVersion: 1
       },
@@ -302,19 +302,22 @@ export default {
         if (_this.instanceId) {
           // 更新
           updateDataView(screenInstance).then(response => {
-            const instanceId = response.data
-            _this.$message.success('更新成功')
-            // 新建会返回ID
-            // 访问编辑页面
-            window.location.href = '/dataViewInstance/index/' + instanceId + '/0'
+            if (response.success) {
+              _this.$message.success('更新成功')
+              window.location.href = '/dataViewInstance/index/' + _this.instanceId + '/0'
+            } else {
+              _this.$message.success('更新失败, ' + response.data)
+            }
           })
         } else {
           saveDataView(screenInstance).then(response => {
-            const instanceId = response.data
-            _this.$message.success('保存成功')
-            // 新建会返回ID
-            // 访问编辑页面
-            window.location.href = '/dataViewInstance/index/' + instanceId + '/0'
+            if (response.success) {
+              const instanceId = response.data
+              _this.$message.success('保存成功')
+              window.location.href = '/dataViewInstance/index/' + instanceId + '/0'
+            } else {
+              _this.$message.success('保存失败, ' + response.data)
+            }
           })
         }
       })
