@@ -15,6 +15,9 @@
               <a-form-item label="文本字体">
                 <a-input-number v-model="item.option.fontSize" :min="0" :precision="0" />
               </a-form-item>
+              <a-form-item label="文本高度">
+                <a-input-number v-model="item.option.height" :min="0" :precision="0" />
+              </a-form-item>
               <a-form-item label="文本加粗">
                 <a-select v-model="item.option.fontWeight">
                   <a-select-option

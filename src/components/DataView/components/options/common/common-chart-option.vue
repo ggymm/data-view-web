@@ -20,10 +20,21 @@
           <a-form-item label="标题颜色">
             <a-input v-model="item.option.title.textStyle.color" type="color" />
           </a-form-item>
-          <a-form-item label="标题位置">
+          <a-form-item label="标题位置(左)">
             <a-select v-model="item.option.title.left">
               <a-select-option
                 v-for="position in positionList"
+                :key="position.value"
+                :value="position.value"
+              >
+                {{ position.label }}
+              </a-select-option>
+            </a-select>
+          </a-form-item>
+          <a-form-item label="标题位置(上)">
+            <a-select v-model="item.option.title.top">
+              <a-select-option
+                v-for="position in positionTopList"
                 :key="position.value"
                 :value="position.value"
               >
@@ -107,7 +118,7 @@
 </template>
 
 <script>
-import { positionList, legendTypeList, orientList } from '../common'
+import { positionList, positionTopList, legendTypeList, orientList } from '../common'
 
 export default {
   name: 'CommonChartOption',
@@ -122,6 +133,7 @@ export default {
   data() {
     return {
       positionList,
+      positionTopList,
       legendTypeList,
       orientList
     }

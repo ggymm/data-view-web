@@ -130,14 +130,18 @@ export default {
       this.setTimer()
     },
     setData() {
+      this.option.body.data = JSON.parse(JSON.stringify(this.apiData.body))
+      if (this.option.header.data.length === this.apiData.header.length) {
+        return
+      }
+      const header = []
       for (let i = 0; i < this.apiData.header.length; i++) {
-        this.option.header.data.push({
+        header.push({
           width: '100px',
           label: this.apiData.header[i]
         })
       }
-
-      this.option.body.data = JSON.parse(JSON.stringify(this.apiData.body))
+      this.$set(this.option.header, 'data', header)
     }
   }
 }

@@ -4,7 +4,7 @@ import router from './router'
 import store from './store'
 
 import ProLayout, { PageHeaderWrapper } from '@ant-design-vue/pro-layout'
-import GlobalComponents from '@/components/DataView/components/global-components'
+import GlobalComponents from '@/components/DataView/global-components'
 
 import './core/lazy_use' // use lazy load components
 import './global.less' // global style

@@ -24,6 +24,12 @@ export const positionList = [
   { label: '居右', value: 'right' }
 ]
 
+export const positionTopList = [
+  { label: '居上', value: 'top' },
+  { label: '居中', value: 'center' },
+  { label: '居下', value: 'bottom' }
+]
+
 export const orientList = [
   { label: '纵向', value: 'vertical' },
   { label: '横向', value: 'horizontal' }

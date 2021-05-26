@@ -76,7 +76,8 @@ export default {
       if (legend.length === 1) {
         if (this.option.series.length === 0 || this.option.series.length !== legend.length) {
           series.push({
-            type: 'bar'
+            type: 'bar',
+            itemStyle: {}
           })
           this.$set(this.option, 'series', series)
         }
@@ -85,7 +86,8 @@ export default {
           // 如果两次数据个数不一致，应该清空重新设置
           for (let i = 1; i < legend.length; i++) {
             series.push({
-              type: 'bar'
+              type: 'bar',
+              itemStyle: {}
             })
           }
           this.$set(this.option, 'series', series)

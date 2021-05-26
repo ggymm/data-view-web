@@ -59,6 +59,9 @@
             <a-select v-model="item.option.xAxis.splitLine.lineStyle.color" mode="tags" />
           </a-form-item>
         </template>
+        <a-form-item label="显示坐标轴刻度">
+          <a-switch v-model="item.option.xAxis.axisTick.show" checked-children="显示" un-checked-children="不显示" />
+        </a-form-item>
       </a-form>
     </a-collapse-panel>
     <a-collapse-panel key="纵坐标轴配置" header="纵坐标轴配置">
@@ -103,6 +106,9 @@
             <a-select v-model="item.option.yAxis.splitLine.lineStyle.color" mode="tags" />
           </a-form-item>
         </template>
+        <a-form-item label="显示坐标轴刻度">
+          <a-switch v-model="item.option.yAxis.axisTick.show" checked-children="显示" un-checked-children="不显示" />
+        </a-form-item>
       </a-form>
     </a-collapse-panel>
   </a-collapse>

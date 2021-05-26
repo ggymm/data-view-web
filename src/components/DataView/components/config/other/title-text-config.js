@@ -21,6 +21,7 @@ const TitleTextConfig = function() {
       title: '标题文本',
       fontColor: '#ffffff',
       fontSize: 16,
+      height: 50,
       fontWeight: 'normal',
       textAlign: 'center'
     }

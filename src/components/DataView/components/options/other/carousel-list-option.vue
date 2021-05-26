@@ -17,16 +17,14 @@
               <a-form-item label="字体大小">
                 <a-input-number v-model="item.option.header.fontSize" :min="0" :precision="0" />
               </a-form-item>
-              <template v-if="item.option.header.show">
-                <div v-for="(header, i) in item.option.header.data" :key="i">
-                  <a-form-item :label="'标题' + i">
-                    <a-input v-model="header.label" />
-                  </a-form-item>
-                  <a-form-item :label="'宽度' + i">
-                    <a-input v-model="header.width" />
-                  </a-form-item>
-                </div>
-              </template>
+              <div v-for="(header, i) in item.option.header.data" :key="i">
+                <a-form-item v-if="item.option.header.show" :label="'标题-' + i">
+                  <a-input v-model="header.label" />
+                </a-form-item>
+                <a-form-item :label="'宽度-' + i">
+                  <a-input v-model="header.width" />
+                </a-form-item>
+              </div>
             </a-form>
           </a-collapse-panel>
           <a-collapse-panel key="表体配置" header="表体配置">

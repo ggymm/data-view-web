@@ -103,10 +103,10 @@
 
 <script>
 import { menus } from './menu'
-import Slice from '@/components/DataView/components/common/slice'
-import ChartOption from '@/components/DataView/components/common/chart-option'
-import Layout from '@/components/DataView/components/layout/layout'
-import Item from '@/components/DataView/components/layout/item'
+import Slice from '@/components/DataView/common/slice'
+import ChartOption from '@/components/DataView/common/chart-option'
+import Layout from '@/components/DataView/layout/layout'
+import Item from '@/components/DataView/layout/item'
 import OptionConfigMap from '@/components/DataView/components/config'
 import VLoading from '@/components/Loading/loading-modal'
 

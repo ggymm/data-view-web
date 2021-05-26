@@ -1,18 +1,15 @@
 <template>
   <div
     ref="container"
-    v-clickOutside="handleItemUnChoose"
     :class="{'choose': item.choose === 'true',
              'adaptation': item.chartType === 'progressBar',
              'slice-wrapper': item.chartType !== 'progressBar'}"
-    @click="handleItemChoose"
   >
     <component
       :is="item.chartType"
       :loading="loading"
       :api-data="chartData"
       :option="item.option"
-      :update-options="updateOptions"
       :i="item.i"
       :theme="ThemeConfigMap[theme]"
       @init="chartInit"
@@ -20,40 +17,12 @@
   </div>
 </template>
 <script>
-import '../charts'
-import ThemeConfigMap from '@/components/DataView/themes/theme-config-map'
+import '../components/charts'
+import ThemeConfigMap from '../themes/theme-config-map'
 import { getChartData } from '@/api/dataView'
 
-// noinspection JSUnusedGlobalSymbols,JSUnusedLocalSymbols
-const clickOutside = {
-  // 初始化指令
-  bind(el, binding, vnode) {
-    function documentHandler(e) {
-      // 这里判断点击的元素是否是本身，是本身，则返回
-      if (el.parentNode.contains(e.target)) {
-        return false
-      }
-      // 判断指令中是否绑定了函数
-      if (binding.expression) {
-        // 如果绑定了函数 则调用那个函数，此处binding.value就是handleClose方法
-        binding.value(e)
-      }
-    }
-    // 给当前元素绑定个私有变量，方便在unbind中可以解除事件监听
-    el.__vueClickOutside__ = documentHandler
-    document.addEventListener('click', documentHandler)
-  },
-  update() {},
-  unbind(el, binding) {
-    // 解除事件监听
-    document.removeEventListener('click', el.__vueClickOutside__)
-    delete el.__vueClickOutside__
-  }
-}
-
 export default {
-  name: 'Slice',
-  directives: { clickOutside },
+  name: 'SlicePreview',
   props: {
     item: {
       type: Object,
@@ -71,10 +40,6 @@ export default {
   data() {
     return {
       loading: true,
-      updateOptions: {
-        notMerge: true,
-        lazyUpdate: false
-      },
       chart: null,
       chartData: null,
       lastChartData: {},
@@ -123,7 +88,7 @@ export default {
     }
   },
   mounted() {
-    const instanceId = this.$route.params.instance_id
+    const instanceId = this.$route.params.instanceId
     if (instanceId) {
       // 如果为编辑获取一次数据
       this.getChartData()
@@ -142,23 +107,26 @@ export default {
         index++
       }, 2000)
     },
+
     getChartData() {
-      const config = this.item.chartData
-      if (!this.checkData(this.lastChartData, config)) {
-        if (config.dataSourceType === 'DataBase' && config.database !== '') {
+      const _chartDataConfig = this.item.chartData
+      if (!this.checkData(this.lastChartData, _chartDataConfig)) {
+        if (_chartDataConfig.dataSourceType === 'DataBase' &&
+          _chartDataConfig.database !== '') {
           // 数据库需要检查每一个值是否编写正确
-          delete config.fileName
-          if (this.checkDataKey(config)) {
-            config.chartType = this.item.chartType
-            getChartData(config).then(response => {
-              this.chartData = response.data
+          delete _chartDataConfig.fileName
+          if (this.checkDataKey(_chartDataConfig)) {
+            _chartDataConfig.chartType = this.item.chartType
+            getChartData(_chartDataConfig).then(response => {
+              this.chartData = JSON.parse(response.data)
               this.loading = false
             })
           }
-        } else if (config.dataSourceType === 'CSV' && config.fileName !== '') {
-          console.log('')
+        } else if (_chartDataConfig.dataSourceType === 'CSV' &&
+          _chartDataConfig.fileName !== '') {
+          // console.log('')
         }
-        this.lastChartData = JSON.parse(JSON.stringify(config))
+        this.lastChartData = JSON.parse(JSON.stringify(_chartDataConfig))
       }
     },
     /**
@@ -181,13 +149,6 @@ export default {
     },
     chartInit({ chart }) {
       this.chart = chart
-    },
-    handleItemChoose() {
-      this.item.choose = 'true'
-      this.$emit('transferHandleItemChoose', this.item)
-    },
-    handleItemUnChoose() {
-      this.item.choose = 'false'
     },
     checkData(lastObject, newObject) {
       const lastObjectKeys = Object.keys(lastObject)

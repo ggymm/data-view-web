@@ -49,6 +49,9 @@ const LineNormalConfig = function() {
           show: true,
           color: '#ffffff'
         },
+        axisTick: {
+          show: false
+        },
         splitLine: {
           show: false,
           lineStyle: {
@@ -66,6 +69,9 @@ const LineNormalConfig = function() {
         axisLabel: {
           show: true,
           color: '#ffffff'
+        },
+        axisTick: {
+          show: false
         },
         splitLine: {
           show: false,

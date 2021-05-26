@@ -3,7 +3,7 @@ import * as echarts from 'echarts'
 
 import ECharts from 'vue-echarts'
 
-import chinaMap from '../map/china'
+import chinaMap from './map/china.json'
 
 echarts.registerMap('china', chinaMap)
 

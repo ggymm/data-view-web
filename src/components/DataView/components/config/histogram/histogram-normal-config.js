@@ -46,6 +46,9 @@ const HistogramNormalConfig = function() {
           show: true,
           color: '#ffffff'
         },
+        axisTick: {
+          show: false
+        },
         splitLine: {
           show: false,
           lineStyle: {
@@ -63,6 +66,9 @@ const HistogramNormalConfig = function() {
         axisLabel: {
           show: true,
           color: '#ffffff'
+        },
+        axisTick: {
+          show: false
         },
         splitLine: {
           show: false,

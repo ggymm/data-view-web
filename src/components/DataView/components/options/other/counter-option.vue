@@ -42,7 +42,7 @@
           <a-collapse-panel key="前缀配置" header="前缀配置">
             <a-form layout="horizontal" :label-col="{span: 6}" :wrapper-col="{span: 14, offset: 1}">
               <a-form-item label="文本内容">
-                <a-input v-model="item.option.prefix.title" type="color" />
+                <a-input v-model="item.option.prefix.title" />
               </a-form-item>
               <a-form-item label="文本颜色">
                 <a-input v-model="item.option.prefix.fontColor" type="color" />
@@ -66,7 +66,7 @@
           <a-collapse-panel key="单位配置" header="单位配置">
             <a-form layout="horizontal" :label-col="{span: 6}" :wrapper-col="{span: 14, offset: 1}">
               <a-form-item label="文本内容">
-                <a-input v-model="item.option.unit.title" type="color" />
+                <a-input v-model="item.option.unit.title" />
               </a-form-item>
               <a-form-item label="文本颜色">
                 <a-input v-model="item.option.unit.fontColor" type="color" />

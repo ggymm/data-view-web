@@ -2,6 +2,7 @@
   <div :style="{backgroundColor: option.backgroundColor}" class="chart">
     <div
       :style="{
+        lineHeight: option.height + 'px',
         color: option.fontColor,
         fontSize: option.fontSize + 'px',
         fontWeight: option.fontWeight,
