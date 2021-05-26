@@ -13,5 +13,6 @@ Vue.use(Router)
 
 export default new Router({
   mode: 'history',
+  base: '/data-view-web',
   routes: constantRouterMap.concat(asyncRouterMap)
 })

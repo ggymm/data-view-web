@@ -76,13 +76,13 @@ export default {
 
     },
     handleCreate() {
-      window.open('/dataViewInstance/index')
+      window.open('/data-view-web/data-view-instance/index')
     },
     handlePreview() {
 
     },
     handleEdit(instance_id) {
-      window.open('/dataViewInstance/index/' + instance_id + '/0')
+      window.open('/data-view-web/data-view-instance/index/' + instance_id + '/0')
     },
     handleDelete() {
 

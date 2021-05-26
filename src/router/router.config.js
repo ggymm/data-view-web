@@ -31,8 +31,8 @@ export const asyncRouterMap = [
       },
       // 数据源管理
       {
-        path: '/dataSource',
-        redirect: '/dataSource/index',
+        path: '/data-source',
+        redirect: '/data-source/index',
         name: 'DataSource',
         component: RouteView,
         hideChildrenInMenu: true,
@@ -52,8 +52,8 @@ export const asyncRouterMap = [
       },
       // 可视化大屏管理
       {
-        path: '/dataView',
-        redirect: '/dataView/index',
+        path: '/data-view',
+        redirect: '/data-view/index',
         name: 'DataView',
         component: RouteView,
         hideChildrenInMenu: true,
@@ -79,8 +79,8 @@ export const asyncRouterMap = [
     component: BlankLayout,
     children: [
       {
-        path: '/dataViewInstance',
-        redirect: '/dataViewInstance/index',
+        path: '/data-view-instance',
+        redirect: '/data-view-instance/index',
         name: 'DataViewInstance',
         component: RouteView,
         hidden: true,

@@ -305,7 +305,7 @@ export default {
           updateDataView(screenInstance).then(response => {
             if (response.success) {
               _this.$message.success('更新成功')
-              window.location.href = '/dataViewInstance/index/' + _this.instanceId + '/0'
+              window.location.href = '/data-view-web/data-view-instance/index/' + _this.instanceId + '/0'
             } else {
               _this.$message.success('更新失败, ' + response.data)
             }
@@ -315,7 +315,7 @@ export default {
             if (response.success) {
               const instanceId = response.data
               _this.$message.success('保存成功')
-              window.location.href = '/dataViewInstance/index/' + instanceId + '/0'
+              window.location.href = '/data-viwe-web/data-view-instance/index/' + instanceId + '/0'
             } else {
               _this.$message.success('保存失败, ' + response.data)
             }
@@ -325,7 +325,7 @@ export default {
     },
     previewScreen() {
       if (this.instanceId) {
-        window.open('/dataViewInstance/preview/' + this.instanceId)
+        window.open('/data-view-web/data-view-instance/preview/' + this.instanceId)
       } else {
         this.$message.info('请先保存图表后预览')
       }
