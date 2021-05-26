@@ -26,7 +26,7 @@
       </a-space>
     </div>
     <div class="data-view-main">
-      <div class="data-view-panel">
+      <div ref="data-view-panel" class="data-view-panel">
         <div
           class="data-view-screen"
           :style="{width: panelConfig.panelWidth + 40 + 'px', height: panelConfig.panelHeight + 40 + 'px'}"
@@ -102,6 +102,7 @@
 </template>
 
 <script>
+import html2canvas from 'html2canvas'
 import { menus } from './menu'
 import Slice from '@/components/DataView/common/slice'
 import ChartOption from '@/components/DataView/common/chart-option'
@@ -330,7 +331,16 @@ export default {
       }
     },
     previewDebug() {
-      console.log(JSON.stringify(this.slices))
+      const params = {
+        useCORS: true,
+        logging: false,
+        width: this.panelConfig.panelWidth,
+        height: this.panelConfig.panelHeight
+      }
+
+      html2canvas(document.getElementById('data-view-container-layout'), params).then(canvas => {
+        console.log(canvas.toDataURL('image/png'))
+      })
     },
     handleDelete() {
     }
@@ -398,7 +408,6 @@ export default {
         padding: 20px;
         position: relative;
         overflow: auto;
-        background: rgba(0, 0, 0, 0) url("../../../assets/grid.png") repeat scroll 0 0 / 8px 8px;
 
         .data-view-container-layout {
           width: 100%;
