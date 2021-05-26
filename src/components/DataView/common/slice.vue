@@ -125,7 +125,6 @@ export default {
   mounted() {
     const instanceId = this.$route.params.instance_id
     if (instanceId) {
-      // 如果为编辑获取一次数据
       this.getChartData()
     }
   },
@@ -146,7 +145,6 @@ export default {
       const config = this.item.chartData
       if (!this.checkData(this.lastChartData, config)) {
         if (config.dataSourceType === 'DataBase' && config.database !== '') {
-          // 数据库需要检查每一个值是否编写正确
           delete config.fileName
           if (this.checkDataKey(config)) {
             config.chartType = this.item.chartType

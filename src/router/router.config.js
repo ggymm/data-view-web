@@ -100,6 +100,14 @@ export const asyncRouterMap = [
             meta: {
               title: '可视化大屏编辑'
             }
+          },
+          {
+            name: 'DataViewInstancePreview',
+            path: 'preview/:instance_id',
+            component: () => import('@/views/dataView/instance/preview'),
+            meta: {
+              title: '可视化大屏编辑'
+            }
           }
         ]
       }

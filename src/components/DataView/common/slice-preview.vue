@@ -88,9 +88,8 @@ export default {
     }
   },
   mounted() {
-    const instanceId = this.$route.params.instanceId
+    const instanceId = this.$route.params.instance_id
     if (instanceId) {
-      // 如果为编辑获取一次数据
       this.getChartData()
     }
   },
@@ -107,7 +106,6 @@ export default {
         index++
       }, 2000)
     },
-
     getChartData() {
       const _chartDataConfig = this.item.chartData
       if (!this.checkData(this.lastChartData, _chartDataConfig)) {
@@ -118,7 +116,7 @@ export default {
           if (this.checkDataKey(_chartDataConfig)) {
             _chartDataConfig.chartType = this.item.chartType
             getChartData(_chartDataConfig).then(response => {
-              this.chartData = JSON.parse(response.data)
+              this.chartData = response.data
               this.loading = false
             })
           }

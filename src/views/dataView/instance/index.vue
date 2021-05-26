@@ -323,6 +323,11 @@ export default {
       })
     },
     previewScreen() {
+      if (this.instanceId) {
+        window.open('/dataViewInstance/preview/' + this.instanceId)
+      } else {
+        this.$message.info('请先保存图表后预览')
+      }
     },
     previewDebug() {
       console.log(JSON.stringify(this.slices))
