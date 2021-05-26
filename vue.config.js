@@ -10,6 +10,7 @@ const isProd = process.env.NODE_ENV === 'production'
 
 // vue.config.js
 const vueConfig = {
+  publicPath: '/data-view-web',
   configureWebpack: {
     // webpack plugins
     plugins: [
