@@ -4,7 +4,7 @@ const MapChinaConfig = function() {
     y: 0,
     width: 350,
     height: 250,
-    chartType: 'mapChina',
+    chartType: 'MapChina',
     choose: 'false',
     refresh: 'false',
     chartData: {
@@ -20,45 +20,23 @@ const MapChinaConfig = function() {
     interval: 8000,
     option: {
       title: {
+        show: true,
         text: '中国地图',
         left: 'center',
-        textStyle: { color: '#fff' }
-      },
-      grid: {
-        top: '60',
-        left: '1%',
-        right: '4%',
-        bottom: '10%',
-        containLabel: true
-      },
-      tooltip: {
-        trigger: 'item'
+        textStyle: {
+          color: '#ffffff'
+        }
       },
       legend: {
-        orient: 'vertical',
-        left: 'left',
-        data: [],
-        textStyle: { color: '#fff' }
+        show: false
       },
-      visualMap: {
-        min: 0,
-        max: 1000,
-        left: 'left',
-        top: 'bottom',
-        text: ['高', '低'],
-        calculable: true
+      grid: {
       },
       geo: {
         map: 'china',
         itemStyle: {
           areaColor: '#323c48',
           borderColor: '#111'
-        }
-      },
-      backgroundColor: 'rgba(255,255,255,0)',
-      toolbox: {
-        feature: {
-          saveAsImage: {}
         }
       },
       series: []

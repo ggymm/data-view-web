@@ -44,7 +44,7 @@ const OptionConfigMap = {
 
   'HistogramNormal': getHistogramNormalConfig,
 
-  'mapChina': getMapChinaConfig,
+  'MapChina': getMapChinaConfig,
   'mapWorld': getMapWorldConfig,
   'mapProvince': getMapProvinceConfig,
 

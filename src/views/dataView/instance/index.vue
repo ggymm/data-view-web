@@ -22,7 +22,7 @@
         <a-button type="primary" size="small" @click="handleSave">保存</a-button>
         <a-button v-if="Object.keys(chooseItem).length >= 0" type="primary" size="small" @click="chooseItem = {}">画板设置</a-button>
         <a-button type="primary" size="small" @click="previewScreen">预览</a-button>
-        <a-button type="primary" size="small" @click="previewDebug">调试</a-button>
+        <a-button type="primary" size="small" @click="debug">调试</a-button>
       </a-space>
     </div>
     <div class="data-view-main">
@@ -193,60 +193,6 @@ export default {
       // this.panelConfig.panelHeight = height - 50 - 20 * 2 - 5
       console.log('自动初始化', width, height)
     },
-    getDataSourceList() {
-      getDataSourceList().then(response => {
-        this.dataSourceList = response.data
-      })
-    },
-    getImageList() {
-      getImageList().then(response => {
-        this.backgroundImgList = response.data
-      })
-    },
-    getDataView(instanceId) {
-      console.group('初始化获取可视化大屏信息')
-      console.log('初始化获取可视化大屏信息')
-      try {
-        getDataView(instanceId).then(response => {
-          const items = JSON.parse(JSON.stringify(response.data.chart_items))
-          if (items !== null && items !== undefined && items.length > 0) {
-            items.map((item) => {
-              item.data = JSON.parse(item.data)
-              item.chartData = JSON.parse(item.chartData)
-              item.option = JSON.parse(item.option)
-              return item
-            })
-            const panelConfig = {
-              title: response.data.instance_title,
-              panelWidth: response.data.instance_width,
-              panelHeight: response.data.instance_height,
-              backgroundColor: response.data.instance_background_color,
-              backgroundImg: response.data.instance_background_img,
-              instanceVersion: response.data.instance_version
-            }
-            this.startIndex = response.data.start_index
-            this.panelConfig = JSON.parse(JSON.stringify(panelConfig))
-            this.slices = JSON.parse(JSON.stringify(items))
-          } else {
-            const panelConfig = {
-              title: response.data.instance_title,
-              panelWidth: response.data.instance_width,
-              panelHeight: response.data.instance_height,
-              backgroundColor: response.data.instance_background_color,
-              backgroundImg: response.data.instance_background_img,
-              instanceVersion: response.data.instance_version
-            }
-            this.startIndex = response.data.start_index
-            this.panelConfig = JSON.parse(JSON.stringify(panelConfig))
-            this.slices = []
-          }
-        })
-      } catch (e) {
-        console.log('获取大屏信息或解析大屏信息失败', e)
-      } finally {
-        console.groupEnd()
-      }
-    },
     handleLayoutUpdated(layout) {
       this.slices = this.slices.map((item) => {
         if (item.i === layout.id) {
@@ -270,58 +216,106 @@ export default {
       // 对应类别显示，数据则从数组里面取
       this.chooseItem = item
     },
-    handleSave() {
-      const _this = this
-      const generateScreenCapture = new Promise(function(resolve) {
-        _this.$message.info('正在生成缩略图')
-        resolve()
+    handleDelete() {
+    },
+    getDataSourceList() {
+      getDataSourceList().then(response => {
+        this.dataSourceList = response.data
       })
-      generateScreenCapture.then(function() {
-        const items = JSON.parse(JSON.stringify(_this.slices))
-        items.map((item) => {
-          item.data = JSON.stringify(item.data)
-          item.chartData = JSON.stringify(item.chartData)
-          item.option = JSON.stringify(item.option)
-          return item
-        })
-        if (_this.isCopy === 1) {
-          // 证明是复制该模板，创建新的实例
-          // 需要将ID置为null
-          _this.instanceId = null
-        }
-        const screenInstance = {
-          instance_id: _this.instanceId,
-          instance_title: _this.panelConfig.title,
-          instance_width: _this.panelConfig.panelWidth,
-          instance_height: _this.panelConfig.panelHeight,
-          instance_background_color: _this.panelConfig.backgroundColor,
-          instance_background_img: _this.panelConfig.backgroundImg,
-          instance_view_thumbnail: _this.panelConfig.instanceViewImg,
-          instance_version: _this.panelConfig.instanceVersion,
-          chart_items: items
-        }
-        if (_this.instanceId) {
-          // 更新
-          updateDataView(screenInstance).then(response => {
-            if (response.success) {
-              _this.$message.success('更新成功')
-              window.location.href = '/data-view-web/data-view-instance/index/' + _this.instanceId + '/0'
-            } else {
-              _this.$message.success('更新失败, ' + response.data)
-            }
+    },
+    getImageList() {
+      getImageList().then(response => {
+        this.backgroundImgList = response.data
+      })
+    },
+    async getDataView(instanceId) {
+      console.group('初始化获取可视化大屏信息')
+      console.log('初始化获取可视化大屏信息')
+      try {
+        const response = await getDataView(instanceId)
+        const items = JSON.parse(JSON.stringify(response.data.chart_items))
+        if (items !== null && items !== undefined && items.length > 0) {
+          items.map((item) => {
+            item.data = JSON.parse(item.data)
+            item.chartData = JSON.parse(item.chartData)
+            item.option = JSON.parse(item.option)
+            return item
           })
+          const panelConfig = {
+            title: response.data.instance_title,
+            panelWidth: response.data.instance_width,
+            panelHeight: response.data.instance_height,
+            backgroundColor: response.data.instance_background_color,
+            backgroundImg: response.data.instance_background_img,
+            instanceVersion: response.data.instance_version
+          }
+          this.startIndex = response.data.start_index
+          this.panelConfig = JSON.parse(JSON.stringify(panelConfig))
+          this.slices = JSON.parse(JSON.stringify(items))
         } else {
-          saveDataView(screenInstance).then(response => {
-            if (response.success) {
-              const instanceId = response.data
-              _this.$message.success('保存成功')
-              window.location.href = '/data-view-web/data-view-instance/index/' + instanceId + '/0'
-            } else {
-              _this.$message.success('保存失败, ' + response.data)
-            }
-          })
+          const panelConfig = {
+            title: response.data.instance_title,
+            panelWidth: response.data.instance_width,
+            panelHeight: response.data.instance_height,
+            backgroundColor: response.data.instance_background_color,
+            backgroundImg: response.data.instance_background_img,
+            instanceVersion: response.data.instance_version
+          }
+          this.startIndex = response.data.start_index
+          this.panelConfig = JSON.parse(JSON.stringify(panelConfig))
+          this.slices = []
         }
+      } catch (e) {
+        console.log('获取大屏信息或解析大屏信息失败', e)
+      } finally {
+        console.groupEnd()
+      }
+    },
+    async handleSave() {
+      await this.screenshot()
+
+      const items = JSON.parse(JSON.stringify(this.slices))
+      items.map((item) => {
+        item.data = JSON.stringify(item.data)
+        item.chartData = JSON.stringify(item.chartData)
+        item.option = JSON.stringify(item.option)
+        return item
       })
+      if (this.isCopy === 1) {
+        // 证明是复制该模板，创建新的实例
+        // 需要将ID置为null
+        this.instanceId = null
+      }
+      const screenInstance = {
+        instance_id: this.instanceId,
+        instance_title: this.panelConfig.title,
+        instance_width: this.panelConfig.panelWidth,
+        instance_height: this.panelConfig.panelHeight,
+        instance_background_color: this.panelConfig.backgroundColor,
+        instance_background_img: this.panelConfig.backgroundImg,
+        instance_view_thumbnail: this.panelConfig.instanceViewImg,
+        instance_version: this.panelConfig.instanceVersion,
+        chart_items: items
+      }
+      if (this.instanceId) {
+        // 更新
+        const response = await updateDataView(screenInstance)
+        if (response.success) {
+          this.$message.success('更新成功')
+          window.location.href = '/data-view-web/data-view-instance/index/' + this.instanceId + '/0'
+        } else {
+          this.$message.success('更新失败, ' + response.data)
+        }
+      } else {
+        const response = await saveDataView(screenInstance)
+        if (response.success) {
+          const instanceId = response.data
+          this.$message.success('保存成功')
+          window.location.href = '/data-view-web/data-view-instance/index/' + instanceId + '/0'
+        } else {
+          this.$message.success('保存失败, ' + response.data)
+        }
+      }
     },
     previewScreen() {
       if (this.instanceId) {
@@ -330,19 +324,49 @@ export default {
         this.$message.info('请先保存图表后预览')
       }
     },
-    previewDebug() {
-      const params = {
-        useCORS: true,
-        logging: false,
-        width: this.panelConfig.panelWidth,
-        height: this.panelConfig.panelHeight
+    async screenshot() {
+      const container = document.getElementById('data-view-container-layout')
+
+      const width = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth
+      const height = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight
+      const lw = width - 450 - 20 * 2
+      const lh = height
+
+      const w = this.panelConfig.panelWidth
+      const h = this.panelConfig.panelHeight
+
+      let nw, nh
+      if ((w / h) >= (lw / lh)) {
+        // 先适配宽度
+        nw = lw
+        nh = lw / (w / h)
+        container.style.transform = `scale(${nw / w}, ${nh / h})`
+        container.style.transformOrigin = `0 ${(lh - nh) / 2 + 'px'}`
+      } else {
+        nh = lh
+        nw = lh * (w / h)
+        container.style.transform = `scale(${nw / w}, ${nh / h})`
+        container.style.transformOrigin = `${(lw - nw) / 2 + 'px'} 0`
       }
 
-      html2canvas(document.getElementById('data-view-container-layout'), params).then(canvas => {
-        console.log(canvas.toDataURL('image/png'))
-      })
+      const params = {
+        scale: 0.94,
+        logging: false,
+        allowTaint: true,
+        useCORS: true,
+        scrollX: 0,
+        scrollY: 0,
+        width: nw,
+        height: nh
+      }
+
+      const canvas = await html2canvas(container, params)
+      container.style.transform = ''
+      container.style.transformOrigin = ''
+      console.log(canvas.toDataURL('image/png'))
     },
-    handleDelete() {
+    debug() {
+      this.screenshot()
     }
   }
 }

@@ -33,11 +33,6 @@ export const menus = [
         'key': 'LineArea',
         'icon': 'LineArea',
         'title': '折线面积图'
-      },
-      {
-        'key': 'lineCoordinate',
-        'icon': 'lineCoordinate',
-        'title': '时间轴折线图'
       }
     ]
   },
@@ -54,11 +49,6 @@ export const menus = [
         'key': 'histogramStacking',
         'icon': 'histogramStacking',
         'title': '堆叠柱状图'
-      },
-      {
-        'key': 'histogramComplex',
-        'icon': 'histogramComplex',
-        'title': '复合柱状图'
       }
     ]
   },
@@ -67,8 +57,8 @@ export const menus = [
     'title': '地图',
     'children': [
       {
-        'key': 'mapChina',
-        'icon': 'mapChina',
+        'key': 'MapChina',
+        'icon': 'MapChina',
         'title': '中国地图'
       },
       {

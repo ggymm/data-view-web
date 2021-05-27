@@ -44,7 +44,7 @@ Vue.component('LineAreaOption', LineAreaOption)
 
 Vue.component('HistogramNormalOption', HistogramNormalOption)
 
-Vue.component('mapChinaOption', MapChinaOption)
+Vue.component('MapChinaOption', MapChinaOption)
 Vue.component('mapWorldOption', MapWorldOption)
 Vue.component('mapProvinceOption', MapProvinceOption)
 
