@@ -1,5 +1,5 @@
 <template>
-  <div ref="editor" style="height: 200px" />
+  <div ref="editor" :style="{height: height}" />
 </template>
 
 <script>
@@ -9,6 +9,12 @@ import 'jsoneditor/dist/jsoneditor.css'
 export default {
   name: 'Index',
   props: {
+    height: {
+      type: String,
+      default() {
+        return '200px'
+      }
+    },
     json: {
       type: [String, Number, Object, Array],
       default() {

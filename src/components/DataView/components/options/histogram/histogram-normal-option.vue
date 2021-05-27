@@ -12,7 +12,7 @@
                   <a-input v-model="s.barWidth" />
                 </a-form-item>
                 <a-form-item :label="'颜色配置-' + i">
-                  <json-editor :json="s.itemStyle.color" @editor="itemColorChange($event, s)" />
+                  <json-editor :height="'200px'" :json="s.itemStyle.color" @editor="itemColorChange($event, s)" />
                 </a-form-item>
               </div>
             </a-form>

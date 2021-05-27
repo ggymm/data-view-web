@@ -5,6 +5,7 @@
       <div class="handle">
         <div class="table-operator">
           <a-button type="primary" icon="plus" @click="handleCreate">新建</a-button>
+          <a-button type="primary" icon="bug" @click="handleDebug">调试</a-button>
         </div>
         <div class="space" />
         <div class="handle-query">
@@ -78,8 +79,11 @@ export default {
     handleCreate() {
       window.open('/data-view-web/data-view-instance/index')
     },
-    handlePreview() {
-
+    handleDebug() {
+      window.open('/data-view-web/data-view-debug/index')
+    },
+    handlePreview(instance_id) {
+      window.open('/data-view-web/data-view-instance/preview/' + instance_id)
     },
     handleEdit(instance_id) {
       window.open('/data-view-web/data-view-instance/index/' + instance_id + '/0')

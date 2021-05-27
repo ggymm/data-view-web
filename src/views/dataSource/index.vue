@@ -80,7 +80,7 @@ const columns = [
   },
   {
     title: '更新时间',
-    dataIndex: 'edit_time',
+    dataIndex: 'update_time',
     width: '20%'
   },
   {

@@ -79,14 +79,27 @@ export const asyncRouterMap = [
     component: BlankLayout,
     children: [
       {
-        path: '/data-view-instance',
-        redirect: '/data-view-instance/index',
-        name: 'DataViewInstance',
+        path: '/data-view-debug',
+        redirect: '/data-view-debug/index',
         component: RouteView,
         hidden: true,
         children: [
           {
-            name: 'DataViewInstanceCreate',
+            path: 'index',
+            component: () => import('@/views/dataView/debug/index'),
+            meta: {
+              title: 'Echarts调试'
+            }
+          }
+        ]
+      },
+      {
+        path: '/data-view-instance',
+        redirect: '/data-view-instance/index',
+        component: RouteView,
+        hidden: true,
+        children: [
+          {
             path: 'index',
             component: () => import('@/views/dataView/instance/index'),
             meta: {
@@ -94,7 +107,6 @@ export const asyncRouterMap = [
             }
           },
           {
-            name: 'DataViewInstanceEdit',
             path: 'index/:instance_id/:is_copy',
             component: () => import('@/views/dataView/instance/index'),
             meta: {
@@ -102,7 +114,6 @@ export const asyncRouterMap = [
             }
           },
           {
-            name: 'DataViewInstancePreview',
             path: 'preview/:instance_id',
             component: () => import('@/views/dataView/instance/preview'),
             meta: {
