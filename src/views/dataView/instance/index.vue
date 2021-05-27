@@ -315,7 +315,7 @@ export default {
             if (response.success) {
               const instanceId = response.data
               _this.$message.success('保存成功')
-              window.location.href = '/data-viwe-web/data-view-instance/index/' + instanceId + '/0'
+              window.location.href = '/data-view-web/data-view-instance/index/' + instanceId + '/0'
             } else {
               _this.$message.success('保存失败, ' + response.data)
             }
