@@ -11,10 +11,10 @@ const MapChinaConfig = function() {
       dataSourceType: '',
       database: '',
       fileName: '',
-      sql: 'select * from map_china',
+      dimension: 'legend',
       name: 'name',
       value: 'value',
-      legend: 'legend'
+      sql: 'select * from map_china'
     },
     data: [],
     interval: 8000,
@@ -33,11 +33,7 @@ const MapChinaConfig = function() {
       grid: {
       },
       geo: {
-        map: 'china',
-        itemStyle: {
-          areaColor: '#323c48',
-          borderColor: '#111'
-        }
+        map: 'china'
       },
       series: []
     }
