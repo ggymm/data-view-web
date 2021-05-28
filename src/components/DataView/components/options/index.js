@@ -32,7 +32,7 @@ import WordCloudOption from './other/word-cloud-option'
 import CarouselListOption from './other/carousel-list-option'
 import CounterOption from './other/counter-option'
 import TitleTextOption from './other/title-text-option'
-import ProgressBarOption from './other/progress-bar-option'
+import ProgressOption from './other/progress-option'
 import PictureOption from './other/picture-option'
 import GaugeOption from './other/gauge-option'
 
@@ -67,7 +67,7 @@ Vue.component('wordCloudOption', WordCloudOption)
 Vue.component('CarouselListOption', CarouselListOption)
 Vue.component('CounterOption', CounterOption)
 Vue.component('TitleTextOption', TitleTextOption)
-Vue.component('progressBarOption', ProgressBarOption)
+Vue.component('ProgressOption', ProgressOption)
 Vue.component('pictureOption', PictureOption)
 Vue.component('gaugeOption', GaugeOption)
 
@@ -104,7 +104,7 @@ export {
   CarouselListOption,
   CounterOption,
   TitleTextOption,
-  ProgressBarOption,
+  ProgressOption,
   PictureOption,
   GaugeOption
 }

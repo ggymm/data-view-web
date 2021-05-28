@@ -11,10 +11,10 @@
 </template>
 
 <script>
-import { getProgressBarConfig } from '../../config/other/progress-config'
+import OptionConfigMap from '@/components/DataView/components/config'
 
 export default {
-  name: 'ProgressBar',
+  name: 'Progress',
   props: {
     loading: {
       type: Boolean,
@@ -23,7 +23,7 @@ export default {
     option: {
       type: Object,
       default() {
-        return getProgressBarConfig().option
+        return OptionConfigMap['Progress'].option
       }
     },
     apiData: {
@@ -41,7 +41,6 @@ export default {
   },
   data() {
     return {
-      chartType: 'progressBar',
       percentage: 0
     }
   },

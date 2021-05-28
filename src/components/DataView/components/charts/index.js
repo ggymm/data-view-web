@@ -26,7 +26,7 @@ import WordCloud from './other/word-cloud'
 import CarouselList from './other/carousel-list'
 import Counter from './other/counter'
 import TitleText from './other/title-text'
-import ProgressBar from './other/progress-bar'
+import Progress from './other/progress'
 import PictureV from './other/picture'
 import Gauge from './other/gauge'
 
@@ -56,7 +56,7 @@ Vue.component('WordCloud', WordCloud)
 Vue.component('CarouselList', CarouselList)
 Vue.component('Counter', Counter)
 Vue.component('TitleText', TitleText)
-Vue.component('ProgressBar', ProgressBar)
+Vue.component('Progress', Progress)
 Vue.component('PictureV', PictureV)
 Vue.component('Gauge', Gauge)
 
@@ -87,7 +87,7 @@ export {
   CarouselList,
   Counter,
   TitleText,
-  ProgressBar,
+  Progress,
   PictureV,
   Gauge
 }

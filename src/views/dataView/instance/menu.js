@@ -177,8 +177,8 @@ export const menus = [
         'title': '标题文本'
       },
       {
-        'key': 'progressBar',
-        'icon': 'progressBar',
+        'key': 'Progress',
+        'icon': 'Progress',
         'title': '进度条'
       },
       {

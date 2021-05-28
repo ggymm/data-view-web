@@ -30,7 +30,7 @@ import { getWordCloudConfig } from './other/word-cloud-config'
 import { getCarouselListConfig } from './other/carousel-list-config'
 import { getCounterConfig } from './other/counter-config'
 import { getTitleTextConfig } from './other/title-text-config'
-import { getProgressBarConfig } from './other/progress-config'
+import { getProgressConfig } from './other/progress-config'
 import { getPictureConfig } from './other/picture-config'
 import { getGaugeConfig } from './other/gauge-config'
 
@@ -67,7 +67,7 @@ const OptionConfigMap = {
   'CarouselList': getCarouselListConfig,
   'Counter': getCounterConfig,
   'TitleText': getTitleTextConfig,
-  'progressBar': getProgressBarConfig,
+  'Progress': getProgressConfig,
   'picture': getPictureConfig,
   'gauge': getGaugeConfig
 }
