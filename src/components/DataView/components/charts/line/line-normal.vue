@@ -7,7 +7,6 @@
     :init-options="initOption"
     :option="option"
     :update-options="updateOptions"
-    element-loading-text="加载中"
     class="chart"
   />
 </template>

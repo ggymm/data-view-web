@@ -1,10 +1,10 @@
-const ProgressBarConfig = function() {
+const ProgressConfig = function() {
   this.config = {
     x: 0,
     y: 0,
     width: 350,
     height: 18,
-    chartType: 'progressBar',
+    chartType: 'Progress',
     lock: 'false',
     choose: 'false',
     refresh: 'false',
@@ -28,7 +28,7 @@ const ProgressBarConfig = function() {
 }
 
 const getProgressBarConfig = function() {
-  return new ProgressBarConfig().config
+  return new ProgressConfig().config
 }
 
 export { getProgressBarConfig }

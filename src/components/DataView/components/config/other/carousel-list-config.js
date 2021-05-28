@@ -3,8 +3,9 @@ const CarouselListConfig = function() {
     x: 0,
     y: 0,
     width: 350,
-    height: 250,
+    height: 200,
     chartType: 'CarouselList',
+    lock: 'false',
     choose: 'false',
     refresh: 'false',
     chartData: {
@@ -18,7 +19,7 @@ const CarouselListConfig = function() {
     option: {
       header: {
         show: true,
-        height: 35,
+        height: 50,
         fontColor: '#ffffff',
         fontSize: 13,
         data: []
@@ -28,7 +29,7 @@ const CarouselListConfig = function() {
         fontColor: '#e2e2e2',
         fontSize: 12,
         speed: 3,
-        rowNum: 4,
+        rowNum: 5,
         data: []
       }
     }

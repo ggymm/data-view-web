@@ -1,45 +1,48 @@
 <template>
-  <div :loading="loading" class="chart">
-    <div
-      v-if="option.header.show"
-      :style="{
-        color: option.header.fontColor,
-        height: option.header.height + 'px',
-        lineHeight: option.header.height + 'px',
-        fontSize: option.header.fontSize + 'px',
-      }"
-      class="carousel-header"
-    >
-      <span
-        v-for="(data, index) in option.header.data"
-        :key="index"
+  <div class="chart">
+    <a-spin :spinning="loading" tip="loading">
+      <a-icon slot="indicator" type="loading" style="font-size: 24px" spin />
+      <div
+        v-if="option.header.show"
         :style="{
-          width: data['width'],
-          float: 'left',
-          textAlign: 'center'
+          color: option.header.fontColor,
+          height: option.header.height + 'px',
+          lineHeight: option.header.height + 'px',
+          fontSize: option.header.fontSize + 'px',
         }"
-      >{{ data['label'] }}</span>
-    </div>
-    <div :style="{ height: option.body.rowNum * option.body.height + 'px' }" class="carousel-container">
-      <ul class="carousel-list">
-        <li
-          v-for="(data, index) in option.body.data"
+        class="carousel-header"
+      >
+        <span
+          v-for="(data, index) in option.header.data"
           :key="index"
           :style="{
-            color: option.body.fontColor,
-            height: option.body.height + 'px',
-            lineHeight: option.body.height + 'px',
-            fontSize: option.body.fontSize + 'px'
+            width: data['width'],
+            float: 'left',
+            textAlign: 'center'
           }"
-        >
-          <span
-            v-for="(dataItem, childIndex) in data"
-            :key="childIndex"
-            :style="{width: option.header.data[childIndex]['width']}"
-          >{{ dataItem }}</span>
-        </li>
-      </ul>
-    </div>
+        >{{ data['label'] }}</span>
+      </div>
+      <div :style="{ height: option.body.rowNum * option.body.height + 'px' }" class="carousel-container">
+        <ul class="carousel-list">
+          <li
+            v-for="(data, index) in option.body.data"
+            :key="index"
+            :style="{
+              color: option.body.fontColor,
+              height: option.body.height + 'px',
+              lineHeight: option.body.height + 'px',
+              fontSize: option.body.fontSize + 'px'
+            }"
+          >
+            <span
+              v-for="(dataItem, childIndex) in data"
+              :key="childIndex"
+              :style="{width: option.header.data[childIndex]['width']}"
+            >{{ dataItem }}</span>
+          </li>
+        </ul>
+      </div>
+    </a-spin>
   </div>
 </template>
 

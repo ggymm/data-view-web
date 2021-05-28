@@ -5,6 +5,7 @@ const PictureConfig = function() {
     width: 350,
     height: 250,
     chartType: 'picture',
+    lock: 'false',
     choose: 'false',
     refresh: 'false',
     chartData: {
