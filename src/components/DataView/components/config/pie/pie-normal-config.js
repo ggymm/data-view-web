@@ -5,6 +5,7 @@ const PieNormalConfig = function() {
     width: 350,
     height: 250,
     chartType: 'PieNormal',
+    lock: 'false',
     choose: 'false',
     refresh: 'false',
     chartData: {

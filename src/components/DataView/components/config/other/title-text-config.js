@@ -5,6 +5,7 @@ const TitleTextConfig = function() {
     width: 200,
     height: 50,
     chartType: 'TitleText',
+    lock: 'false',
     choose: 'false',
     refresh: 'false',
     chartData: {

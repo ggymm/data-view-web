@@ -5,8 +5,8 @@
         <common-chart-option :item="item" />
         <coordinate-system-option :item="item" />
       </a-tab-pane>
-      <a-tab-pane key="position" tab="位置">
-        <common-position-option :item="item" />
+      <a-tab-pane key="common" tab="通用">
+        <common-option :item="item" />
       </a-tab-pane>
       <a-tab-pane key="data" tab="数据">
         <common-data-option
@@ -20,17 +20,17 @@
 </template>
 
 <script>
+import CommonOption from '../common/common-option'
 import CommonChartOption from '../common/common-chart-option'
 import CoordinateSystemOption from '../common/coordinate-system-option'
-import CommonPositionOption from '../common/common-position-option'
 import CommonDataOption from '../common/common-data-option'
 
 export default {
   name: 'ScatterNormalOption',
   components: {
+    CommonOption,
     CommonChartOption,
     CoordinateSystemOption,
-    CommonPositionOption,
     CommonDataOption
   },
   props: {

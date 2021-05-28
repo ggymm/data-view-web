@@ -31,6 +31,8 @@
         <a-textarea v-model="item.chartData.sql" />
       </a-form-item>
     </template>
+    <template v-else-if="item.chartData.dataSourceType === 'Rest'" />
+    <template v-else-if="item.chartData.dataSourceType === 'Csv'" />
   </a-form>
 </template>
 

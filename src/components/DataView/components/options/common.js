@@ -10,10 +10,11 @@ export const refreshList = [
 
 export const dataSourceTypeList = [
   { label: '数据库数据源', value: 'DataBase' },
+  { label: '接口数据源', value: 'Rest' },
   { label: 'CSV文件数据源', value: 'CSV' }
 ]
 
-export const axisType = [
+export const axisTypeList = [
   { value: 'category', label: '类目轴' },
   { value: 'value', label: '数值轴' }
 ]
@@ -50,4 +51,9 @@ export const labelPositionList = [
   { label: '饼图扇区外侧', value: 'outside' },
   { label: '饼图扇区内部', value: 'inside' },
   { label: '饼图中心位置', value: 'center' }
+]
+
+export const visualMapTypeList = [
+  { label: '分段型', value: 'piecewise' },
+  { label: '连续型', value: 'continuous' }
 ]

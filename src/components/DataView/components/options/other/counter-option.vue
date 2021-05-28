@@ -6,13 +6,13 @@
         <a-collapse :bordered="false" :accordion="true">
           <a-collapse-panel key="文本配置" header="文本配置">
             <a-form layout="horizontal" :label-col="{span: 6}" :wrapper-col="{span: 14, offset: 1}">
-              <a-form-item label="文本颜色">
+              <a-form-item label="颜色">
                 <a-input v-model="item.option.fontColor" type="color" />
               </a-form-item>
-              <a-form-item label="文本字体">
+              <a-form-item label="字体">
                 <a-input-number v-model="item.option.fontSize" :min="0" :precision="0" />
               </a-form-item>
-              <a-form-item label="文本加粗">
+              <a-form-item label="加粗">
                 <a-select v-model="item.option.fontWeight">
                   <a-select-option
                     v-for="fontWeigh in fontWeightList"
@@ -23,7 +23,7 @@
                   </a-select-option>
                 </a-select>
               </a-form-item>
-              <a-form-item label="文本位置">
+              <a-form-item label="位置">
                 <a-select v-model="item.option.textAlign">
                   <a-select-option
                     v-for="position in positionList"
@@ -41,16 +41,16 @@
           </a-collapse-panel>
           <a-collapse-panel key="前缀配置" header="前缀配置">
             <a-form layout="horizontal" :label-col="{span: 6}" :wrapper-col="{span: 14, offset: 1}">
-              <a-form-item label="文本内容">
+              <a-form-item label="内容">
                 <a-input v-model="item.option.prefix.title" />
               </a-form-item>
-              <a-form-item label="文本颜色">
+              <a-form-item label="颜色">
                 <a-input v-model="item.option.prefix.fontColor" type="color" />
               </a-form-item>
-              <a-form-item label="文本字体">
+              <a-form-item label="字体">
                 <a-input-number v-model="item.option.prefix.fontSize" :min="0" :precision="0" />
               </a-form-item>
-              <a-form-item label="文本加粗">
+              <a-form-item label="加粗">
                 <a-select v-model="item.option.prefix.fontWeight">
                   <a-select-option
                     v-for="fontWeigh in fontWeightList"
@@ -65,16 +65,16 @@
           </a-collapse-panel>
           <a-collapse-panel key="单位配置" header="单位配置">
             <a-form layout="horizontal" :label-col="{span: 6}" :wrapper-col="{span: 14, offset: 1}">
-              <a-form-item label="文本内容">
+              <a-form-item label="内容">
                 <a-input v-model="item.option.unit.title" />
               </a-form-item>
-              <a-form-item label="文本颜色">
+              <a-form-item label="颜色">
                 <a-input v-model="item.option.unit.fontColor" type="color" />
               </a-form-item>
-              <a-form-item label="文本字体">
+              <a-form-item label="字体">
                 <a-input-number v-model="item.option.unit.fontSize" :min="0" :precision="0" />
               </a-form-item>
-              <a-form-item label="文本加粗">
+              <a-form-item label="加粗">
                 <a-select v-model="item.option.unit.fontWeight">
                   <a-select-option
                     v-for="fontWeigh in fontWeightList"
@@ -89,8 +89,8 @@
           </a-collapse-panel>
         </a-collapse>
       </a-tab-pane>
-      <a-tab-pane key="position" tab="位置">
-        <common-position-option :item="item" />
+      <a-tab-pane key="common" tab="通用">
+        <common-option :item="item" />
       </a-tab-pane>
       <a-tab-pane key="data" tab="数据">
         <common-data-option
@@ -104,14 +104,14 @@
 </template>
 
 <script>
-import CommonPositionOption from '../common/common-position-option'
+import CommonOption from '../common/common-option'
 import CommonDataOption from '../common/common-data-option'
 import { fontWeightList, positionList } from '../common'
 
 export default {
   name: 'CounterOption',
   components: {
-    CommonPositionOption,
+    CommonOption,
     CommonDataOption
   },
   props: {

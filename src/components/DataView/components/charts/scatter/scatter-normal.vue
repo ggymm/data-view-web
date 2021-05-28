@@ -9,7 +9,6 @@
     :update-options="updateOptions"
     element-loading-text="加载中"
     class="chart"
-    @click="handleChartClick"
   />
 </template>
 <script>
@@ -21,6 +20,10 @@ export default {
     loading: {
       type: Boolean,
       default: true
+    },
+    lock: {
+      type: String,
+      default: 'false'
     },
     option: {
       type: Object,
@@ -70,20 +73,24 @@ export default {
       }
 
       this.$set(this.option, 'dataset', this.apiData)
-      const legend = this.apiData.source[0]
 
+      if (this.lock === 'true') {
+        return
+      }
+
+      const dimension = this.apiData.source[0]
       const series = []
-      if (legend.length === 1) {
-        if (this.option.series.length === 0 || this.option.series.length !== legend.length) {
+      if (dimension.length === 1) {
+        if (this.option.series.length === 0 || this.option.series.length !== dimension.length) {
           series.push({
             type: 'scatter'
           })
           this.$set(this.option, 'series', series)
         }
       } else {
-        if (legend.length - 1 !== this.option.series.length) {
+        if (dimension.length - 1 !== this.option.series.length) {
           // 如果两次数据个数不一致，应该清空重新设置
-          for (let i = 1; i < legend.length; i++) {
+          for (let i = 1; i < dimension.length; i++) {
             series.push({
               type: 'scatter'
             })

@@ -48,8 +48,8 @@
           </a-collapse-panel>
         </a-collapse>
       </a-tab-pane>
-      <a-tab-pane key="position" tab="位置">
-        <common-position-option :item="item" />
+      <a-tab-pane key="common" tab="通用">
+        <common-option :item="item" />
       </a-tab-pane>
       <a-tab-pane key="data" tab="数据">
         <common-data-option
@@ -63,13 +63,13 @@
 </template>
 
 <script>
+import CommonOption from '../common/common-option'
 import CommonDataOption from '../common/common-data-option'
-import CommonPositionOption from '../common/common-position-option'
 
 export default {
   name: 'CarouselListOption',
   components: {
-    CommonPositionOption,
+    CommonOption,
     CommonDataOption
   },
   props: {

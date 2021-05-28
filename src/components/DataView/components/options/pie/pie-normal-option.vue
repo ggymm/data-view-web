@@ -40,7 +40,7 @@
           </a-collapse-panel>
           <a-collapse-panel key="标签配置" header="标签配置">
             <a-form :model="item" layout="horizontal" :label-col="{span: 6}" :wrapper-col="{span: 14, offset: 1}">
-              <a-form-item label="显示标签">
+              <a-form-item label="显示">
                 <a-switch
                   v-model="item.option.series[0].label.show"
                   checked-children="显示"
@@ -48,7 +48,7 @@
                 />
               </a-form-item>
               <template v-if="item.option.series[0].label.show">
-                <a-form-item label="标签位置">
+                <a-form-item label="位置">
                   <a-select v-model="item.option.series[0].label.position">
                     <a-select-option
                       v-for="labelPosition in labelPositionList"
@@ -81,8 +81,8 @@
           </a-collapse-panel>
         </a-collapse>
       </a-tab-pane>
-      <a-tab-pane key="position" tab="位置">
-        <common-position-option :item="item" />
+      <a-tab-pane key="common" tab="通用">
+        <common-option :item="item" />
       </a-tab-pane>
       <a-tab-pane key="data" tab="数据">
         <common-data-option
@@ -96,16 +96,16 @@
 </template>
 
 <script>
+import CommonOption from '../common/common-option'
 import CommonChartOption from '../common/common-chart-option'
-import CommonPositionOption from '../common/common-position-option'
 import CommonDataOption from '../common/common-data-option'
 import { labelPositionList } from '../common'
 
 export default {
   name: 'PieNormalOption',
   components: {
+    CommonOption,
     CommonChartOption,
-    CommonPositionOption,
     CommonDataOption
   },
   props: {

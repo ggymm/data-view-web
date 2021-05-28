@@ -3,24 +3,24 @@
   <a-collapse :bordered="false" :accordion="true">
     <a-collapse-panel key="自定义配色" header="自定义配色">
       <a-form layout="horizontal" :label-col="{span: 6}" :wrapper-col="{span: 14, offset: 1}">
-        <a-form-item label="自定义配色">
+        <a-form-item label="颜色列表">
           <a-select v-model="item.option.color" mode="tags" />
         </a-form-item>
       </a-form>
     </a-collapse-panel>
     <a-collapse-panel key="标题配置" header="标题配置">
       <a-form layout="horizontal" :label-col="{span: 6}" :wrapper-col="{span: 14, offset: 1}">
-        <a-form-item label="显示标题">
+        <a-form-item label="显示">
           <a-switch v-model="item.option.title.show" checked-children="显示" un-checked-children="不显示" />
         </a-form-item>
         <template v-if="item.option.title.show">
-          <a-form-item label="图表标题">
+          <a-form-item label="内容">
             <a-input v-model="item.option.title.text" />
           </a-form-item>
-          <a-form-item label="标题颜色">
+          <a-form-item label="颜色">
             <a-input v-model="item.option.title.textStyle.color" type="color" />
           </a-form-item>
-          <a-form-item label="标题位置(左)">
+          <a-form-item label="位置(左)">
             <a-select v-model="item.option.title.left">
               <a-select-option
                 v-for="position in positionList"
@@ -31,7 +31,7 @@
               </a-select-option>
             </a-select>
           </a-form-item>
-          <a-form-item label="标题位置(上)">
+          <a-form-item label="位置(上)">
             <a-select v-model="item.option.title.top">
               <a-select-option
                 v-for="position in positionTopList"
@@ -47,11 +47,11 @@
     </a-collapse-panel>
     <a-collapse-panel key="图例配置" header="图例配置">
       <a-form layout="horizontal" :label-col="{span: 6}" :wrapper-col="{span: 14, offset: 1}">
-        <a-form-item label="显示图例">
+        <a-form-item label="显示">
           <a-switch v-model="item.option.legend.show" checked-children="显示" un-checked-children="不显示" />
         </a-form-item>
         <template v-if="item.option.legend.show">
-          <a-form-item label="图例类型">
+          <a-form-item label="类型">
             <a-select v-model="item.option.legend.type">
               <a-select-option
                 v-for="legendType in legendTypeList"
@@ -62,7 +62,7 @@
               </a-select-option>
             </a-select>
           </a-form-item>
-          <a-form-item label="图例布局">
+          <a-form-item label="布局">
             <a-select v-model="item.option.legend.orient">
               <a-select-option
                 v-for="orient in orientList"
@@ -73,7 +73,7 @@
               </a-select-option>
             </a-select>
           </a-form-item>
-          <a-form-item label="图例位置">
+          <a-form-item label="位置">
             <a-row :gutter="20">
               <a-col :span="12">
                 <a-tooltip :trigger="['focus']" placement="topLeft">

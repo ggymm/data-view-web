@@ -5,6 +5,7 @@ const ScatterNormalConfig = function() {
     width: 350,
     height: 250,
     chartType: 'ScatterNormal',
+    lock: 'false',
     choose: 'false',
     refresh: 'false',
     chartData: {

@@ -11,10 +11,9 @@ const MapChinaConfig = function() {
       dataSourceType: '',
       database: '',
       fileName: '',
-      dimension: 'legend',
       name: 'name',
       value: 'value',
-      sql: 'select * from map_china'
+      sql: 'select * from map_china_new'
     },
     data: [],
     interval: 8000,
@@ -30,12 +29,24 @@ const MapChinaConfig = function() {
       legend: {
         show: false
       },
-      grid: {
+      visualMap: {
+        show: true,
+        text: []
       },
       geo: {
         map: 'china'
       },
-      series: []
+      series: [
+        {
+          type: 'map',
+          map: 'china',
+          itemStyle: {
+            areaColor: '#080B19',
+            borderColor: '#00C8DC'
+          },
+          showLegendSymbol: false
+        }
+      ]
     }
   }
 }

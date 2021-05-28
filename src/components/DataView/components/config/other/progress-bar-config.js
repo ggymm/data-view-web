@@ -5,6 +5,7 @@ const ProgressBarConfig = function() {
     width: 350,
     height: 18,
     chartType: 'progressBar',
+    lock: 'false',
     choose: 'false',
     refresh: 'false',
     chartData: {

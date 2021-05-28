@@ -10,6 +10,7 @@
     <component
       :is="item.chartType"
       :loading="loading"
+      :lock="item.lock"
       :api-data="chartData"
       :option="item.option"
       :update-options="updateOptions"

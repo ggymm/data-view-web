@@ -51,7 +51,6 @@
                     :key="index"
                     checked-children="显示"
                     un-checked-children="不显示"
-                    @change="changeArea(index)"
                   />
                   <a-input
                     v-if="series.areaStyle !== undefined"
@@ -65,8 +64,8 @@
           </a-collapse-panel>
         </a-collapse>
       </a-tab-pane>
-      <a-tab-pane key="position" tab="位置">
-        <common-position-option :item="item" />
+      <a-tab-pane key="common" tab="通用">
+        <common-option :item="item" />
       </a-tab-pane>
       <a-tab-pane key="data" tab="数据">
         <common-data-option
@@ -80,18 +79,18 @@
 </template>
 
 <script>
+import CommonOption from '../common/common-option'
 import CommonChartOption from '../common/common-chart-option'
 import CoordinateSystemOption from '../common/coordinate-system-option'
-import CommonPositionOption from '../common/common-position-option'
 import CommonDataOption from '../common/common-data-option'
 import { lineTypeList } from '../common'
 
 export default {
   name: 'LineAreaOption',
   components: {
+    CommonOption,
     CommonChartOption,
     CoordinateSystemOption,
-    CommonPositionOption,
     CommonDataOption
   },
   props: {

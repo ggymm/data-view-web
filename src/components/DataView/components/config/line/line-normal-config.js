@@ -5,6 +5,7 @@ const LineNormalConfig = function() {
     width: 350,
     height: 250,
     chartType: 'LineNormal',
+    lock: 'false',
     choose: 'false',
     refresh: 'false',
     chartData: {

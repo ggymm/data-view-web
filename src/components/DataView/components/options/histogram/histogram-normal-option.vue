@@ -8,9 +8,29 @@
           <a-collapse-panel key="柱配置" header="柱配置">
             <a-form :model="item" layout="horizontal" :label-col="{span: 6}" :wrapper-col="{span: 14, offset: 1}">
               <div v-for="(s, i) in item.option.series" :key="i">
-                <a-form-item :label="'柱形宽度-' + i">
+                <a-form-item :label="'宽度-' + i">
                   <a-input v-model="s.barWidth" />
                 </a-form-item>
+                <template v-if="s.itemStyle.borderRadius !== undefined">
+                  <a-form-item :label="'圆角半径-' + i">
+                    <a-row :gutter="20">
+                      <a-col :span="12">
+                        <a-input v-model="s.itemStyle.borderRadius[0]" />
+                      </a-col>
+                      <a-col :span="12">
+                        <a-input v-model="s.itemStyle.borderRadius[1]" />
+                      </a-col>
+                    </a-row>
+                    <a-row :gutter="20">
+                      <a-col :span="12">
+                        <a-input v-model="s.itemStyle.borderRadius[2]" />
+                      </a-col>
+                      <a-col :span="12">
+                        <a-input v-model="s.itemStyle.borderRadius[3]" />
+                      </a-col>
+                    </a-row>
+                  </a-form-item>
+                </template>
                 <a-form-item :label="'颜色配置-' + i">
                   <json-editor :height="'200px'" :json="s.itemStyle.color" @editor="itemColorChange($event, s)" />
                 </a-form-item>
@@ -19,8 +39,8 @@
           </a-collapse-panel>
         </a-collapse>
       </a-tab-pane>
-      <a-tab-pane key="position" tab="位置">
-        <common-position-option :item="item" />
+      <a-tab-pane key="common" tab="通用">
+        <common-option :item="item" />
       </a-tab-pane>
       <a-tab-pane key="data" tab="数据">
         <common-data-option
@@ -35,18 +55,18 @@
 
 <script>
 import JsonEditor from '@/components/JsonEditor'
+import CommonOption from '../common/common-option'
 import CommonChartOption from '../common/common-chart-option'
 import CoordinateSystemOption from '../common/coordinate-system-option'
-import CommonPositionOption from '../common/common-position-option'
 import CommonDataOption from '../common/common-data-option'
 
 export default {
   name: 'HistogramNormalOption',
   components: {
     JsonEditor,
+    CommonOption,
     CommonChartOption,
     CoordinateSystemOption,
-    CommonPositionOption,
     CommonDataOption
   },
   props: {

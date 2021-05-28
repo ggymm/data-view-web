@@ -366,7 +366,7 @@ export default {
       console.log(canvas.toDataURL('image/png'))
     },
     debug() {
-      this.screenshot()
+      console.log(JSON.stringify(this.slices))
     }
   }
 }
