@@ -19,10 +19,14 @@ const ProgressConfig = function() {
     data: {},
     interval: 8000,
     option: {
-      showText: false,
+      type: '',
+      showInfo: true,
+      strokeLinecap: 'round',
       strokeWidth: 15,
-      barColor: '#5bc0de',
-      backgroundColor: 'rgba(255,255,255,0)'
+      strokeColor: '#5bc0de',
+      width: 150,
+      gapDegree: 30,
+      gapPosition: 'bottom'
     }
   }
 }

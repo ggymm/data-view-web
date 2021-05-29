@@ -1,13 +1,21 @@
 <template>
-  <a-progress
-    :loading="loading"
-    :text-inside="true"
-    :show-text="option.showText"
-    :stroke-width="option.strokeWidth"
-    :color="option.barColor"
-    :percentage="percentage"
-    class="chart"
-  />
+  <div class="chart">
+    <a-spin :spinning="loading" tip="loading">
+      <a-icon slot="indicator" type="loading" style="font-size: 24px" spin />
+      <a-progress
+        :type="option.type"
+        :percent="percent"
+        :show-info="option.showInfo"
+        :stroke-linecap="option.strokeLinecap"
+        :stroke-width="option.strokeWidth"
+        :stroke-color="option.strokeColor"
+        :width="option.width"
+        :gap-degree="option.gapDegree"
+        :gap-position="option.gapPosition"
+        class="chart"
+      />
+    </a-spin>
+  </div>
 </template>
 
 <script>
@@ -41,14 +49,14 @@ export default {
   },
   data() {
     return {
-      percentage: 0
+      percent: 0
     }
   },
   watch: {
     apiData: {
       deep: true,
       handler() {
-        this.percentage = this.apiData.data
+        this.percent = this.apiData.data
       }
     }
   }

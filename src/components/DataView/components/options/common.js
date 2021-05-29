@@ -57,3 +57,16 @@ export const visualMapTypeList = [
   { label: '分段型', value: 'piecewise' },
   { label: '连续型', value: 'continuous' }
 ]
+
+export const progressTypeList = [
+  { label: '线型', value: 'line' },
+  { label: '圆圈型', value: 'circle' },
+  { label: '仪表盘型', value: 'dashboard' }
+]
+
+export const gapPositionList = [
+  { label: '上', value: 'top' },
+  { label: '下', value: 'bottom' },
+  { label: '左', value: 'left' },
+  { label: '右', value: 'right' }
+]
