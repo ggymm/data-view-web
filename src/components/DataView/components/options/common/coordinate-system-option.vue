@@ -33,6 +33,9 @@
             </a-select-option>
           </a-select>
         </a-form-item>
+        <a-form-item v-if="item.option.xAxis.type === 'category'" label="是否留白">
+          <a-switch v-model="item.option.xAxis.boundaryGap" checked-children="保留" un-checked-children="不保留" />
+        </a-form-item>
         <template v-if="item.option.xAxis.show">
           <a-form-item label="名称">
             <a-input v-model="item.option.xAxis.name" />
@@ -81,6 +84,9 @@
               {{ axisType.label }}
             </a-select-option>
           </a-select>
+        </a-form-item>
+        <a-form-item v-if="item.option.yAxis.type === 'category'" label="是否留白">
+          <a-switch v-model="item.option.yAxis.boundaryGap" checked-children="保留" un-checked-children="不保留" />
         </a-form-item>
         <template v-if="item.option.yAxis.show">
           <a-form-item label="名称">
