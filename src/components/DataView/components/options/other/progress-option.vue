@@ -34,10 +34,10 @@
           </a-form-item>
           <a-form-item label="边角">
             <a-radio-group v-model="item.option.strokeLinecap">
-              <a-radio :style="{width: '100%', height: '35px', lineHeight: '35px'}" :value="'round'">
+              <a-radio :style="{height: '35px', lineHeight: '35px'}" :value="'round'">
                 <span style="word-break: break-all;white-space: pre-wrap;">圆形</span>
               </a-radio>
-              <a-radio :style="{width: '100%', height: '70px', lineHeight: '35px'}" :value="'square'">
+              <a-radio :style="{height: '35px', lineHeight: '35px'}" :value="'square'">
                 <span style="word-break: break-all;white-space: pre-wrap;">方形</span>
               </a-radio>
             </a-radio-group>

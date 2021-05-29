@@ -8,6 +8,16 @@
           <a-collapse-panel key="柱配置" header="柱配置">
             <a-form :model="item" layout="horizontal" :label-col="{span: 6}" :wrapper-col="{span: 14, offset: 1}">
               <div v-for="(s, i) in item.option.series" :key="i">
+                <a-form-item :label="'类型-' + i">
+                  <a-radio-group v-model="s.type">
+                    <a-radio :style="{height: '35px', lineHeight: '35px'}" :value="'line'">
+                      <span style="word-break: break-all;white-space: pre-wrap;">折线</span>
+                    </a-radio>
+                    <a-radio :style="{height: '35px', lineHeight: '35px'}" :value="'bar'">
+                      <span style="word-break: break-all;white-space: pre-wrap;">柱形</span>
+                    </a-radio>
+                  </a-radio-group>
+                </a-form-item>
                 <a-form-item :label="'宽度-' + i">
                   <a-input v-model="s.barWidth" />
                 </a-form-item>
