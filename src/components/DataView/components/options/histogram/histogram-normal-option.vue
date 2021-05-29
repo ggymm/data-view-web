@@ -15,18 +15,18 @@
                   <a-form-item :label="'圆角半径-' + i">
                     <a-row :gutter="20">
                       <a-col :span="12">
-                        <a-input v-model="s.itemStyle.borderRadius[0]" />
+                        <a-input-number v-model="s.itemStyle.borderRadius[0]" :min="0" :precision="0" />
                       </a-col>
                       <a-col :span="12">
-                        <a-input v-model="s.itemStyle.borderRadius[1]" />
+                        <a-input-number v-model="s.itemStyle.borderRadius[1]" :min="0" :precision="0" />
                       </a-col>
                     </a-row>
                     <a-row :gutter="20">
                       <a-col :span="12">
-                        <a-input v-model="s.itemStyle.borderRadius[2]" />
+                        <a-input-number v-model="s.itemStyle.borderRadius[2]" :min="0" :precision="0" />
                       </a-col>
                       <a-col :span="12">
-                        <a-input v-model="s.itemStyle.borderRadius[3]" />
+                        <a-input-number v-model="s.itemStyle.borderRadius[3]" :min="0" :precision="0" />
                       </a-col>
                     </a-row>
                   </a-form-item>

@@ -272,7 +272,7 @@ export default {
       }
     },
     async handleSave() {
-      await this.screenshot()
+      // await this.screenshot()
 
       const items = JSON.parse(JSON.stringify(this.slices))
       items.map((item) => {
@@ -366,6 +366,7 @@ export default {
       console.log(canvas.toDataURL('image/png'))
     },
     debug() {
+      this.screenshot()
       console.log(JSON.stringify(this.slices))
     }
   }

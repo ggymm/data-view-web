@@ -27,7 +27,10 @@ const PieNormalConfig = function() {
         }
       },
       legend: {
-        show: false
+        show: false,
+        textStyle: {
+          color: '#ffffff'
+        }
       },
       tooltip: {
         trigger: 'item',

@@ -85,7 +85,7 @@ export default {
           series.push({
             type: 'bar',
             itemStyle: {
-              borderRadius: []
+              borderRadius: [0, 0, 0, 0]
             }
           })
           this.$set(this.option, 'series', series)
@@ -97,7 +97,7 @@ export default {
             series.push({
               type: 'bar',
               itemStyle: {
-                borderRadius: []
+                borderRadius: [0, 0, 0, 0]
               }
             })
           }
