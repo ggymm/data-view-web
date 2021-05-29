@@ -8,6 +8,7 @@ import LineAreaOption from './line/line-area-option'
 import LineCoordinateOption from './line/line-coordinate-option'
 
 import HistogramNormalOption from './histogram/histogram-normal-option'
+import PictorialBarOption from './histogram/pictorial-bar-option'
 
 import MapChinaOption from './map/map-china-option'
 import MapWorldOption from './map/map-world-option'
@@ -43,6 +44,7 @@ Vue.component('LineNormalOption', LineNormalOption)
 Vue.component('LineAreaOption', LineAreaOption)
 
 Vue.component('HistogramNormalOption', HistogramNormalOption)
+Vue.component('PictorialBarOption', PictorialBarOption)
 
 Vue.component('MapChinaOption', MapChinaOption)
 Vue.component('mapWorldOption', MapWorldOption)
@@ -80,6 +82,7 @@ export {
   LineCoordinateOption,
 
   HistogramNormalOption,
+  PictorialBarOption,
 
   MapChinaOption,
   MapWorldOption,

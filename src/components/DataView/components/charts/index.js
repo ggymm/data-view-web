@@ -7,6 +7,7 @@ import LineNormal from './line/line-normal'
 import LineArea from './line/line-area'
 
 import HistogramNormal from './histogram/histogram-normal'
+import PictorialBar from './histogram/pictorial-bar'
 
 import MapChina from './map/map-china'
 
@@ -37,6 +38,7 @@ Vue.component('LineNormal', LineNormal)
 Vue.component('LineArea', LineArea)
 
 Vue.component('HistogramNormal', HistogramNormal)
+Vue.component('PictorialBar', PictorialBar)
 
 Vue.component('MapChina', MapChina)
 
@@ -68,6 +70,7 @@ export {
   LineArea,
 
   HistogramNormal,
+  PictorialBar,
 
   MapChina,
 

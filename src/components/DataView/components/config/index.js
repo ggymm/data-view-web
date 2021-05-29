@@ -6,6 +6,7 @@ import { getLineAreaConfig } from './line/line-area-config'
 import { getLineCoordinateConfig } from './line/line-coordinate-config'
 
 import { getHistogramNormalConfig } from './histogram/histogram-normal-config'
+import { getPictorialBarConfig } from './histogram/pictorial-bar-config'
 
 import { getMapChinaConfig } from './map/map-china-config'
 import { getMapWorldConfig } from './map/map-world-config'
@@ -43,6 +44,7 @@ const OptionConfigMap = {
   'lineCoordinate': getLineCoordinateConfig,
 
   'HistogramNormal': getHistogramNormalConfig,
+  'PictorialBar': getPictorialBarConfig,
 
   'MapChina': getMapChinaConfig,
   'mapWorld': getMapWorldConfig,

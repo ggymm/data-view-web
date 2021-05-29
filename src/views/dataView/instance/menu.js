@@ -49,6 +49,11 @@ export const menus = [
         'key': 'histogramStacking',
         'icon': 'histogramStacking',
         'title': '堆叠柱状图'
+      },
+      {
+        'key': 'PictorialBar',
+        'icon': 'PictorialBar',
+        'title': '象形柱状图'
       }
     ]
   },
