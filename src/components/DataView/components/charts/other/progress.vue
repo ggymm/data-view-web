@@ -13,7 +13,17 @@
         :gap-degree="option.gapDegree"
         :gap-position="option.gapPosition"
         class="chart"
-      />
+      >
+        <template #format="info">
+          <span
+            :style="{
+              fontSize: option.info.fontSize + 'px',
+              color: option.info.color
+            }"
+          >
+            {{ info }}</span>
+        </template>
+      </a-progress>
     </a-spin>
   </div>
 </template>
@@ -56,7 +66,7 @@ export default {
     apiData: {
       deep: true,
       handler() {
-        this.percent = this.apiData.data
+        this.percent = parseInt(this.apiData.value)
       }
     }
   }

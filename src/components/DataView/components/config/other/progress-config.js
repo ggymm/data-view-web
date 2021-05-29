@@ -12,20 +12,23 @@ const ProgressConfig = function() {
       dataSourceType: '',
       database: '',
       fileName: '',
-      sql: '',
-      x: '',
-      name: ''
+      value: 'value',
+      sql: 'select * from progress'
     },
     data: {},
     interval: 8000,
     option: {
-      type: '',
+      type: 'line',
       showInfo: true,
+      info: {
+        color: '#ffffff',
+        fontSize: 20
+      },
       strokeLinecap: 'round',
-      strokeWidth: 15,
+      strokeWidth: 10,
       strokeColor: '#5bc0de',
       width: 150,
-      gapDegree: 30,
+      gapDegree: 0,
       gapPosition: 'bottom'
     }
   }

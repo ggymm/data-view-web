@@ -3,7 +3,10 @@
     <a-collapse-panel key="通用配置" header="通用配置">
       <a-form layout="horizontal" :label-col="{span: 6}" :wrapper-col="{span: 14, offset: 1}">
         <a-form-item label="是否锁定">
-          <a-switch v-model="item.lock" checked-children="锁定" un-checked-children="不锁定" />
+          <a-select v-model="item.lock">
+            <a-select-option value="false">不锁定</a-select-option>
+            <a-select-option value="true">锁定</a-select-option>
+          </a-select>
         </a-form-item>
       </a-form>
     </a-collapse-panel>
