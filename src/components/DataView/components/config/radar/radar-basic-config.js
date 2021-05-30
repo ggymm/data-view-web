@@ -21,39 +21,36 @@ const RadarBasicConfig = function() {
     interval: 8000,
     option: {
       title: {
-        text: '基础雷达图',
+        show: true,
+        text: '标准雷达图',
         left: 'center',
         textStyle: {
-          color: '#fff'
+          color: '#ffffff'
         }
       },
-      tooltip: {},
       legend: {
         show: true,
-        orient: 'vertical',
-        data: [],
-        top: '0',
-        left: '0',
         textStyle: {
-          color: '#fff'
+          color: '#ffffff'
         }
       },
       radar: {
         indicator: [],
-        shape: 'polygon',
-        radius: 50
+        axisLine: {},
+        axisLabel: {},
+        axisTick: {},
+        splitLine: {},
+        splitArea: {}
       },
-      series: [{
-        name: '',
-        type: 'radar',
-        areaStyle: { normal: { opacity: 0.4 }},
-        data: []
-      }],
-      toolbox: {
-        feature: {
-          saveAsImage: {}
+      series: [
+        {
+          type: 'radar',
+          itemStyle: {},
+          lineStyle: {},
+          areaStyle: {},
+          data: []
         }
-      }
+      ]
     }
   }
 }

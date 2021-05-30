@@ -22,7 +22,7 @@
         <a-list-item slot="renderItem" slot-scope="item">
           <a-card :title="item.title">
             <div class="thumbnails">
-              <img :src="'http://192.168.50.158:9000' + item.instance_view_thumbnail" class="image" alt="">
+              <img :src="imageBasicUrl + item.instance_view_thumbnail" class="image" alt="">
               <div class="edit-shade" />
               <a-button type="primary" @click="handleEdit(item.instance_id)">编辑</a-button>
             </div>
@@ -42,12 +42,14 @@
 </template>
 
 <script>
+import defaultSettings from '@/config'
 import { getDataViewPage } from '@/api/dataView'
 
 export default {
   name: 'Index',
   data() {
     return {
+      imageBasicUrl: defaultSettings.imageBasicUrl,
       list: [],
       pagination: {
         current: 1,

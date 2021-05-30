@@ -3,7 +3,7 @@
     <div class="data-view-preview-container">
       <layout-preview
         :background-color="panelConfig.backgroundColor"
-        :background-img="'url(http://192.168.50.158:9000' + panelConfig.backgroundImg + ')'"
+        :background-img="'url(' + imageBasicUrl + panelConfig.backgroundImg + ')'"
       >
         <item-preview
           v-for="item in slices"
@@ -24,6 +24,7 @@
 </template>
 
 <script>
+import defaultSettings from '@/config'
 import SlicePreview from '@/components/DataView/common/slice-preview'
 import LayoutPreview from '@/components/DataView/layout/layout-preview'
 import ItemPreview from '@/components/DataView/layout/item-preview'
@@ -38,6 +39,7 @@ export default {
   },
   data() {
     return {
+      imageBasicUrl: defaultSettings.imageBasicUrl,
       slices: [],
       panelConfig: {
         title: '',

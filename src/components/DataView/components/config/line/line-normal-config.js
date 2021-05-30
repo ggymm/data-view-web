@@ -29,7 +29,10 @@ const LineNormalConfig = function() {
         }
       },
       legend: {
-        show: false
+        show: false,
+        textStyle: {
+          color: '#ffffff'
+        }
       },
       grid: {
         left: '10%',
@@ -58,7 +61,8 @@ const LineNormalConfig = function() {
           lineStyle: {
             color: ['#cccccc']
           }
-        }
+        },
+        splitArea: {}
       },
       yAxis: {
         axisLine: {
@@ -79,7 +83,8 @@ const LineNormalConfig = function() {
           lineStyle: {
             color: ['#cccccc']
           }
-        }
+        },
+        splitArea: {}
       },
       series: []
     }

@@ -18,7 +18,6 @@
           <a-icon type="setting" />
           个人设置
         </a-menu-item>
-        <a-menu-divider v-if="menu" />
         <a-menu-item key="logout" @click="handleLogout">
           <a-icon type="logout" />
           退出登录
@@ -53,7 +52,7 @@ export default {
     handleToSettings() {
       this.$router.push({ path: '/account/settings' })
     },
-    handleLogout(e) {
+    handleLogout() {
       Modal.confirm({
         title: this.$t('layouts.usermenu.dialog.title'),
         content: this.$t('layouts.usermenu.dialog.content'),

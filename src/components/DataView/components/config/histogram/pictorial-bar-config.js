@@ -26,7 +26,10 @@ const PictorialBarConfig = function() {
         textStyle: { color: '#fff' }
       },
       legend: {
-        show: false
+        show: false,
+        textStyle: {
+          color: '#ffffff'
+        }
       },
       grid: {
         left: '10%',

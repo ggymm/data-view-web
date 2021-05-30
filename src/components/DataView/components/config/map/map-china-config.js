@@ -28,7 +28,10 @@ const MapChinaConfig = function() {
         }
       },
       legend: {
-        show: false
+        show: false,
+        textStyle: {
+          color: '#ffffff'
+        }
       },
       visualMap: {
         show: true,

@@ -26,7 +26,10 @@ const HistogramNormalConfig = function() {
         textStyle: { color: '#fff' }
       },
       legend: {
-        show: false
+        show: false,
+        textStyle: {
+          color: '#ffffff'
+        }
       },
       grid: {
         left: '10%',
@@ -55,7 +58,8 @@ const HistogramNormalConfig = function() {
           lineStyle: {
             color: ['#cccccc']
           }
-        }
+        },
+        splitArea: {}
       },
       yAxis: {
         axisLine: {
@@ -76,7 +80,8 @@ const HistogramNormalConfig = function() {
           lineStyle: {
             color: ['#cccccc']
           }
-        }
+        },
+        splitArea: {}
       },
       series: []
     }

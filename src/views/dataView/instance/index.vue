@@ -35,7 +35,7 @@
         >
           <layout
             :background-color="panelConfig.backgroundColor"
-            :background-img="'url(http://192.168.50.158:9000' + panelConfig.backgroundImg + ')'"
+            :background-img="'url(' + imageBasicUrl + panelConfig.backgroundImg + ')'"
             @layoutUpdated="handleLayoutUpdated"
             @sizeUpdate="handleSizeUpdate"
           >
@@ -104,6 +104,7 @@
 <script>
 import html2canvas from 'html2canvas'
 import { menus } from './menu'
+import defaultSettings from '@/config'
 import Slice from '@/components/DataView/common/slice'
 import ChartOption from '@/components/DataView/common/chart-option'
 import Layout from '@/components/DataView/layout/layout'
@@ -127,6 +128,7 @@ export default {
   data() {
     return {
       menus,
+      imageBasicUrl: defaultSettings.imageBasicUrl,
       loading: true,
       instanceId: null,
       isCopy: null,
