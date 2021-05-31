@@ -18,7 +18,7 @@
             <a-input v-model="item.option.title.text" />
           </a-form-item>
           <a-form-item label="颜色">
-            <a-input v-model="item.option.title.textStyle.color" type="color" />
+            <a-input v-model="item.option.title.textStyle.color" />
           </a-form-item>
           <a-form-item label="位置(左)">
             <a-select v-model="item.option.title.left">

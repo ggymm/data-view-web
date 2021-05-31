@@ -94,9 +94,9 @@ export const menus = [
     'title': '雷达图',
     'children': [
       {
-        'key': 'radarBasic',
-        'icon': 'radarBasic',
-        'title': '基础雷达图'
+        'key': 'RadarNormal',
+        'icon': 'RadarNormal',
+        'title': '雷达图'
       }
     ]
   },

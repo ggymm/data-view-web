@@ -21,6 +21,9 @@
                 <a-form-item :label="'宽度-' + i">
                   <a-input v-model="s.barWidth" />
                 </a-form-item>
+                <a-form-item :label="'堆叠-' + i">
+                  <a-input v-model="s.stack" />
+                </a-form-item>
                 <template v-if="s.itemStyle.borderRadius !== undefined">
                   <a-form-item :label="'圆角半径-' + i">
                     <a-row :gutter="20">
@@ -41,7 +44,7 @@
                     </a-row>
                   </a-form-item>
                 </template>
-                <a-form-item :label="'颜色配置-' + i">
+                <a-form-item :label="'自定颜色配置-' + i">
                   <json-editor :height="'200px'" :json="s.itemStyle.color" @editor="itemColorChange($event, s)" />
                 </a-form-item>
               </div>

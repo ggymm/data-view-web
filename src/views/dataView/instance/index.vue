@@ -112,7 +112,7 @@ import Item from '@/components/DataView/layout/item'
 import OptionConfigMap from '@/components/DataView/components/config'
 import VLoading from '@/components/Loading/loading-modal'
 
-import { getImageList } from '@/api/image'
+import { getImageList, saveThumbnail } from '@/api/image'
 import { getDataSourceList } from '@/api/dataSource'
 import { getDataView, saveDataView, updateDataView } from '@/api/dataView'
 
@@ -144,7 +144,6 @@ export default {
         panelHeight: 842,
         backgroundColor: '#263546',
         backgroundImg: null,
-        instanceViewImg: null,
         instanceTheme: '',
         instanceVersion: 1
       },
@@ -274,7 +273,11 @@ export default {
       }
     },
     async handleSave() {
-      // await this.screenshot()
+      const thumbnail = await this.screenshot()
+      if (!thumbnail.success) {
+        this.$message.error('保存缩略图失败')
+        return
+      }
 
       const items = JSON.parse(JSON.stringify(this.slices))
       items.map((item) => {
@@ -295,7 +298,7 @@ export default {
         instance_height: this.panelConfig.panelHeight,
         instance_background_color: this.panelConfig.backgroundColor,
         instance_background_img: this.panelConfig.backgroundImg,
-        instance_view_thumbnail: this.panelConfig.instanceViewImg,
+        instance_view_thumbnail: thumbnail.data,
         instance_version: this.panelConfig.instanceVersion,
         chart_items: items
       }
@@ -365,7 +368,19 @@ export default {
       const canvas = await html2canvas(container, params)
       container.style.transform = ''
       container.style.transformOrigin = ''
-      console.log(canvas.toDataURL('image/png'))
+
+      const blob = this.dataURLtoBlob(canvas.toDataURL('image/png'))
+      const formData = new FormData()
+      formData.append('file', blob, `${new Date().getTime()}_thumbnail.png`)
+      return await saveThumbnail(formData)
+    },
+    dataURLtoBlob(dataURL) {
+      const data = window.atob(dataURL.split(',')[1])
+      const ia = new Uint8Array(data.length)
+      for (let i = 0; i < data.length; i++) {
+        ia[i] = data.charCodeAt(i)
+      }
+      return new Blob([ia], { type: 'image/png' })
     },
     debug() {
       this.screenshot()

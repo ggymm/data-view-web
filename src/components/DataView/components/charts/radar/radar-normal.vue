@@ -6,25 +6,34 @@
     :autoresize="true"
     :init-options="initOption"
     :option="option"
-    element-loading-text="Loading..."
+    :update-options="updateOptions"
     class="chart"
-    @click="handleChartClick"
   />
 </template>
 <script>
-import { getRadarBasicConfig } from '../../config/radar/radar-basic-config'
+import OptionConfigMap from '@/components/DataView/components/config'
 
 export default {
-  name: 'RadarBasic',
+  name: 'RadarNormal',
   props: {
     loading: {
       type: Boolean,
       default: true
     },
+    lock: {
+      type: String,
+      default: 'false'
+    },
     option: {
       type: Object,
       default() {
-        return getRadarBasicConfig().option
+        return OptionConfigMap['RadarNormal'].option
+      }
+    },
+    updateOptions: {
+      type: Object,
+      default() {
+        return {}
       }
     },
     apiData: {
@@ -42,8 +51,7 @@ export default {
   },
   data() {
     return {
-      chartType: 'radarBasic',
-      initOption: getRadarBasicConfig().option
+      initOption: OptionConfigMap['RadarNormal'].option
     }
   },
   watch: {
@@ -58,10 +66,7 @@ export default {
     })
   },
   methods: {
-    handleChartClick(param) {
-    },
     setData() {
-      this.option.legend.data = this.apiData.legend
       this.option.radar.indicator = this.apiData.indicator
       this.option.series[0].data = this.apiData.data
     }

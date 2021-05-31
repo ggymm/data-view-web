@@ -7,7 +7,7 @@
           <a-collapse-panel key="文本配置" header="文本配置">
             <a-form layout="horizontal" :label-col="{span: 6}" :wrapper-col="{span: 14, offset: 1}">
               <a-form-item label="颜色">
-                <a-input v-model="item.option.fontColor" type="color" />
+                <a-input v-model="item.option.fontColor" />
               </a-form-item>
               <a-form-item label="字体">
                 <a-input-number v-model="item.option.fontSize" :min="0" :precision="0" />
@@ -45,7 +45,7 @@
                 <a-input v-model="item.option.prefix.title" />
               </a-form-item>
               <a-form-item label="颜色">
-                <a-input v-model="item.option.prefix.fontColor" type="color" />
+                <a-input v-model="item.option.prefix.fontColor" />
               </a-form-item>
               <a-form-item label="字体">
                 <a-input-number v-model="item.option.prefix.fontSize" :min="0" :precision="0" />
@@ -69,7 +69,7 @@
                 <a-input v-model="item.option.unit.title" />
               </a-form-item>
               <a-form-item label="颜色">
-                <a-input v-model="item.option.unit.fontColor" type="color" />
+                <a-input v-model="item.option.unit.fontColor" />
               </a-form-item>
               <a-form-item label="字体">
                 <a-input-number v-model="item.option.unit.fontSize" :min="0" :precision="0" />

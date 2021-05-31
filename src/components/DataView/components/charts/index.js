@@ -13,7 +13,7 @@ import MapChina from './map/map-china'
 
 import PieNormal from './pie/pie-normal'
 
-import RadarBasic from './radar/radar-basic'
+import RadarNormal from './radar/radar-normal'
 
 import HeatBasic from './heat/heat-basic'
 
@@ -44,7 +44,7 @@ Vue.component('MapChina', MapChina)
 
 Vue.component('PieNormal', PieNormal)
 
-Vue.component('RadarBasic', RadarBasic)
+Vue.component('RadarNormal', RadarNormal)
 
 Vue.component('HeatBasic', HeatBasic)
 
@@ -76,7 +76,7 @@ export {
 
   PieNormal,
 
-  RadarBasic,
+  RadarNormal,
 
   HeatBasic,
 

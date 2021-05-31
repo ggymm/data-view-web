@@ -16,7 +16,7 @@ import MapProvinceOption from './map/map-province-option'
 
 import PieNormalOption from './pie/pie-normal-option'
 
-import RadarBasicOption from './radar/radar-basic-option'
+import RadarNormalOption from './radar/radar-normal-option'
 
 import HeatBasicOption from './heat/heat-basic-option'
 import HeatProvinceOption from './heat/heat-province-option'
@@ -52,7 +52,7 @@ Vue.component('mapProvinceOption', MapProvinceOption)
 
 Vue.component('PieNormalOption', PieNormalOption)
 
-Vue.component('radarBasicOption', RadarBasicOption)
+Vue.component('RadarNormalOption', RadarNormalOption)
 
 Vue.component('heatBasicOption', HeatBasicOption)
 Vue.component('heatProvinceOption', HeatProvinceOption)
@@ -90,7 +90,7 @@ export {
 
   PieNormalOption,
 
-  RadarBasicOption,
+  RadarNormalOption,
 
   HeatBasicOption,
   HeatProvinceOption,

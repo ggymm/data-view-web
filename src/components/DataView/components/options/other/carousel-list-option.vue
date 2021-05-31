@@ -12,7 +12,7 @@
                 <a-input-number v-model="item.option.header.height" :min="0" :precision="0" />
               </a-form-item>
               <a-form-item label="字体颜色">
-                <a-input v-model="item.option.header.fontColor" type="color" />
+                <a-input v-model="item.option.header.fontColor" />
               </a-form-item>
               <a-form-item label="字体大小">
                 <a-input-number v-model="item.option.header.fontSize" :min="0" :precision="0" />
@@ -33,7 +33,7 @@
                 <a-input-number v-model="item.option.body.height" :min="0" :precision="0" />
               </a-form-item>
               <a-form-item label="字体颜色">
-                <a-input v-model="item.option.body.fontColor" type="color" />
+                <a-input v-model="item.option.body.fontColor" />
               </a-form-item>
               <a-form-item label="字体大小">
                 <a-input-number v-model="item.option.body.fontSize" :min="0" :precision="0" />

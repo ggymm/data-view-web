@@ -14,7 +14,7 @@ import { getMapProvinceConfig } from './map/map-province-config'
 
 import { getPieNormalConfig } from './pie/pie-normal-config'
 
-import { getRadarBasicConfig } from './radar/radar-basic-config'
+import { getRadarNormalConfig } from './radar/radar-normal-config'
 
 import { getHeatBasicConfig } from './heat/heat-basic-config'
 import { getHeatProvinceConfig } from './heat/heat-province-config'
@@ -52,7 +52,7 @@ const OptionConfigMap = {
 
   'PieNormal': getPieNormalConfig,
 
-  'radarBasic': getRadarBasicConfig,
+  'RadarNormal': getRadarNormalConfig,
 
   'heatBasic': getHeatBasicConfig,
   'heatProvince': getHeatProvinceConfig,

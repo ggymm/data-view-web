@@ -1,21 +1,22 @@
-const RadarBasicConfig = function() {
+const RadarNormalConfig = function() {
   this.config = {
     x: 0,
     y: 0,
     width: 350,
     height: 250,
-    chartType: 'radarBasic',
+    chartType: 'RadarNormal',
+    lock: 'false',
     choose: 'false',
     refresh: 'false',
     chartData: {
       dataSourceType: '',
       database: '',
       fileName: '',
-      sql: 'select * from radar',
-      value: 'value',
       name: 'name',
+      value: 'value',
       max: 'max',
-      legend: 'legend'
+      dimension: 'legend',
+      sql: 'select * from radar'
     },
     data: [],
     interval: 8000,
@@ -36,18 +37,33 @@ const RadarBasicConfig = function() {
       },
       radar: {
         indicator: [],
-        axisLine: {},
-        axisLabel: {},
-        axisTick: {},
-        splitLine: {},
-        splitArea: {}
+        center: ['50%', '50%'],
+        radius: [0, '70%'],
+        axisLine: {
+          show: true,
+          lineStyle: {}
+        },
+        axisLabel: {
+          show: true
+        },
+        axisTick: {
+          show: true,
+          lineStyle: {}
+        },
+        splitLine: {
+          show: true,
+          lineStyle: {}
+        },
+        splitArea: {
+          show: true,
+          areaStyle: {}
+        }
       },
       series: [
         {
           type: 'radar',
           itemStyle: {},
           lineStyle: {},
-          areaStyle: {},
           data: []
         }
       ]
@@ -55,8 +71,8 @@ const RadarBasicConfig = function() {
   }
 }
 
-const getRadarBasicConfig = function() {
-  return new RadarBasicConfig().config
+const getRadarNormalConfig = function() {
+  return new RadarNormalConfig().config
 }
 
-export { getRadarBasicConfig }
+export { getRadarNormalConfig }

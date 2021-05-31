@@ -44,14 +44,14 @@
             <a-switch v-model="item.option.xAxis.axisLine.show" checked-children="显示" un-checked-children="不显示" />
           </a-form-item>
           <a-form-item v-if="item.option.xAxis.axisLine.show" label="坐标轴线颜色">
-            <a-input v-model="item.option.xAxis.axisLine.lineStyle.color" type="color" />
+            <a-input v-model="item.option.xAxis.axisLine.lineStyle.color" />
           </a-form-item>
           <a-form-item label="显示标签">
             <a-switch v-model="item.option.xAxis.axisLabel.show" checked-children="显示" un-checked-children="不显示" />
           </a-form-item>
           <template v-if="item.option.xAxis.axisLabel.show">
             <a-form-item label="标签字体颜色">
-              <a-input v-model="item.option.xAxis.axisLabel.color" type="color" />
+              <a-input v-model="item.option.xAxis.axisLabel.color" />
             </a-form-item>
             <a-form-item label="标签旋转角度">
               <a-input-number v-model="item.option.xAxis.axisLabel.rotate" :min="-90" :max="90" />
@@ -96,14 +96,14 @@
             <a-switch v-model="item.option.yAxis.axisLine.show" checked-children="显示" un-checked-children="不显示" />
           </a-form-item>
           <a-form-item v-if="item.option.yAxis.axisLine.show" label="坐标轴线颜色">
-            <a-input v-model="item.option.yAxis.axisLine.lineStyle.color" type="color" />
+            <a-input v-model="item.option.yAxis.axisLine.lineStyle.color" />
           </a-form-item>
           <a-form-item label="显示标签">
             <a-switch v-model="item.option.yAxis.axisLabel.show" checked-children="显示" un-checked-children="不显示" />
           </a-form-item>
           <template v-if="item.option.yAxis.axisLabel.show">
             <a-form-item label="标签字体颜色">
-              <a-input v-model="item.option.yAxis.axisLabel.color" type="color" />
+              <a-input v-model="item.option.yAxis.axisLabel.color" />
             </a-form-item>
             <a-form-item label="标签旋转角度">
               <a-input-number v-model="item.option.yAxis.axisLabel.rotate" :min="-90" :max="90" />

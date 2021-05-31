@@ -27,7 +27,7 @@
                   </a-select>
                 </a-form-item>
                 <a-form-item :label="'区域颜色-' + i">
-                  <a-input v-model="s.areaStyle.color" type="color" />
+                  <a-input v-model="s.areaStyle.color" />
                 </a-form-item>
               </div>
             </a-form>

@@ -96,6 +96,10 @@ export default {
 </script>
 
 <style lang="less">
+body {
+  overflow: hidden;
+}
+
 .data-view-preview-container {
   width: 100%;
   height: 100%;

@@ -72,13 +72,13 @@
           <a-collapse-panel key="地图配置" header="地图配置">
             <a-form :model="item" layout="horizontal" :label-col="{span: 6}" :wrapper-col="{span: 14, offset: 1}">
               <a-form-item label="颜色">
-                <a-input v-model="item.option.series[0].itemStyle.color" type="color" />
+                <a-input v-model="item.option.series[0].itemStyle.color" />
               </a-form-item>
               <a-form-item label="区域颜色">
-                <a-input v-model="item.option.series[0].itemStyle.areaColor" type="color" />
+                <a-input v-model="item.option.series[0].itemStyle.areaColor" />
               </a-form-item>
               <a-form-item label="边框颜色">
-                <a-input v-model="item.option.series[0].itemStyle.borderColor" type="color" />
+                <a-input v-model="item.option.series[0].itemStyle.borderColor" />
               </a-form-item>
             </a-form>
           </a-collapse-panel>

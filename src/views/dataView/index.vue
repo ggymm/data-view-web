@@ -99,7 +99,7 @@ export default {
 
 <style>
 .thumbnails {
-  height: 130px;
+  height: 160px;
 }
 
 .thumbnails:hover .edit-shade {
@@ -136,10 +136,10 @@ export default {
 .thumbnails .edit-shade {
   background: #000000 none repeat scroll 0 0;
   opacity: 0.5;
-  height: 130px;
+  height: 160px;
   position: relative;
   text-align: center;
-  top: -130px;
+  top: -160px;
   z-index: 99999;
   display: none;
 }
@@ -147,7 +147,7 @@ export default {
 .thumbnails button {
   position: relative;
   z-index: 99999;
-  top: -200px;
+  top: -250px;
   padding: 5px 6px;
   margin: auto;
   display: none;

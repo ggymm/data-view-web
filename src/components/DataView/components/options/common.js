@@ -70,3 +70,14 @@ export const gapPositionList = [
   { label: '左', value: 'left' },
   { label: '右', value: 'right' }
 ]
+
+export const symbolTypeList = [
+  { label: 'circle', value: 'circle' },
+  { label: 'rect', value: 'rect' },
+  { label: 'roundRect', value: 'roundRect' },
+  { label: 'triangle', value: 'triangle' },
+  { label: 'diamond', value: 'diamond' },
+  { label: 'pin', value: 'pin' },
+  { label: 'arrow', value: 'arrow' },
+  { label: 'none', value: 'none' }
+]

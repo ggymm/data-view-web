@@ -23,14 +23,14 @@
               <a-input-number v-model="item.option.info.fontSize" :min="0" :precision="0" />
             </a-form-item>
             <a-form-item label="字体颜色">
-              <a-input v-model="item.option.info.color" type="color" />
+              <a-input v-model="item.option.info.color" />
             </a-form-item>
           </template>
           <a-form-item label="宽度">
             <a-input-number v-model="item.option.strokeWidth" :min="0" :precision="0" />
           </a-form-item>
           <a-form-item label="颜色">
-            <a-input v-model="item.option.strokeColor" type="color" />
+            <a-input v-model="item.option.strokeColor" />
           </a-form-item>
           <a-form-item label="边角">
             <a-radio-group v-model="item.option.strokeLinecap">
