@@ -4,6 +4,7 @@
     <a-card :bordered="false">
       <div class="handle">
         <div class="table-operator">
+          <a-button type="primary" icon="plus" @click="handleCreatePro">新建（Pro）</a-button>
           <a-button type="primary" icon="plus" @click="handleCreate">新建</a-button>
           <a-button type="primary" icon="bug" @click="handleDebug">调试</a-button>
         </div>
@@ -77,6 +78,9 @@ export default {
     },
     handleFilter() {
 
+    },
+    handleCreatePro() {
+      window.open('/data-view-web/data-view-instance-pro/index')
     },
     handleCreate() {
       window.open('/data-view-web/data-view-instance/index')

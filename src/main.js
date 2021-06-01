@@ -6,12 +6,12 @@ import store from './store'
 import ProLayout, { PageHeaderWrapper } from '@ant-design-vue/pro-layout'
 import GlobalComponents from '@/components/DataView/global-components'
 
-import './core/lazy_use' // use lazy load components
-import './global.less' // global style
+import './core/lazy_use'
+import './global.less'
 
 Vue.config.productionTip = false
 
-// use pro-layout components
+// use pro-layout config
 Vue.component('pro-layout', ProLayout)
 Vue.component('page-container', PageHeaderWrapper)
 Vue.component('page-header-wrapper', PageHeaderWrapper)

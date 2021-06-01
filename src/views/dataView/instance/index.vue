@@ -1,7 +1,6 @@
 <!--suppress JSUnresolvedVariable, JSUnusedLocalSymbols -->
 <template>
   <div class="data-view-container">
-    <v-loading v-show="loading" />
     <div class="data-view-header">
       <a-menu
         class="data-view-menu"
@@ -103,14 +102,13 @@
 
 <script>
 import html2canvas from 'html2canvas'
-import { menus } from './menu'
+import { menus } from '../config/menu'
 import defaultSettings from '@/config'
-import Slice from '@/components/DataView/common/slice'
-import ChartOption from '@/components/DataView/common/chart-option'
 import Layout from '@/components/DataView/layout/layout'
 import Item from '@/components/DataView/layout/item'
+import Slice from '@/components/DataView/common/slice'
+import ChartOption from '@/components/DataView/common/chart-option'
 import OptionConfigMap from '@/components/DataView/components/config'
-import VLoading from '@/components/Loading/loading-modal'
 
 import { getImageList, saveThumbnail } from '@/api/image'
 import { getDataSourceList } from '@/api/dataSource'
@@ -122,8 +120,7 @@ export default {
     Layout,
     Item,
     Slice,
-    ChartOption,
-    VLoading
+    ChartOption
   },
   data() {
     return {
@@ -183,7 +180,6 @@ export default {
       newItem.x = event.offsetX - newItem.width / 2
       newItem.y = event.offsetY - newItem.height / 2
       this.slices.push(newItem)
-      // this.$set(this.slices, this.startIndex, newItem)
       this.startIndex += 1
       console.groupEnd()
     },
@@ -372,7 +368,7 @@ export default {
       const blob = this.dataURLtoBlob(canvas.toDataURL('image/png'))
       const formData = new FormData()
       formData.append('file', blob, `${new Date().getTime()}_thumbnail.png`)
-      return await saveThumbnail(formData)
+      return saveThumbnail(formData)
     },
     dataURLtoBlob(dataURL) {
       const data = window.atob(dataURL.split(',')[1])

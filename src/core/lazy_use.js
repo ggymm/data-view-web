@@ -1,4 +1,5 @@
 import Vue from 'vue'
+import bus from '@/core/bus'
 import scriptUrl from '@/assets/icon/iconfont.js'
 
 import {
@@ -114,3 +115,5 @@ const MyIcon = Icon.createFromIconfontCN({
 })
 
 Vue.component('icon', MyIcon)
+
+Vue.prototype.$bus = bus

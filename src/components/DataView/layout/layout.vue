@@ -1,7 +1,6 @@
 <template>
   <div
     id="data-view-container-layout"
-    ref="item"
     :style="{background: backgroundColor,
              backgroundImage: backgroundImg,
              backgroundRepeat: 'no-repeat',

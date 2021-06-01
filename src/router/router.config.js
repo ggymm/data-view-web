@@ -50,7 +50,7 @@ export const asyncRouterMap = [
           }
         ]
       },
-      // 可视化大屏管理
+      // 数据可视化大屏管理
       {
         path: '/data-view',
         redirect: '/data-view/index',
@@ -67,6 +67,27 @@ export const asyncRouterMap = [
             component: () => import('@/views/dataView/index'),
             meta: {
               title: '可视化大屏管理'
+            }
+          }
+        ]
+      },
+      // 数据报表管理
+      {
+        path: '/data-report',
+        redirect: '/data-report/index',
+        name: 'DataReport',
+        component: RouteView,
+        hideChildrenInMenu: true,
+        meta: {
+          title: '报表管理',
+          icon: 'dashboard'
+        },
+        children: [
+          {
+            path: 'index',
+            component: () => import('@/views/dataReport/index'),
+            meta: {
+              title: '报表管理'
             }
           }
         ]
@@ -103,7 +124,7 @@ export const asyncRouterMap = [
             path: 'index',
             component: () => import('@/views/dataView/instance/index'),
             meta: {
-              title: '可视化大屏编辑'
+              title: '可视化大屏创建'
             }
           },
           {
@@ -116,6 +137,28 @@ export const asyncRouterMap = [
           {
             path: 'preview/:instance_id',
             component: () => import('@/views/dataView/instance/preview'),
+            meta: {
+              title: '可视化大屏预览'
+            }
+          }
+        ]
+      },
+      {
+        path: '/data-view-instance-pro',
+        redirect: '/data-view-instance-pro/index',
+        component: RouteView,
+        hidden: true,
+        children: [
+          {
+            path: 'index',
+            component: () => import('@/views/dataView/instance-pro/index'),
+            meta: {
+              title: '可视化大屏创建'
+            }
+          },
+          {
+            path: 'index/:instance_id/:is_copy',
+            component: () => import('@/views/dataView/instance-pro/index'),
             meta: {
               title: '可视化大屏编辑'
             }
