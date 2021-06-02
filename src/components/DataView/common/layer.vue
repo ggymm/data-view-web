@@ -21,6 +21,7 @@ export default {
 <style lang="less">
 .data-view-layer {
   .layer-header {
+    font-size: 13px;
     height: 30px;
     line-height: 30px;
     padding: 0 10px;

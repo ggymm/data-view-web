@@ -46,7 +46,7 @@ export default {
     return {
       editorX: 0,
       editorY: 0,
-      start: { // 选中区域的起点
+      start: {
         x: 0,
         y: 0
       },

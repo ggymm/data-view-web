@@ -23,7 +23,7 @@
         <layer />
       </a-layout-sider>
       <a-layout class="data-view-screen">
-        <a-layout-content>
+        <a-layout-content ref="">
           <div
             class="data-view-screen-wrapper"
             :style="screenWrapperStyle()"
@@ -33,19 +33,16 @@
               :panel-width="panelConfig.panelWidth"
               :panel-height="panelConfig.panelHeight"
               :background-img="'url(' + imageBasicUrl + panelConfig.backgroundImg + ')'"
+              @dragover.native="handleDragOver"
+              @drop.native="handleDrop"
             >
               <item
                 v-for="item in slices"
                 :key="item.slice_id"
-                :x.sync="item.x"
-                :y.sync="item.y"
-                :width.sync="item.width"
-                :height.sync="item.height"
                 :i="item.i"
-                :panel-width="panelConfig.panelWidth"
-                :panel-height="panelConfig.panelHeight"
+                :style="itemStyle(item)"
               >
-                <slice
+                <chart
                   :id="item.i"
                   :item="item"
                   :theme="panelConfig.instanceTheme"
@@ -78,7 +75,7 @@ import defaultSettings from '@/config'
 import OptionConfigMap from '@/components/DataView/components/config'
 import Layout from '@/components/DataView/layout-pro/layout'
 import Item from '@/components/DataView/layout-pro/item'
-import Slice from '@/components/DataView/common/slice'
+import Chart from '@/components/DataView/common/chart'
 import Layer from '@/components/DataView/common/layer'
 
 export default {
@@ -86,7 +83,7 @@ export default {
   components: {
     Layout,
     Item,
-    Slice,
+    Chart,
     Layer
   },
   data() {
