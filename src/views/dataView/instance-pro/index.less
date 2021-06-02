@@ -1,0 +1,108 @@
+.data-view-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+
+  .ant-layout-header {
+    height: 50px;
+    line-height: 50px;
+    padding: 0;
+
+    .data-view-menu {
+      float: left;
+      width: 75%;
+      height: 50px;
+      line-height: 50px;
+    }
+  }
+
+  .data-view-screen {
+    position: relative;
+    z-index: 2;
+    height: 100%;
+    overflow: hidden;
+    flex-direction: column;
+    background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAAOAQMAAAAlhr+SAAAABlBMVEUqLjNSXWS1zSUzAAAAD0lEQVQI12NgwADMYIQBAACrAAd4ROv5AAAAAElFTkSuQmCC);
+
+    .ant-layout-content {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+
+      &::-webkit-scrollbar {
+        width: 5px;
+        height: 5px;
+      }
+
+      &::-webkit-scrollbar-corner {
+        display: none;
+      }
+
+      &::-webkit-scrollbar-thumb {
+        background: #434b55;
+      }
+
+      .data-view-screen-wrapper {
+
+        .data-view-layout {
+          position: absolute;
+          top: 50px;
+          left: 50px;
+          background-position: center, right bottom;
+          background-repeat: no-repeat, no-repeat;
+          background-size: cover, contain;
+          box-shadow: rgb(0 0 0 / 50%) 0 0 30px 0;
+          transition: 0.2s all ease-in-out;
+          transform-origin: 0 0;
+        }
+      }
+    }
+
+    .ant-layout-footer {
+      height: 30px;
+      line-height: 30px;
+      padding: 0 20px;
+      background: #001529;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+
+      .data-view-scale {
+        display: flex;
+        align-items: center;
+        margin: 0;
+        height: 30px;
+        width: 200px;
+        line-height: 30px;
+      }
+    }
+  }
+}
+
+.ant-menu-item {
+  cursor: default;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.data-view-menu {
+  .ant-menu-submenu {
+    &:hover {
+      color: #ffffff !important;
+    }
+  }
+
+  .ant-menu-submenu-open {
+    color: #ffffff !important;
+  }
+}
+
+.ant-menu-submenu {
+  svg {
+    fill: white;
+  }
+}

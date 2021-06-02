@@ -1,14 +1,12 @@
 <template>
-  <div>
-    <component
-      :is="item.chartType + 'Option'"
-      :item="item"
-      :data-source-list="dataSourceList"
-      @handleDeleteItem="handleDeleteItem"
-      @handleEditOption="handleEditOption"
-      @handleEditSql="handleEditSql"
-    />
-  </div>
+  <component
+    :is="item.chartType + 'Option'"
+    :item="item"
+    :data-source-list="dataSourceList"
+    @handleDeleteItem="handleDeleteItem"
+    @handleEditOption="handleEditOption"
+    @handleEditSql="handleEditSql"
+  />
 </template>
 
 <script>

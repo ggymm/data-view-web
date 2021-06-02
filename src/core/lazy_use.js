@@ -23,6 +23,7 @@ import {
   InputNumber,
   Radio,
   Select,
+  Slider,
   Switch,
   TimePicker,
   Upload,
@@ -72,6 +73,7 @@ Vue.use(Input)
 Vue.use(InputNumber)
 Vue.use(Radio)
 Vue.use(Select)
+Vue.use(Slider)
 Vue.use(Switch)
 Vue.use(TimePicker)
 Vue.use(Upload)

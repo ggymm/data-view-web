@@ -1,11 +1,10 @@
 <template>
   <div
-    id="data-view-container-layout"
     :style="{background: backgroundColor,
              backgroundImage: backgroundImg,
              backgroundRepeat: 'no-repeat',
              backgroundSize: '100% 100%'}"
-    class="data-view-container-layout"
+    class="data-view-layout"
   >
     <slot />
   </div>

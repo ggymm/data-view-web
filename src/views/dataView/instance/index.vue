@@ -136,7 +136,7 @@ export default {
       panelConfig: {
         title: '',
         // panelWidth: 1920,
-        panelWidth: 1425,
+        panelWidth: 1452,
         // panelHeight: 1080,
         panelHeight: 842,
         backgroundColor: '#263546',
@@ -186,8 +186,8 @@ export default {
     initPageStyle() {
       const width = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth
       const height = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight
-      // this.panelConfig.panelWidth = width - 450 - 20 * 2 - 5
-      // this.panelConfig.panelHeight = height - 50 - 20 * 2 - 5
+      this.panelConfig.panelWidth = width - 450 - 20 * 2
+      this.panelConfig.panelHeight = height - 50 - 20 * 2
       console.log('自动初始化', width, height)
     },
     handleLayoutUpdated(layout) {
@@ -387,161 +387,5 @@ export default {
 </script>
 
 <style lang="less">
-.data-view-container {
-  .vue-resizable-handle {
-    display: block;
-  }
-
-  .data-view-header {
-    .data-view-menu {
-      float: left;
-      width: 75%;
-      height: 50px;
-      line-height: 50px;
-      background-color: #545c64;
-    }
-
-    .data-view-handler {
-      position: relative;
-      float: right;
-      height: 50px;
-      line-height: 50px;
-      width: 25%;
-      background-color: #545c64;
-    }
-  }
-
-  .data-view-main {
-    position: absolute;
-    top: 50px;
-    left: 0;
-    right: 0;
-    bottom: 0;
-
-    .data-view-panel {
-      position: absolute;
-      left: 0;
-      bottom: 0;
-      top: 0;
-      padding: 0;
-      width: calc(100% - 450px);
-      height: 100%;
-      overflow: auto;
-
-      &::-webkit-scrollbar {
-        height: 6px;
-        width: 6px;
-        background-color: #909090;
-      }
-
-      &::-webkit-scrollbar-thumb {
-        background-color: #909090;
-      }
-
-      &::-webkit-scrollbar-track {
-        background-color: #fff;
-      }
-
-      .data-view-screen {
-        padding: 20px;
-        position: relative;
-        overflow: auto;
-
-        .data-view-container-layout {
-          width: 100%;
-          height: 100%;
-          position: relative;
-          box-shadow: 0 0 20px 0 rgba(0, 0, 0, .8);
-          overflow: hidden;
-
-          .data-view-item {
-            .adaptation {
-              &.choose {
-                outline: 1px solid #DCDEE3;
-              }
-
-              .chart {
-                width: 100%;
-                height: 100%;
-                margin: 0 auto;
-              }
-            }
-
-            .slice-wrapper {
-              width: 100%;
-              height: 100%;
-
-              &.choose {
-                outline: 1px solid #DCDEE3;
-              }
-
-              .chart {
-                width: 100%;
-                height: 100%;
-                margin: 0 auto;
-              }
-            }
-          }
-        }
-      }
-    }
-
-    .data-view-option {
-      position: absolute;
-      right: 0;
-      bottom: 0;
-      top: 0;
-      padding: 0;
-      width: 450px;
-      height: 100%;
-      overflow: auto;
-      border-left: #e2e2e2 1px solid;
-
-      &::-webkit-scrollbar {
-        display: none;
-      }
-
-      .data-view-option-panel {
-        .ant-form {
-          padding: 20px;
-
-          .ant-form-item-label {
-            padding: 0 10px 0 0 !important;
-          }
-        }
-      }
-    }
-  }
-}
-
-.ant-menu-item {
-  cursor: default;
-  -webkit-touch-callout: none;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-}
-
-.data-view-menu {
-  .ant-menu-submenu {
-    &:hover {
-      color: #ffffff !important;
-    }
-  }
-
-  .ant-menu-submenu-open {
-    color: #ffffff !important;
-  }
-}
-
-.ant-menu-submenu {
-  svg {
-    fill: white;
-  }
-}
-
-.ant-menu-dark, .ant-menu-dark .ant-menu-sub {
-  background-color: #545c64;
-}
+@import "index.less";
 </style>

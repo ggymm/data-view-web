@@ -4,30 +4,31 @@
     :style="{
       width: panelWidth + 'px',
       height: panelHeight + 'px',
+      transform: `scale(${scale / 100}) translate(0px, 0px)`,
       backgroundImage: backgroundImg,
       backgroundRepeat: 'no-repeat',
-      backgroundSize: '100% 100%'
+      backgroundSize: '100% 100%',
     }"
   >
     <slot />
-    <!-- 网格线 -->
-    <grid />
     <!-- 选中区域 -->
     <choose-area v-show="isShowArea" :start="start" :width="width" :height="height" />
   </div>
 </template>
 
 <script>
-import Grid from './grid'
 import ChooseArea from './area'
 
 export default {
   name: 'Layout',
   components: {
-    Grid,
     ChooseArea
   },
   props: {
+    scale: {
+      type: Number,
+      default: 100
+    },
     panelWidth: {
       type: Number,
       default: 0
