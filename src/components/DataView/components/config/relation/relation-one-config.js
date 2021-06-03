@@ -5,6 +5,7 @@ const RelationOneConfig = function() {
     width: 350,
     height: 250,
     chartType: 'relationOne',
+    rotate: 0,
     choose: 'false',
     refresh: 'false',
     chartData: {

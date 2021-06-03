@@ -5,6 +5,7 @@ const HeatProvinceConfig = function() {
     width: 350,
     height: 250,
     chartType: 'heatProvince',
+    rotate: 0,
     choose: 'false',
     refresh: 'false',
     chartData: {

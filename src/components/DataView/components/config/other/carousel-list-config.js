@@ -5,6 +5,7 @@ const CarouselListConfig = function() {
     width: 350,
     height: 200,
     chartType: 'CarouselList',
+    rotate: 0,
     lock: 'false',
     choose: 'false',
     refresh: 'false',

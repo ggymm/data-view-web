@@ -5,6 +5,7 @@ const LineCoordinateConfig = function() {
     width: 350,
     height: 250,
     chartType: 'lineCoordinate',
+    rotate: 0,
     choose: 'false',
     refresh: 'false',
     chartData: {

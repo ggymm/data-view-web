@@ -5,6 +5,7 @@ const PictorialBarConfig = function() {
     width: 350,
     height: 250,
     chartType: 'PictorialBar',
+    rotate: 0,
     lock: 'false',
     choose: 'false',
     refresh: 'false',

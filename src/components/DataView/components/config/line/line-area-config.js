@@ -5,6 +5,7 @@ const LineAreaConfig = function() {
     width: 350,
     height: 250,
     chartType: 'LineArea',
+    rotate: 0,
     lock: 'false',
     choose: 'false',
     refresh: 'false',

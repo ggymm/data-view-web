@@ -5,6 +5,7 @@ const RelationThreeConfig = function() {
     width: 350,
     height: 250,
     chartType: 'relationThree',
+    rotate: 0,
     choose: 'false',
     refresh: 'false',
     chartData: {

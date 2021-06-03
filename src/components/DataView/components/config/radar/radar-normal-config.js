@@ -5,6 +5,7 @@ const RadarNormalConfig = function() {
     width: 350,
     height: 250,
     chartType: 'RadarNormal',
+    rotate: 0,
     lock: 'false',
     choose: 'false',
     refresh: 'false',

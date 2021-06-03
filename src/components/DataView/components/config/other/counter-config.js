@@ -5,6 +5,7 @@ const CounterConfig = function() {
     width: 200,
     height: 50,
     chartType: 'Counter',
+    rotate: 0,
     lock: 'false',
     choose: 'false',
     refresh: 'false',

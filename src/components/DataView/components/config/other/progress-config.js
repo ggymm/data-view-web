@@ -5,6 +5,7 @@ const ProgressConfig = function() {
     width: 350,
     height: 50,
     chartType: 'Progress',
+    rotate: 0,
     lock: 'false',
     choose: 'false',
     refresh: 'false',
