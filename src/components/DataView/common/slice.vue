@@ -20,6 +20,7 @@
     />
   </div>
 </template>
+<!--suppress JSUnresolvedVariable -->
 <script>
 import '../components/charts'
 import ThemeConfigMap from '@/components/DataView/themes/theme-config-map'

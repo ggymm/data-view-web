@@ -23,11 +23,12 @@
         <layer />
       </a-layout-sider>
       <a-layout class="data-view-screen">
-        <a-layout-content ref="">
-          <div
-            class="data-view-screen-wrapper"
-            :style="screenWrapperStyle()"
-          >
+        <a-layout-content
+          ref="screenWrapper"
+          class="data-view-screen-wrapper"
+          @mousedown.stop="handleItemUnChoose"
+        >
+          <div :style="screenWrapperStyle()">
             <layout
               :scale="scale"
               :panel-width="panelConfig.panelWidth"
@@ -39,14 +40,14 @@
               <item
                 v-for="item in slices"
                 :key="item.slice_id"
-                :i="item.i"
+                :item="item"
                 :style="itemStyle(item)"
+                @transferHandleItemChoose="handleItemChoose(item)"
               >
                 <chart
                   :id="item.i"
                   :item="item"
                   :theme="panelConfig.instanceTheme"
-                  @transferHandleItemChoose="handleItemChoose(item)"
                 />
               </item>
             </layout>
@@ -62,8 +63,41 @@
           />
         </a-layout-footer>
       </a-layout>
-      <a-layout-sider width="400">
-        配置项
+      <a-layout-sider width="400" class="data-view-option-panel">
+        <div v-if="Object.keys(chooseItem).length === 0" class="data-view-screen-option">
+          <a-form :model="panelConfig" layout="horizontal" :label-col="{span: 6}" :wrapper-col="{span: 14}">
+            <a-form-item label="大屏标题">
+              <a-input v-model="panelConfig.title" />
+            </a-form-item>
+            <a-form-item label="画板宽度">
+              <a-input-number v-model="panelConfig.panelWidth" :min="1" :step="10" />
+            </a-form-item>
+            <a-form-item label="画板高度">
+              <a-input-number v-model="panelConfig.panelHeight" :min="1" :step="10" />
+            </a-form-item>
+            <a-form-item label="背景色">
+              <a-input v-model="panelConfig.backgroundColor" type="color" />
+            </a-form-item>
+            <a-form-item label="背景图">
+              <a-select v-model="panelConfig.backgroundImg">
+                <a-select-option
+                  v-for="backgroundImg in backgroundImgList"
+                  :key="backgroundImg.image_path"
+                  :value="backgroundImg.image_path"
+                >
+                  {{ backgroundImg.image_name }}
+                </a-select-option>
+              </a-select>
+            </a-form-item>
+          </a-form>
+        </div>
+        <chart-option
+          v-else
+          class="data-view-chart-option"
+          :data-source-list="dataSourceList"
+          :item="chooseItem"
+          @handleDeleteItem="handleDelete"
+        />
       </a-layout-sider>
     </a-layout>
   </a-layout>
@@ -77,6 +111,9 @@ import Layout from '@/components/DataView/layout-pro/layout'
 import Item from '@/components/DataView/layout-pro/item'
 import Chart from '@/components/DataView/common/chart'
 import Layer from '@/components/DataView/common/layer'
+import ChartOption from '@/components/DataView/common/chart-option'
+import { getDataSourceList } from '@/api/dataSource'
+import { getImageList } from '@/api/image'
 
 export default {
   name: 'Index',
@@ -84,7 +121,8 @@ export default {
     Layout,
     Item,
     Chart,
-    Layer
+    Layer,
+    ChartOption
   },
   data() {
     return {
@@ -110,6 +148,10 @@ export default {
       chooseItem: {}
     }
   },
+  created() {
+    this.getDataSourceList()
+    this.getImageList()
+  },
   methods: {
     screenWrapperStyle() {
       return {
@@ -124,8 +166,6 @@ export default {
         width: item.width + 'px',
         height: item.height + 'px'
       }
-    },
-    debug() {
     },
     handleDragStart(event, key) {
       event.dataTransfer.setData('key', key)
@@ -148,16 +188,23 @@ export default {
       this.startIndex += 1
       console.groupEnd()
     },
-    handleMouseDown() {
-
-    },
-    deselectCurComponent() {
-
-    },
     handleItemChoose(item) {
       // 此处应该显示对应的Options
       // 对应类别显示，数据则从数组里面取
       this.chooseItem = item
+    },
+    handleItemUnChoose() {
+      this.chooseItem = {}
+    },
+    handleDelete() {
+    },
+    async getDataSourceList() {
+      const response = await getDataSourceList()
+      this.dataSourceList = response.data
+    },
+    async getImageList() {
+      const response = await getImageList()
+      this.backgroundImgList = response.data
     }
   }
 }

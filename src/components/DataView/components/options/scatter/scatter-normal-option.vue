@@ -1,5 +1,5 @@
 <template>
-  <div class="data-view-chart-option three">
+  <div class="three">
     <a-tabs>
       <a-tab-pane key="style" tab="样式">
         <common-chart-option :item="item" />

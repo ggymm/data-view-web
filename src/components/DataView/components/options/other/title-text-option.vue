@@ -1,6 +1,6 @@
 <!--suppress JSUnresolvedVariable, JSUnusedLocalSymbols -->
 <template>
-  <div class="data-view-chart-option two">
+  <div class="two">
     <a-tabs>
       <a-tab-pane key="style" tab="样式">
         <a-form layout="horizontal" :label-col="{span: 6}" :wrapper-col="{span: 14, offset: 1}">

@@ -1,6 +1,6 @@
 <!--suppress JSUnresolvedVariable, JSUnusedLocalSymbols -->
 <template>
-  <div class="data-view-chart-option three">
+  <div class="three">
     <a-tabs>
       <a-tab-pane key="style" tab="样式">
         <a-collapse :bordered="false" :accordion="true">

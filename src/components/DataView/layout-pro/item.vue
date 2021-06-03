@@ -1,5 +1,5 @@
 <template>
-  <div class="data-view-item" :class="{ active }" @click="selectCurComponent" @mousedown="handleMouseDownOnShape">
+  <div class="data-view-item" :class="{ active }" @click="handleItemClick" @mousedown="handleItemMousedown">
     <slot />
   </div>
 </template>
@@ -11,14 +11,23 @@ export default {
     active: {
       type: Boolean,
       default: false
+    },
+    item: {
+      type: Object,
+      default() {
+        return {}
+      }
     }
   },
   methods: {
-    selectCurComponent() {
-
+    handleItemClick(e) {
+      // 阻止向父组件冒泡
+      e.stopPropagation()
+      e.preventDefault()
     },
-    handleMouseDownOnShape() {
-
+    handleItemMousedown(e) {
+      e.stopPropagation()
+      this.$emit('transferHandleItemChoose', this.item)
     }
   }
 }

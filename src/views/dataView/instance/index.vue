@@ -91,6 +91,7 @@
         </div>
         <chart-option
           v-else
+          class="data-view-chart-option"
           :data-source-list="dataSourceList"
           :item="chooseItem"
           @handleDeleteItem="handleDelete"
