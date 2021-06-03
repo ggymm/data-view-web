@@ -146,7 +146,18 @@ export default {
     this.getDataSourceList()
     this.getImageList()
   },
+  mounted() {
+  },
   methods: {
+    autoScale() {
+      console.groupCollapsed('自动设置缩放')
+      let width = this.$refs.screenWrapper.clientWidth
+      let height = this.$refs.screenWrapper.clientHeight
+      console.log('wrapper实际大小', width, height)
+      width = width - 100
+      height = height - 100
+      console.log('wrapper去除边框后大小', width, height)
+    },
     screenWrapperStyle() {
       return {
         width: `${this.panelWidth * this.scale / 100 + 100}px`,
