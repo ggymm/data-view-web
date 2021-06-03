@@ -29,20 +29,13 @@
           @mousedown.stop="handleItemUnChoose"
         >
           <div :style="screenWrapperStyle()">
-            <layout
-              :scale="scale"
-              :panel-width="panelConfig.panelWidth"
-              :panel-height="panelConfig.panelHeight"
-              :background-img="'url(' + imageBasicUrl + panelConfig.backgroundImg + ')'"
-              @dragover.native="handleDragOver"
-              @drop.native="handleDrop"
-            >
+            <layout @dragover.native="handleDragOver" @drop.native="handleDrop">
               <item
-                v-for="item in slices"
+                v-for="item in charts"
                 :key="item.slice_id"
                 :item="item"
+                :active="item === currentItem"
                 :style="itemStyle(item)"
-                @transferHandleItemChoose="handleItemChoose(item)"
               >
                 <chart
                   :id="item.i"
@@ -64,16 +57,16 @@
         </a-layout-footer>
       </a-layout>
       <a-layout-sider width="400" class="data-view-option-panel">
-        <div v-if="Object.keys(chooseItem).length === 0" class="data-view-screen-option">
+        <div v-if="currentItem === null" class="data-view-screen-option">
           <a-form :model="panelConfig" layout="horizontal" :label-col="{span: 6}" :wrapper-col="{span: 14}">
             <a-form-item label="大屏标题">
               <a-input v-model="panelConfig.title" />
             </a-form-item>
             <a-form-item label="画板宽度">
-              <a-input-number v-model="panelConfig.panelWidth" :min="1" :step="10" />
+              <a-input-number v-model="panelWidth" :min="1" :step="10" />
             </a-form-item>
             <a-form-item label="画板高度">
-              <a-input-number v-model="panelConfig.panelHeight" :min="1" :step="10" />
+              <a-input-number v-model="panelHeight" :min="1" :step="10" />
             </a-form-item>
             <a-form-item label="背景色">
               <a-input v-model="panelConfig.backgroundColor" type="color" />
@@ -95,7 +88,7 @@
           v-else
           class="data-view-chart-option"
           :data-source-list="dataSourceList"
-          :item="chooseItem"
+          :item="currentItem"
           @handleDeleteItem="handleDelete"
         />
       </a-layout-sider>
@@ -104,8 +97,9 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
+
 import { menus } from '../config/menu'
-import defaultSettings from '@/config'
 import OptionConfigMap from '@/components/DataView/components/config'
 import Layout from '@/components/DataView/layout-pro/layout'
 import Item from '@/components/DataView/layout-pro/item'
@@ -127,27 +121,27 @@ export default {
   data() {
     return {
       menus,
-      imageBasicUrl: defaultSettings.imageBasicUrl,
       loading: true,
       instanceId: null,
       isCopy: null,
-      slices: [],
       startIndex: 0,
       dataSourceList: [],
       backgroundImgList: [],
-      scale: 100,
       panelConfig: {
         title: '',
-        panelWidth: 1920,
-        panelHeight: 1080,
-        backgroundColor: '#263546',
-        backgroundImg: '/storage/2021/0531/通用模板1-背景.png',
         instanceTheme: '',
         instanceVersion: 1
-      },
-      chooseItem: {}
+      }
     }
   },
+  computed: mapState([
+    'scale',
+    'panelWidth',
+    'panelHeight',
+
+    'charts',
+    'currentItem'
+  ]),
   created() {
     this.getDataSourceList()
     this.getImageList()
@@ -155,8 +149,8 @@ export default {
   methods: {
     screenWrapperStyle() {
       return {
-        width: `${this.panelConfig.panelWidth * this.scale / 100 + 100}px`,
-        height: `${this.panelConfig.panelHeight * this.scale / 100 + 100}px`
+        width: `${this.panelWidth * this.scale / 100 + 100}px`,
+        height: `${this.panelHeight * this.scale / 100 + 100}px`
       }
     },
     itemStyle(item) {
@@ -184,17 +178,12 @@ export default {
       newItem.i = 'chart' + this.startIndex
       newItem.x = event.offsetX - newItem.width / 2
       newItem.y = event.offsetY - newItem.height / 2
-      this.slices.push(newItem)
+      this.$store.commit('addItem', newItem)
       this.startIndex += 1
       console.groupEnd()
     },
-    handleItemChoose(item) {
-      // 此处应该显示对应的Options
-      // 对应类别显示，数据则从数组里面取
-      this.chooseItem = item
-    },
     handleItemUnChoose() {
-      this.chooseItem = {}
+      this.$store.commit('setCurrentItem', null)
     },
     handleDelete() {
     },

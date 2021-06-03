@@ -24,7 +24,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { asyncRouterMap, constantRouterMap } from '@/router/router.config'
 import { CONTENT_WIDTH_TYPE, SIDEBAR_TYPE, TOGGLE_MOBILE_TYPE } from '@/store/mutation-types'
 
 import defaultSettings from '@/config'
@@ -64,14 +64,10 @@ export default {
       query: {},
 
       // 是否手机模式
-      isMobile: false
+      isMobile: false,
+
+      mainMenu: constantRouterMap.concat(asyncRouterMap)
     }
-  },
-  computed: {
-    ...mapState({
-      // 动态主路由
-      mainMenu: state => state.permission.addRouters
-    })
   },
   created() {
     const routes = this.mainMenu.find(item => item.path === '/')

@@ -5,7 +5,7 @@
       width: panelWidth + 'px',
       height: panelHeight + 'px',
       transform: `scale(${scale / 100}) translate(0px, 0px)`,
-      backgroundImage: backgroundImg,
+      backgroundImage: 'url(' + imageBasicUrl + backgroundImg + ')',
       backgroundRepeat: 'no-repeat',
       backgroundSize: '100% 100%',
     }"
@@ -17,33 +17,18 @@
 </template>
 
 <script>
+import defaultSettings from '@/config'
 import ChooseArea from './area'
+import { mapState } from 'vuex'
 
 export default {
   name: 'Layout',
   components: {
     ChooseArea
   },
-  props: {
-    scale: {
-      type: Number,
-      default: 100
-    },
-    panelWidth: {
-      type: Number,
-      default: 0
-    },
-    panelHeight: {
-      type: Number,
-      default: 0
-    },
-    backgroundImg: {
-      type: String,
-      default: ''
-    }
-  },
   data() {
     return {
+      imageBasicUrl: defaultSettings.imageBasicUrl,
       editorX: 0,
       editorY: 0,
       start: {
@@ -55,6 +40,12 @@ export default {
       isShowArea: false
     }
   },
+  computed: mapState([
+    'scale',
+    'panelWidth',
+    'panelHeight',
+    'backgroundImg'
+  ]),
   methods: {}
 }
 </script>

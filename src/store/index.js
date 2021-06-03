@@ -1,24 +1,20 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 
-import app from './modules/app'
-
-import permission from './modules/permission'
-
-import getters from './getters'
+import dataView from './modules/data-view.js'
 
 Vue.use(Vuex)
 
-export default new Vuex.Store({
+const store = new Vuex.Store({
   state: {
+    ...dataView.state
   },
   mutations: {
+    ...dataView.mutations
   },
   actions: {
-  },
-  modules: {
-    app,
-    permission
-  },
-  getters
+    ...dataView.actions
+  }
 })
+
+export default store
