@@ -1,7 +1,7 @@
 <!--suppress JSUnresolvedVariable, JSUnusedLocalSymbols -->
 <template>
   <a-layout class="data-view-container">
-    <a-layout-header>
+    <a-layout-header class="data-view-header">
       <a-menu
         class="data-view-menu"
         mode="horizontal"
@@ -18,8 +18,8 @@
         </a-sub-menu>
       </a-menu>
     </a-layout-header>
-    <a-layout>
-      <a-layout-sider width="200">
+    <a-layout class="data-view-main">
+      <a-layout-sider width="200" class="data-view-layer">
         <layer />
       </a-layout-sider>
       <a-layout class="data-view-screen">
@@ -46,11 +46,11 @@
             </layout>
           </div>
         </a-layout-content>
-        <a-layout-footer>
+        <a-layout-footer class="data-view-screen-footer">
           <a-slider
             v-model="scale"
             class="data-view-scale"
-            :min="1"
+            :min="20"
             :max="200"
             :marks="{ 50: {}, 100:{}, 150:{} }"
           />
@@ -63,22 +63,22 @@
               <a-input v-model="panelConfig.title" />
             </a-form-item>
             <a-form-item label="画板宽度">
-              <a-input-number v-model="panelWidth" :min="1" :step="10" />
+              <a-input-number v-model="panelStyle.width" :min="1" :step="10" />
             </a-form-item>
             <a-form-item label="画板高度">
-              <a-input-number v-model="panelHeight" :min="1" :step="10" />
+              <a-input-number v-model="panelStyle.height" :min="1" :step="10" />
             </a-form-item>
             <a-form-item label="背景色">
               <a-input v-model="panelConfig.backgroundColor" type="color" />
             </a-form-item>
             <a-form-item label="背景图">
-              <a-select v-model="panelConfig.backgroundImg">
+              <a-select v-model="panelStyle.backgroundImg">
                 <a-select-option
-                  v-for="backgroundImg in backgroundImgList"
-                  :key="backgroundImg.image_path"
-                  :value="backgroundImg.image_path"
+                  v-for="image in backgroundImgList"
+                  :key="image.image_path"
+                  :value="image.image_path"
                 >
-                  {{ backgroundImg.image_name }}
+                  {{ image.image_name }}
                 </a-select-option>
               </a-select>
             </a-form-item>
@@ -127,6 +127,7 @@ export default {
       startIndex: 0,
       dataSourceList: [],
       backgroundImgList: [],
+      scale: 20,
       panelConfig: {
         title: '',
         instanceTheme: '',
@@ -134,34 +135,53 @@ export default {
       }
     }
   },
-  computed: mapState([
-    'scale',
-    'panelWidth',
-    'panelHeight',
-
-    'charts',
-    'currentItem'
-  ]),
+  computed: {
+    panelStyle: {
+      get() {
+        return this.$store.state.panelStyle
+      },
+      set(value) {
+        this.$store.commit('setPanelStyle', value)
+      }
+    },
+    ...mapState([
+      'charts',
+      'currentItem'
+    ])
+  },
   created() {
+    // 初始化页面选项
     this.getDataSourceList()
     this.getImageList()
   },
   mounted() {
+    // 初始化默认缩放比例
+    this.autoScale()
   },
   methods: {
     autoScale() {
-      console.groupCollapsed('自动设置缩放')
-      let width = this.$refs.screenWrapper.clientWidth
-      let height = this.$refs.screenWrapper.clientHeight
+      debugger
+      console.group('自动设置缩放')
+      let width = this.$refs.screenWrapper.$el.clientWidth
+      let height = this.$refs.screenWrapper.$el.clientHeight
       console.log('wrapper实际大小', width, height)
       width = width - 100
       height = height - 100
       console.log('wrapper去除边框后大小', width, height)
+      this.scale = this.$store.state.scale
+      if ((this.panelStyle.width / this.panelStyle.height) >= (width / height)) {
+        this.scale = width / this.panelStyle.width * 100
+      } else {
+        this.scale = height / this.panelStyle.height * 100
+      }
+      console.log('设置最佳缩放值', this.scale)
+      this.$store.commit('setScale', this.scale)
+      console.groupEnd()
     },
     screenWrapperStyle() {
       return {
-        width: `${this.panelWidth * this.scale / 100 + 100}px`,
-        height: `${this.panelHeight * this.scale / 100 + 100}px`
+        width: `${this.panelStyle.width * this.scale / 100 + 100}px`,
+        height: `${this.panelStyle.height * this.scale / 100 + 100}px`
       }
     },
     itemStyle(item) {

@@ -2,10 +2,10 @@
   <div
     class="data-view-layout"
     :style="{
-      width: panelWidth + 'px',
-      height: panelHeight + 'px',
+      width: panelStyle.width + 'px',
+      height: panelStyle.height + 'px',
       transform: `scale(${scale / 100}) translate(0px, 0px)`,
-      backgroundImage: 'url(' + imageBasicUrl + backgroundImg + ')',
+      backgroundImage: 'url(' + imageBasicUrl + panelStyle.backgroundImg + ')',
       backgroundRepeat: 'no-repeat',
       backgroundSize: '100% 100%',
     }"
@@ -42,9 +42,7 @@ export default {
   },
   computed: mapState([
     'scale',
-    'panelWidth',
-    'panelHeight',
-    'backgroundImg'
+    'panelStyle'
   ]),
   methods: {}
 }

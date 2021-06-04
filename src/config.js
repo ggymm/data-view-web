@@ -23,7 +23,7 @@ export default {
   title: '数据可视化平台',
   pwa: false,
   iconfontUrl: '',
-  // imageBasicUrl: 'http://192.168.50.158:9000',
-  imageBasicUrl: 'http://localhost:9421',
+  imageBasicUrl: 'http://192.168.50.158:9000',
+  // imageBasicUrl: 'http://localhost:9421',
   production: process.env.NODE_ENV === 'production' && process.env.VUE_APP_PREVIEW !== 'true'
 }

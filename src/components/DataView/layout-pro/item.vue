@@ -72,7 +72,6 @@ export default {
       const rotate = mod360(currentItem.rotate)
       const result = {}
       let lastMatchIndex = -1
-
       pointList.forEach(point => {
         const angle = mod360(initialAngle[point] + rotate)
         const len = angleToCursor.length

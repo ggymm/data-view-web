@@ -1,5 +1,5 @@
 <template>
-  <div class="data-view-layer">
+  <div>
     <div class="layer-header">
       <span>图层</span>
       <span class="handler">
