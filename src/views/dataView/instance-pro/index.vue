@@ -24,7 +24,7 @@
       </a-layout-sider>
       <a-layout class="data-view-screen">
         <a-layout-content
-          ref="screenWrapper"
+          id="screenWrapper"
           class="data-view-screen-wrapper"
           @mousedown.stop="handleItemUnChoose"
         >
@@ -35,7 +35,6 @@
                 :key="item.slice_id"
                 :item="item"
                 :active="item === currentItem"
-                :style="itemStyle(item)"
               >
                 <chart
                   :id="item.i"
@@ -53,6 +52,7 @@
             :min="20"
             :max="200"
             :marks="{ 50: {}, 100:{}, 150:{} }"
+            @afterChange="handlerScaleChange"
           />
         </a-layout-footer>
       </a-layout>
@@ -63,16 +63,13 @@
               <a-input v-model="panelConfig.title" />
             </a-form-item>
             <a-form-item label="画板宽度">
-              <a-input-number v-model="panelStyle.width" :min="1" :step="10" />
+              <a-input-number v-model="screenStyle.width" :min="1" :step="10" />
             </a-form-item>
             <a-form-item label="画板高度">
-              <a-input-number v-model="panelStyle.height" :min="1" :step="10" />
-            </a-form-item>
-            <a-form-item label="背景色">
-              <a-input v-model="panelConfig.backgroundColor" type="color" />
+              <a-input-number v-model="screenStyle.height" :min="1" :step="10" />
             </a-form-item>
             <a-form-item label="背景图">
-              <a-select v-model="panelStyle.backgroundImg">
+              <a-select v-model="screenStyle.backgroundImg">
                 <a-select-option
                   v-for="image in backgroundImgList"
                   :key="image.image_path"
@@ -136,18 +133,27 @@ export default {
     }
   },
   computed: {
-    panelStyle: {
+    storeScale() {
+      return this.$store.state.canvasStyle.scale
+    },
+    screenStyle: {
       get() {
-        return this.$store.state.panelStyle
+        return this.$store.state.screenStyle
       },
       set(value) {
-        this.$store.commit('setPanelStyle', value)
+        this.$store.commit('setScreenStyle', value)
       }
     },
     ...mapState([
+      'canvasStyle',
       'charts',
       'currentItem'
     ])
+  },
+  watch: {
+    storeScale: function(newVal) {
+      this.scale = newVal * 100
+    }
   },
   created() {
     // 初始化页面选项
@@ -156,40 +162,13 @@ export default {
   },
   mounted() {
     // 初始化默认缩放比例
-    this.autoScale()
+    this.$store.commit('autoCanvasScale')
   },
   methods: {
-    autoScale() {
-      debugger
-      console.group('自动设置缩放')
-      let width = this.$refs.screenWrapper.$el.clientWidth
-      let height = this.$refs.screenWrapper.$el.clientHeight
-      console.log('wrapper实际大小', width, height)
-      width = width - 100
-      height = height - 100
-      console.log('wrapper去除边框后大小', width, height)
-      this.scale = this.$store.state.scale
-      if ((this.panelStyle.width / this.panelStyle.height) >= (width / height)) {
-        this.scale = width / this.panelStyle.width * 100
-      } else {
-        this.scale = height / this.panelStyle.height * 100
-      }
-      console.log('设置最佳缩放值', this.scale)
-      this.$store.commit('setScale', this.scale)
-      console.groupEnd()
-    },
     screenWrapperStyle() {
       return {
-        width: `${this.panelStyle.width * this.scale / 100 + 100}px`,
-        height: `${this.panelStyle.height * this.scale / 100 + 100}px`
-      }
-    },
-    itemStyle(item) {
-      return {
-        left: item.x + 'px',
-        top: item.y + 'px',
-        width: item.width + 'px',
-        height: item.height + 'px'
+        width: `${this.canvasStyle.width}px`,
+        height: `${this.canvasStyle.height}px`
       }
     },
     handleDragStart(event, key) {
@@ -225,6 +204,9 @@ export default {
     async getImageList() {
       const response = await getImageList()
       this.backgroundImgList = response.data
+    },
+    handlerScaleChange(val) {
+      this.$store.commit('setCanvasScale', val)
     }
   }
 }

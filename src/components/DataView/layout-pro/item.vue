@@ -1,5 +1,10 @@
 <template>
-  <div class="data-view-item" :class="{ active }" @click="handleItemClick" @mousedown="handleItemMousedown">
+  <div
+    :class="{ active }"
+    :style="itemStyle()"
+    class="data-view-item"
+    @click="handleItemClick"
+  >
     <div
       v-for="point in (isActive()? pointList : [])"
       :key="point"
@@ -7,12 +12,18 @@
       :style="pointStyle(point)"
       @mousedown="handlePointMousedown(point, $event)"
     />
-    <slot />
+    <div
+      class="item-scale"
+      @mousedown.prevent.stop="handleItemMousedown"
+    >
+      <slot />
+    </div>
   </div>
 </template>
 
 <script>
 import { mapState } from 'vuex'
+import { on, off } from '@/core/dom'
 import { mod360 } from './translate'
 
 export default {
@@ -55,15 +66,29 @@ export default {
       ]
     }
   },
-  computed: mapState([
-    'currentItem'
-  ]),
+  computed: {
+    scale() {
+      return this.$store.state.canvasStyle.scale
+    },
+    ...mapState([
+      'currentItem'
+    ])
+  },
   mounted() {
     if (this.currentItem) {
       this.cursors = this.getCursor()
     }
   },
   methods: {
+    itemStyle() {
+      return {
+        top: 0,
+        left: 0,
+        width: `${this.item.width}px`,
+        height: `${this.item.height}px`,
+        transform: `translate(${this.item.x}px, ${this.item.y}px)`
+      }
+    },
     isActive() {
       return this.active
     },
@@ -72,6 +97,7 @@ export default {
       const rotate = mod360(currentItem.rotate)
       const result = {}
       let lastMatchIndex = -1
+
       pointList.forEach(point => {
         const angle = mod360(initialAngle[point] + rotate)
         const len = angleToCursor.length
@@ -126,18 +152,47 @@ export default {
         cursor: this.cursors[point]
       }
     },
-    handlePointMousedown(e, point) {
-
-    },
     handleItemClick(e) {
       // 阻止向父组件冒泡
       e.stopPropagation()
       e.preventDefault()
     },
-    handleItemMousedown(e) {
-      e.stopPropagation()
+    handlePointMousedown(e, point) {
+    },
+    handleItemMousedown(ev) {
       this.$store.commit('setCurrentItem', this.item)
       this.cursors = this.getCursor()
+
+      const pos = {
+        x: this.item.x,
+        y: this.item.y
+      }
+      const scale = this.scale
+      const grid = 5
+
+      const hasMove = false
+      const move = (e) => {
+        const x = pos.x + Math.round((e.clientX - ev.clientX) / scale / grid) * grid
+        const y = pos.y + Math.round((e.clientY - ev.clientY) / scale / grid) * grid
+
+        this.$store.commit('setItemStyle', { x: x, y: y })
+      }
+
+      const up = () => {
+        // 保存快照
+        hasMove && this.$store.commit('recordSnapshot')
+
+        // 通知移动完毕，隐藏对齐线
+        this.$bus.$emit('moved')
+
+        // 移除监听
+        off(document, 'mousemove', move)
+        off(document, 'mousemove', move)
+      }
+
+      // 添加监听
+      on(document, 'mousemove', move)
+      on(document, 'mouseup', up)
     }
   }
 }

@@ -1,5 +1,5 @@
 <template>
-  <div class="data-view-item" style="width: 100%;height: 100%;">
+  <div class="data-view-chart">
     <component
       :is="item.chartType"
       :loading="loading"

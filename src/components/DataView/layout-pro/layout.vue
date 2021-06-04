@@ -1,16 +1,19 @@
 <template>
+  <!--suppress JSUnresolvedVariable -->
   <div
     class="data-view-layout"
     :style="{
-      width: panelStyle.width + 'px',
-      height: panelStyle.height + 'px',
-      transform: `scale(${scale / 100}) translate(0px, 0px)`,
-      backgroundImage: 'url(' + imageBasicUrl + panelStyle.backgroundImg + ')',
+      width: `${screenStyle.width}px`,
+      height: `${screenStyle.height}px`,
+      transform: `scale(${canvasStyle.scale}) translate(0px, 0px)`,
+      backgroundImage: `url(${imageBasicUrl}${screenStyle.backgroundImg})`,
       backgroundRepeat: 'no-repeat',
       backgroundSize: '100% 100%',
     }"
   >
     <slot />
+    <!-- 对齐线 -->
+    <mark-line />
     <!-- 选中区域 -->
     <choose-area v-show="isShowArea" :start="start" :width="width" :height="height" />
   </div>
@@ -19,12 +22,14 @@
 <script>
 import defaultSettings from '@/config'
 import ChooseArea from './area'
+import MarkLine from './mark-line'
 import { mapState } from 'vuex'
 
 export default {
   name: 'Layout',
   components: {
-    ChooseArea
+    ChooseArea,
+    MarkLine
   },
   data() {
     return {
@@ -41,8 +46,8 @@ export default {
     }
   },
   computed: mapState([
-    'scale',
-    'panelStyle'
+    'canvasStyle',
+    'screenStyle'
   ]),
   methods: {}
 }
