@@ -4,6 +4,7 @@
     :style="itemStyle()"
     class="data-view-item"
     @click="handleItemClick"
+    @mousedown.prevent.stop="handleItemMousedown"
   >
     <div
       v-for="point in (isActive()? pointList : [])"
@@ -12,12 +13,7 @@
       :style="pointStyle(point)"
       @mousedown="handlePointMousedown(point, $event)"
     />
-    <div
-      class="item-scale"
-      @mousedown.prevent.stop="handleItemMousedown"
-    >
-      <slot />
-    </div>
+    <slot />
   </div>
 </template>
 
@@ -66,14 +62,11 @@ export default {
       ]
     }
   },
-  computed: {
-    scale() {
-      return this.$store.state.canvasStyle.scale
-    },
-    ...mapState([
-      'currentItem'
-    ])
-  },
+  computed: mapState([
+    'canvasStyle',
+    'screenStyle',
+    'currentItem'
+  ]),
   mounted() {
     if (this.currentItem) {
       this.cursors = this.getCursor()
@@ -101,7 +94,7 @@ export default {
       pointList.forEach(point => {
         const angle = mod360(initialAngle[point] + rotate)
         const len = angleToCursor.length
-        for (;;) {
+        for (; ;) {
           lastMatchIndex = (lastMatchIndex + 1) % len
           const angleLimit = angleToCursor[lastMatchIndex]
           if (angle < 23 || angle >= 338) {
@@ -163,19 +156,41 @@ export default {
       this.$store.commit('setCurrentItem', this.item)
       this.cursors = this.getCursor()
 
-      const pos = {
+      const moveInfo = {
         x: this.item.x,
-        y: this.item.y
+        y: this.item.y,
+        width: this.item.width,
+        height: this.item.height,
+        sWidth: this.screenStyle.width,
+        sHeight: this.screenStyle.height
       }
-      const scale = this.scale
-      const grid = 5
+      const scale = this.canvasStyle.scale
+      const grid = this.screenStyle.grid
 
-      const hasMove = false
+      let hasMove = false
       const move = (e) => {
-        const x = pos.x + Math.round((e.clientX - ev.clientX) / scale / grid) * grid
-        const y = pos.y + Math.round((e.clientY - ev.clientY) / scale / grid) * grid
-
-        this.$store.commit('setItemStyle', { x: x, y: y })
+        hasMove = true
+        const moveX = e.clientX - ev.clientX
+        const moveY = e.clientY - ev.clientY
+        const pos = {
+          x: moveInfo.x + Math.round(moveX / scale / grid) * grid,
+          y: moveInfo.y + Math.round(moveY / scale / grid) * grid
+        }
+        if (pos.x < 0 || pos.y < 0) return
+        if (pos.x + moveInfo.width > moveInfo.sWidth ||
+          pos.y + moveInfo.height > moveInfo.sHeight) {
+          return
+        }
+        this.$store.commit('setItemStyle', pos)
+        // 等更新完当前组件的样式并绘制到屏幕后再判断是否需要吸附
+        // 如果不使用 $nextTick，吸附后将无法移动
+        this.$nextTick(() => {
+          // 触发元素移动事件，用于显示标线、吸附功能
+          // 后面两个参数代表鼠标移动方向
+          // curY - startY > 0 true 表示向下移动 false 表示向上移动
+          // curX - startX > 0 true 表示向右移动 false 表示向左移动
+          this.$bus.$emit('moving', moveY > 0, moveX > 0)
+        })
       }
 
       const up = () => {

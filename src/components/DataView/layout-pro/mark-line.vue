@@ -35,8 +35,8 @@ export default {
   ]),
   mounted() {
     // 元素正在移动，显示对齐线
-    this.$bus.$on('moving', (isDownward, isRightward) => {
-      this.showLine(isDownward, isRightward)
+    this.$bus.$on('moving', (isRightward, isDownward) => {
+      this.showLine(isRightward, isDownward)
     })
 
     // 元素移动完毕，隐藏对齐线
@@ -45,8 +45,11 @@ export default {
     })
   },
   methods: {
-    showLine() {
-      console.log('计算对齐线')
+    showLine(isRightward, isDownward) {
+      console.group('显示对齐线')
+      console.log('isRightward', isRightward)
+      console.log('isDownward', isDownward)
+      console.groupEnd()
     },
     hideLine() {
       console.log('隐藏对齐线')

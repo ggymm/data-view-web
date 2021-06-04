@@ -59,31 +59,26 @@
           .data-view-item {
             position: absolute;
 
+            &.active {
+              outline: 1px solid #70c0ff;
+            }
+
             &:hover {
               cursor: move;
             }
 
-            .item-scale {
-              position: absolute;
+            .data-view-chart {
               width: 100%;
               height: 100%;
-              transform-origin: 0 0;
+              transform-origin: 50% 50%;
+              transform: scaleX(1) scaleY(1) rotateZ(360deg);
 
-              .data-view-chart {
-                width: 100%;
-                height: 100%;
-                transform-origin: 50% 50%;
-                transform: scaleX(1) scaleY(1) rotateZ(360deg);
-
-                .echarts {
-                  & > div {
-                    cursor: move !important;
-                  }
+              .echarts {
+                & > div {
+                  cursor: move !important;
                 }
               }
             }
-
-
           }
         }
       }
