@@ -59,6 +59,10 @@
           .data-view-item {
             position: absolute;
 
+            &.active {
+              outline: 1px solid #70c0ff;
+            }
+
             &:hover {
               cursor: move;
             }
@@ -72,134 +76,6 @@
               .echarts {
                 & > div {
                   cursor: move !important;
-                }
-              }
-            }
-          }
-
-          .data-view-item {
-            .control-point {
-              z-index: 2;
-              display: flex;
-              width: 20px;
-              height: 20px;
-              justify-content: center;
-              align-items: center;
-
-              &::after {
-                width: 6px;
-                height: 6px;
-                background: #fff;
-                border-radius: 100%;
-                content: '';
-              }
-            }
-
-            .line-handler {
-              position: absolute;
-              display: flex;
-              justify-content: center;
-              align-items: center;
-
-              &::after {
-                content: "";
-                position: absolute;
-                z-index: 1;
-                background: #59c7f9;
-              }
-
-              &.top-handler {
-                top: -5px;
-                width: 100%;
-                height: 11px;
-
-                &::after {
-                  width: 100%;
-                  height: 1px;
-                }
-              }
-
-              &.bottom-handler {
-                bottom: -5px;
-                width: 100%;
-                height: 11px;
-
-                &::after {
-                  width: 100%;
-                  height: 1px;
-                }
-              }
-
-              &.left-handler {
-                top: 0;
-                left: -5px;
-                width: 11px;
-                height: 100%;
-
-                &::after {
-                  width: 1px;
-                  height: 100%;
-                }
-              }
-
-              &.right-handler {
-                top: 0;
-                right: -5px;
-                width: 11px;
-                height: 100%;
-
-                &::after {
-                  width: 1px;
-                  height: 100%;
-                }
-              }
-            }
-
-            .spot-handler {
-              position: absolute;
-              display: flex;
-              width: 11px;
-              height: 11px;
-              justify-content: center;
-              align-items: center;
-
-              &.top-left-handler {
-                top: -15px;
-                left: -15px;
-
-                .rotate-handler {
-                  padding-top: 21px;
-                  padding-left: 21px;
-                }
-              }
-
-              &.top-right-handler {
-                top: -15px;
-                right: -15px;
-
-                .rotate-handler {
-                  padding-top: 21px;
-                  padding-right: 21px;
-                }
-              }
-
-              &.bottom-left-handler {
-                bottom: -15px;
-                left: -15px;
-
-                .rotate-handler {
-                  padding-bottom: 21px;
-                  padding-left: 21px;
-                }
-              }
-
-              &.bottom-right-handler {
-                bottom: -15px;
-                right: -15px;
-
-                .rotate-handler {
-                  padding-bottom: 21px;
-                  padding-right: 21px;
                 }
               }
             }

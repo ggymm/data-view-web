@@ -6,35 +6,13 @@
     @click="handleItemClick"
     @mousedown.prevent.stop="handleItemMousedown"
   >
-    <template v-for="(v, k) in (isActive()? points() : [])">
-      <i
-        v-if="v.rotateStyle"
-        :key="k"
-        :class="`${v.name}-handler`"
-        class="spot-handler"
-      >
-        <span
-          class="rotate-handler"
-          :style="v.rotateStyle"
-        >
-          <span
-            class="control-point"
-            :style="v.style"
-          />
-        </span>
-      </i>
-      <i
-        v-else
-        :key="k"
-        :class="`${v.name}-handler`"
-        class="line-handler"
-      >
-        <span
-          class="control-point"
-          :style="v.style"
-        />
-      </i>
-    </template>
+    <div
+      v-for="point in (isActive()? pointList : [])"
+      :key="point"
+      class="item-point"
+      :style="pointStyle(point)"
+      @mousedown="handlePointMousedown(point, $event)"
+    />
     <slot />
   </div>
 </template>
@@ -42,7 +20,7 @@
 <script>
 import { mapState } from 'vuex'
 import { on, off } from '@/core/dom'
-import { getCursors } from './calculate'
+import { mod360 } from './calculate'
 
 export default {
   name: 'Item',
@@ -59,16 +37,40 @@ export default {
     }
   },
   data() {
-    return {}
+    return {
+      cursors: {},
+      pointList: ['lt', 't', 'rt', 'r', 'rb', 'b', 'lb', 'l'],
+      initialAngle: {
+        lt: 0,
+        t: 45,
+        rt: 90,
+        r: 135,
+        rb: 180,
+        b: 225,
+        lb: 270,
+        l: 315
+      },
+      angleToCursor: [
+        { start: 338, end: 23, cursor: 'nw' },
+        { start: 23, end: 68, cursor: 'n' },
+        { start: 68, end: 113, cursor: 'ne' },
+        { start: 113, end: 158, cursor: 'e' },
+        { start: 158, end: 203, cursor: 'se' },
+        { start: 203, end: 248, cursor: 's' },
+        { start: 248, end: 293, cursor: 'sw' },
+        { start: 293, end: 338, cursor: 'w' }
+      ]
+    }
   },
-  computed: {
-    ...mapState([
-      'canvasStyle',
-      'screenStyle',
-      'currentItem'
-    ])
-  },
+  computed: mapState([
+    'canvasStyle',
+    'screenStyle',
+    'currentItem'
+  ]),
   mounted() {
+    if (this.currentItem) {
+      this.cursors = this.getCursor()
+    }
   },
   methods: {
     itemStyle() {
@@ -83,47 +85,49 @@ export default {
     isActive() {
       return this.active && this.currentItem.lock === 'false'
     },
-    points() {
-      const cursor = getCursors(this.item.rotate)
+    getCursor() {
+      const { angleToCursor, initialAngle, pointList, currentItem } = this
+      const rotate = mod360(currentItem.rotate)
+      const result = {}
+      let lastMatchIndex = -1
 
-      const transform = ``
-      return {
-        't': {
-          name: 'top',
-          style: { cursor: cursor.t, transform }
-        },
-        'rt': {
-          name: 'top-right',
-          style: { cursor: cursor.rt, transform },
-          rotateStyle: {}
-        },
-        'r': {
-          name: 'right',
-          style: { cursor: cursor.r, transform }
-        },
-        'rb': {
-          name: 'bottom-right',
-          style: { cursor: cursor.rb },
-          rotateStyle: { 'transform-origin': '25% 25%', transform }
-        },
-        'b': {
-          name: 'bottom',
-          style: { cursor: cursor.b, transform }
-        },
-        'lb': {
-          name: 'bottom-left',
-          style: { cursor: cursor.lb },
-          rotateStyle: { 'transform-origin': '75% 25%', transform }
-        },
-        'l': {
-          name: 'left',
-          style: { cursor: cursor.l, transform }
-        },
-        'lt': {
-          name: 'top-left',
-          style: { cursor: cursor.lt },
-          rotateStyle: { 'transform-origin': '75% 75%', transform }
+      pointList.forEach(point => {
+        const angle = mod360(initialAngle[point] + rotate)
+        const len = angleToCursor.length
+        for (; ;) {
+          lastMatchIndex = (lastMatchIndex + 1) % len
+          const angleLimit = angleToCursor[lastMatchIndex]
+          if (angle < 23 || angle >= 338) {
+            result[point] = 'nw-resize'
+            return
+          }
+          if (angleLimit.start <= angle && angle < angleLimit.end) {
+            result[point] = angleLimit.cursor + '-resize'
+            return
+          }
         }
+      })
+      return result
+    },
+    pointStyle(point) {
+      const width = this.item.width; const height = this.item.height
+      const isT = /t/.test(point); const isB = /b/.test(point)
+      const isL = /l/.test(point); const isR = /r/.test(point)
+      let left = isL ? 0 : width; let top = isT ? 0 : height
+      if (point.length === 1) {
+        if (isT || isB) {
+          left = Math.floor(width / 2)
+        }
+        if (isL || isR) {
+          top = Math.floor(height / 2)
+        }
+      }
+      return {
+        marginLeft: isR ? '-4px' : '-4px',
+        marginTop: '-4px',
+        left: `${left}px`,
+        top: `${top}px`,
+        cursor: this.cursors[point]
       }
     },
     handleItemClick(e) {
@@ -131,8 +135,11 @@ export default {
       e.stopPropagation()
       e.preventDefault()
     },
+    handlePointMousedown(e, point) {
+    },
     handleItemMousedown(ev) {
       this.$store.commit('setCurrentItem', this.item)
+      this.cursors = this.getCursor()
 
       const moveInfo = {
         x: this.item.x,
@@ -144,9 +151,9 @@ export default {
       }
       const scale = this.canvasStyle.scale
 
-      let hasMove = false
+      let moved = false
       const move = (e) => {
-        hasMove = true
+        moved = true
         const moveX = e.clientX - ev.clientX
         const moveY = e.clientY - ev.clientY
         const pos = {
@@ -172,7 +179,7 @@ export default {
 
       const up = () => {
         // 保存快照
-        hasMove && this.$store.commit('recordSnapshot')
+        moved && this.$store.commit('recordSnapshot')
 
         // 通知移动完毕，隐藏对齐线
         this.$bus.$emit('moved')
@@ -189,3 +196,15 @@ export default {
   }
 }
 </script>
+
+<style lang="less">
+.item-point {
+  position: absolute;
+  background: #ffffff;
+  border: 1px solid #59c7f9;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  z-index: 1;
+}
+</style>
