@@ -51,7 +51,7 @@
             class="data-view-scale"
             :min="20"
             :max="200"
-            :marks="{ 50: {}, 100:{}, 150:{} }"
+            :marks="{ 100:{} }"
             @afterChange="handlerScaleChange"
           />
         </a-layout-footer>

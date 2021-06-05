@@ -8,7 +8,7 @@ export default {
       scale: 0.2
     },
     screenStyle: {
-      grid: 6,
+      diff: 3,
       width: 1920,
       height: 1080,
       backgroundImg: '/group1/default/20210513/17/59/6/云资源监控-背景.png'

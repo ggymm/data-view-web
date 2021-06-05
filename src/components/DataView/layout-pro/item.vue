@@ -6,13 +6,35 @@
     @click="handleItemClick"
     @mousedown.prevent.stop="handleItemMousedown"
   >
-    <div
-      v-for="point in (isActive()? pointList : [])"
-      :key="point"
-      class="item-point"
-      :style="pointStyle(point)"
-      @mousedown="handlePointMousedown(point, $event)"
-    />
+    <template v-for="(v, k) in (isActive()? points() : [])">
+      <i
+        v-if="v.rotateStyle"
+        :key="k"
+        :class="`${v.name}-handler`"
+        class="spot-handler"
+      >
+        <span
+          class="rotate-handler"
+          :style="v.rotateStyle"
+        >
+          <span
+            class="control-point"
+            :style="v.style"
+          />
+        </span>
+      </i>
+      <i
+        v-else
+        :key="k"
+        :class="`${v.name}-handler`"
+        class="line-handler"
+      >
+        <span
+          class="control-point"
+          :style="v.style"
+        />
+      </i>
+    </template>
     <slot />
   </div>
 </template>
@@ -20,7 +42,7 @@
 <script>
 import { mapState } from 'vuex'
 import { on, off } from '@/core/dom'
-import { mod360 } from './translate'
+import { getCursors } from './calculate'
 
 export default {
   name: 'Item',
@@ -37,40 +59,16 @@ export default {
     }
   },
   data() {
-    return {
-      cursors: {},
-      pointList: ['lt', 't', 'rt', 'r', 'rb', 'b', 'lb', 'l'],
-      initialAngle: {
-        lt: 0,
-        t: 45,
-        rt: 90,
-        r: 135,
-        rb: 180,
-        b: 225,
-        lb: 270,
-        l: 315
-      },
-      angleToCursor: [
-        { start: 338, end: 23, cursor: 'nw' },
-        { start: 23, end: 68, cursor: 'n' },
-        { start: 68, end: 113, cursor: 'ne' },
-        { start: 113, end: 158, cursor: 'e' },
-        { start: 158, end: 203, cursor: 'se' },
-        { start: 203, end: 248, cursor: 's' },
-        { start: 248, end: 293, cursor: 'sw' },
-        { start: 293, end: 338, cursor: 'w' }
-      ]
-    }
+    return {}
   },
-  computed: mapState([
-    'canvasStyle',
-    'screenStyle',
-    'currentItem'
-  ]),
+  computed: {
+    ...mapState([
+      'canvasStyle',
+      'screenStyle',
+      'currentItem'
+    ])
+  },
   mounted() {
-    if (this.currentItem) {
-      this.cursors = this.getCursor()
-    }
   },
   methods: {
     itemStyle() {
@@ -83,66 +81,50 @@ export default {
       }
     },
     isActive() {
-      return this.active
+      return this.active && this.currentItem.lock === 'false'
     },
-    getCursor() {
-      const { angleToCursor, initialAngle, pointList, currentItem } = this
-      const rotate = mod360(currentItem.rotate)
-      const result = {}
-      let lastMatchIndex = -1
+    points() {
+      const cursor = getCursors(this.item.rotate)
 
-      pointList.forEach(point => {
-        const angle = mod360(initialAngle[point] + rotate)
-        const len = angleToCursor.length
-        for (; ;) {
-          lastMatchIndex = (lastMatchIndex + 1) % len
-          const angleLimit = angleToCursor[lastMatchIndex]
-          if (angle < 23 || angle >= 338) {
-            result[point] = 'nw-resize'
-            return
-          }
-          if (angleLimit.start <= angle && angle < angleLimit.end) {
-            result[point] = angleLimit.cursor + '-resize'
-            return
-          }
-        }
-      })
-      return result
-    },
-    pointStyle(point) {
-      const width = this.item.width
-      const height = this.item.height
-      const hasT = /t/.test(point)
-      const hasB = /b/.test(point)
-      const hasL = /l/.test(point)
-      const hasR = /r/.test(point)
-      let newLeft = 0
-      let newTop = 0
-
-      // 四个角的点
-      if (point.length === 2) {
-        newLeft = hasL ? 0 : width
-        newTop = hasT ? 0 : height
-      } else {
-        // 上下两点的点，宽度居中
-        if (hasT || hasB) {
-          newLeft = width / 2
-          newTop = hasT ? 0 : height
-        }
-
-        // 左右两边的点，高度居中
-        if (hasL || hasR) {
-          newLeft = hasL ? 0 : width
-          newTop = Math.floor(height / 2)
-        }
-      }
-
+      const scale = this.canvasStyle.scale
+      const transform = `scale(${1 / scale}, ${1 / scale})`
       return {
-        marginLeft: hasR ? '-4px' : '-4px',
-        marginTop: '-4px',
-        left: `${newLeft}px`,
-        top: `${newTop}px`,
-        cursor: this.cursors[point]
+        't': {
+          name: 'top',
+          style: { cursor: cursor.t, transform }
+        },
+        'rt': {
+          name: 'top-right',
+          style: { cursor: cursor.rt, transform },
+          rotateStyle: {}
+        },
+        'r': {
+          name: 'right',
+          style: { cursor: cursor.r, transform }
+        },
+        'rb': {
+          name: 'bottom-right',
+          style: { cursor: cursor.rb },
+          rotateStyle: { 'transform-origin': '25% 25%', transform }
+        },
+        'b': {
+          name: 'bottom',
+          style: { cursor: cursor.b, transform }
+        },
+        'lb': {
+          name: 'bottom-left',
+          style: { cursor: cursor.lb },
+          rotateStyle: { 'transform-origin': '75% 25%', transform }
+        },
+        'l': {
+          name: 'left',
+          style: { cursor: cursor.l, transform }
+        },
+        'lt': {
+          name: 'top-left',
+          style: { cursor: cursor.lt },
+          rotateStyle: { 'transform-origin': '75% 75%', transform }
+        }
       }
     },
     handleItemClick(e) {
@@ -150,11 +132,8 @@ export default {
       e.stopPropagation()
       e.preventDefault()
     },
-    handlePointMousedown(e, point) {
-    },
     handleItemMousedown(ev) {
       this.$store.commit('setCurrentItem', this.item)
-      this.cursors = this.getCursor()
 
       const moveInfo = {
         x: this.item.x,
@@ -165,7 +144,6 @@ export default {
         sHeight: this.screenStyle.height
       }
       const scale = this.canvasStyle.scale
-      const grid = this.screenStyle.grid
 
       let hasMove = false
       const move = (e) => {
@@ -173,8 +151,8 @@ export default {
         const moveX = e.clientX - ev.clientX
         const moveY = e.clientY - ev.clientY
         const pos = {
-          x: moveInfo.x + Math.round(moveX / scale / grid) * grid,
-          y: moveInfo.y + Math.round(moveY / scale / grid) * grid
+          x: moveInfo.x + Math.round(moveX / scale),
+          y: moveInfo.y + Math.round(moveY / scale)
         }
         if (pos.x < 0 || pos.y < 0) return
         if (pos.x + moveInfo.width > moveInfo.sWidth ||
@@ -214,13 +192,132 @@ export default {
 </script>
 
 <style lang="less">
-.item-point {
-  position: absolute;
-  background: #ffffff;
-  border: 1px solid #59c7f9;
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  z-index: 1;
+.data-view-item {
+  .control-point {
+    z-index: 2;
+    display: flex;
+    width: 20px;
+    height: 20px;
+    justify-content: center;
+    align-items: center;
+
+    &::after {
+      width: 6px;
+      height: 6px;
+      background: #fff;
+      border-radius: 100%;
+      content: '';
+    }
+  }
+
+  .line-handler {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &::after {
+      content: "";
+      position: absolute;
+      z-index: 1;
+      background: #59c7f9;
+    }
+
+    &.top-handler {
+      top: -5px;
+      width: 100%;
+      height: 11px;
+
+      &::after {
+        width: 100%;
+        height: 1px;
+      }
+    }
+
+    &.bottom-handler {
+      bottom: -5px;
+      width: 100%;
+      height: 11px;
+
+      &::after {
+        width: 100%;
+        height: 1px;
+      }
+    }
+
+    &.left-handler {
+      top: 0;
+      left: -5px;
+      width: 11px;
+      height: 100%;
+
+      &::after {
+        width: 1px;
+        height: 100%;
+      }
+    }
+
+    &.right-handler {
+      top: 0;
+      right: -5px;
+      width: 11px;
+      height: 100%;
+
+      &::after {
+        width: 1px;
+        height: 100%;
+      }
+    }
+  }
+
+  .spot-handler {
+    position: absolute;
+    display: flex;
+    width: 11px;
+    height: 11px;
+    justify-content: center;
+    align-items: center;
+
+    &.top-left-handler {
+      top: -15px;
+      left: -15px;
+
+      .rotate-handler {
+        padding-top: 21px;
+        padding-left: 21px;
+      }
+    }
+
+    &.top-right-handler {
+      top: -15px;
+      right: -15px;
+
+      .rotate-handler {
+        padding-top: 21px;
+        padding-right: 21px;
+      }
+    }
+
+    &.bottom-left-handler {
+      bottom: -15px;
+      left: -15px;
+
+      .rotate-handler {
+        padding-bottom: 21px;
+        padding-left: 21px;
+      }
+    }
+
+    &.bottom-right-handler {
+      bottom: -15px;
+      right: -15px;
+
+      .rotate-handler {
+        padding-bottom: 21px;
+        padding-right: 21px;
+      }
+    }
+  }
 }
+
 </style>
