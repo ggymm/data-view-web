@@ -25,7 +25,7 @@ export default {
     },
     autoCanvasScale(state) {
       const resize = debounce(() => {
-        console.group('自动缩放设置')
+        console.groupCollapsed('自动缩放设置')
         const screenWrapper = document.getElementById('screenWrapper')
         let width = screenWrapper.clientWidth
         let height = screenWrapper.clientHeight

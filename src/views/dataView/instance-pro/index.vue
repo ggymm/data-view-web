@@ -178,7 +178,7 @@ export default {
       event.preventDefault()
     },
     handleDrop(event) {
-      console.group('添加图表')
+      console.groupCollapsed('添加图表')
       const key = event.dataTransfer.getData('key')
       console.log('图表类型', key)
       console.log('图表ID', this.startIndex)

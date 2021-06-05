@@ -4,14 +4,15 @@
     :style="itemStyle()"
     class="data-view-item"
     @click="handleItemClick"
-    @mousedown.prevent.stop="handleItemMousedown"
+    @mousedown.prevent.stop="handleMove"
   >
+    <a-icon v-show="isActive()" type="reload" class="rotate-handler" @mousedown="handleRotate" />
     <div
       v-for="point in (isActive()? pointList : [])"
       :key="point"
-      class="item-point"
+      class="resize-handler"
       :style="pointStyle(point)"
-      @mousedown="handlePointMousedown(point, $event)"
+      @mousedown="handleResize(point, $event)"
     />
     <slot />
   </div>
@@ -79,7 +80,7 @@ export default {
         left: 0,
         width: `${this.item.width}px`,
         height: `${this.item.height}px`,
-        transform: `translate(${this.item.x}px, ${this.item.y}px)`
+        transform: `translate(${this.item.x}px, ${this.item.y}px) rotate(${this.item.rotate}deg)`
       }
     },
     isActive() {
@@ -123,10 +124,8 @@ export default {
         }
       }
       return {
-        marginLeft: isR ? '-4px' : '-4px',
-        marginTop: '-4px',
-        left: `${left}px`,
-        top: `${top}px`,
+        marginLeft: isR ? '-4px' : '-4px', marginTop: '-4px',
+        left: `${left}px`, top: `${top}px`,
         cursor: this.cursors[point]
       }
     },
@@ -135,9 +134,54 @@ export default {
       e.stopPropagation()
       e.preventDefault()
     },
-    handlePointMousedown(e, point) {
+    handleRotate(ev) {
+      // 已经处于选中状态
+      ev.preventDefault()
+      ev.stopPropagation()
+
+      const rect = this.$el.getBoundingClientRect()
+      const centerX = rect.left + rect.width / 2
+      const centerY = rect.top + rect.height / 2
+
+      const startAngle = Math.atan2(
+        centerY - ev.clientY,
+        centerX - ev.clientX
+      ) * 180 / Math.PI - this.item.rotate
+
+      let moved = false
+      const move = (e) => {
+        moved = true
+
+        // 计算旋转角度
+        const angle = Math.atan2(
+          centerY - e.clientY,
+          centerX - e.clientX
+        ) * 180 / Math.PI - startAngle
+
+        // 修改当前组件样式
+        const rotate = Math.round(angle % 360)
+        this.$store.commit('setItemStyle', { rotate: rotate < 0 ? rotate + 360 : rotate })
+      }
+
+      const up = () => {
+        moved && this.$store.commit('recordSnapshot')
+
+        this.cursors = this.getCursor()
+        off(document, 'mousemove', move)
+        off(document, 'mousemove', move)
+      }
+
+      // 添加监听
+      on(document, 'mousemove', move)
+      on(document, 'mouseup', up)
     },
-    handleItemMousedown(ev) {
+    handleResize(point, ev) {
+      // 已经处于选中状态
+      ev.stopPropagation()
+      ev.preventDefault()
+    },
+    handleMove(ev) {
+      // 设置选中状态
       this.$store.commit('setCurrentItem', this.item)
       this.cursors = this.getCursor()
 
@@ -198,13 +242,25 @@ export default {
 </script>
 
 <style lang="less">
-.item-point {
-  position: absolute;
-  background: #ffffff;
-  border: 1px solid #59c7f9;
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  z-index: 1;
+.data-view-item {
+  .resize-handler {
+    position: absolute;
+    background: #ffffff;
+    border: 1px solid #59c7f9;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    z-index: 1;
+  }
+
+  .rotate-handler {
+    position: absolute;
+    top: -35px;
+    left: 50%;
+    transform: translateX(-50%);
+    cursor: grab;
+    color: #59c7f9;
+    font-size: 20px;
+  }
 }
 </style>
