@@ -49,10 +49,13 @@ export default {
       console.group('显示对齐线')
       console.log('isRightward', isRightward)
       console.log('isDownward', isDownward)
+      this.hideLine()
       console.groupEnd()
     },
     hideLine() {
-      console.log('隐藏对齐线')
+      Object.keys(this.lineStatus).forEach(line => {
+        this.lineStatus[line] = false
+      })
     }
   }
 }

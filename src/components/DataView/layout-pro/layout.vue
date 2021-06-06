@@ -1,6 +1,7 @@
 <template>
   <!--suppress JSUnresolvedVariable -->
   <div
+    id="data-view-layout"
     class="data-view-layout"
     :style="{
       width: `${screenStyle.width}px`,

@@ -2,16 +2,19 @@ import debounce from 'lodash/debounce'
 
 export default {
   state: {
+    // 画布宽高
     canvasStyle: {
       width: 1920,
       height: 1080,
       scale: 0.2
     },
+    // 大屏宽高（设计）
     screenStyle: {
       diff: 3,
       width: 1920,
       height: 1080,
-      backgroundImg: '/group1/default/20210513/17/59/6/云资源监控-背景.png'
+      // backgroundImg: '/group1/default/20210513/17/59/6/云资源监控-背景.png'
+      backgroundImg: '/storage/2021/0530/云服务监控-背景.png'
     },
     charts: [],
     currentItem: null

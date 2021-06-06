@@ -8,11 +8,11 @@
   >
     <a-icon v-show="isActive()" type="reload" class="rotate-handler" @mousedown="handleRotate" />
     <div
-      v-for="point in (isActive()? pointList : [])"
+      v-for="point in (isActive()? points : [])"
       :key="point"
       class="resize-handler"
       :style="pointStyle(point)"
-      @mousedown="handleResize(point, $event)"
+      @mousedown="handleResize($event, point)"
     />
     <slot />
   </div>
@@ -21,7 +21,7 @@
 <script>
 import { mapState } from 'vuex'
 import { on, off } from '@/core/dom'
-import { mod360 } from './calculate'
+import { mod360, calcResizeInfo } from './calculate'
 
 export default {
   name: 'Item',
@@ -40,26 +40,16 @@ export default {
   data() {
     return {
       cursors: {},
-      pointList: ['lt', 't', 'rt', 'r', 'rb', 'b', 'lb', 'l'],
+      points: ['lt', 't', 'rt', 'r', 'rb', 'b', 'lb', 'l'],
       initialAngle: {
-        lt: 0,
-        t: 45,
-        rt: 90,
-        r: 135,
-        rb: 180,
-        b: 225,
-        lb: 270,
-        l: 315
+        lt: 0, t: 45, rt: 90, r: 135,
+        rb: 180, b: 225, lb: 270, l: 315
       },
       angleToCursor: [
-        { start: 338, end: 23, cursor: 'nw' },
-        { start: 23, end: 68, cursor: 'n' },
-        { start: 68, end: 113, cursor: 'ne' },
-        { start: 113, end: 158, cursor: 'e' },
-        { start: 158, end: 203, cursor: 'se' },
-        { start: 203, end: 248, cursor: 's' },
-        { start: 248, end: 293, cursor: 'sw' },
-        { start: 293, end: 338, cursor: 'w' }
+        { start: 338, end: 23, cursor: 'nw' }, { start: 23, end: 68, cursor: 'n' },
+        { start: 68, end: 113, cursor: 'ne' }, { start: 113, end: 158, cursor: 'e' },
+        { start: 158, end: 203, cursor: 'se' }, { start: 203, end: 248, cursor: 's' },
+        { start: 248, end: 293, cursor: 'sw' }, { start: 293, end: 338, cursor: 'w' }
       ]
     }
   },
@@ -87,12 +77,12 @@ export default {
       return this.active && this.currentItem.lock === 'false'
     },
     getCursor() {
-      const { angleToCursor, initialAngle, pointList, currentItem } = this
+      const { angleToCursor, initialAngle, points, currentItem } = this
       const rotate = mod360(currentItem.rotate)
       const result = {}
       let lastMatchIndex = -1
 
-      pointList.forEach(point => {
+      points.forEach(point => {
         const angle = mod360(initialAngle[point] + rotate)
         const len = angleToCursor.length
         for (; ;) {
@@ -158,15 +148,17 @@ export default {
           centerX - e.clientX
         ) * 180 / Math.PI - startAngle
 
-        // 修改当前组件样式
         const rotate = Math.round(angle % 360)
+        // 更新组件旋转信息
         this.$store.commit('setItemStyle', { rotate: rotate < 0 ? rotate + 360 : rotate })
       }
 
       const up = () => {
+        // 保存快照
         moved && this.$store.commit('recordSnapshot')
-
+        // 重新设置角坐标
         this.cursors = this.getCursor()
+        // 移除监听
         off(document, 'mousemove', move)
         off(document, 'mousemove', move)
       }
@@ -175,10 +167,48 @@ export default {
       on(document, 'mousemove', move)
       on(document, 'mouseup', up)
     },
-    handleResize(point, ev) {
+    handleResize(ev, point) {
       // 已经处于选中状态
       ev.stopPropagation()
       ev.preventDefault()
+
+      const position = {
+        x: Math.round(this.item.x * this.canvasStyle.scale),
+        y: Math.round(this.item.y * this.canvasStyle.scale),
+        width: Math.round(this.item.width * this.canvasStyle.scale),
+        height: Math.round(this.item.height * this.canvasStyle.scale),
+        rotate: this.item.rotate,
+        scale: this.canvasStyle.scale
+      }
+      // 组件宽高比
+      const proportion = position.width / position.height
+      // 组件中心点
+      const center = { x: position.x + position.width / 2, y: position.y + position.height / 2 }
+      // 当前点击坐标
+      const currentPoint = { x: ev.clientX - 250, y: ev.clientY - 100 }
+      // 获取对称点的坐标
+      const symmetricPoint = { x: center.x - (currentPoint.x - center.x), y: center.y - (currentPoint.y - center.y) }
+
+      let moved = false
+      const move = (e) => {
+        moved = true
+        const currentPosition = { x: e.clientX - 250, y: e.clientY - 100 }
+        const newPosition = calcResizeInfo(point, position, currentPosition, proportion, { currentPoint, symmetricPoint })
+        // 更新组件大小，位置信息
+        this.$store.commit('setItemStyle', newPosition)
+      }
+
+      const up = () => {
+        // 保存快照
+        moved && this.$store.commit('recordSnapshot')
+        // 移除监听
+        off(document, 'mousemove', move)
+        off(document, 'mousemove', move)
+      }
+
+      // 添加监听
+      on(document, 'mousemove', move)
+      on(document, 'mouseup', up)
     },
     handleMove(ev) {
       // 设置选中状态
@@ -200,16 +230,17 @@ export default {
         moved = true
         const moveX = e.clientX - ev.clientX
         const moveY = e.clientY - ev.clientY
-        const pos = {
+        const position = {
           x: moveInfo.x + Math.round(moveX / scale),
           y: moveInfo.y + Math.round(moveY / scale)
         }
-        if (pos.x < 0 || pos.y < 0) return
-        if (pos.x + moveInfo.width > moveInfo.sWidth ||
-          pos.y + moveInfo.height > moveInfo.sHeight) {
+        if (position.x < 0 || position.y < 0) return
+        if (position.x + moveInfo.width > moveInfo.sWidth ||
+          position.y + moveInfo.height > moveInfo.sHeight) {
           return
         }
-        this.$store.commit('setItemStyle', pos)
+        // 更新组件位置信息
+        this.$store.commit('setItemStyle', position)
         // 等更新完当前组件的样式并绘制到屏幕后再判断是否需要吸附
         // 如果不使用 $nextTick，吸附后将无法移动
         this.$nextTick(() => {
@@ -224,10 +255,8 @@ export default {
       const up = () => {
         // 保存快照
         moved && this.$store.commit('recordSnapshot')
-
         // 通知移动完毕，隐藏对齐线
         this.$bus.$emit('moved')
-
         // 移除监听
         off(document, 'mousemove', move)
         off(document, 'mousemove', move)
