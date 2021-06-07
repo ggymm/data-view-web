@@ -23,8 +23,8 @@ export default {
     setCanvasScale(state, scale) {
       scale = Math.min(Math.max(scale, 20), 200) / 100
       state.canvasStyle.scale = scale
-      state.canvasStyle.width = state.screenStyle.width * scale + 100
-      state.canvasStyle.height = state.screenStyle.height * scale + 100
+      state.canvasStyle.width = state.screenStyle.width * scale + 64
+      state.canvasStyle.height = state.screenStyle.height * scale + 64
     },
     autoCanvasScale(state) {
       const resize = debounce(() => {
@@ -33,8 +33,8 @@ export default {
         let width = screenWrapper.clientWidth
         let height = screenWrapper.clientHeight
         console.log('wrapper实际大小', width, height)
-        width = width - 100
-        height = height - 100
+        width = width - 64
+        height = height - 64
         console.log('wrapper去除边框后大小', width, height)
         let scale
         if ((state.screenStyle.width / state.screenStyle.height) >= (width / height)) {
