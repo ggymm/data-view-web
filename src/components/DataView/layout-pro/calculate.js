@@ -95,9 +95,7 @@ export function getCursors(rotate) {
   return result
 }
 
-// noinspection JSUnusedGlobalSymbols
 export function getItemRotatedStyle(position) {
-  position = { ...position }
   if (position.rotate !== 0) {
     const newWidth = position.width * cos(position.rotate) + position.height * sin(position.rotate)
     const diffX = (position.width - newWidth) / 2 // 旋转后范围变小是正值，变大是负值
@@ -115,7 +113,6 @@ export function getItemRotatedStyle(position) {
     position.bottom = position.top + position.height
     position.right = position.left + position.width
   }
-  return position
 }
 
 /**
