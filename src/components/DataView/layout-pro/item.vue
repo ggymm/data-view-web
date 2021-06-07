@@ -230,7 +230,7 @@ export default {
           // 后面两个参数代表鼠标移动方向
           // curY - startY > 0 true 表示向下移动 false 表示向上移动
           // curX - startX > 0 true 表示向右移动 false 表示向左移动
-          this.$bus.$emit('moving', moveY > 0, moveX > 0)
+          this.$bus.$emit('moving')
         })
       }
 

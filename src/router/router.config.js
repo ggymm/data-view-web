@@ -43,7 +43,7 @@ export const asyncRouterMap = [
         children: [
           {
             path: 'index',
-            component: () => import('@/views/dataSource/index'),
+            component: () => import('@/views/data-source/index'),
             meta: {
               title: '数据源管理'
             }
@@ -64,7 +64,7 @@ export const asyncRouterMap = [
         children: [
           {
             path: 'index',
-            component: () => import('@/views/dataView/index'),
+            component: () => import('@/views/data-view/index'),
             meta: {
               title: '可视化大屏管理'
             }
@@ -85,7 +85,7 @@ export const asyncRouterMap = [
         children: [
           {
             path: 'index',
-            component: () => import('@/views/dataReport/index'),
+            component: () => import('@/views/data-report/index'),
             meta: {
               title: '报表管理'
             }
@@ -107,7 +107,7 @@ export const asyncRouterMap = [
         children: [
           {
             path: 'index',
-            component: () => import('@/views/dataView/debug/index'),
+            component: () => import('@/views/data-view/debug/index'),
             meta: {
               title: 'Echarts调试'
             }
@@ -122,21 +122,21 @@ export const asyncRouterMap = [
         children: [
           {
             path: 'index',
-            component: () => import('@/views/dataView/instance/index'),
+            component: () => import('@/views/data-view/instance/index'),
             meta: {
               title: '可视化大屏创建'
             }
           },
           {
             path: 'index/:instance_id/:is_copy',
-            component: () => import('@/views/dataView/instance/index'),
+            component: () => import('@/views/data-view/instance/index'),
             meta: {
               title: '可视化大屏编辑'
             }
           },
           {
             path: 'preview/:instance_id',
-            component: () => import('@/views/dataView/instance/preview'),
+            component: () => import('@/views/data-view/instance/preview'),
             meta: {
               title: '可视化大屏预览'
             }
@@ -151,14 +151,14 @@ export const asyncRouterMap = [
         children: [
           {
             path: 'index',
-            component: () => import('@/views/dataView/instance-pro/index'),
+            component: () => import('@/views/data-view/instance-pro/index'),
             meta: {
               title: '可视化大屏创建'
             }
           },
           {
             path: 'index/:instance_id/:is_copy',
-            component: () => import('@/views/dataView/instance-pro/index'),
+            component: () => import('@/views/data-view/instance-pro/index'),
             meta: {
               title: '可视化大屏编辑'
             }
