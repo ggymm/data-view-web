@@ -74,64 +74,71 @@ export function getItemRotatedStyle(position) {
   return position
 }
 
-export function calcResizeInfo(direction, position, currentPosition, proportion, resizeInfo) {
+/**
+ * 计算缩放后位置大小
+ * @param direction 拖拽方向
+ * @param style 当前位置和大小
+ * @param startPoint 拖拽起始点位置
+ * @param symmetricPoint 对称点坐标
+ * @param endPoint 当前拖拽位置
+ * @returns {{}|any}
+ */
+export function calcResizeInfo(direction, style, startPoint, symmetricPoint, endPoint) {
   // 拖拽角上的点
   if (direction.length === 2) {
-    const { symmetricPoint } = resizeInfo
-    const newCenter = getCenterPoint(currentPosition, symmetricPoint)
-    const thatPoint = calculateRotatedPointCoordinate(symmetricPoint, newCenter, -position.rotate)
-    const thisPoint = calculateRotatedPointCoordinate(currentPosition, newCenter, -position.rotate)
-    const newPosition = {}
+    const newCenter = getCenterPoint(endPoint, symmetricPoint)
+    const thatPoint = calculateRotatedPointCoordinate(symmetricPoint, newCenter, -style.rotate)
+    const thisPoint = calculateRotatedPointCoordinate(endPoint, newCenter, -style.rotate)
+    const newStyle = {}
     // 判断: 左或者右
     if (direction[0] === 'l') {
-      newPosition.x = Math.round(thisPoint.x / position.scale)
-      newPosition.width = Math.round((thatPoint.x - thisPoint.x) / position.scale)
+      newStyle.x = Math.round(thisPoint.x / style.scale)
+      newStyle.width = Math.round((thatPoint.x - thisPoint.x) / style.scale)
     } else if (direction[0] === 'r') {
-      newPosition.x = Math.round(thatPoint.x / position.scale)
-      newPosition.width = Math.round((thisPoint.x - thatPoint.x) / position.scale)
+      newStyle.x = Math.round(thatPoint.x / style.scale)
+      newStyle.width = Math.round((thisPoint.x - thatPoint.x) / style.scale)
     }
     // 判断: 上或者下
     if (direction[1] === 't') {
-      newPosition.y = Math.round(thisPoint.y / position.scale)
-      newPosition.height = Math.round((thatPoint.y - thisPoint.y) / position.scale)
+      newStyle.y = Math.round(thisPoint.y / style.scale)
+      newStyle.height = Math.round((thatPoint.y - thisPoint.y) / style.scale)
     } else if (direction[1] === 'b') {
-      newPosition.y = Math.round(thatPoint.y / position.scale)
-      newPosition.height = Math.round((thisPoint.y - thatPoint.y) / position.scale)
+      newStyle.y = Math.round(thatPoint.y / style.scale)
+      newStyle.height = Math.round((thisPoint.y - thatPoint.y) / style.scale)
     }
-    return newPosition
+    return newStyle
   }
 
   // 拖拽边上的点
   if (direction.length === 1) {
-    const newPosition = JSON.parse(JSON.stringify(position))
-    const { symmetricPoint, currentPoint } = resizeInfo
-    const _this = calculateRotatedPointCoordinate(currentPosition, currentPoint, -position.rotate)
+    const newStyle = JSON.parse(JSON.stringify(style))
+    const thisPoint = calculateRotatedPointCoordinate(endPoint, startPoint, -style.rotate)
 
     // 拖拽上下两边
     if (direction === 't' || direction === 'b') {
-      const _that = calculateRotatedPointCoordinate({ x: currentPoint.x, y: _this.y }, currentPoint, position.rotate)
-      const height = Math.sqrt((_that.x - symmetricPoint.x) ** 2 + (_that.y - symmetricPoint.y) ** 2)
+      const thatPoint = calculateRotatedPointCoordinate({ x: startPoint.x, y: thisPoint.y }, startPoint, style.rotate)
+      const height = Math.sqrt((thatPoint.x - symmetricPoint.x) ** 2 + (thatPoint.y - symmetricPoint.y) ** 2)
       if (height > 0) {
-        const center = { x: _that.x - (_that.x - symmetricPoint.x) / 2, y: _that.y + (symmetricPoint.y - _that.y) / 2 }
-        newPosition.width = Math.round(position.width / position.scale)
-        newPosition.height = Math.round(height / position.scale)
-        newPosition.x = Math.round((center.x - (position.width / 2)) / position.scale)
-        newPosition.y = Math.round((center.y - (height / 2)) / position.scale)
+        const center = { x: thatPoint.x - (thatPoint.x - symmetricPoint.x) / 2, y: thatPoint.y + (symmetricPoint.y - thatPoint.y) / 2 }
+        newStyle.width = Math.round(style.width / style.scale)
+        newStyle.height = Math.round(height / style.scale)
+        newStyle.x = Math.round((center.x - (style.width / 2)) / style.scale)
+        newStyle.y = Math.round((center.y - (height / 2)) / style.scale)
       }
     }
 
     // 拖拽左右两边
     if (direction === 'l' || direction === 'r') {
-      const _that = calculateRotatedPointCoordinate({ x: _this.x, y: currentPoint.y }, currentPoint, position.rotate)
-      const width = Math.sqrt((_that.x - symmetricPoint.x) ** 2 + (_that.y - symmetricPoint.y) ** 2)
+      const thatPoint = calculateRotatedPointCoordinate({ x: thisPoint.x, y: startPoint.y }, startPoint, style.rotate)
+      const width = Math.sqrt((thatPoint.x - symmetricPoint.x) ** 2 + (thatPoint.y - symmetricPoint.y) ** 2)
       if (width > 0) {
-        const center = { x: _that.x - (_that.x - symmetricPoint.x) / 2, y: _that.y + (symmetricPoint.y - _that.y) / 2 }
-        newPosition.width = Math.round(width / position.scale)
-        newPosition.height = Math.round(position.height / position.scale)
-        newPosition.x = Math.round((center.x - (width / 2)) / position.scale)
-        newPosition.y = Math.round((center.y - (position.height / 2)) / position.scale)
+        const center = { x: thatPoint.x - (thatPoint.x - symmetricPoint.x) / 2, y: thatPoint.y + (symmetricPoint.y - thatPoint.y) / 2 }
+        newStyle.width = Math.round(width / style.scale)
+        newStyle.height = Math.round(style.height / style.scale)
+        newStyle.x = Math.round((center.x - (width / 2)) / style.scale)
+        newStyle.y = Math.round((center.y - (style.height / 2)) / style.scale)
       }
     }
-    return newPosition
+    return newStyle
   }
 }

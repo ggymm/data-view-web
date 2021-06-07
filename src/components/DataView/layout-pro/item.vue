@@ -160,19 +160,19 @@ export default {
         this.cursors = this.getCursor()
         // 移除监听
         off(document, 'mousemove', move)
-        off(document, 'mousemove', move)
+        off(document, 'mouseup', up)
       }
 
       // 添加监听
       on(document, 'mousemove', move)
       on(document, 'mouseup', up)
     },
-    handleResize(ev, point) {
+    handleResize(ev, direction) {
       // 已经处于选中状态
       ev.stopPropagation()
       ev.preventDefault()
 
-      const position = {
+      const style = {
         x: Math.round(this.item.x * this.canvasStyle.scale),
         y: Math.round(this.item.y * this.canvasStyle.scale),
         width: Math.round(this.item.width * this.canvasStyle.scale),
@@ -180,20 +180,20 @@ export default {
         rotate: this.item.rotate,
         scale: this.canvasStyle.scale
       }
-      // 组件宽高比
-      const proportion = position.width / position.height
       // 组件中心点
-      const center = { x: position.x + position.width / 2, y: position.y + position.height / 2 }
+      const center = { x: style.x + style.width / 2, y: style.y + style.height / 2 }
+      // 获取画布位移信息
+      const layoutRect = document.querySelector('#data-view-layout').getBoundingClientRect()
       // 当前点击坐标
-      const currentPoint = { x: ev.clientX - 250, y: ev.clientY - 100 }
+      const startPoint = { x: ev.clientX - layoutRect.left, y: ev.clientY - layoutRect.top }
       // 获取对称点的坐标
-      const symmetricPoint = { x: center.x - (currentPoint.x - center.x), y: center.y - (currentPoint.y - center.y) }
+      const symmetricPoint = { x: center.x - (startPoint.x - center.x), y: center.y - (startPoint.y - center.y) }
 
       let moved = false
       const move = (e) => {
         moved = true
-        const currentPosition = { x: e.clientX - 250, y: e.clientY - 100 }
-        const newPosition = calcResizeInfo(point, position, currentPosition, proportion, { currentPoint, symmetricPoint })
+        const endPoint = { x: e.clientX - layoutRect.left, y: e.clientY - layoutRect.top }
+        const newPosition = calcResizeInfo(direction, style, startPoint, symmetricPoint, endPoint)
         // 更新组件大小，位置信息
         this.$store.commit('setItemStyle', newPosition)
       }
@@ -203,7 +203,7 @@ export default {
         moved && this.$store.commit('recordSnapshot')
         // 移除监听
         off(document, 'mousemove', move)
-        off(document, 'mousemove', move)
+        off(document, 'mouseup', up)
       }
 
       // 添加监听
@@ -230,17 +230,17 @@ export default {
         moved = true
         const moveX = e.clientX - ev.clientX
         const moveY = e.clientY - ev.clientY
-        const position = {
+        const style = {
           x: moveInfo.x + Math.round(moveX / scale),
           y: moveInfo.y + Math.round(moveY / scale)
         }
-        if (position.x < 0 || position.y < 0) return
-        if (position.x + moveInfo.width > moveInfo.sWidth ||
-          position.y + moveInfo.height > moveInfo.sHeight) {
+        if (style.x < 0 || style.y < 0) return
+        if (style.x + moveInfo.width > moveInfo.sWidth ||
+          style.y + moveInfo.height > moveInfo.sHeight) {
           return
         }
         // 更新组件位置信息
-        this.$store.commit('setItemStyle', position)
+        this.$store.commit('setItemStyle', style)
         // 等更新完当前组件的样式并绘制到屏幕后再判断是否需要吸附
         // 如果不使用 $nextTick，吸附后将无法移动
         this.$nextTick(() => {
@@ -259,7 +259,7 @@ export default {
         this.$bus.$emit('moved')
         // 移除监听
         off(document, 'mousemove', move)
-        off(document, 'mousemove', move)
+        off(document, 'mouseup', up)
       }
 
       // 添加监听
