@@ -20,7 +20,7 @@ export default {
   data() {
     return {
       lines: ['xt', 'xc', 'xb', 'yl', 'yc', 'yr'],
-      diff: 3,
+      diff: 6,
       lineStatus: {
         xt: false,
         xc: false,
@@ -63,13 +63,6 @@ export default {
         yc: document.querySelector('.yc'),
         yr: document.querySelector('.yr')
       }
-
-      for (const key in lines) {
-        if (lines[key] === undefined) {
-          return
-        }
-      }
-
       const charts = this.charts
       const thisStyle = {
         top: this.currentItem.y,
@@ -84,21 +77,21 @@ export default {
 
       this.hideLine()
       for (let i = 0; i < charts.length; i++) {
-        const chart = charts[i]
-        if (chart === this.currentItem) continue
+        const item = charts[i]
+        if (item === this.currentItem) continue
 
-        const chartStyle = {
-          top: chart.y,
-          left: chart.x,
-          width: chart.width,
-          height: chart.height,
-          rotate: chart.rotate
+        const itemStyle = {
+          top: item.y,
+          left: item.x,
+          width: item.width,
+          height: item.height,
+          rotate: item.rotate
         }
-        getItemRotatedStyle(chartStyle)
+        getItemRotatedStyle(itemStyle)
 
-        const { top, left, bottom, right } = chartStyle
-        const chartWidth = chartStyle.width / 2
-        const chartHeight = chartStyle.height / 2
+        const { top, left, bottom, right } = itemStyle
+        const itemWidth = itemStyle.width / 2
+        const itemHeight = itemStyle.height / 2
 
         const conditions = {
           top: [
@@ -114,9 +107,9 @@ export default {
             },
             {
               // 组件与拖拽节点的中间是否对齐
-              isNearly: this.isNearly(thisStyle.top + thisHeight, top + chartHeight),
+              isNearly: this.isNearly(thisStyle.top + thisHeight, top + itemHeight),
               lineNode: lines.xc, line: 'xc',
-              dragShift: top + chartHeight - thisHeight, lineShift: top + chartHeight
+              dragShift: top + itemHeight - thisHeight, lineShift: top + itemHeight
             },
             {
               isNearly: this.isNearly(thisStyle.top, bottom),
@@ -142,9 +135,9 @@ export default {
             },
             {
               // 组件与拖拽节点的中间是否对齐
-              isNearly: this.isNearly(thisStyle.left + thisWidth, left + chartWidth),
+              isNearly: this.isNearly(thisStyle.left + thisWidth, left + itemWidth),
               lineNode: lines.yc, line: 'yc',
-              dragShift: left + chartWidth - thisWidth, lineShift: left + chartWidth
+              dragShift: left + itemWidth - thisWidth, lineShift: left + itemWidth
             },
             {
               isNearly: this.isNearly(thisStyle.left, right),
@@ -164,6 +157,10 @@ export default {
           // 遍历符合的条件并处理
           conditions[key].forEach((condition) => {
             if (!condition.isNearly) return
+            if (!condition.lineNode) return
+            // 修改当前组件位移
+            this.fixItemStyle(key, condition, thisStyle, itemStyle)
+            // 显示对齐线
             condition.lineNode.style[key] = `${condition.lineShift}px`
             showLines.push(condition.line)
           })
@@ -183,6 +180,35 @@ export default {
     },
     isNearly(dragValue, targetValue) {
       return Math.abs(dragValue - targetValue) <= this.diff
+    },
+    /**
+     * 吸附效果
+     * @param key 吸附位置
+     * @param condition 吸附效果
+     * @param thisStyle 当前拖拽样式
+     * @param itemStyle 需要吸附的元素样式
+     */
+    fixItemStyle(key, condition, thisStyle, itemStyle) {
+      const fixStyle = {}
+      if (thisStyle.rotate === 0) {
+        if (key === 'top') {
+          fixStyle.y = condition.dragShift
+        }
+        if (key === 'left') {
+          fixStyle.x = condition.dragShift
+        }
+        this.$store.commit('setItemStyle', fixStyle)
+        return
+      }
+
+      const { width, height } = thisStyle
+      if (key === 'top') {
+        fixStyle.y = Math.round(condition.dragShift - (height - itemStyle.height) / 2)
+      }
+      if (key === 'left') {
+        fixStyle.x = Math.round(condition.dragShift - (width - itemStyle.width) / 2)
+      }
+      this.$store.commit('setItemStyle', fixStyle)
     }
   }
 }
@@ -197,6 +223,7 @@ export default {
   position: absolute;
   z-index: 1000;
 }
+
 .x-line {
   width: 100%;
   border-top: 1px dashed #59c7f9;

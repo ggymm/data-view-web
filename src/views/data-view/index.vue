@@ -65,19 +65,17 @@ export default {
     this.getData()
   },
   methods: {
-    getData() {
+    async getData() {
       this.loading = true
-      getDataViewPage({
+      const response = await getDataViewPage({
         page: this.pagination.current,
         size: this.pagination.pageSize
-      }).then(response => {
-        this.loading = false
-        this.list = response.data.list
-        this.pagination.total = response.data.count
       })
+      this.loading = false
+      this.list = response.data.list
+      this.pagination.total = response.data.count
     },
     handleFilter() {
-
     },
     handleCreatePro() {
       window.open('/data-view-web/data-view-instance-pro/index')
@@ -95,7 +93,6 @@ export default {
       window.open('/data-view-web/data-view-instance/index/' + instance_id + '/0')
     },
     handleDelete() {
-
     }
   }
 }
