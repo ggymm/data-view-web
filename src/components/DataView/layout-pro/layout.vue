@@ -1,36 +1,41 @@
 <template>
-  <!--suppress JSUnresolvedVariable -->
-  <div
-    id="data-view-layout"
-    class="data-view-layout"
-    :style="{
-      width: `${screenStyle.width}px`,
-      height: `${screenStyle.height}px`,
-      transform: `scale(${canvasStyle.scale}) translate(0px, 0px)`,
-      backgroundImage: `url(${imageBasicUrl}${screenStyle.backgroundImg})`,
-      backgroundRepeat: 'no-repeat',
-      backgroundSize: '100% 100%',
-    }"
-  >
-    <slot />
-    <!-- 对齐线 -->
-    <mark-line />
-    <!-- 选中区域 -->
-    <choose-area v-show="isShowArea" :start="start" :width="width" :height="height" />
+  <div :style="screenWrapperStyle()">
+    <!-- 标尺 -->
+    <ruler />
+    <div
+      id="data-view-layout"
+      class="data-view-layout"
+      :style="{
+        width: `${screenStyle.width}px`,
+        height: `${screenStyle.height}px`,
+        transform: `scale(${canvasStyle.scale}) translate(0px, 0px)`,
+        backgroundImage: `url(${imageBasicUrl}${screenStyle.backgroundImg})`,
+        backgroundRepeat: 'no-repeat',
+        backgroundSize: '100% 100%',
+      }"
+    >
+      <slot />
+      <!-- 对齐线 -->
+      <mark-line />
+      <!-- 选中区域 -->
+      <choose-area v-show="isShowArea" :start="start" :width="width" :height="height" />
+    </div>
   </div>
 </template>
 
 <script>
-import defaultSettings from '@/config'
-import ChooseArea from './area'
-import MarkLine from './mark-line'
 import { mapState } from 'vuex'
+import defaultSettings from '@/config'
+import Ruler from './ruler/index'
+import MarkLine from './mark-line'
+import ChooseArea from './area'
 
 export default {
   name: 'Layout',
   components: {
-    ChooseArea,
-    MarkLine
+    Ruler,
+    MarkLine,
+    ChooseArea
   },
   data() {
     return {
@@ -50,7 +55,14 @@ export default {
     'canvasStyle',
     'screenStyle'
   ]),
-  methods: {}
+  methods: {
+    screenWrapperStyle() {
+      return {
+        width: `${this.canvasStyle.width}px`,
+        height: `${this.canvasStyle.height}px`
+      }
+    }
+  }
 }
 </script>
 

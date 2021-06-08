@@ -28,22 +28,20 @@
           class="data-view-screen-wrapper"
           @mousedown.stop="handleItemUnChoose"
         >
-          <div :style="screenWrapperStyle()">
-            <layout @dragover.native="handleDragOver" @drop.native="handleDrop">
-              <item
-                v-for="item in charts"
-                :key="item.slice_id"
+          <layout @dragover.native="handleDragOver" @drop.native="handleDrop">
+            <item
+              v-for="item in charts"
+              :key="item.slice_id"
+              :item="item"
+              :active="item === currentItem"
+            >
+              <chart
+                :id="item.i"
                 :item="item"
-                :active="item === currentItem"
-              >
-                <chart
-                  :id="item.i"
-                  :item="item"
-                  :theme="panelConfig.instanceTheme"
-                />
-              </item>
-            </layout>
-          </div>
+                :theme="panelConfig.instanceTheme"
+              />
+            </item>
+          </layout>
         </a-layout-content>
         <a-layout-footer class="data-view-screen-footer">
           <a-slider
@@ -165,12 +163,6 @@ export default {
     this.$store.commit('autoCanvasScale')
   },
   methods: {
-    screenWrapperStyle() {
-      return {
-        width: `${this.canvasStyle.width}px`,
-        height: `${this.canvasStyle.height}px`
-      }
-    },
     handleDragStart(event, key) {
       event.dataTransfer.setData('key', key)
     },
