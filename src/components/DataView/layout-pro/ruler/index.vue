@@ -30,7 +30,7 @@ export default {
   watch: {
     canvasStyle: {
       deep: true,
-      handler(newVal) {
+      handler() {
         if (this.hRuler) {
           this.hRuler.setSize(this.canvasStyle.width, 20, this.canvasStyle.scale)
         } else {
@@ -173,9 +173,9 @@ export default {
       border-top: 1px solid @line-color;
 
       .line-action {
-        top: 10px;
+        top: 5px;
         left: 5px;
-        transform: rotate(90deg);
+        transform: rotate(0deg);
       }
     }
 
@@ -188,7 +188,7 @@ export default {
 
       .indicator-value {
         transform-origin: 0 0;
-        transform: rotate(90deg);
+        transform: rotate(0deg);
         top: 10px;
         left: 25px;
       }
