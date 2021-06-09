@@ -133,6 +133,9 @@ class GuideLine {
   show() {
     this.guideLine.style.display = 'block'
   }
+  hide() {
+    this.guideLine.style.display = 'none'
+  }
   destroy() {
     const { guideLine, coor } = this
     this.coorChange('delete', coor, coor)
@@ -310,6 +313,15 @@ export class RulerBuilder {
 
     const { el, options } = this
     this.guideLines.push(new GuideLine(el, options, ev))
+  }
+
+  // 切换参考线
+  toggleGuide(visible) {
+    if (visible) {
+      this.guideLines.forEach(g => g.show())
+    } else {
+      this.guideLines.forEach(g => g.hide())
+    }
   }
 }
 

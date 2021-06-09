@@ -12,7 +12,7 @@
         <a-sub-menu v-for="menu in menus" :key="menu.key">
           <span slot="title">{{ menu.title }}<a-icon type="caret-down" style="margin-left: 5px" /></span>
           <a-menu-item v-for="child in menu.children" :key="child.key" :draggable="true" @dragstart="dragItem($event, child.key)">
-            <icon :type="child.icon" />
+            <icon :type="`icon-${child.icon}`" />
             <span>{{ child.title }}</span>
           </a-menu-item>
         </a-sub-menu>

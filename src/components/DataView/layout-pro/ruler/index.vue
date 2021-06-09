@@ -17,6 +17,7 @@ export default {
   name: 'Ruler',
   data() {
     return {
+      visible: true,
       hRuler: null,
       vRuler: null,
       hScroll: 0,
@@ -76,6 +77,11 @@ export default {
         })
     },
     toggleGuides() {
+      if (this.hRuler && this.vRuler) {
+        this.visible = !this.visible
+        this.hRuler.toggleGuide(this.visible)
+        this.vRuler.toggleGuide(this.visible)
+      }
     },
     onScroll(e) {
       const dom = e.target
@@ -155,7 +161,6 @@ export default {
     .ruler-indicator {
       border-right: 1px dashed @line-color;
       top: 0;
-      padding-bottom: 5px;
       height: 100vw;
 
       .indicator-value {
@@ -178,6 +183,7 @@ export default {
     .ruler-line {
       left: 3px;
       width: 100vw;
+      padding-bottom: 5px;
       border-top: 1px solid @line-color;
 
       .line-action {

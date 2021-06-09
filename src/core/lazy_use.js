@@ -112,10 +112,10 @@ Vue.prototype.$success = Modal.success
 Vue.prototype.$error = Modal.error
 Vue.prototype.$warning = Modal.warning
 
-const MyIcon = Icon.createFromIconfontCN({
+const CustomIcon = Icon.createFromIconfontCN({
   scriptUrl: scriptUrl
 })
 
-Vue.component('icon', MyIcon)
+Vue.component('icon', CustomIcon)
 
 Vue.prototype.$bus = bus

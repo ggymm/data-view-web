@@ -12,7 +12,7 @@
         <a-sub-menu v-for="menu in menus" :key="menu.key">
           <span slot="title">{{ menu.title }}<a-icon type="caret-down" style="margin-left: 5px" /></span>
           <a-menu-item v-for="child in menu.children" :key="child.key" :draggable="true" @dragstart="handleDragStart($event, child.key)">
-            <icon :type="child.icon" />
+            <icon class="chart-type-icon" :type="`icon-${child.icon}`" />
             <span>{{ child.title }}</span>
           </a-menu-item>
         </a-sub-menu>
@@ -94,7 +94,7 @@
 <script>
 import { mapState } from 'vuex'
 
-import { menus } from '../config/menu'
+import { menus } from '../config/menu-pro'
 import OptionConfigMap from '@/components/DataView/components/config'
 import Layout from '@/components/DataView/layout-pro/layout'
 import Item from '@/components/DataView/layout-pro/item'
@@ -131,9 +131,6 @@ export default {
     }
   },
   computed: {
-    storeScale() {
-      return this.$store.state.canvasStyle.scale
-    },
     screenStyle: {
       get() {
         return this.$store.state.screenStyle
