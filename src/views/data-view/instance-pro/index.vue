@@ -208,15 +208,15 @@ export default {
     async getDataView(instanceId) {
       try {
         const response = await getDataView(instanceId)
-
+        // 渲染大屏数据
         this.startIndex = response.data.start_index
         this.screenStyle.title = response.data.instance_title
         this.screenStyle.width = response.data.instance_width
         this.screenStyle.height = response.data.instance_height
         this.screenStyle.backgroundImg = response.data.instance_background_img
         this.$store.commit('autoCanvasScale')
-
-        const items = JSON.parse(JSON.stringify(response.data.chart_items))
+        // 渲染图表数据
+        const items = response.data.chart_items
         if (items !== null && items !== undefined && items.length > 0) {
           items.map((item) => {
             item.data = JSON.parse(item.data)

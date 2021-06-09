@@ -71,7 +71,7 @@ export default {
       }
     },
     isActive() {
-      return this.active && this.currentItem.lock === 'false'
+      return this.active
     },
     points() {
       const transform = `scale(${1 / this.canvasStyle.scale}, ${1 / this.canvasStyle.scale})`
