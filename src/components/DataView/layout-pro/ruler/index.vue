@@ -10,6 +10,7 @@
 
 <script>
 import { mapState } from 'vuex'
+import { on, off } from '@/core/dom'
 import { RulerBuilder } from './ruler'
 
 export default {
@@ -48,6 +49,13 @@ export default {
   mounted() {
     this.initHRuler()
     this.initVRuler()
+
+    on(document.getElementById('screenWrapper'),
+      'scroll', this.onScroll)
+  },
+  destroyed() {
+    off(document.getElementById('screenWrapper'),
+      'scroll', this.onScroll)
   },
   methods: {
     initHRuler() {
@@ -55,10 +63,7 @@ export default {
         document.querySelector('.h-container'), {
           direction: 'TB',
           width: this.canvasStyle.width,
-          scale: this.canvasStyle.scale,
-          coorChange: (action, nCoor, oCoor) => {
-            console.log(action, nCoor, oCoor)
-          }
+          scale: this.canvasStyle.scale
         }
       )
     },
@@ -67,13 +72,15 @@ export default {
         document.querySelector('.v-container'), {
           direction: 'LR',
           width: this.canvasStyle.height,
-          scale: this.canvasStyle.scale,
-          coorChange: (action, nCoor, oCoor) => {
-            console.log(action, nCoor, oCoor)
-          }
+          scale: this.canvasStyle.scale
         })
     },
     toggleGuides() {
+    },
+    onScroll(e) {
+      const dom = e.target
+      this.hScroll = dom.scrollLeft
+      this.vScroll = dom.scrollTop
     }
   }
 }
@@ -146,8 +153,9 @@ export default {
     }
 
     .ruler-indicator {
-      border-left: 1px dashed @line-color;
+      border-right: 1px dashed @line-color;
       top: 0;
+      padding-bottom: 5px;
       height: 100vw;
 
       .indicator-value {
@@ -180,7 +188,7 @@ export default {
     }
 
     .ruler-indicator {
-      border-bottom: 1px dashed @line-color;
+      border-top: 1px dashed @line-color;
       width: 100vw;
       bottom: 1px;
       transform: rotate(-90deg);

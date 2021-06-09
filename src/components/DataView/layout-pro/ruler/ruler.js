@@ -74,15 +74,25 @@ class GuideLine {
     on(guideLine, 'dblclick', this.dblclick.bind(this))
   }
   moving(ev) {
+    const { options } = this
+    if (ev.clientX < 220 || ev.clientY < 70) {
+      return
+    }
     ev.preventDefault()
     ev.stopPropagation()
 
     const { coor: oldCoor } = this
     const move = (e) => {
+      if (options.direction === 'TB') {
+        document.body.style.cursor = 'col-resize'
+      } else {
+        document.body.style.cursor = 'row-resize'
+      }
       this.setLine(e)
     }
 
     const up = () => {
+      document.body.style.cursor = ''
       off(document, 'mousemove', move)
       off(document, 'mouseup', up)
 

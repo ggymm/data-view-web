@@ -159,7 +159,7 @@ export default {
             if (!condition.isNearly) return
             if (!condition.lineNode) return
             // 修改当前组件位移
-            this.fixItemStyle(key, condition, thisStyle, itemStyle)
+            this.itemAdsorption(key, condition, thisStyle, itemStyle)
             // 显示对齐线
             condition.lineNode.style[key] = `${condition.lineShift}px`
             showLines.push(condition.line)
@@ -182,13 +182,13 @@ export default {
       return Math.abs(dragValue - targetValue) <= this.diff
     },
     /**
-     * 吸附效果
+     * 组件吸附效果
      * @param key 吸附位置
      * @param condition 吸附效果
      * @param thisStyle 当前拖拽样式
      * @param itemStyle 需要吸附的元素样式
      */
-    fixItemStyle(key, condition, thisStyle, itemStyle) {
+    itemAdsorption(key, condition, thisStyle, itemStyle) {
       const fixStyle = {}
       if (thisStyle.rotate === 0) {
         if (key === 'top') {
