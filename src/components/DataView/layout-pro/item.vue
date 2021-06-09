@@ -56,7 +56,9 @@ export default {
     'currentItem'
   ]),
   mounted() {
-    this.cursor = getCursors(this.item.rotate)
+    if (this.currentItem) {
+      this.cursor = getCursors(this.item.rotate)
+    }
   },
   methods: {
     itemStyle() {

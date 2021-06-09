@@ -90,7 +90,7 @@ export default {
       window.open('/data-view-web/data-view-instance/preview/' + instance_id)
     },
     handleEdit(instance_id) {
-      window.open('/data-view-web/data-view-instance/index/' + instance_id + '/0')
+      window.open('/data-view-web/data-view-instance-pro/index/' + instance_id + '/0')
     },
     handleDelete() {
     }

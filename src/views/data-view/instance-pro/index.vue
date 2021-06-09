@@ -30,7 +30,7 @@
         >
           <layout @dragover.native="handleDragOver" @drop.native="handleDrop">
             <item
-              v-for="item in charts"
+              v-for="item in slices"
               :key="item.slice_id"
               :item="item"
               :active="item === currentItem"
@@ -38,7 +38,7 @@
               <chart
                 :id="item.i"
                 :item="item"
-                :theme="panelConfig.instanceTheme"
+                :theme="screenStyle.theme"
               />
             </item>
           </layout>
@@ -56,9 +56,9 @@
       </a-layout>
       <a-layout-sider width="400" class="data-view-option-panel">
         <div v-if="currentItem === null" class="data-view-screen-option">
-          <a-form :model="panelConfig" layout="horizontal" :label-col="{span: 6}" :wrapper-col="{span: 14}">
+          <a-form :model="screenStyle" layout="horizontal" :label-col="{span: 6}" :wrapper-col="{span: 14}">
             <a-form-item label="大屏标题">
-              <a-input v-model="panelConfig.title" />
+              <a-input v-model="screenStyle.title" />
             </a-form-item>
             <a-form-item label="画板宽度">
               <a-input-number v-model="screenStyle.width" :min="1" :step="10" />
@@ -103,6 +103,7 @@ import Layer from '@/components/DataView/common/layer'
 import ChartOption from '@/components/DataView/common/chart-option'
 import { getDataSourceList } from '@/api/dataSource'
 import { getImageList } from '@/api/image'
+import { getDataView } from '@/api/dataView'
 
 export default {
   name: 'Index',
@@ -123,11 +124,8 @@ export default {
       dataSourceList: [],
       backgroundImgList: [],
       scale: 20,
-      panelConfig: {
-        title: '',
-        instanceTheme: '',
-        instanceVersion: 1
-      }
+      instanceVersion: 1,
+      slices: []
     }
   },
   computed: {
@@ -148,16 +146,30 @@ export default {
   watch: {
     storeScale: function(newVal) {
       this.scale = newVal * 100
+    },
+    charts: function(charts) {
+      const _this = this
+      setTimeout(function() {
+        _this.slices = charts
+      }, 300)
     }
   },
   created() {
     // 初始化页面选项
     this.getDataSourceList()
     this.getImageList()
+    const instanceId = this.$route.params.instance_id
+    const isCopy = this.$route.params.is_copy
+    if (instanceId) {
+      this.instanceId = parseInt(instanceId)
+      this.isCopy = parseInt(isCopy)
+      this.getDataView(instanceId)
+    } else {
+      // 初始化默认缩放比例
+      this.$store.commit('autoCanvasScale')
+    }
   },
   mounted() {
-    // 初始化默认缩放比例
-    this.$store.commit('autoCanvasScale')
   },
   methods: {
     handleDragStart(event, key) {
@@ -167,11 +179,7 @@ export default {
       event.preventDefault()
     },
     handleDrop(event) {
-      console.groupCollapsed('添加图表')
       const key = event.dataTransfer.getData('key')
-      console.log('图表类型', key)
-      console.log('图表ID', this.startIndex)
-      console.log('图表位置', 'x: ', event.offsetX, 'y: ', event.offsetY)
       const newItem = OptionConfigMap[key]()
       newItem.slice_id = this.startIndex
       newItem.i = 'chart' + this.startIndex
@@ -186,6 +194,9 @@ export default {
     },
     handleDelete() {
     },
+    handlerScaleChange(val) {
+      this.$store.commit('setCanvasScale', val)
+    },
     async getDataSourceList() {
       const response = await getDataSourceList()
       this.dataSourceList = response.data
@@ -194,8 +205,31 @@ export default {
       const response = await getImageList()
       this.backgroundImgList = response.data
     },
-    handlerScaleChange(val) {
-      this.$store.commit('setCanvasScale', val)
+    async getDataView(instanceId) {
+      try {
+        const response = await getDataView(instanceId)
+
+        this.startIndex = response.data.start_index
+        this.screenStyle.title = response.data.instance_title
+        this.screenStyle.width = response.data.instance_width
+        this.screenStyle.height = response.data.instance_height
+        this.screenStyle.backgroundImg = response.data.instance_background_img
+        this.$store.commit('autoCanvasScale')
+
+        const items = JSON.parse(JSON.stringify(response.data.chart_items))
+        if (items !== null && items !== undefined && items.length > 0) {
+          items.map((item) => {
+            item.data = JSON.parse(item.data)
+            item.chartData = JSON.parse(item.chartData)
+            item.option = JSON.parse(item.option)
+            return item
+          })
+          this.instanceVersion = response.data.instance_version
+          await this.$store.dispatch('setCharts', items)
+        }
+      } catch (e) {
+        console.log('获取大屏信息或解析大屏信息失败', e)
+      }
     }
   }
 }

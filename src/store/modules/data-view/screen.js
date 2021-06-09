@@ -10,9 +10,11 @@ export default {
     },
     // 大屏宽高（设计）
     screenStyle: {
+      title: '',
       diff: 3,
       width: 1920,
       height: 1080,
+      theme: '',
       // backgroundImg: '/group1/default/20210513/17/59/6/云资源监控-背景.png'
       backgroundImg: '/storage/2021/0530/云服务监控-背景.png'
     },
@@ -28,23 +30,18 @@ export default {
     },
     autoCanvasScale(state) {
       const resize = debounce(() => {
-        console.groupCollapsed('自动缩放设置')
         const screenWrapper = document.getElementById('screenWrapper')
         let width = screenWrapper.clientWidth
         let height = screenWrapper.clientHeight
-        console.log('wrapper实际大小', width, height)
         width = width - 128
         height = height - 128
-        console.log('wrapper去除边框后大小', width, height)
         let scale
         if ((state.screenStyle.width / state.screenStyle.height) >= (width / height)) {
           scale = width / state.screenStyle.width * 100
         } else {
           scale = height / state.screenStyle.height * 100
         }
-        console.log('设置最佳缩放值', scale)
         this.commit('setCanvasScale', scale)
-        console.groupEnd()
       }, 200)
 
       if (!window.onresize) {
@@ -64,14 +61,25 @@ export default {
       if (rotate) state.currentItem.rotate = rotate
     },
     addItem(state, chart) {
-      console.log(chart)
       state.charts.push(chart)
+    },
+    setCharts(state, payload) {
+      const charts = []
+      payload.forEach(c => {
+        charts.push(c)
+      })
+      state.charts = charts
     },
     setCurrentItem(state, item) {
       state.currentItem = item
     },
     recordSnapshot(state) {
 
+    }
+  },
+  actions: {
+    async setCharts({ commit }, charts) {
+      commit('setCharts', charts)
     }
   }
 }

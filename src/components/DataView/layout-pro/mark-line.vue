@@ -63,7 +63,6 @@ export default {
         yc: document.querySelector('.yc'),
         yr: document.querySelector('.yr')
       }
-      const charts = this.charts
       const thisStyle = {
         top: this.currentItem.y,
         left: this.currentItem.x,
@@ -76,8 +75,8 @@ export default {
       const thisHeight = thisStyle.height / 2
 
       this.hideLine()
-      for (let i = 0; i < charts.length; i++) {
-        const item = charts[i]
+      for (let i = 0; i < this.charts.length; i++) {
+        const item = this.charts[i]
         if (item === this.currentItem) continue
 
         const itemStyle = {
