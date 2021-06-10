@@ -47,7 +47,6 @@ export default {
   },
   data() {
     return {
-      cursor: {}
     }
   },
   computed: mapState([
@@ -56,9 +55,6 @@ export default {
     'currentItem'
   ]),
   mounted() {
-    if (this.currentItem) {
-      this.cursor = getCursors(this.item.rotate)
-    }
   },
   methods: {
     itemStyle() {
@@ -74,42 +70,43 @@ export default {
       return this.active
     },
     points() {
+      const cursor = getCursors(this.item.rotate)
       const transform = `scale(${1 / this.canvasStyle.scale}, ${1 / this.canvasStyle.scale})`
       return {
         't': {
           name: 'top',
-          style: { cursor: this.cursor.t, transform }
+          style: { cursor: cursor.t, transform }
         },
         'rt': {
           name: 'top-right',
-          style: { cursor: this.cursor.rt, transform },
+          style: { cursor: cursor.rt, transform },
           rotateStyle: {}
         },
         'r': {
           name: 'right',
-          style: { cursor: this.cursor.r, transform }
+          style: { cursor: cursor.r, transform }
         },
         'rb': {
           name: 'bottom-right',
-          style: { cursor: this.cursor.rb },
+          style: { cursor: cursor.rb },
           rotateStyle: { 'transform-origin': '25% 25%', transform }
         },
         'b': {
           name: 'bottom',
-          style: { cursor: this.cursor.b, transform }
+          style: { cursor: cursor.b, transform }
         },
         'lb': {
           name: 'bottom-left',
-          style: { cursor: this.cursor.lb },
+          style: { cursor: cursor.lb },
           rotateStyle: { 'transform-origin': '75% 25%', transform }
         },
         'l': {
           name: 'left',
-          style: { cursor: this.cursor.l, transform }
+          style: { cursor: cursor.l, transform }
         },
         'lt': {
           name: 'top-left',
-          style: { cursor: this.cursor.lt },
+          style: { cursor: cursor.lt },
           rotateStyle: { 'transform-origin': '75% 75%', transform }
         }
       }
@@ -145,7 +142,6 @@ export default {
       }
 
       const up = () => {
-        this.cursor = getCursors(this.item.rotate)
         // 保存快照
         moved && this.$store.commit('recordSnapshot')
         // 移除监听
@@ -177,7 +173,6 @@ export default {
 
       let moved = false
       const move = (e) => {
-        document.body.style.cursor = this.cursor[direction]
         moved = true
         const endPoint = { x: e.clientX - layoutRect.left, y: e.clientY - layoutRect.top }
         const newPosition = calcResizeInfo(direction, style, startPoint, symmetricPoint, endPoint)
@@ -186,7 +181,6 @@ export default {
       }
 
       const up = () => {
-        document.body.style.cursor = ''
         // 保存快照
         moved && this.$store.commit('recordSnapshot')
         // 移除监听

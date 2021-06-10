@@ -24,7 +24,9 @@ export default {
   pwa: false,
   iconfontUrl: '',
   // imageBasicUrl: 'http://192.168.50.158:9000',
-  serviceBaseUrl: 'http://192.168.50.18:9421/api/v1/',
-  imageBasicUrl: 'http://192.168.50.18:9421',
+  // serviceBaseUrl: 'http://192.168.50.18:9421/api/v1/',
+  // imageBasicUrl: 'http://192.168.50.18:9421',
+  serviceBaseUrl: 'http://localhost:9421/api/v1/',
+  imageBasicUrl: 'http://localhost:9421',
   production: process.env.NODE_ENV === 'production' && process.env.VUE_APP_PREVIEW !== 'true'
 }
