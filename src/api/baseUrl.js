@@ -1,3 +1,3 @@
-const baseUrl = 'http://localhost:9421/api/v1/'
+import defaultSettings from '@/config'
 
-export default baseUrl
+export default defaultSettings.serviceBaseUrl

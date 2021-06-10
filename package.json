@@ -20,7 +20,7 @@
     "lodash": "^4.17.21",
     "store": "^2.0.12",
     "vue": "^2.6.11",
-    "vue-echarts": "^6.0.0-rc.5",
+    "vue-echarts": "^6.0.0-rc.6",
     "vue-router": "^3.2.0",
     "vue-svg-component-runtime": "^1.0.1",
     "vuescroll": "^4.17.3",

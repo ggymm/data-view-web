@@ -30,7 +30,7 @@
         >
           <layout @dragover.native="handleDragOver" @drop.native="handleDrop">
             <item
-              v-for="item in slices"
+              v-for="item in charts"
               :key="item.slice_id"
               :item="item"
               :active="item === currentItem"
@@ -79,13 +79,7 @@
             </a-form-item>
           </a-form>
         </div>
-        <chart-option
-          v-else
-          class="data-view-chart-option"
-          :data-source-list="dataSourceList"
-          :item="currentItem"
-          @handleDeleteItem="handleDelete"
-        />
+        <chart-option v-else class="data-view-chart-option" :data-source-list="dataSourceList" />
       </a-layout-sider>
     </a-layout>
   </a-layout>
@@ -93,14 +87,13 @@
 
 <script>
 import { mapState } from 'vuex'
-
 import { menus } from '../config/menu-pro'
 import OptionConfigMap from '@/components/DataView/components/config'
 import Layout from '@/components/DataView/layout-pro/layout'
 import Item from '@/components/DataView/layout-pro/item'
-import Chart from '@/components/DataView/common/chart'
-import Layer from '@/components/DataView/common/layer'
-import ChartOption from '@/components/DataView/common/chart-option'
+import Chart from '@/components/DataView/common-pro/chart'
+import Layer from '@/components/DataView/common-pro/layer'
+import ChartOption from '@/components/DataView/common-pro/chart-option'
 import { getDataSourceList } from '@/api/dataSource'
 import { getImageList } from '@/api/image'
 import { getDataView } from '@/api/dataView'
@@ -124,8 +117,7 @@ export default {
       dataSourceList: [],
       backgroundImgList: [],
       scale: 20,
-      instanceVersion: 1,
-      slices: []
+      instanceVersion: 1
     }
   },
   computed: {
@@ -191,8 +183,6 @@ export default {
     },
     handleItemUnChoose() {
       this.$store.commit('setCurrentItem', null)
-    },
-    handleDelete() {
     },
     handlerScaleChange(val) {
       this.$store.commit('setCanvasScale', val)

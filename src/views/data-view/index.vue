@@ -19,22 +19,29 @@
           <a-button class="handle-item" type="primary" @click="handleFilter">查询</a-button>
         </div>
       </div>
-      <a-list :grid="{ gutter: 20, xs: 1, sm: 2, md: 4, lg: 4, xl: 6, xxl: 4 }" :data-source="list">
+      <!-- xs: <576px; sm: ≥576px -->
+      <!-- md: ≥768px; lg: ≥992px -->
+      <!-- xl: ≥1200px; xxl: ≥1600px -->
+      <a-list :grid="{ gutter: 20, xs: 1, sm: 2, md: 2, lg: 3, xl: 3, xxl: 4 }" :data-source="list">
         <a-list-item slot="renderItem" slot-scope="item">
-          <a-card :title="item.title">
-            <div class="thumbnails">
+          <a-card>
+            <div slot="cover" class="thumbnails">
               <img :src="imageBasicUrl + item.instance_view_thumbnail" class="image" alt="">
               <div class="edit-shade" />
               <a-button type="primary" @click="handleEdit(item.instance_id)">编辑</a-button>
             </div>
-            <div class="title">
-              <span>{{ item.instance_title || '暂无标题' }}</span>
-            </div>
-            <div class="handle">
-              <a-button type="link" icon="picture" @click="handlePreview(item.instance_id)">预览</a-button>
-              <a-button type="link" icon="edit" @click="handleEdit(item.instance_id)">编辑</a-button>
-              <a-button type="link" icon="delete" @click="handleDelete(item.instance_id)">删除</a-button>
-            </div>
+            <template slot="actions">
+              <a-tooltip title="预览" @click="handlePreview(item.instance_id)">
+                <a-icon type="picture" />
+              </a-tooltip>
+              <a-tooltip title="编辑" @click="handleEdit(item.instance_id)">
+                <a-icon type="edit" />
+              </a-tooltip>
+              <a-tooltip title="删除" @click="handleDelete(item.instance_id)">
+                <a-icon type="delete" />
+              </a-tooltip>
+            </template>
+            <a-card-meta :title="item.instance_title || '暂无标题'" />
           </a-card>
         </a-list-item>
       </a-list>
@@ -98,7 +105,7 @@ export default {
 }
 </script>
 
-<style>
+<style lang="less">
 .thumbnails {
   height: 160px;
 }
@@ -115,23 +122,6 @@ export default {
   width: 100%;
   height: 100%;
   display: block;
-}
-
-.title {
-  width: 70%;
-  margin: auto;
-  padding: 10px 0;
-  text-align: center;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  word-break: keep-all;
-  font-size: 13px;
-  border-bottom: 1px solid #e1e1e1;
-}
-
-.handle {
-  text-align: center;
 }
 
 .thumbnails .edit-shade {
@@ -152,5 +142,9 @@ export default {
   padding: 5px 6px;
   margin: auto;
   display: none;
+}
+
+.ant-card-meta-title {
+  text-align: center;
 }
 </style>
