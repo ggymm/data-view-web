@@ -154,6 +154,7 @@ export default {
       on(document, 'mouseup', up)
     },
     handleResize(ev, direction) {
+      const cursor = getCursors(this.item.rotate)
       const style = {
         x: Math.round(this.item.x * this.canvasStyle.scale),
         y: Math.round(this.item.y * this.canvasStyle.scale),
@@ -173,6 +174,8 @@ export default {
 
       let moved = false
       const move = (e) => {
+        console.log(`${cursor[direction]} !important`)
+        document.body.style.cursor = `${cursor[direction]}`
         moved = true
         const endPoint = { x: e.clientX - layoutRect.left, y: e.clientY - layoutRect.top }
         const newPosition = calcResizeInfo(direction, style, startPoint, symmetricPoint, endPoint)
@@ -181,6 +184,7 @@ export default {
       }
 
       const up = () => {
+        document.body.style.cursor = ''
         // 保存快照
         moved && this.$store.commit('recordSnapshot')
         // 移除监听

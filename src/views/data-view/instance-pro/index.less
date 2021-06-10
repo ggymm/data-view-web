@@ -81,10 +81,6 @@
           .data-view-item {
             position: absolute;
 
-            :hover {
-              cursor: move;
-            }
-
             &.active {
               outline: 1px solid #70c0ff;
             }
@@ -207,9 +203,12 @@
               transform-origin: 50% 50%;
               transform: scaleX(1) scaleY(1) rotateZ(360deg);
 
+              :hover {
+                cursor: move;
+              }
+
               .echarts {
                 & > div {
-                  cursor: move !important;
                 }
               }
             }
