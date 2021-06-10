@@ -11,6 +11,7 @@ const isProd = process.env.NODE_ENV === 'production'
 // vue.config.js
 const vueConfig = {
   publicPath: '/data-view-web',
+  devtools: false,
   configureWebpack: {
     // webpack plugins
     plugins: [
@@ -86,11 +87,6 @@ const vueConfig = {
   lintOnSave: undefined,
   // babel-loader no-ignore node_modules/*
   transpileDependencies: []
-}
-
-// preview.pro.loacg.com only do not use in your production;
-if (process.env.VUE_APP_PREVIEW === 'true') {
-  console.log('VUE_APP_PREVIEW', true)
 }
 
 module.exports = vueConfig
