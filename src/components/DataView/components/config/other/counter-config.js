@@ -4,6 +4,7 @@ const CounterConfig = function() {
     y: 0,
     width: 200,
     height: 50,
+    chartName: '计数器',
     chartType: 'Counter',
     rotate: 0,
     lock: 'false',

@@ -4,6 +4,7 @@ const TitleTextConfig = function() {
     y: 0,
     width: 200,
     height: 50,
+    chartName: '标题文本',
     chartType: 'TitleText',
     rotate: 0,
     lock: 'false',

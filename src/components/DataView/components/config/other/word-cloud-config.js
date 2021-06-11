@@ -4,6 +4,7 @@ const WordCloudConfig = function() {
     y: 0,
     width: 350,
     height: 250,
+    chartName: '词云',
     chartType: 'wordCloud',
     rotate: 0,
     choose: 'false',

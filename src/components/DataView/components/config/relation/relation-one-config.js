@@ -4,6 +4,7 @@ const RelationOneConfig = function() {
     y: 0,
     width: 350,
     height: 250,
+    chartName: '',
     chartType: 'relationOne',
     rotate: 0,
     choose: 'false',

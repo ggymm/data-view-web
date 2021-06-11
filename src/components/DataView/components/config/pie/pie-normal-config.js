@@ -4,6 +4,7 @@ const PieNormalConfig = function() {
     y: 0,
     width: 350,
     height: 250,
+    chartName: '',
     chartType: 'PieNormal',
     rotate: 0,
     lock: 'false',

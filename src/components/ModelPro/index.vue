@@ -255,6 +255,7 @@ export default {
     maximize() {
     },
     close() {
+      this.$emit('close')
     },
     confirm() {
     }

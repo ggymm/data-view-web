@@ -4,6 +4,7 @@ const HistogramNormalConfig = function() {
     y: 0,
     width: 350,
     height: 250,
+    chartName: '',
     chartType: 'HistogramNormal',
     rotate: 0,
     lock: 'false',

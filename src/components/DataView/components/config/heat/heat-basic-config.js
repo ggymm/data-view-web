@@ -5,6 +5,7 @@ const HeatBasicConfig = function() {
     width: 350,
     height: 250,
     type: 'heatBasic',
+    chartName: '',
     chartType: 'heatBasic',
     rotate: 0,
     choose: 'false',

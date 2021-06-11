@@ -23,9 +23,20 @@
 
     .data-view-layer {
       z-index: 99;
+      flex: auto;
+      display: flex;
+      height: 100%;
+      overflow: hidden;
+      transition: 0.3s ease;
+      flex-direction: column;
       background-color: #1d1f26;
 
       .layer-header {
+        position: fixed;
+        top: 50px;
+        width: 200px;
+        margin: 0;
+        z-index: 99;
         font-size: 13px;
         height: 35px;
         line-height: 35px;
@@ -37,6 +48,66 @@
 
         .handler {
           float: right;
+        }
+      }
+
+      .layer-wrapper {
+        margin-top: 35px;
+        position: relative;
+        display: flex;
+        width: 100%;
+        height: 100%;
+        overflow-y: scroll;
+        flex: auto;
+        flex-direction: column;
+
+        &::-webkit-scrollbar {
+          display: none;
+        }
+
+        .layer-item {
+          display: flex;
+          flex: none;
+          width: 100%;
+          height: 50px;
+          padding: 0 5px;
+          position: relative;
+          color: #bcc8d4;
+          background: #1b1f25;
+          cursor: pointer;
+          align-items: center;
+          margin-bottom: 1px;
+
+          .layer-item-icon {
+            flex: none;
+            color: #409eff;
+            margin-right: 10px;
+            width: 53px;
+            height: 30px;
+            line-height: 30px;
+            text-align: center;
+            display: block;
+            border: 1px solid #3a4659;
+            background: #282a30;
+
+            i {
+              font-size: 18px;
+            }
+          }
+
+          .layer-item-label {
+            flex: auto;
+            font-size: 13px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+
+            span {
+              overflow: hidden;
+              text-overflow: ellipsis;
+              white-space: nowrap;
+            }
+          }
         }
       }
     }
@@ -83,7 +154,6 @@
 
             &.active {
               z-index: 99;
-              cursor: move;
             }
 
             .data-view-item-handler {
@@ -94,124 +164,124 @@
               height: 100%;
               box-sizing: border-box;
 
-              .rotate-handler {
-                position: absolute;
-                top: -35px;
-                left: 50%;
-                transform: translateX(-50%);
-                cursor: grab;
-                color: #59c7f9;
-                font-size: 20px;
-              }
-
-              .control-point {
-                z-index: 999;
-                display: flex;
-                width: 8px;
-                height: 8px;
-                justify-content: center;
-                align-items: center;
-
-                &::after {
-                  width: 8px;
-                  height: 8px;
-                  background: #ffffff;
-                  border-radius: 100%;
-                  content: '';
-                }
-              }
-
-              .line-handler {
-                position: absolute;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-
-                &::after {
-                  content: "";
-                  position: absolute;
-                  z-index: 1;
-                  background: #59c7f9;
-                }
-
-                &.top-handler {
-                  top: -4px;
-                  width: 100%;
-
-                  &::after {
-                    width: 100%;
-                    height: 1px;
-                  }
-                }
-
-                &.bottom-handler {
-                  bottom: -4px;
-                  width: 100%;
-
-                  &::after {
-                    width: 100%;
-                    height: 1px;
-                  }
-                }
-
-                &.left-handler {
-                  top: 0;
-                  left: -4px;
-                  height: 100%;
-
-                  &::after {
-                    width: 1px;
-                    height: 100%;
-                  }
-                }
-
-                &.right-handler {
-                  top: 0;
-                  right: -4px;
-                  height: 100%;
-
-                  &::after {
-                    width: 1px;
-                    height: 100%;
-                  }
-                }
-              }
-
-              .spot-handler {
-                position: absolute;
-                display: flex;
-                width: 8px;
-                height: 8px;
-                justify-content: center;
-                align-items: center;
-
-                &.top-left-handler {
-                  top: -4px;
-                  left: -4px;
-                }
-
-                &.top-right-handler {
-                  top: -4px;
-                  right: -4px;
-                }
-
-                &.bottom-left-handler {
-                  bottom: -4px;
-                  left: -4px;
-                }
-
-                &.bottom-right-handler {
-                  bottom: -4px;
-                  right: -4px;
-                }
-              }
-
               .data-view-chart {
                 pointer-events: none !important;
                 width: 100%;
                 height: 100%;
                 transform-origin: 50% 50%;
                 transform: scaleX(1) scaleY(1) rotateZ(360deg);
+              }
+            }
+
+            .rotate-handler {
+              position: absolute;
+              top: -35px;
+              left: 50%;
+              transform: translateX(-50%);
+              cursor: grab;
+              color: #59c7f9;
+              font-size: 20px;
+            }
+
+            .control-point {
+              z-index: 999;
+              display: flex;
+              width: 8px;
+              height: 8px;
+              justify-content: center;
+              align-items: center;
+
+              &::after {
+                width: 8px;
+                height: 8px;
+                background: #ffffff;
+                border-radius: 100%;
+                content: '';
+              }
+            }
+
+            .line-handler {
+              position: absolute;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+
+              &::after {
+                content: "";
+                position: absolute;
+                z-index: 1;
+                background: #59c7f9;
+              }
+
+              &.top-handler {
+                top: -4px;
+                width: 100%;
+
+                &::after {
+                  width: 100%;
+                  height: 1px;
+                }
+              }
+
+              &.bottom-handler {
+                bottom: -4px;
+                width: 100%;
+
+                &::after {
+                  width: 100%;
+                  height: 1px;
+                }
+              }
+
+              &.left-handler {
+                top: 0;
+                left: -4px;
+                height: 100%;
+
+                &::after {
+                  width: 1px;
+                  height: 100%;
+                }
+              }
+
+              &.right-handler {
+                top: 0;
+                right: -4px;
+                height: 100%;
+
+                &::after {
+                  width: 1px;
+                  height: 100%;
+                }
+              }
+            }
+
+            .spot-handler {
+              position: absolute;
+              display: flex;
+              width: 8px;
+              height: 8px;
+              justify-content: center;
+              align-items: center;
+
+              &.top-left-handler {
+                top: -4px;
+                left: -4px;
+              }
+
+              &.top-right-handler {
+                top: -4px;
+                right: -4px;
+              }
+
+              &.bottom-left-handler {
+                bottom: -4px;
+                left: -4px;
+              }
+
+              &.bottom-right-handler {
+                bottom: -4px;
+                right: -4px;
               }
             }
           }
@@ -246,7 +316,7 @@
 
       .data-view-screen-option {
         height: 100%;
-        overflow: auto;
+        overflow-y: auto;
 
         &::-webkit-scrollbar {
           display: none;
@@ -276,7 +346,7 @@
           background-color: #27343e;
         }
 
-        .two {
+        &.two {
           .ant-tabs-tab {
             width: 50%;
             margin: 0;
@@ -284,7 +354,7 @@
           }
         }
 
-        .three {
+        &.three {
           .ant-tabs-tab {
             width: 33.33%;
             margin: 0;

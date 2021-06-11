@@ -4,6 +4,7 @@ const PictureConfig = function() {
     y: 0,
     width: 350,
     height: 250,
+    chartName: '',
     chartType: 'picture',
     lock: 'false',
     rotate: 0,

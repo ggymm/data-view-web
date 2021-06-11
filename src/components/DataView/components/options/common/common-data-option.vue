@@ -1,49 +1,63 @@
 <!--suppress JSUnresolvedVariable, JSUnusedLocalSymbols -->
 <template>
-  <a-form :model="item" layout="horizontal" :label-col="{span: 6}" :wrapper-col="{span: 14, offset: 1}">
-    <a-form-item label="数据源类型">
-      <a-select v-model="item.chartData.dataSourceType">
-        <a-select-option
-          v-for="dataSourceType in dataSourceTypeList"
-          :key="dataSourceType.value"
-          :value="dataSourceType.value"
-        >
-          {{ dataSourceType.label }}
-        </a-select-option>
-      </a-select>
-    </a-form-item>
-    <template v-if="item.chartData.dataSourceType === 'DataBase'">
-      <a-form-item label="数据源">
-        <a-select v-model="item.chartData.database">
+  <div>
+    <a-form :model="item" layout="horizontal" :label-col="{span: 6}" :wrapper-col="{span: 14, offset: 1}">
+      <a-form-item label="数据源类型">
+        <a-select v-model="item.chartData.dataSourceType">
           <a-select-option
-            v-for="dataSource in dataSourceList"
-            :key="dataSource.data_source_id"
-            :value="dataSource.data_source_id"
+            v-for="dataSourceType in dataSourceTypeList"
+            :key="dataSourceType.value"
+            :value="dataSourceType.value"
           >
-            {{ dataSource.data_source_name }}
+            {{ dataSourceType.label }}
           </a-select-option>
         </a-select>
       </a-form-item>
-      <a-form-item v-for="(param, index) in params" :key="index" :label="param.label">
-        <a-input v-model="item.chartData[param.value]" />
-      </a-form-item>
-      <a-form-item label="SQL">
-        <a-textarea v-model="item.chartData.sql" />
-      </a-form-item>
-      <a-form-item>
-        <a-button type="primary" size="small" @click="handleEditSQL">调试SQL</a-button>
-      </a-form-item>
-    </template>
-    <template v-else-if="item.chartData.dataSourceType === 'Rest'" />
-    <template v-else-if="item.chartData.dataSourceType === 'Csv'" />
-  </a-form>
+      <template v-if="item.chartData.dataSourceType === 'DataBase'">
+        <a-form-item label="数据源">
+          <a-select v-model="item.chartData.database">
+            <a-select-option
+              v-for="dataSource in dataSourceList"
+              :key="dataSource.data_source_id"
+              :value="dataSource.data_source_id"
+            >
+              {{ dataSource.data_source_name }}
+            </a-select-option>
+          </a-select>
+        </a-form-item>
+        <a-form-item v-for="(param, index) in params" :key="index" :label="param.label">
+          <a-input v-model="item.chartData[param.value]" />
+        </a-form-item>
+        <a-form-item label="SQL">
+          <a-textarea v-model="item.chartData.sql" />
+        </a-form-item>
+        <a-form-item>
+          <a-button type="primary" size="small" @click="handleEditSQL">调试SQL</a-button>
+        </a-form-item>
+      </template>
+      <template v-else-if="item.chartData.dataSourceType === 'Rest'" />
+      <template v-else-if="item.chartData.dataSourceType === 'Csv'" />
+    </a-form>
+    <modal-pro
+      :title="'SQL编辑器'"
+      :visible.sync="visibleSQLModel"
+      @confirm="confirmSQL"
+      @close="visibleSQLModel = false"
+    >
+      这里是弹窗内容
+    </modal-pro>
+  </div>
 </template>
 
 <script>
+import ModalPro from '@/components/ModelPro'
 import { dataSourceTypeList } from '../common'
 
 export default {
   name: 'CommonDataOption',
+  components: {
+    ModalPro
+  },
   props: {
     item: {
       type: Object,
@@ -66,17 +80,16 @@ export default {
   },
   data() {
     return {
-      dataSourceTypeList
+      dataSourceTypeList,
+      visibleSQLModel: false
     }
   },
   methods: {
     handleEditSQL() {
-      this.$bus.$emit('handleEditSQL')
+      this.visibleSQLModel = true
+    },
+    confirmSQL(sql) {
     }
   }
 }
 </script>
-
-<style scoped>
-
-</style>

@@ -4,6 +4,7 @@ const ScatterNormalConfig = function() {
     y: 0,
     width: 350,
     height: 250,
+    chartName: '',
     chartType: 'ScatterNormal',
     rotate: 0,
     lock: 'false',

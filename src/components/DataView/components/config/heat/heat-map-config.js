@@ -4,6 +4,7 @@ const HeatMapConfig = function() {
     y: 0,
     width: 350,
     height: 250,
+    chartName: '',
     chartType: 'heatMap',
     rotate: 0,
     choose: 'false',

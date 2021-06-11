@@ -19,7 +19,7 @@
       </a-menu>
     </a-layout-header>
     <a-layout class="data-view-main">
-      <a-layout-sider width="200" class="data-view-layer">
+      <a-layout-sider width="200">
         <layer />
       </a-layout-sider>
       <a-layout class="data-view-screen">
@@ -31,7 +31,7 @@
           <layout @dragover.native="handleDragOver" @drop.native="handleDrop">
             <item
               v-for="item in charts"
-              :key="item.slice_id"
+              :key="item.i"
               :item="item"
               :active="item === currentItem"
             >
@@ -170,7 +170,6 @@ export default {
     handleDrop(event) {
       const key = event.dataTransfer.getData('key')
       const newItem = OptionConfigMap[key]()
-      newItem.slice_id = this.startIndex
       newItem.i = 'chart' + this.startIndex
       newItem.x = event.offsetX - newItem.width / 2
       newItem.y = event.offsetY - newItem.height / 2

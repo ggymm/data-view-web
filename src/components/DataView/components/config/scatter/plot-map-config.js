@@ -4,6 +4,7 @@ const PlotMapConfig = function() {
     y: 0,
     width: 350,
     height: 250,
+    chartName: '',
     chartType: 'plotMap',
     rotate: 0,
     choose: 'false',

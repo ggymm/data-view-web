@@ -4,6 +4,7 @@ const MapProvinceConfig = function() {
     y: 0,
     width: 350,
     height: 250,
+    chartName: '',
     chartType: 'mapProvince',
     rotate: 0,
     choose: 'false',

@@ -4,6 +4,7 @@ const CarouselListConfig = function() {
     y: 0,
     width: 350,
     height: 200,
+    chartName: '轮播列表',
     chartType: 'CarouselList',
     rotate: 0,
     lock: 'false',

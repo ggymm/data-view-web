@@ -4,6 +4,7 @@ const GaugeConfig = function() {
     y: 0,
     width: 350,
     height: 250,
+    chartName: '',
     chartType: 'gauge',
     rotate: 0,
     choose: 'false',
