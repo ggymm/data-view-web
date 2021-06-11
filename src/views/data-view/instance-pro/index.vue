@@ -121,6 +121,9 @@ export default {
     }
   },
   computed: {
+    storeScale() {
+      return this.$store.state.canvasStyle.scale
+    },
     screenStyle: {
       get() {
         return this.$store.state.screenStyle

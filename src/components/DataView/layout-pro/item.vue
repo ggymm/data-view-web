@@ -6,23 +6,29 @@
     @click="handleItemClick"
     @mousedown.prevent.stop="handleMove"
   >
-    <a-icon v-show="isActive()" type="reload" class="rotate-handler" @mousedown.prevent.stop="handleRotate" />
-    <template v-for="(v, k) in (isActive()? points() : [])">
-      <i
-        v-if="v.rotateStyle"
-        :key="k"
-        :class="`${v.name}-handler`"
-        class="spot-handler"
-      >
-        <span :style="v.rotateStyle">
+    <div
+      class="data-view-item-handler"
+      :style="itemHandlerStyle()"
+      :class="itemHandlerClass()"
+    >
+      <a-icon v-show="isActive()" type="reload" class="rotate-handler" @mousedown.prevent.stop="handleRotate" />
+      <template v-for="(v, k) in (isActive()? points() : [])">
+        <i
+          v-if="v.rotateStyle"
+          :key="k"
+          :class="`${v.name}-handler`"
+          class="spot-handler"
+        >
+          <span :style="v.rotateStyle">
+            <span class="control-point" :style="v.style" @mousedown.prevent.stop="handleResize($event, k)" />
+          </span>
+        </i>
+        <i v-else :key="k" :class="`${v.name}-handler`" class="line-handler">
           <span class="control-point" :style="v.style" @mousedown.prevent.stop="handleResize($event, k)" />
-        </span>
-      </i>
-      <i v-else :key="k" :class="`${v.name}-handler`" class="line-handler">
-        <span class="control-point" :style="v.style" @mousedown.prevent.stop="handleResize($event, k)" />
-      </i>
-    </template>
-    <slot />
+        </i>
+      </template>
+      <slot />
+    </div>
   </div>
 </template>
 
@@ -64,6 +70,16 @@ export default {
         width: `${this.item.width}px`,
         height: `${this.item.height}px`,
         transform: `translate(${this.item.x}px, ${this.item.y}px) rotate(${this.item.rotate}deg)`
+      }
+    },
+    itemHandlerStyle() {
+      return {
+        transform: `rotate(${this.item.rotate}deg)`
+      }
+    },
+    itemHandlerClass() {
+      return {
+        hidden: !this.isActive()
       }
     },
     isActive() {
