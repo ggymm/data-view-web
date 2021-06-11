@@ -105,7 +105,7 @@ export default {
         'rb': {
           name: 'bottom-right',
           style: { cursor: cursor.rb },
-          rotateStyle: { 'transform-origin': '25% 25%', transform }
+          rotateStyle: { transform }
         },
         'b': {
           name: 'bottom',
@@ -114,7 +114,7 @@ export default {
         'lb': {
           name: 'bottom-left',
           style: { cursor: cursor.lb },
-          rotateStyle: { 'transform-origin': '75% 25%', transform }
+          rotateStyle: { transform }
         },
         'l': {
           name: 'left',
@@ -123,7 +123,7 @@ export default {
         'lt': {
           name: 'top-left',
           style: { cursor: cursor.lt },
-          rotateStyle: { 'transform-origin': '75% 75%', transform }
+          rotateStyle: { transform }
         }
       }
     },
@@ -190,9 +190,8 @@ export default {
 
       let moved = false
       const move = (e) => {
-        console.log(`${cursor[direction]} !important`)
-        document.body.style.cursor = `${cursor[direction]}`
         moved = true
+        document.body.style.cursor = `${cursor[direction]}`
         const endPoint = { x: e.clientX - layoutRect.left, y: e.clientY - layoutRect.top }
         const newPosition = calcResizeInfo(direction, style, startPoint, symmetricPoint, endPoint)
         // 更新组件大小，位置信息
@@ -200,9 +199,9 @@ export default {
       }
 
       const up = () => {
-        document.body.style.cursor = ''
         // 保存快照
         moved && this.$store.commit('recordSnapshot')
+        document.body.style.cursor = ''
         // 移除监听
         off(document, 'mousemove', move)
         off(document, 'mouseup', up)
