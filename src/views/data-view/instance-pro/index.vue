@@ -50,7 +50,6 @@
             :min="20"
             :max="200"
             :marks="{ 100:{} }"
-            @afterChange="handlerScaleChange"
           />
         </a-layout-footer>
       </a-layout>
@@ -116,20 +115,24 @@ export default {
       startIndex: 0,
       dataSourceList: [],
       backgroundImgList: [],
-      scale: 20,
       instanceVersion: 1
     }
   },
   computed: {
-    storeScale() {
-      return this.$store.state.canvasStyle.scale
+    scale: {
+      get() {
+        return this.$store.state.canvasStyle.scale * 100
+      },
+      set(val) {
+        this.$store.commit('setCanvasScale', val)
+      }
     },
     screenStyle: {
       get() {
         return this.$store.state.screenStyle
       },
-      set(value) {
-        this.$store.commit('setScreenStyle', value)
+      set(val) {
+        this.$store.commit('setScreenStyle', val)
       }
     },
     ...mapState([
@@ -139,15 +142,6 @@ export default {
     ])
   },
   watch: {
-    storeScale: function(newVal) {
-      this.scale = newVal * 100
-    },
-    charts: function(charts) {
-      const _this = this
-      setTimeout(function() {
-        _this.slices = charts
-      }, 300)
-    }
   },
   created() {
     // 初始化页面选项
@@ -186,9 +180,6 @@ export default {
     },
     handleItemUnChoose() {
       this.$store.commit('setCurrentItem', null)
-    },
-    handlerScaleChange(val) {
-      this.$store.commit('setCanvasScale', val)
     },
     async getDataSourceList() {
       const response = await getDataSourceList()
