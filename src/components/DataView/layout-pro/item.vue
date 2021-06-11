@@ -7,18 +7,8 @@
     @mousedown.prevent.stop="handleMove"
   >
     <a-icon v-show="isActive()" type="reload" class="rotate-handler" @mousedown.prevent.stop="handleRotate" />
-    <template v-for="(v, k) in (isActive()? points() : [])">
-      <i
-        v-if="v.rotateStyle"
-        :key="k"
-        :class="`${v.name}-handler`"
-        class="spot-handler"
-      >
-        <span :style="v.rotateStyle">
-          <span class="control-point" :style="v.style" @mousedown.prevent.stop="handleResize($event, k)" />
-        </span>
-      </i>
-      <i v-else :key="k" :class="`${v.name}-handler`" class="line-handler">
+    <template v-for="(v, k) in points()">
+      <i :key="k" :class="[`${v.name}-handler`, v.name.indexOf('-') > 0 ? 'spot-handler' : 'line-handler']">
         <span class="control-point" :style="v.style" @mousedown.prevent.stop="handleResize($event, k)" />
       </i>
     </template>
@@ -86,42 +76,14 @@ export default {
       const cursor = getCursors(this.item.rotate)
       const transform = `scale(${1 / this.canvasStyle.scale}, ${1 / this.canvasStyle.scale})`
       return {
-        't': {
-          name: 'top',
-          style: { cursor: cursor.t, transform }
-        },
-        'rt': {
-          name: 'top-right',
-          style: { cursor: cursor.rt, transform },
-          rotateStyle: {}
-        },
-        'r': {
-          name: 'right',
-          style: { cursor: cursor.r, transform }
-        },
-        'rb': {
-          name: 'bottom-right',
-          style: { cursor: cursor.rb },
-          rotateStyle: { transform }
-        },
-        'b': {
-          name: 'bottom',
-          style: { cursor: cursor.b, transform }
-        },
-        'lb': {
-          name: 'bottom-left',
-          style: { cursor: cursor.lb },
-          rotateStyle: { transform }
-        },
-        'l': {
-          name: 'left',
-          style: { cursor: cursor.l, transform }
-        },
-        'lt': {
-          name: 'top-left',
-          style: { cursor: cursor.lt },
-          rotateStyle: { transform }
-        }
+        't': { name: 'top', style: { cursor: cursor.t, transform }},
+        'rt': { name: 'top-right', style: { cursor: cursor.rt, transform }},
+        'r': { name: 'right', style: { cursor: cursor.r, transform }},
+        'rb': { name: 'bottom-right', style: { cursor: cursor.rb, transform }},
+        'b': { name: 'bottom', style: { cursor: cursor.b, transform }},
+        'lb': { name: 'bottom-left', style: { cursor: cursor.lb, transform }},
+        'l': { name: 'left', style: { cursor: cursor.l, transform }},
+        'lt': { name: 'top-left', style: { cursor: cursor.lt, transform }}
       }
     },
     handleItemClick(e) {

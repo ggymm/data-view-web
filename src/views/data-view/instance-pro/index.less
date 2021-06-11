@@ -154,6 +154,20 @@
 
             &.active {
               z-index: 99;
+
+              .line-handler, .spot-handler {
+                display: flex;
+              }
+            }
+
+            &:hover {
+              .line-handler {
+                display: flex;
+
+                .control-point {
+                  display: none;
+                }
+              }
             }
 
             .data-view-item-handler {
@@ -201,8 +215,8 @@
             }
 
             .line-handler {
+              display: none;
               position: absolute;
-              display: flex;
               justify-content: center;
               align-items: center;
 
@@ -257,8 +271,8 @@
             }
 
             .spot-handler {
+              display: none;
               position: absolute;
-              display: flex;
               width: 8px;
               height: 8px;
               justify-content: center;
