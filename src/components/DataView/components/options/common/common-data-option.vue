@@ -30,6 +30,9 @@
       <a-form-item label="SQL">
         <a-textarea v-model="item.chartData.sql" />
       </a-form-item>
+      <a-form-item>
+        <a-button type="primary" size="small" @click="handleEditSQL">调试SQL</a-button>
+      </a-form-item>
     </template>
     <template v-else-if="item.chartData.dataSourceType === 'Rest'" />
     <template v-else-if="item.chartData.dataSourceType === 'Csv'" />
@@ -64,6 +67,11 @@ export default {
   data() {
     return {
       dataSourceTypeList
+    }
+  },
+  methods: {
+    handleEditSQL() {
+      this.$bus.$emit('handleEditSQL')
     }
   }
 }
