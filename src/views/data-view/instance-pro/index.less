@@ -156,17 +156,7 @@
               z-index: 99;
 
               .line-handler, .spot-handler {
-                display: flex;
-              }
-            }
-
-            &:hover {
-              .line-handler {
-                display: flex;
-
-                .control-point {
-                  display: none;
-                }
+                display: flex !important;
               }
             }
 
@@ -178,6 +168,16 @@
               height: 100%;
               box-sizing: border-box;
 
+              &.hidden:hover {
+                .line-handler {
+                  display: flex;
+
+                  .control-point {
+                    //display: none;
+                  }
+                }
+              }
+
               .data-view-chart {
                 pointer-events: none !important;
                 width: 100%;
@@ -185,117 +185,117 @@
                 transform-origin: 50% 50%;
                 transform: scaleX(1) scaleY(1) rotateZ(360deg);
               }
-            }
 
-            .rotate-handler {
-              position: absolute;
-              top: -35px;
-              left: 50%;
-              transform: translateX(-50%);
-              cursor: grab;
-              color: #59c7f9;
-              font-size: 20px;
-            }
+              .rotate-handler {
+                position: absolute;
+                top: -35px;
+                left: 50%;
+                transform: translateX(-50%);
+                cursor: grab;
+                color: #59c7f9;
+                font-size: 20px;
+              }
 
-            .control-point {
-              z-index: 999;
-              display: flex;
-              width: 8px;
-              height: 8px;
-              justify-content: center;
-              align-items: center;
-
-              &::after {
+              .control-point {
+                z-index: 999;
+                display: flex;
                 width: 8px;
                 height: 8px;
-                background: #ffffff;
-                border-radius: 100%;
-                content: '';
+                justify-content: center;
+                align-items: center;
+
+                &::after {
+                  width: 8px;
+                  height: 8px;
+                  background: #ffffff;
+                  border-radius: 100%;
+                  content: '';
+                }
               }
-            }
 
-            .line-handler {
-              display: none;
-              position: absolute;
-              justify-content: center;
-              align-items: center;
-
-              &::after {
-                content: "";
+              .line-handler {
+                display: none;
                 position: absolute;
-                z-index: 1;
-                background: #59c7f9;
-              }
-
-              &.top-handler {
-                top: -4px;
-                width: 100%;
+                justify-content: center;
+                align-items: center;
 
                 &::after {
+                  content: "";
+                  position: absolute;
+                  z-index: 1;
+                  background: #59c7f9;
+                }
+
+                &.top-handler {
+                  top: -4px;
                   width: 100%;
-                  height: 1px;
+
+                  &::after {
+                    width: 100%;
+                    height: 1px;
+                  }
                 }
-              }
 
-              &.bottom-handler {
-                bottom: -4px;
-                width: 100%;
-
-                &::after {
+                &.bottom-handler {
+                  bottom: -4px;
                   width: 100%;
-                  height: 1px;
+
+                  &::after {
+                    width: 100%;
+                    height: 1px;
+                  }
                 }
-              }
 
-              &.left-handler {
-                top: 0;
-                left: -4px;
-                height: 100%;
-
-                &::after {
-                  width: 1px;
+                &.left-handler {
+                  top: 0;
+                  left: -4px;
                   height: 100%;
+
+                  &::after {
+                    width: 1px;
+                    height: 100%;
+                  }
                 }
-              }
 
-              &.right-handler {
-                top: 0;
-                right: -4px;
-                height: 100%;
-
-                &::after {
-                  width: 1px;
+                &.right-handler {
+                  top: 0;
+                  right: -4px;
                   height: 100%;
+
+                  &::after {
+                    width: 1px;
+                    height: 100%;
+                  }
                 }
               }
-            }
 
-            .spot-handler {
-              display: none;
-              position: absolute;
-              width: 8px;
-              height: 8px;
-              justify-content: center;
-              align-items: center;
+              .spot-handler {
+                display: none;
+                position: absolute;
+                width: 8px;
+                height: 8px;
+                justify-content: center;
+                align-items: center;
 
-              &.top-left-handler {
-                top: -4px;
-                left: -4px;
-              }
+                &.top-left-handler {
+                  top: -4px;
+                  left: -4px;
+                }
 
-              &.top-right-handler {
-                top: -4px;
-                right: -4px;
-              }
+                &.top-right-handler {
+                  top: -4px;
+                  right: -4px;
+                }
 
-              &.bottom-left-handler {
-                bottom: -4px;
-                left: -4px;
-              }
+                &.bottom-left-handler {
+                  bottom: -4px;
+                  left: -4px;
+                }
 
-              &.bottom-right-handler {
-                bottom: -4px;
-                right: -4px;
+                &.bottom-right-handler {
+                  bottom: -4px;
+                  right: -4px;
+                }
               }
             }
           }

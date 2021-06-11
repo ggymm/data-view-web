@@ -6,17 +6,23 @@
     @click="handleItemClick"
     @mousedown.prevent.stop="handleMove"
   >
-    <a-icon v-show="isActive()" type="reload" class="rotate-handler" @mousedown.prevent.stop="handleRotate" />
-    <template v-for="(v, k) in points()">
-      <i :key="k" :class="[`${v.name}-handler`, v.name.indexOf('-') > 0 ? 'spot-handler' : 'line-handler']">
-        <span class="control-point" :style="v.style" @mousedown.prevent.stop="handleResize($event, k)" />
-      </i>
-    </template>
     <div
       class="data-view-item-handler"
       :style="itemHandlerStyle()"
       :class="itemHandlerClass()"
     >
+      <a-icon v-show="isActive()" type="reload" class="rotate-handler" @mousedown.prevent.stop="handleRotate" />
+      <i
+        v-for="(v, k) in points()"
+        :key="k"
+        :class="[`${v.name}-handler`, v.name.indexOf('-') > 0 ? 'spot-handler' : 'line-handler']"
+      >
+        <span
+          class="control-point"
+          :style="v.style"
+          @mousedown.prevent.stop="handleResize($event, k)"
+        />
+      </i>
       <slot />
     </div>
   </div>
@@ -129,6 +135,9 @@ export default {
       on(document, 'mouseup', up)
     },
     handleResize(ev, direction) {
+      // 设置选中状态
+      this.$store.commit('setCurrentItem', this.item)
+
       const cursor = getCursors(this.item.rotate)
       const style = {
         x: Math.round(this.item.x * this.canvasStyle.scale),
