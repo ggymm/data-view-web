@@ -5,14 +5,7 @@
     <div
       id="data-view-layout"
       class="data-view-layout"
-      :style="{
-        width: `${screenStyle.width}px`,
-        height: `${screenStyle.height}px`,
-        transform: `scale(${canvasStyle.scale}) translate(0px, 0px)`,
-        backgroundImage: `url(${imageBasicUrl}${screenStyle.backgroundImg})`,
-        backgroundRepeat: 'no-repeat',
-        backgroundSize: '100% 100%',
-      }"
+      :style="layoutStyle()"
     >
       <slot />
       <!-- 对齐线 -->
@@ -56,6 +49,23 @@ export default {
     'screenStyle'
   ]),
   methods: {
+    layoutStyle() {
+      let style = {
+        width: `${this.screenStyle.width}px`,
+        height: `${this.screenStyle.height}px`,
+        transform: `scale(${this.canvasStyle.scale}) translate(0px, 0px)`,
+        backgroundRepeat: 'no-repeat',
+        backgroundSize: '100% 100%'
+      }
+      if (this.screenStyle.backgroundImg.length !== 0) {
+        style = { ...style,
+          ...{
+            backgroundImage: `url(${this.imageBasicUrl}${this.screenStyle.backgroundImg})`
+          }
+        }
+      }
+      return style
+    },
     screenWrapperStyle() {
       return {
         width: `${this.canvasStyle.width}px`,

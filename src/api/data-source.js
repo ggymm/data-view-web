@@ -1,9 +1,11 @@
 import request from '@/api/request'
-import baseUrl from '@/api/baseUrl'
+import defaultSettings from '@/config'
+
+const baseUrl = defaultSettings.serviceBaseUrl
 
 export function getDataSourcePage(params) {
   return request({
-    url: baseUrl + 'dataSource/',
+    url: baseUrl + 'data-source/',
     method: 'get',
     params: params
   })
@@ -11,7 +13,7 @@ export function getDataSourcePage(params) {
 
 export function getDataSourceList() {
   return request({
-    url: baseUrl + 'dataSource/list',
+    url: baseUrl + 'data-source/list',
     method: 'get'
   })
 }

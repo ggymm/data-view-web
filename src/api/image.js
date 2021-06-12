@@ -1,5 +1,7 @@
 import request from '@/api/request'
-import baseUrl from '@/api/baseUrl'
+import defaultSettings from '@/config'
+
+const baseUrl = defaultSettings.serviceBaseUrl
 
 export function getImageList() {
   return request({

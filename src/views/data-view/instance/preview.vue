@@ -28,7 +28,7 @@ import defaultSettings from '@/config'
 import SlicePreview from '@/components/DataView/common/slice-preview'
 import LayoutPreview from '@/components/DataView/layout/layout-preview'
 import ItemPreview from '@/components/DataView/layout/item-preview'
-import { getDataView } from '@/api/dataView'
+import { getDataView } from '@/api/data-view'
 
 export default {
   name: 'Preview',

@@ -32,7 +32,7 @@ export default {
     }
   },
   computed: mapState([
-    'charts',
+    'slices',
     'canvasStyle',
     'currentItem'
   ]),
@@ -54,7 +54,7 @@ export default {
       })
     },
     showLine() {
-      if (this.charts.length === 1) return
+      if (this.slices.length === 1) return
       const lines = {
         xt: document.querySelector('.xt'),
         xc: document.querySelector('.xc'),
@@ -75,8 +75,8 @@ export default {
       const thisHeight = thisStyle.height / 2
 
       this.hideLine()
-      for (let i = 0; i < this.charts.length; i++) {
-        const item = this.charts[i]
+      for (let i = 0; i < this.slices.length; i++) {
+        const item = this.slices[i]
         if (item === this.currentItem) continue
 
         const itemStyle = {

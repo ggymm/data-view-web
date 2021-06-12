@@ -112,8 +112,8 @@ import ChartOption from '@/components/DataView/common/chart-option'
 import OptionConfigMap from '@/components/DataView/components/config'
 
 import { getImageList, saveThumbnail } from '@/api/image'
-import { getDataSourceList } from '@/api/dataSource'
-import { getDataView, saveDataView, updateDataView } from '@/api/dataView'
+import { getDataSourceList } from '@/api/data-source'
+import { getDataView, saveDataView, updateDataView } from '@/api/data-view'
 
 export default {
   name: 'Index',

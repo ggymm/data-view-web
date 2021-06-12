@@ -30,7 +30,7 @@
         >
           <layout @dragover.native="handleDragOver" @drop.native="handleDrop">
             <item
-              v-for="item in charts"
+              v-for="item in slices"
               :key="item.i"
               :item="item"
               :active="item === currentItem"
@@ -93,9 +93,9 @@ import Item from '@/components/DataView/layout-pro/item'
 import Chart from '@/components/DataView/common-pro/chart'
 import Layer from '@/components/DataView/common-pro/layer'
 import ChartOption from '@/components/DataView/common-pro/chart-option'
-import { getDataSourceList } from '@/api/dataSource'
+import { getDataSourceList } from '@/api/data-source'
 import { getImageList } from '@/api/image'
-import { getDataView } from '@/api/dataView'
+import { getDataView } from '@/api/data-view'
 
 export default {
   name: 'Index',
@@ -136,8 +136,8 @@ export default {
       }
     },
     ...mapState([
+      'slices',
       'canvasStyle',
-      'charts',
       'currentItem'
     ])
   },
@@ -175,7 +175,6 @@ export default {
       newItem.y = event.offsetY - newItem.height / 2
       this.$store.commit('addItem', newItem)
       this.startIndex += 1
-      console.groupEnd()
     },
     handleItemUnChoose() {
       this.$store.commit('setCurrentItem', null)

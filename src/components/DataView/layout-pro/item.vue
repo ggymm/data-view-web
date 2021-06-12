@@ -8,8 +8,9 @@
   >
     <div
       class="data-view-item-handler"
-      :style="itemHandlerStyle()"
-      :class="itemHandlerClass()"
+      :class="[itemHandlerClass(), { hover: hover }]"
+      @mouseenter="handleEnter"
+      @mouseleave="handleLeave"
     >
       <a-icon v-show="isActive()" type="reload" class="rotate-handler" @mousedown.prevent.stop="handleRotate" />
       <i
@@ -17,11 +18,7 @@
         :key="k"
         :class="[`${v.name}-handler`, v.name.indexOf('-') > 0 ? 'spot-handler' : 'line-handler']"
       >
-        <span
-          class="control-point"
-          :style="v.style"
-          @mousedown.prevent.stop="handleResize($event, k)"
-        />
+        <span class="control-point" :style="v.style" @mousedown.prevent.stop="handleResize($event, k)" />
       </i>
       <slot />
     </div>
@@ -48,9 +45,12 @@ export default {
     }
   },
   data() {
-    return {}
+    return {
+      hover: false
+    }
   },
   computed: mapState([
+    'resizing',
     'canvasStyle',
     'screenStyle',
     'currentItem'
@@ -67,12 +67,9 @@ export default {
         transform: `translate(${this.item.x}px, ${this.item.y}px) rotate(${this.item.rotate}deg)`
       }
     },
-    itemHandlerStyle() {
-      return {}
-    },
     itemHandlerClass() {
       return {
-        hidden: !this.isActive()
+        'has-hover': !this.isActive() && !this.resizing
       }
     },
     isActive() {
@@ -98,6 +95,7 @@ export default {
       e.preventDefault()
     },
     handleRotate(ev) {
+      // 已经处于选中状态
       const rect = this.$el.getBoundingClientRect()
       const centerX = rect.left + rect.width / 2
       const centerY = rect.top + rect.height / 2
@@ -134,6 +132,12 @@ export default {
       on(document, 'mousemove', move)
       on(document, 'mouseup', up)
     },
+    handleEnter() {
+      this.hover = true
+    },
+    handleLeave() {
+      this.hover = false
+    },
     handleResize(ev, direction) {
       // 设置选中状态
       this.$store.commit('setCurrentItem', this.item)
@@ -159,17 +163,19 @@ export default {
       let moved = false
       const move = (e) => {
         moved = true
+        this.$store.commit('setResizeStatus', true)
         document.body.style.cursor = `${cursor[direction]}`
         const endPoint = { x: e.clientX - layoutRect.left, y: e.clientY - layoutRect.top }
-        const newPosition = calcResizeInfo(direction, style, startPoint, symmetricPoint, endPoint)
+        const newStyle = calcResizeInfo(direction, style, startPoint, symmetricPoint, endPoint)
         // 更新组件大小，位置信息
-        this.$store.commit('setItemStyle', newPosition)
+        this.$store.commit('setItemStyle', newStyle)
       }
 
       const up = () => {
+        document.body.style.cursor = ''
+        this.$store.commit('setResizeStatus', false)
         // 保存快照
         moved && this.$store.commit('recordSnapshot')
-        document.body.style.cursor = ''
         // 移除监听
         off(document, 'mousemove', move)
         off(document, 'mouseup', up)

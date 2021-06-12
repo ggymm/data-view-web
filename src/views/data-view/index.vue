@@ -51,7 +51,7 @@
 
 <script>
 import defaultSettings from '@/config'
-import { getDataViewPage } from '@/api/dataView'
+import { getDataViewPage } from '@/api/data-view'
 
 export default {
   name: 'Index',

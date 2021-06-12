@@ -19,7 +19,7 @@
 <script>
 import '../components/charts'
 import ThemeConfigMap from '../themes/theme-config-map'
-import { getChartData } from '@/api/dataView'
+import { getChartData } from '@/api/data-view'
 
 export default {
   name: 'SlicePreview',

@@ -8,23 +8,23 @@
     </div>
     <div class="layer-wrapper">
       <div
-        v-for="chart in charts"
-        :key="chart.i"
+        v-for="item in slices"
+        :key="item.i"
         class="layer-item"
       >
         <span class="layer-item-icon">
-          <icon :type="`icon-${chart.chartType}New`" />
+          <icon :type="`icon-${item.chartType}New`" />
         </span>
         <span class="layer-item-label">
-          <span v-if="chart.chartType === 'TitleText'">{{ chart.option.title }}</span>
-          <span v-else-if="chart.chartType === 'CarouselList'">{{ chart.chartName }}</span>
-          <span v-else-if="chart.chartType === 'Counter'">{{ chart.chartName }}</span>
+          <span v-if="item.chartType === 'TitleText'">{{ item.option.title }}</span>
+          <span v-else-if="item.chartType === 'CarouselList'">{{ item.chartName }}</span>
+          <span v-else-if="item.chartType === 'Counter'">{{ item.chartName }}</span>
           <span v-else>
-            <span v-if="chart.chartName.length !== 0">
-              {{ chart.chartName }}
+            <span v-if="item.chartName.length !== 0">
+              {{ item.chartName }}
             </span>
             <span v-else>
-              {{ chart.option.title.text }}
+              {{ item.option.title.text }}
             </span>
           </span>
         </span>
@@ -39,7 +39,7 @@ import { mapState } from 'vuex'
 export default {
   name: 'Layer',
   computed: mapState([
-    'charts'
+    'slices'
   ])
 }
 </script>

@@ -2,6 +2,11 @@ import debounce from 'lodash/debounce'
 
 export default {
   state: {
+    slices: [],
+    currentItem: null,
+    // 图表状态
+    moving: false,
+    resizing: false,
     // 画布宽高
     canvasStyle: {
       width: 1920,
@@ -16,18 +21,19 @@ export default {
       height: 1080,
       theme: '',
       // backgroundImg: '/group1/default/20210513/17/59/6/云资源监控-背景.png'
-      backgroundImg: '/storage/2021/0530/云服务监控-背景.png'
-    },
-    charts: [],
-    currentItem: null
+      // backgroundImg: '/storage/2021/0530/云服务监控-背景.png'
+      backgroundImg: ''
+    }
   },
   mutations: {
-    setCanvasScale(state, scale) {
-      scale = Math.min(Math.max(scale, 20), 200) / 100
-      state.canvasStyle.scale = scale
-      state.canvasStyle.width = state.screenStyle.width * scale + 128
-      state.canvasStyle.height = state.screenStyle.height * scale + 128
+    SET_SLICES(state, payload) {
+      const slices = []
+      payload.forEach(c => {
+        slices.push(c)
+      })
+      state.slices = slices
     },
+
     autoCanvasScale(state) {
       const resize = debounce(() => {
         const screenWrapper = document.getElementById('screenWrapper')
@@ -50,36 +56,43 @@ export default {
 
       resize()
     },
+
+    setCanvasScale(state, scale) {
+      scale = Math.min(Math.max(scale, 20), 200) / 100
+      state.canvasStyle.scale = scale
+      state.canvasStyle.width = state.screenStyle.width * scale + 128
+      state.canvasStyle.height = state.screenStyle.height * scale + 128
+    },
     setScreenStyle(state, style) {
       state.screenStyle = style
     },
+    addItem(state, chart) {
+      state.charts.push(chart)
+    },
+    setCurrentItem(state, item) {
+      state.currentItem = item
+    },
     setItemStyle(state, { x, y, width, height, rotate }) {
+      if (state.currentItem === null) return
       if (x) state.currentItem.x = x
       if (y) state.currentItem.y = y
       if (width) state.currentItem.width = width
       if (height) state.currentItem.height = height
       if (rotate) state.currentItem.rotate = rotate
     },
-    addItem(state, chart) {
-      state.charts.push(chart)
+    setItemHover(state, status) {
+      if (state.currentItem === null) return
+      state.currentItem.hover = status
     },
-    setCharts(state, payload) {
-      const charts = []
-      payload.forEach(c => {
-        charts.push(c)
-      })
-      state.charts = charts
-    },
-    setCurrentItem(state, item) {
-      state.currentItem = item
+    setResizeStatus(state, status) {
+      state.resizing = status
     },
     recordSnapshot(state) {
-
     }
   },
   actions: {
     async setCharts({ commit }, charts) {
-      commit('setCharts', charts)
+      commit('SET_SLICES', charts)
     }
   }
 }

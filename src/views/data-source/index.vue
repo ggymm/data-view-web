@@ -44,7 +44,7 @@
 </template>
 
 <script>
-import { getDataSourcePage } from '@/api/dataSource'
+import { getDataSourcePage } from '@/api/data-source'
 
 const columns = [
   {

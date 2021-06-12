@@ -24,7 +24,7 @@
 <script>
 import '../components/charts'
 import ThemeConfigMap from '@/components/DataView/themes/theme-config-map'
-import { getChartData } from '@/api/dataView'
+import { getChartData } from '@/api/data-view'
 
 // noinspection JSUnusedGlobalSymbols,JSUnusedLocalSymbols
 const clickOutside = {

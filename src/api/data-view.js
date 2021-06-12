@@ -1,9 +1,11 @@
 import request from '@/api/request'
-import baseUrl from '@/api/baseUrl'
+import defaultSettings from '@/config'
+
+const baseUrl = defaultSettings.serviceBaseUrl
 
 export function getDataViewPage(params) {
   return request({
-    url: baseUrl + 'dataView/',
+    url: baseUrl + 'data-view/',
     method: 'get',
     params: params
   })
@@ -11,14 +13,14 @@ export function getDataViewPage(params) {
 
 export function getDataView(params) {
   return request({
-    url: baseUrl + 'dataView/' + params,
+    url: baseUrl + 'data-view/' + params,
     method: 'get'
   })
 }
 
 export function saveDataView(params) {
   return request({
-    url: baseUrl + 'dataView/',
+    url: baseUrl + 'data-view/',
     method: 'post',
     data: params
   })
@@ -26,7 +28,7 @@ export function saveDataView(params) {
 
 export function updateDataView(params) {
   return request({
-    url: baseUrl + 'dataView/',
+    url: baseUrl + 'data-view/',
     method: 'put',
     data: params
   })
@@ -34,7 +36,7 @@ export function updateDataView(params) {
 
 export function getChartData(params) {
   return request({
-    url: baseUrl + 'dataView/chartData',
+    url: baseUrl + 'data-view/chart-data',
     method: 'get',
     params
   })
