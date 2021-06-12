@@ -81,19 +81,18 @@ export default {
       if (height) state.currentItem.height = height
       if (rotate) state.currentItem.rotate = rotate
     },
-    setItemHover(state, status) {
-      if (state.currentItem === null) return
-      state.currentItem.hover = status
-    },
     setResizeStatus(state, status) {
       state.resizing = status
     },
-    recordSnapshot(state) {
+    RECORD_SNAPSHOT(state) {
     }
   },
   actions: {
     async setCharts({ commit }, charts) {
       commit('SET_SLICES', charts)
+    },
+    recordSnapshot({ commit }) {
+      commit('RECORD_SNAPSHOT')
     }
   }
 }

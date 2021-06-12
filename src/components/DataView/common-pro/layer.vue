@@ -11,6 +11,7 @@
         v-for="item in slices"
         :key="item.i"
         class="layer-item"
+        @mousedown="handleSelect(item)"
         @mouseenter="item.hover = true"
         @mouseleave="item.hover = false"
       >
@@ -42,6 +43,12 @@ export default {
   name: 'Layer',
   computed: mapState([
     'slices'
-  ])
+  ]),
+  methods: {
+    handleSelect(item) {
+      // 设置选中状态
+      this.$store.commit('setCurrentItem', item)
+    }
+  }
 }
 </script>

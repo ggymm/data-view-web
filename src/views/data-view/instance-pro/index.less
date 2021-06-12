@@ -78,6 +78,12 @@
           align-items: center;
           margin-bottom: 1px;
 
+          &:hover {
+            color: #ffffff;
+            background: rgba(143, 225, 255, .1);
+            cursor: pointer;
+          }
+
           .layer-item-icon {
             flex: none;
             color: #409eff;
@@ -168,14 +174,12 @@
               height: 100%;
               box-sizing: border-box;
 
-              &.has-hover {
-                &.hover {
-                  .line-handler {
-                    display: flex;
+              &.hover {
+                .line-handler {
+                  display: flex;
 
-                    .control-point {
-                      //display: none;
-                    }
+                  .control-point {
+                    //display: none;
                   }
                 }
               }

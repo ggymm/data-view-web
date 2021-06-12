@@ -8,7 +8,7 @@
   >
     <div
       class="data-view-item-handler"
-      :class="[itemHandlerClass(), { hover: item.hover }]"
+      :class="itemHandlerClass()"
       @mouseenter="handleEnter"
       @mouseleave="handleLeave"
     >
@@ -45,9 +45,7 @@ export default {
     }
   },
   data() {
-    return {
-      hover: false
-    }
+    return {}
   },
   computed: mapState([
     'resizing',
@@ -68,8 +66,11 @@ export default {
       }
     },
     itemHandlerClass() {
+      // 当前组件不是选中的
+      // 当前组件没有正在进行拖拽
+      // 当前组件处于hover状态
       return {
-        'has-hover': !this.isActive() && !this.resizing
+        'hover': !this.isActive() && !this.resizing && this.item.hover
       }
     },
     isActive() {
@@ -89,10 +90,9 @@ export default {
         'lt': { name: 'top-left', style: { cursor: cursor.lt, transform }}
       }
     },
-    handleItemClick(e) {
-      // 阻止向父组件冒泡
-      e.stopPropagation()
-      e.preventDefault()
+    handleItemClick(ev) {
+      ev.stopPropagation()
+      ev.preventDefault()
     },
     handleRotate(ev) {
       // 已经处于选中状态
@@ -122,7 +122,9 @@ export default {
 
       const up = () => {
         // 保存快照
-        moved && this.$store.commit('recordSnapshot')
+        if (moved) {
+          this.$store.dispatch('recordSnapshot')
+        }
         // 移除监听
         off(document, 'mousemove', move)
         off(document, 'mouseup', up)
@@ -139,10 +141,10 @@ export default {
       this.item.hover = false
     },
     handleResize(ev, direction) {
-      // 设置选中状态
+      // 可能没有处于选中状态
+      // 需要设置选中状态
       this.$store.commit('setCurrentItem', this.item)
 
-      const cursor = getCursors(this.item.rotate)
       const style = {
         x: Math.round(this.item.x * this.canvasStyle.scale),
         y: Math.round(this.item.y * this.canvasStyle.scale),
@@ -164,7 +166,6 @@ export default {
       const move = (e) => {
         moved = true
         this.$store.commit('setResizeStatus', true)
-        document.body.style.cursor = `${cursor[direction]}`
         const endPoint = { x: e.clientX - layoutRect.left, y: e.clientY - layoutRect.top }
         const newStyle = calcResizeInfo(direction, style, startPoint, symmetricPoint, endPoint)
         // 更新组件大小，位置信息
@@ -172,10 +173,11 @@ export default {
       }
 
       const up = () => {
-        document.body.style.cursor = ''
         this.$store.commit('setResizeStatus', false)
         // 保存快照
-        moved && this.$store.commit('recordSnapshot')
+        if (moved) {
+          this.$store.dispatch('recordSnapshot')
+        }
         // 移除监听
         off(document, 'mousemove', move)
         off(document, 'mouseup', up)
@@ -227,10 +229,12 @@ export default {
       }
 
       const up = () => {
-        // 保存快照
-        moved && this.$store.commit('recordSnapshot')
         // 通知移动完毕，隐藏对齐线
         this.$bus.$emit('moved')
+        // 保存快照
+        if (moved) {
+          this.$store.dispatch('recordSnapshot')
+        }
         // 移除监听
         off(document, 'mousemove', move)
         off(document, 'mouseup', up)
