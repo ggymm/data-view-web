@@ -19,7 +19,7 @@
       </a-menu>
     </a-layout-header>
     <a-layout class="data-view-main">
-      <a-layout-sider width="200">
+      <a-layout-sider v-model="layerCollapsed" collapsed-width="0" collapsible>
         <layer />
       </a-layout-sider>
       <a-layout class="data-view-screen">
@@ -53,7 +53,14 @@
           />
         </a-layout-footer>
       </a-layout>
-      <a-layout-sider width="400" class="data-view-option-panel">
+      <a-layout-sider
+        v-model="optionCollapsed"
+        class="data-view-option-panel"
+        width="400"
+        collapsed-width="0"
+        :reverse-arrow="true"
+        collapsible
+      >
         <div v-if="currentItem === null" class="data-view-screen-option">
           <a-form :model="screenStyle" layout="horizontal" :label-col="{span: 6}" :wrapper-col="{span: 14}">
             <a-form-item label="大屏标题">
@@ -109,6 +116,8 @@ export default {
   data() {
     return {
       menus,
+      layerCollapsed: false,
+      optionCollapsed: false,
       loading: true,
       instanceId: null,
       isCopy: null,

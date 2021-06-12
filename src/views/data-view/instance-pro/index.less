@@ -21,8 +21,16 @@
   .data-view-main {
     flex-direction: row;
 
+    .ant-layout-sider-zero-width-trigger {
+      top: unset;
+      bottom: 0;
+      z-index: 9;
+      height: 35px;
+      line-height: 35px;
+    }
+
     .data-view-layer {
-      z-index: 99;
+      z-index: 9;
       flex: auto;
       display: flex;
       height: 100%;
@@ -32,10 +40,8 @@
       background-color: #1d1f26;
 
       .layer-header {
-        position: fixed;
-        top: 50px;
+        position: sticky;
         width: 200px;
-        margin: 0;
         z-index: 99;
         font-size: 13px;
         height: 35px;
@@ -52,7 +58,6 @@
       }
 
       .layer-wrapper {
-        margin-top: 35px;
         position: relative;
         display: flex;
         width: 100%;
@@ -309,10 +314,9 @@
       }
 
       .ant-layout-footer {
-        z-index: 99;
-        height: 30px;
-        line-height: 30px;
-        padding: 0 20px;
+        height: 35px;
+        line-height: 35px;
+        padding: 0 40px;
         background: #001529;
         display: flex;
         align-items: center;
@@ -320,18 +324,14 @@
 
         .data-view-scale {
           display: flex;
-          align-items: center;
           margin: 0;
-          height: 30px;
           width: 200px;
-          line-height: 30px;
         }
       }
     }
 
     .data-view-option-panel {
-      z-index: 99;
-      overflow: hidden;
+      z-index: 9;
       background-color: #1d1f26;
 
       .data-view-screen-option {

@@ -35,7 +35,9 @@
           <a-button type="primary" size="small" @click="handleEditSQL">调试SQL</a-button>
         </a-form-item>
       </template>
-      <template v-else-if="item.chartData.dataSourceType === 'Rest'" />
+      <template v-else-if="item.chartData.dataSourceType === 'Rest'">
+        <a-button type="primary" size="small" @click="handleEditRest">调试API</a-button>
+      </template>
       <template v-else-if="item.chartData.dataSourceType === 'Csv'" />
     </a-form>
     <modal-pro
@@ -43,6 +45,14 @@
       :visible.sync="visibleSQLModel"
       @confirm="confirmSQL"
       @close="visibleSQLModel = false"
+    >
+      这里是弹窗内容
+    </modal-pro>
+    <modal-pro
+      :title="'API调试器'"
+      :visible="visibleRestModel"
+      @confirm="confirmSQL"
+      @close="visibleRestModel = false"
     >
       这里是弹窗内容
     </modal-pro>
@@ -81,12 +91,16 @@ export default {
   data() {
     return {
       dataSourceTypeList,
-      visibleSQLModel: false
+      visibleSQLModel: false,
+      visibleRestModel: false
     }
   },
   methods: {
     handleEditSQL() {
       this.visibleSQLModel = true
+    },
+    handleEditRest() {
+      this.visibleRestModel = true
     },
     confirmSQL(sql) {
     }
