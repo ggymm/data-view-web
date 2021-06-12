@@ -37,6 +37,9 @@
               <a-tooltip title="编辑" @click="handleEdit(item.instance_id)">
                 <a-icon type="edit" />
               </a-tooltip>
+              <a-tooltip title="编辑(Pro)" @click="handleEditPro(item.instance_id)">
+                <a-icon type="edit" />
+              </a-tooltip>
               <a-tooltip title="删除" @click="handleDelete(item.instance_id)">
                 <a-icon type="delete" />
               </a-tooltip>
@@ -97,6 +100,9 @@ export default {
       window.open('/data-view-web/data-view-instance/preview/' + instance_id)
     },
     handleEdit(instance_id) {
+      window.open('/data-view-web/data-view-instance/index/' + instance_id + '/0')
+    },
+    handleEditPro(instance_id) {
       window.open('/data-view-web/data-view-instance-pro/index/' + instance_id + '/0')
     },
     handleDelete() {

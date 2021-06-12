@@ -24,6 +24,9 @@
         <a-form-item label="高度">
           <a-input-number v-model="item.height" :min="0" :precision="0" />
         </a-form-item>
+        <a-form-item label="旋转角度">
+          <a-input-number v-model="item.rotate" :min="0" :max="360" :precision="0" />
+        </a-form-item>
       </a-form>
     </a-collapse-panel>
   </a-collapse>

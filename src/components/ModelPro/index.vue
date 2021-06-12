@@ -33,7 +33,9 @@
         </i>
       </div>
     </div>
-    <slot />
+    <div class="modal-content" :style="{ height: (modalHeight - 75) + 'px' }">
+      <slot />
+    </div>
     <div class="modal-footer">
       <a-button @click="close">取消</a-button>
       <a-button type="primary" @click="confirm">确定</a-button>

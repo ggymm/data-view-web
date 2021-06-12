@@ -57,7 +57,9 @@ export default {
   },
   methods: {
     itemStyle() {
+      const index = parseInt(this.item.i.substring(5))
       return {
+        zIndex: index + 9,
         top: 0,
         left: 0,
         width: `${this.item.width}px`,
@@ -108,7 +110,7 @@ export default {
       let moved = false
       const move = (e) => {
         moved = true
-
+        this.setCursor('grab')
         // 计算旋转角度
         const angle = Math.atan2(
           centerY - e.clientY,
@@ -121,6 +123,7 @@ export default {
       }
 
       const up = () => {
+        this.setCursor('')
         // 保存快照
         if (moved) {
           this.$store.dispatch('recordSnapshot')
@@ -145,6 +148,7 @@ export default {
       // 需要设置选中状态
       this.$store.commit('setCurrentItem', this.item)
 
+      const cursor = getCursors(this.item.rotate)
       const style = {
         x: Math.round(this.item.x * this.canvasStyle.scale),
         y: Math.round(this.item.y * this.canvasStyle.scale),
@@ -165,14 +169,19 @@ export default {
       let moved = false
       const move = (e) => {
         moved = true
+        this.setCursor(cursor[direction])
         this.$store.commit('setResizeStatus', true)
-        const endPoint = { x: e.clientX - layoutRect.left, y: e.clientY - layoutRect.top }
-        const newStyle = calcResizeInfo(direction, style, startPoint, symmetricPoint, endPoint)
+        // 计算新的位置
+        const newStyle = calcResizeInfo(direction, style, startPoint, symmetricPoint, {
+          x: e.clientX - layoutRect.left,
+          y: e.clientY - layoutRect.top
+        })
         // 更新组件大小，位置信息
         this.setItemStyle(newStyle)
       }
 
       const up = () => {
+        this.setCursor('')
         this.$store.commit('setResizeStatus', false)
         // 保存快照
         if (moved) {
@@ -204,6 +213,7 @@ export default {
       let moved = false
       const move = (e) => {
         moved = true
+        this.setCursor('move')
         const moveX = e.clientX - ev.clientX
         const moveY = e.clientY - ev.clientY
         const style = {
@@ -226,6 +236,7 @@ export default {
       }
 
       const up = () => {
+        this.setCursor('')
         // 通知移动完毕，隐藏对齐线
         this.$bus.$emit('moved')
         // 保存快照
@@ -247,6 +258,9 @@ export default {
       if (style.width) this.item.width = style.width
       if (style.height) this.item.height = style.height
       if (style.rotate) this.item.rotate = style.rotate
+    },
+    setCursor(cursor) {
+      document.body.style.cursor = cursor
     }
   }
 }
