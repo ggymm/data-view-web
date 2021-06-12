@@ -8,7 +8,7 @@
   >
     <div
       class="data-view-item-handler"
-      :class="[itemHandlerClass(), { hover: hover }]"
+      :class="[itemHandlerClass(), { hover: item.hover }]"
       @mouseenter="handleEnter"
       @mouseleave="handleLeave"
     >
@@ -133,10 +133,10 @@ export default {
       on(document, 'mouseup', up)
     },
     handleEnter() {
-      this.hover = true
+      this.item.hover = true
     },
     handleLeave() {
-      this.hover = false
+      this.item.hover = false
     },
     handleResize(ev, direction) {
       // 设置选中状态

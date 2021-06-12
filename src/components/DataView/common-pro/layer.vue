@@ -11,6 +11,8 @@
         v-for="item in slices"
         :key="item.i"
         class="layer-item"
+        @mouseenter="item.hover = true"
+        @mouseleave="item.hover = false"
       >
         <span class="layer-item-icon">
           <icon :type="`icon-${item.chartType}New`" />

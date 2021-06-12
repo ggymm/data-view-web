@@ -29,6 +29,7 @@ export default {
     SET_SLICES(state, payload) {
       const slices = []
       payload.forEach(c => {
+        c.hover = false
         slices.push(c)
       })
       state.slices = slices
