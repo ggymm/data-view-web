@@ -68,18 +68,10 @@ export default {
       state.screenStyle = style
     },
     addItem(state, chart) {
-      state.charts.push(chart)
+      state.slices.push(chart)
     },
     setCurrentItem(state, item) {
       state.currentItem = item
-    },
-    setItemStyle(state, { x, y, width, height, rotate }) {
-      if (state.currentItem === null) return
-      if (x) state.currentItem.x = x
-      if (y) state.currentItem.y = y
-      if (width) state.currentItem.width = width
-      if (height) state.currentItem.height = height
-      if (rotate) state.currentItem.rotate = rotate
     },
     setResizeStatus(state, status) {
       state.resizing = status

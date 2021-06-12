@@ -38,8 +38,8 @@ export default {
   ]),
   mounted() {
     // 元素正在移动，显示对齐线
-    this.$bus.$on('moving', () => {
-      this.showLine()
+    this.$bus.$on('moving', (currentItem) => {
+      this.showLine(currentItem)
     })
 
     // 元素移动完毕，隐藏对齐线
@@ -53,7 +53,7 @@ export default {
         this.lineStatus[line] = false
       })
     },
-    showLine() {
+    showLine(currentItem) {
       if (this.slices.length === 1) return
       const lines = {
         xt: document.querySelector('.xt'),
@@ -158,7 +158,7 @@ export default {
             if (!condition.isNearly) return
             if (!condition.lineNode) return
             // 修改当前组件位移
-            this.itemAdsorption(key, condition, thisStyle, itemStyle)
+            this.itemAdsorption(currentItem, key, condition, thisStyle, itemStyle)
             // 显示对齐线
             condition.lineNode.style[key] = `${condition.lineShift}px`
             showLines.push(condition.line)
@@ -182,32 +182,30 @@ export default {
     },
     /**
      * 组件吸附效果
+     * @param item 当前对象
      * @param key 吸附位置
      * @param condition 吸附效果
      * @param thisStyle 当前拖拽样式
      * @param itemStyle 需要吸附的元素样式
      */
-    itemAdsorption(key, condition, thisStyle, itemStyle) {
-      const fixStyle = {}
+    itemAdsorption(item, key, condition, thisStyle, itemStyle) {
       if (thisStyle.rotate === 0) {
         if (key === 'top') {
-          fixStyle.y = condition.dragShift
+          item.y = condition.dragShift
         }
         if (key === 'left') {
-          fixStyle.x = condition.dragShift
+          item.x = condition.dragShift
         }
-        this.$store.commit('setItemStyle', fixStyle)
         return
       }
 
       const { width, height } = thisStyle
       if (key === 'top') {
-        fixStyle.y = Math.round(condition.dragShift - (height - itemStyle.height) / 2)
+        item.y = Math.round(condition.dragShift - (height - itemStyle.height) / 2)
       }
       if (key === 'left') {
-        fixStyle.x = Math.round(condition.dragShift - (width - itemStyle.width) / 2)
+        item.x = Math.round(condition.dragShift - (width - itemStyle.width) / 2)
       }
-      this.$store.commit('setItemStyle', fixStyle)
     }
   }
 }

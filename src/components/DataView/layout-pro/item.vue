@@ -117,7 +117,7 @@ export default {
 
         const rotate = Math.round(angle % 360)
         // 更新组件旋转信息
-        this.$store.commit('setItemStyle', { rotate: rotate < 0 ? rotate + 360 : rotate })
+        this.setItemStyle({ rotate: rotate < 0 ? rotate + 360 : rotate })
       }
 
       const up = () => {
@@ -169,7 +169,7 @@ export default {
         const endPoint = { x: e.clientX - layoutRect.left, y: e.clientY - layoutRect.top }
         const newStyle = calcResizeInfo(direction, style, startPoint, symmetricPoint, endPoint)
         // 更新组件大小，位置信息
-        this.$store.commit('setItemStyle', newStyle)
+        this.setItemStyle(newStyle)
       }
 
       const up = () => {
@@ -216,15 +216,12 @@ export default {
           return
         }
         // 更新组件位置信息
-        this.$store.commit('setItemStyle', style)
+        this.setItemStyle(style)
         // 等更新完当前组件的样式并绘制到屏幕后再判断是否需要吸附
         // 如果不使用 $nextTick，吸附后将无法移动
         this.$nextTick(() => {
           // 触发元素移动事件，用于显示标线、吸附功能
-          // 后面两个参数代表鼠标移动方向
-          // curY - startY > 0 true 表示向下移动 false 表示向上移动
-          // curX - startX > 0 true 表示向右移动 false 表示向左移动
-          this.$bus.$emit('moving')
+          this.$bus.$emit('moving', this.item)
         })
       }
 
@@ -243,6 +240,13 @@ export default {
       // 添加监听
       on(document, 'mousemove', move)
       on(document, 'mouseup', up)
+    },
+    setItemStyle(style) {
+      if (style.x) this.item.x = style.x
+      if (style.y) this.item.y = style.y
+      if (style.width) this.item.width = style.width
+      if (style.height) this.item.height = style.height
+      if (style.rotate) this.item.rotate = style.rotate
     }
   }
 }
