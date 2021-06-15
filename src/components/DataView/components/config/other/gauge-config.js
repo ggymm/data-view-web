@@ -7,6 +7,7 @@ const GaugeConfig = function() {
     chartName: '',
     chartType: 'gauge',
     rotate: 0,
+    show: 'true',
     choose: 'false',
     refresh: 'false',
     chartData: {

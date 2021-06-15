@@ -1,5 +1,6 @@
 <template>
   <div
+    v-show="item.show === 'true'"
     :class="{ active }"
     :style="itemStyle()"
     class="data-view-item"
@@ -9,8 +10,8 @@
     <div
       class="data-view-item-handler"
       :class="itemHandlerClass()"
-      @mouseenter="handleEnter"
-      @mouseleave="handleLeave"
+      @mouseenter="item.hover = true"
+      @mouseleave="item.hover = false"
     >
       <a-icon v-show="isActive()" type="reload" class="rotate-handler" @mousedown.prevent.stop="handleRotate" />
       <i
@@ -42,6 +43,12 @@ export default {
       default() {
         return {}
       }
+    },
+    index: {
+      type: Number,
+      default() {
+        return 0
+      }
     }
   },
   data() {
@@ -49,17 +56,16 @@ export default {
   },
   computed: mapState([
     'resizing',
-    'canvasStyle',
-    'screenStyle',
+    'canvasConfig',
+    'screenConfig',
     'currentItem'
   ]),
   mounted() {
   },
   methods: {
     itemStyle() {
-      const index = parseInt(this.item.i.substring(5))
       return {
-        zIndex: index + 9,
+        zIndex: this.index + 9,
         top: 0,
         left: 0,
         width: `${this.item.width}px`,
@@ -80,7 +86,7 @@ export default {
     },
     points() {
       const cursor = getCursors(this.item.rotate)
-      const transform = `scale(${1 / this.canvasStyle.scale}, ${1 / this.canvasStyle.scale})`
+      const transform = `scale(${1 / this.canvasConfig.scale}, ${1 / this.canvasConfig.scale})`
       return {
         't': { name: 'top', style: { cursor: cursor.t, transform }},
         'rt': { name: 'top-right', style: { cursor: cursor.rt, transform }},
@@ -137,12 +143,6 @@ export default {
       on(document, 'mousemove', move)
       on(document, 'mouseup', up)
     },
-    handleEnter() {
-      this.item.hover = true
-    },
-    handleLeave() {
-      this.item.hover = false
-    },
     handleResize(ev, direction) {
       // 可能没有处于选中状态
       // 需要设置选中状态
@@ -150,12 +150,12 @@ export default {
 
       const cursor = getCursors(this.item.rotate)
       const style = {
-        x: Math.round(this.item.x * this.canvasStyle.scale),
-        y: Math.round(this.item.y * this.canvasStyle.scale),
-        width: Math.round(this.item.width * this.canvasStyle.scale),
-        height: Math.round(this.item.height * this.canvasStyle.scale),
+        x: Math.round(this.item.x * this.canvasConfig.scale),
+        y: Math.round(this.item.y * this.canvasConfig.scale),
+        width: Math.round(this.item.width * this.canvasConfig.scale),
+        height: Math.round(this.item.height * this.canvasConfig.scale),
         rotate: this.item.rotate,
-        scale: this.canvasStyle.scale
+        scale: this.canvasConfig.scale
       }
       // 组件中心点
       const center = { x: style.x + style.width / 2, y: style.y + style.height / 2 }
@@ -205,25 +205,18 @@ export default {
         y: this.item.y,
         width: this.item.width,
         height: this.item.height,
-        sWidth: this.screenStyle.width,
-        sHeight: this.screenStyle.height
+        sWidth: this.screenConfig.width,
+        sHeight: this.screenConfig.height
       }
-      const scale = this.canvasStyle.scale
+      const scale = this.canvasConfig.scale
 
       let moved = false
       const move = (e) => {
         moved = true
         this.setCursor('move')
-        const moveX = e.clientX - ev.clientX
-        const moveY = e.clientY - ev.clientY
         const style = {
-          x: moveInfo.x + Math.round(moveX / scale),
-          y: moveInfo.y + Math.round(moveY / scale)
-        }
-        if (style.x < 0 || style.y < 0) return
-        if (style.x + moveInfo.width > moveInfo.sWidth ||
-          style.y + moveInfo.height > moveInfo.sHeight) {
-          return
+          x: moveInfo.x + Math.round((e.clientX - ev.clientX) / scale),
+          y: moveInfo.y + Math.round((e.clientY - ev.clientY) / scale)
         }
         // 更新组件位置信息
         this.setItemStyle(style)

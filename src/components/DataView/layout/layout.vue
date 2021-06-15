@@ -54,18 +54,18 @@ export default {
     this.eventBus.$off('resizeEvent', this.resizeEventHandler)
   },
   methods: {
-    dragEvent: function(eventName, id, x, y, h, w) {
+    dragEvent: function(eventName, i, x, y, h, w) {
       // 可能会有什么操作之类的
       // 告诉Item层更新元素状态
       this.eventBus.$emit('compact')
-      const layout = { id: id, x: x, y: y, h: h, w: w }
+      const layout = { i: i, x: x, y: y, h: h, w: w }
       if (eventName === 'dragend') this.$emit('layoutUpdated', layout)
     },
-    resizeEvent: function(eventName, id, x, y, h, w) {
+    resizeEvent: function(eventName, i, x, y, h, w) {
       // 可能会有什么操作之类的
       // 告诉Item层更新元素状态
       this.eventBus.$emit('compact')
-      const size = { id: id, h: h, w: w }
+      const size = { i: i, h: h, w: w }
       if (eventName === 'resizeend') this.$emit('sizeUpdate', size)
     }
   }

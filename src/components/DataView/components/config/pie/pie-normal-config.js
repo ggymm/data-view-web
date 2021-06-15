@@ -7,6 +7,7 @@ const PieNormalConfig = function() {
     chartName: '',
     chartType: 'PieNormal',
     rotate: 0,
+    show: 'true',
     lock: 'false',
     choose: 'false',
     refresh: 'false',

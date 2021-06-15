@@ -7,6 +7,7 @@ const MapChinaConfig = function() {
     chartName: '',
     chartType: 'MapChina',
     rotate: 0,
+    show: 'true',
     lock: 'false',
     choose: 'false',
     refresh: 'false',

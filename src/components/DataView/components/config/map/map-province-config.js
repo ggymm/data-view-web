@@ -7,6 +7,7 @@ const MapProvinceConfig = function() {
     chartName: '',
     chartType: 'mapProvince',
     rotate: 0,
+    show: 'true',
     choose: 'false',
     refresh: 'false',
     chartData: {

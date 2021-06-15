@@ -62,7 +62,7 @@ export default {
         return OptionConfigMap['CarouselList'].option
       }
     },
-    i: {
+    elId: {
       type: String,
       required: true
     },
@@ -110,7 +110,7 @@ export default {
     clearInterval(this.timer)
   },
   async mounted() {
-    this.container = document.getElementById(this.i).querySelector('.carousel-list')
+    this.container = document.getElementById(this.elId).querySelector('.carousel-list')
     const _this = this
     const animationEndHandler = () => {
       _this.container.style.cssText = 'transform:translate(0,0)'

@@ -7,6 +7,7 @@ const CarouselListConfig = function() {
     chartName: '轮播列表',
     chartType: 'CarouselList',
     rotate: 0,
+    show: 'true',
     lock: 'false',
     choose: 'false',
     refresh: 'false',

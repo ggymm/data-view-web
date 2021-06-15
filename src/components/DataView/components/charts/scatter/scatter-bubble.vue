@@ -99,7 +99,6 @@ export default {
         }
         this.option.series.push(series)
       }
-      console.log(this.option.series)
     }
   }
 }

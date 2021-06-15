@@ -7,6 +7,7 @@ const MapWorldConfig = function() {
     chartName: '',
     chartType: 'mapWorld',
     rotate: 0,
+    show: 'true',
     choose: 'false',
     refresh: 'false',
     chartData: {

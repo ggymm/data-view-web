@@ -10,7 +10,7 @@
       :loading="loading"
       :api-data="chartData"
       :option="item.option"
-      :i="item.i"
+      :el-id="item.elId"
       :theme="ThemeConfigMap[theme]"
       @init="chartInit"
     />

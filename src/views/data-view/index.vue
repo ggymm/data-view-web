@@ -61,6 +61,7 @@ export default {
   data() {
     return {
       imageBasicUrl: defaultSettings.imageBasicUrl,
+      routerBase: defaultSettings.routerBase,
       list: [],
       pagination: {
         current: 1,
@@ -88,22 +89,22 @@ export default {
     handleFilter() {
     },
     handleCreatePro() {
-      window.open('/data-view-web/data-view-instance-pro/index')
+      window.open(this.routerBase + 'data-view-instance-pro/index')
     },
     handleCreate() {
-      window.open('/data-view-web/data-view-instance/index')
+      window.open(this.routerBase + 'data-view-instance/index')
     },
     handleDebug() {
-      window.open('/data-view-web/data-view-debug/index')
+      window.open(this.routerBase + 'data-view-debug/index')
     },
     handlePreview(instance_id) {
-      window.open('/data-view-web/data-view-instance/preview/' + instance_id)
+      window.open(this.routerBase + 'data-view-instance/preview/' + instance_id)
     },
     handleEdit(instance_id) {
-      window.open('/data-view-web/data-view-instance/index/' + instance_id + '/0')
+      window.open(this.routerBase + 'data-view-instance/index/' + instance_id + '/0')
     },
     handleEditPro(instance_id) {
-      window.open('/data-view-web/data-view-instance-pro/index/' + instance_id + '/0')
+      window.open(this.routerBase + 'data-view-instance-pro/index/' + instance_id + '/0')
     },
     handleDelete() {
     }

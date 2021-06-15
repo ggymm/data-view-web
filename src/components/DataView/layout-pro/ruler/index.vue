@@ -25,22 +25,22 @@ export default {
     }
   },
   computed: mapState([
-    'canvasStyle',
-    'screenStyle',
+    'canvasConfig',
+    'screenConfig',
     'currentItem'
   ]),
   watch: {
-    canvasStyle: {
+    canvasConfig: {
       deep: true,
       handler() {
         if (this.hRuler) {
-          this.hRuler.setSize(this.canvasStyle.width, 20, this.canvasStyle.scale)
+          this.hRuler.setSize(this.canvasConfig.width, 20, this.canvasConfig.scale)
         } else {
           this.initHRuler()
         }
 
         if (this.vRuler) {
-          this.vRuler.setSize(this.canvasStyle.width, 20, this.canvasStyle.scale)
+          this.vRuler.setSize(this.canvasConfig.width, 20, this.canvasConfig.scale)
         } else {
           this.initVRuler()
         }
@@ -63,8 +63,8 @@ export default {
       this.hRuler = new RulerBuilder(
         document.querySelector('.h-container'), {
           direction: 'TB',
-          width: this.canvasStyle.width,
-          scale: this.canvasStyle.scale
+          width: this.canvasConfig.width,
+          scale: this.canvasConfig.scale
         }
       )
     },
@@ -72,8 +72,8 @@ export default {
       this.vRuler = new RulerBuilder(
         document.querySelector('.v-container'), {
           direction: 'LR',
-          width: this.canvasStyle.height,
-          scale: this.canvasStyle.scale
+          width: this.canvasConfig.height,
+          scale: this.canvasConfig.scale
         })
     },
     toggleGuides() {

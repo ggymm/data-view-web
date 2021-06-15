@@ -7,6 +7,7 @@ const PlotMapConfig = function() {
     chartName: '',
     chartType: 'plotMap',
     rotate: 0,
+    show: 'true',
     choose: 'false',
     refresh: 'false',
     chartData: {

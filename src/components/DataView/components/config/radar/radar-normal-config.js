@@ -7,6 +7,7 @@ const RadarNormalConfig = function() {
     chartName: '',
     chartType: 'RadarNormal',
     rotate: 0,
+    show: 'true',
     lock: 'false',
     choose: 'false',
     refresh: 'false',

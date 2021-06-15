@@ -7,6 +7,7 @@ const WordCloudConfig = function() {
     chartName: '词云',
     chartType: 'wordCloud',
     rotate: 0,
+    show: 'true',
     choose: 'false',
     refresh: 'false',
     chartData: {

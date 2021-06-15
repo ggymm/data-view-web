@@ -6,17 +6,17 @@
         :background-img="'url(' + imageBasicUrl + panelConfig.backgroundImg + ')'"
       >
         <item-preview
-          v-for="item in slices"
-          :key="item.slice_id"
+          v-for="(item, index) in slices"
+          :key="index"
           :x="item.x"
           :y="item.y"
           :width="item.width"
           :height="item.height"
-          :i="item.i"
+          :i="index"
           :panel-width="panelConfig.panelWidth"
           :panel-height="panelConfig.panelHeight"
         >
-          <slice-preview :id="item.i" :item="item" />
+          <slice-preview :id="item.elId" :item="item" />
         </item-preview>
       </layout-preview>
     </div>
@@ -61,8 +61,6 @@ export default {
   },
   methods: {
     getDataView(instanceId) {
-      console.group('初始化获取可视化大屏信息')
-      console.log('初始化获取可视化大屏信息')
       try {
         getDataView(instanceId).then(response => {
           const items = JSON.parse(JSON.stringify(response.data.chart_items))

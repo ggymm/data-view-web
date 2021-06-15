@@ -42,7 +42,7 @@ export default {
     },
     handleImageUpload(file) {
       if (file.file.size <= 512 * 1024) {
-        const itemId = 'picture_' + this.item.i
+        const itemId = 'picture_' + this.item.elId
         const a = new FileReader()
         a.onload = function(e) {
           const cv = document.getElementById(itemId)

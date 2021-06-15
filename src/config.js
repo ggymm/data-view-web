@@ -10,6 +10,7 @@
  * storageOptions: {} - Vue-ls 插件配置项 (localStorage/sessionStorage)
  */
 export default {
+  routerBase: '/data-view-web/',
   navTheme: 'dark', // theme for nav menu
   primaryColor: '#52C41A', // primary color of ant design
   layout: 'sidemenu', // nav menu position: `sidemenu` or `topmenu`

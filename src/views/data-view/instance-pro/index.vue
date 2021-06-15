@@ -2,6 +2,7 @@
 <template>
   <a-layout class="data-view-container">
     <a-layout-header class="data-view-header">
+      <a-icon class="back" type="left-circle" @click="handlerBack()" />
       <a-menu
         class="data-view-menu"
         mode="horizontal"
@@ -11,12 +12,25 @@
       >
         <a-sub-menu v-for="menu in menus" :key="menu.key">
           <span slot="title">{{ menu.title }}<a-icon type="caret-down" style="margin-left: 5px" /></span>
-          <a-menu-item v-for="child in menu.children" :key="child.key" :draggable="true" @dragstart="handleDragStart($event, child.key)">
-            <icon class="chart-type-icon" :type="`icon-${child.icon}`" />
-            <span>{{ child.title }}</span>
-          </a-menu-item>
+          <template v-for="child in menu.children">
+            <a-menu-item v-if="child.children === undefined" :key="child.key" :draggable="true" @dragstart="handleDragStart($event, child.key)">
+              <icon class="chart-type-icon" :type="`icon-${child.icon}`" />
+              <span>{{ child.title }}</span>
+            </a-menu-item>
+            <a-sub-menu v-else :key="child.key" :title="child.title">
+              <a-menu-item v-for="grandson in child.children" :key="grandson.key" :draggable="true" @dragstart="handleDragStart($event, grandson.key)">
+                <icon class="chart-type-icon" :type="`icon-${grandson.icon}`" />
+                <span>{{ grandson.title }}</span>
+              </a-menu-item>
+            </a-sub-menu>
+          </template>
         </a-sub-menu>
       </a-menu>
+      <div class="handler">
+        <a-icon type="save" @click="handlerSave()" />
+        <a-icon type="eye" />
+        <a-icon type="bug" @click="handlerDebug()" />
+      </div>
     </a-layout-header>
     <a-layout class="data-view-main">
       <a-layout-sider v-model="layerCollapsed" collapsed-width="0" collapsible>
@@ -26,19 +40,20 @@
         <a-layout-content
           id="screenWrapper"
           class="data-view-screen-wrapper"
-          @mousedown.stop="handleItemUnChoose"
+          @mousedown="handleItemUnChoose"
         >
           <layout @dragover.native="handleDragOver" @drop.native="handleDrop">
             <item
-              v-for="item in slices"
-              :key="item.i"
+              v-for="(item, index) in slices"
+              :key="index"
               :item="item"
+              :index="index"
               :active="item === currentItem"
             >
               <chart
-                :id="item.i"
+                :id="item.elId"
                 :item="item"
-                :theme="screenStyle.theme"
+                :theme="screenConfig.theme"
               />
             </item>
           </layout>
@@ -62,18 +77,18 @@
         collapsible
       >
         <div v-if="currentItem === null" class="data-view-screen-option">
-          <a-form :model="screenStyle" layout="horizontal" :label-col="{span: 6}" :wrapper-col="{span: 14}">
+          <a-form :model="screenConfig" layout="horizontal" :label-col="{span: 6}" :wrapper-col="{span: 14}">
             <a-form-item label="大屏标题">
-              <a-input v-model="screenStyle.title" />
+              <a-input v-model="screenConfig.title" />
             </a-form-item>
             <a-form-item label="画板宽度">
-              <a-input-number v-model="screenStyle.width" :min="1" :step="10" />
+              <a-input-number v-model="screenConfig.width" :min="1" :step="10" />
             </a-form-item>
             <a-form-item label="画板高度">
-              <a-input-number v-model="screenStyle.height" :min="1" :step="10" />
+              <a-input-number v-model="screenConfig.height" :min="1" :step="10" />
             </a-form-item>
             <a-form-item label="背景图">
-              <a-select v-model="screenStyle.backgroundImg">
+              <a-select v-model="screenConfig.backgroundImg">
                 <a-select-option
                   v-for="image in backgroundImgList"
                   :key="image.image_path"
@@ -92,17 +107,21 @@
 </template>
 
 <script>
+import html2canvas from 'html2canvas'
 import { mapState } from 'vuex'
-import { menus } from '../config/menu-pro'
+import { menus } from './menu'
+import defaultSettings from '@/config'
+
 import OptionConfigMap from '@/components/DataView/components/config'
 import Layout from '@/components/DataView/layout-pro/layout'
 import Item from '@/components/DataView/layout-pro/item'
 import Chart from '@/components/DataView/common-pro/chart'
 import Layer from '@/components/DataView/common-pro/layer'
 import ChartOption from '@/components/DataView/common-pro/chart-option'
+
 import { getDataSourceList } from '@/api/data-source'
 import { getImageList } from '@/api/image'
-import { getDataView } from '@/api/data-view'
+import { getDataView, saveDataView, updateDataView } from '@/api/data-view'
 
 export default {
   name: 'Index',
@@ -116,12 +135,12 @@ export default {
   data() {
     return {
       menus,
+      routerBase: defaultSettings.routerBase,
       layerCollapsed: false,
       optionCollapsed: false,
       loading: true,
       instanceId: null,
       isCopy: null,
-      startIndex: 0,
       dataSourceList: [],
       backgroundImgList: [],
       instanceVersion: 1
@@ -130,23 +149,23 @@ export default {
   computed: {
     scale: {
       get() {
-        return this.$store.state.canvasStyle.scale * 100
+        return this.$store.state.canvasConfig.scale * 100
       },
       set(val) {
         this.$store.commit('setCanvasScale', val)
       }
     },
-    screenStyle: {
+    screenConfig: {
       get() {
-        return this.$store.state.screenStyle
+        return this.$store.state.screenConfig
       },
       set(val) {
-        this.$store.commit('setScreenStyle', val)
+        this.$store.commit('setScreenConfig', val)
       }
     },
     ...mapState([
       'slices',
-      'canvasStyle',
+      'canvasConfig',
       'currentItem'
     ])
   },
@@ -179,11 +198,9 @@ export default {
     handleDrop(event) {
       const key = event.dataTransfer.getData('key')
       const newItem = OptionConfigMap[key]()
-      newItem.i = 'chart' + this.startIndex
       newItem.x = event.offsetX - newItem.width / 2
       newItem.y = event.offsetY - newItem.height / 2
       this.$store.commit('addItem', newItem)
-      this.startIndex += 1
     },
     handleItemUnChoose() {
       this.$store.commit('setCurrentItem', null)
@@ -200,11 +217,10 @@ export default {
       try {
         const response = await getDataView(instanceId)
         // 渲染大屏数据
-        this.startIndex = response.data.start_index
-        this.screenStyle.title = response.data.instance_title
-        this.screenStyle.width = response.data.instance_width
-        this.screenStyle.height = response.data.instance_height
-        this.screenStyle.backgroundImg = response.data.instance_background_img
+        this.screenConfig.title = response.data.instance_title
+        this.screenConfig.width = response.data.instance_width
+        this.screenConfig.height = response.data.instance_height
+        this.screenConfig.backgroundImg = response.data.instance_background_img
         this.$store.commit('autoCanvasScale')
         // 渲染图表数据
         const items = response.data.chart_items
@@ -221,6 +237,76 @@ export default {
       } catch (e) {
         console.log('获取大屏信息或解析大屏信息失败', e)
       }
+    },
+    handlerBack() {
+      window.open(this.routerBase + 'data-view/index')
+    },
+    async handlerSave() {
+      // const thumbnail = await this.screenshot()
+      // if (!thumbnail.success) {
+      //   this.$message.error('保存缩略图失败')
+      //   return
+      // }
+
+      const items = JSON.parse(JSON.stringify(this.slices))
+      items.map((item) => {
+        item.data = JSON.stringify(item.data)
+        item.chartData = JSON.stringify(item.chartData)
+        item.option = JSON.stringify(item.option)
+        return item
+      })
+      if (this.isCopy === 1) {
+        // 证明是复制该模板，创建新的实例
+        // 需要将ID置为null
+        this.instanceId = null
+      }
+      const screenInstance = {
+        instance_id: this.instanceId,
+        instance_title: this.screenConfig.title,
+        instance_width: this.screenConfig.width,
+        instance_height: this.screenConfig.height,
+        instance_background_img: this.screenConfig.backgroundImg,
+        instance_view_thumbnail: 'thumbnail.data',
+        instance_version: this.instanceVersion,
+        chart_items: items
+      }
+      if (this.instanceId) {
+        // 更新
+        const response = await updateDataView(screenInstance)
+        if (response.success) {
+          this.$message.success('更新成功')
+          window.location.href = this.routerBase + 'data-view-instance-pro/index/' + this.instanceId + '/0'
+        } else {
+          this.$message.success('更新失败, ' + response.data)
+        }
+      } else {
+        const response = await saveDataView(screenInstance)
+        if (response.success) {
+          const instanceId = response.data
+          this.$message.success('保存成功')
+          window.location.href = this.routerBase + 'data-view-instance-pro/index/' + instanceId + '/0'
+        } else {
+          this.$message.success('保存失败, ' + response.data)
+        }
+      }
+    },
+    async screenshot() {
+      const container = document.getElementById('data-view-layout')
+      const params = {
+        scale: 1 / (this.scale / 100),
+        allowTaint: true,
+        useCORS: true,
+        scrollX: 0,
+        scrollY: 0,
+        width: this.screenConfig.width,
+        height: this.screenConfig.height
+      }
+      const canvas = await html2canvas(container, params)
+      const blob = canvas.toDataURL('image/png')
+      console.log(blob)
+    },
+    handlerDebug() {
+      this.screenshot()
     }
   }
 }

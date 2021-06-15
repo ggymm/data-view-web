@@ -7,6 +7,7 @@ const HeatMapLargePiecewiseConfig = function() {
     chartName: '',
     chartType: 'heatMapLargePiecewise',
     rotate: 0,
+    show: 'true',
     choose: 'false',
     refresh: 'false',
     chartData: {

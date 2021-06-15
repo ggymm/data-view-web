@@ -14,7 +14,7 @@
       :api-data="chartData"
       :option="item.option"
       :update-options="updateOptions"
-      :i="item.i"
+      :el-id="item.elId"
       :theme="ThemeConfigMap[theme]"
       @init="chartInit"
     />

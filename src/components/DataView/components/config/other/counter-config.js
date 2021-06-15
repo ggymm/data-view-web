@@ -7,6 +7,7 @@ const CounterConfig = function() {
     chartName: '计数器',
     chartType: 'Counter',
     rotate: 0,
+    show: 'true',
     lock: 'false',
     choose: 'false',
     refresh: 'false',

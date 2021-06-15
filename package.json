@@ -19,6 +19,7 @@
     "jsoneditor": "^9.4.1",
     "lodash": "^4.17.21",
     "store": "^2.0.12",
+    "uuid": "^8.3.2",
     "vue": "^2.6.11",
     "vue-echarts": "^6.0.0-rc.6",
     "vue-router": "^3.2.0",

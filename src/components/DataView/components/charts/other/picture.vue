@@ -1,7 +1,7 @@
 <template>
   <div class="chart">
     <div style="width: 100%;height: 100%;">
-      <canvas :id="'picture_' + i" style="width: 100%;height: 100%;" />
+      <canvas :id="'picture_' + elId" style="width: 100%;height: 100%;" />
     </div>
   </div>
 </template>
@@ -22,7 +22,7 @@ export default {
         return getPictureConfig().option
       }
     },
-    i: {
+    elId: {
       type: String,
       required: true
     },

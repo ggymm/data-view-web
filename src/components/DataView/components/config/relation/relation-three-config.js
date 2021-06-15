@@ -7,6 +7,7 @@ const RelationThreeConfig = function() {
     chartName: '',
     chartType: 'relationThree',
     rotate: 0,
+    show: 'true',
     choose: 'false',
     refresh: 'false',
     chartData: {

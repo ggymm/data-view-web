@@ -7,6 +7,7 @@ const RelationTwoConfig = function() {
     chartName: '',
     chartType: 'relationTwo',
     rotate: 0,
+    show: 'true',
     choose: 'false',
     refresh: 'false',
     chartData: {

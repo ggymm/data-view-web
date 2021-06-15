@@ -7,6 +7,7 @@ const ProgressConfig = function() {
     chartName: '进度条',
     chartType: 'Progress',
     rotate: 0,
+    show: 'true',
     lock: 'false',
     choose: 'false',
     refresh: 'false',

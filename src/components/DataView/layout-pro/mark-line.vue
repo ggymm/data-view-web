@@ -33,7 +33,7 @@ export default {
   },
   computed: mapState([
     'slices',
-    'canvasStyle',
+    'canvasConfig',
     'currentItem'
   ]),
   mounted() {

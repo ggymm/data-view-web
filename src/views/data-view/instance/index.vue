@@ -39,20 +39,20 @@
             @sizeUpdate="handleSizeUpdate"
           >
             <item
-              v-for="item in slices"
-              :key="item.slice_id"
+              v-for="(item, index) in slices"
+              :key="index"
               :x.sync="item.x"
               :y.sync="item.y"
               :width.sync="item.width"
               :height.sync="item.height"
-              :i="item.i"
+              :i="index"
               :panel-width="panelConfig.panelWidth"
               :panel-height="panelConfig.panelHeight"
               drag-allow-from=".chart,.data-view-item"
               drag-ignore-from=""
             >
               <slice
-                :id="item.i"
+                :id="item.elId"
                 :item="item"
                 :theme="panelConfig.instanceTheme"
                 @transferHandleItemChoose="handleItemChoose(item)"
@@ -103,7 +103,8 @@
 
 <script>
 import html2canvas from 'html2canvas'
-import { menus } from '../config/menu'
+import { v4 as uuidv4 } from 'uuid'
+import { menus } from './menu'
 import defaultSettings from '@/config'
 import Layout from '@/components/DataView/layout/layout'
 import Item from '@/components/DataView/layout/item'
@@ -131,7 +132,6 @@ export default {
       instanceId: null,
       isCopy: null,
       slices: [],
-      startIndex: 0,
       dataSourceList: [],
       backgroundImgList: [],
       panelConfig: {
@@ -170,44 +170,26 @@ export default {
       event.preventDefault()
     },
     itemDrop(event) {
-      console.group('添加图表')
       const key = event.dataTransfer.getData('key')
-      console.log('图表类型', key)
-      console.log('图表ID', this.startIndex)
-      console.log('图表位置', 'x: ', event.offsetX, 'y: ', event.offsetY)
       const newItem = OptionConfigMap[key]()
-      newItem.slice_id = this.startIndex
-      newItem.i = 'chart' + this.startIndex
+      newItem.elId = uuidv4()
       newItem.x = event.offsetX - newItem.width / 2
       newItem.y = event.offsetY - newItem.height / 2
       this.slices.push(newItem)
-      this.startIndex += 1
-      console.groupEnd()
     },
     initPageStyle() {
       const width = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth
       const height = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight
       this.panelConfig.panelWidth = width - 450 - 20 * 2
       this.panelConfig.panelHeight = height - 50 - 20 * 2
-      console.log('自动初始化', width, height)
     },
     handleLayoutUpdated(layout) {
-      this.slices = this.slices.map((item) => {
-        if (item.i === layout.id) {
-          item.x = layout.x
-          item.y = layout.y
-        }
-        return item
-      })
+      this.slices[layout.i].x = layout.x
+      this.slices[layout.i].y = layout.y
     },
     handleSizeUpdate(size) {
-      this.slices = this.slices.map((item) => {
-        if (item.i === size.id) {
-          item.width = size.w
-          item.height = size.h
-        }
-        return item
-      })
+      this.slices[size.i].width = size.w
+      this.slices[size.i].height = size.h
     },
     handleItemChoose(item) {
       // 此处应该显示对应的Options
@@ -227,8 +209,6 @@ export default {
       })
     },
     async getDataView(instanceId) {
-      console.group('初始化获取可视化大屏信息')
-      console.log('初始化获取可视化大屏信息')
       try {
         const response = await getDataView(instanceId)
         const items = JSON.parse(JSON.stringify(response.data.chart_items))
@@ -247,7 +227,6 @@ export default {
             backgroundImg: response.data.instance_background_img,
             instanceVersion: response.data.instance_version
           }
-          this.startIndex = response.data.start_index
           this.panelConfig = JSON.parse(JSON.stringify(panelConfig))
           this.slices = JSON.parse(JSON.stringify(items))
         } else {
@@ -259,7 +238,6 @@ export default {
             backgroundImg: response.data.instance_background_img,
             instanceVersion: response.data.instance_version
           }
-          this.startIndex = response.data.start_index
           this.panelConfig = JSON.parse(JSON.stringify(panelConfig))
           this.slices = []
         }
@@ -327,7 +305,7 @@ export default {
       }
     },
     async screenshot() {
-      const container = document.getElementById('data-view-container-layout')
+      const container = document.getElementById('data-view-layout')
 
       const width = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth
       const height = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight

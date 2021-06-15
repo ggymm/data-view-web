@@ -7,6 +7,7 @@ const HistogramNormalConfig = function() {
     chartName: '',
     chartType: 'HistogramNormal',
     rotate: 0,
+    show: 'true',
     lock: 'false',
     choose: 'false',
     refresh: 'false',

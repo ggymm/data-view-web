@@ -45,22 +45,22 @@ export default {
     }
   },
   computed: mapState([
-    'canvasStyle',
-    'screenStyle'
+    'canvasConfig',
+    'screenConfig'
   ]),
   methods: {
     layoutStyle() {
       let style = {
-        width: `${this.screenStyle.width}px`,
-        height: `${this.screenStyle.height}px`,
-        transform: `scale(${this.canvasStyle.scale}) translate(0px, 0px)`,
+        width: `${this.screenConfig.width}px`,
+        height: `${this.screenConfig.height}px`,
+        transform: `scale(${this.canvasConfig.scale}) translate(0px, 0px)`,
         backgroundRepeat: 'no-repeat',
         backgroundSize: '100% 100%'
       }
-      if (this.screenStyle.backgroundImg.length !== 0) {
+      if (this.screenConfig.backgroundImg.length !== 0) {
         style = { ...style,
           ...{
-            backgroundImage: `url(${this.imageBasicUrl}${this.screenStyle.backgroundImg})`
+            backgroundImage: `url(${this.imageBasicUrl}${this.screenConfig.backgroundImg})`
           }
         }
       }
@@ -68,8 +68,8 @@ export default {
     },
     screenWrapperStyle() {
       return {
-        width: `${this.canvasStyle.width}px`,
-        height: `${this.canvasStyle.height}px`
+        width: `${this.canvasConfig.width}px`,
+        height: `${this.canvasConfig.height}px`
       }
     }
   }

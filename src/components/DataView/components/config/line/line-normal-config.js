@@ -7,6 +7,7 @@ const LineNormalConfig = function() {
     chartName: '',
     chartType: 'LineNormal',
     rotate: 0,
+    show: 'true',
     lock: 'false',
     choose: 'false',
     refresh: 'false',

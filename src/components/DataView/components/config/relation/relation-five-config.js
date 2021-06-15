@@ -7,6 +7,7 @@ const RelationFiveConfig = function() {
     chartName: '',
     chartType: 'relationFive',
     rotate: 0,
+    show: 'true',
     choose: 'false',
     refresh: 'false',
     chartData: {
