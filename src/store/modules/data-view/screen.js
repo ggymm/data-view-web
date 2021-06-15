@@ -37,7 +37,6 @@ export default {
     },
     addItem(state, item) {
       item.elId = uuidv4()
-      item.index = state.slices.length
       state.slices.push(item)
     },
     moveItem(state, { i, type }) {

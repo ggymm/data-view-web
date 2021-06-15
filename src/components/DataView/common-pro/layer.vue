@@ -5,8 +5,8 @@
       <template v-for="(item, index) in slices">
         <a-dropdown :key="index" :trigger="['contextmenu']">
           <div
-            class="layer-item"
-            :class="{'active': item === currentItem}"
+            :id="`layer-${item.elId}`"
+            :class="['layer-item', {'active': item === currentItem}]"
             @mousedown="handleSelect(item)"
             @mouseenter="item.hover = true"
             @mouseleave="item.hover = false"
@@ -77,6 +77,13 @@ export default {
     'slices',
     'currentItem'
   ]),
+  watch: {
+    currentItem: function(newVal) {
+      if (newVal !== null) {
+        document.getElementById(`layer-${newVal.elId}`).scrollIntoView({ behavior: 'smooth' })
+      }
+    }
+  },
   methods: {
     handleSelect(item) {
       // 设置选中状态

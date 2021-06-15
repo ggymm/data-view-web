@@ -169,8 +169,7 @@ export default {
       'currentItem'
     ])
   },
-  watch: {
-  },
+  watch: {},
   created() {
     // 初始化页面选项
     this.getDataSourceList()
@@ -249,7 +248,8 @@ export default {
       // }
 
       const items = JSON.parse(JSON.stringify(this.slices))
-      items.map((item) => {
+      items.map((item, index) => {
+        item.index = index
         item.data = JSON.stringify(item.data)
         item.chartData = JSON.stringify(item.chartData)
         item.option = JSON.stringify(item.option)
