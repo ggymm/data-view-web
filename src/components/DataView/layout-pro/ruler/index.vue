@@ -10,7 +10,7 @@
 
 <script>
 import { mapState } from 'vuex'
-import { on, off } from '@/core/dom'
+import { on, off, $ } from '@/core/dom'
 import { RulerBuilder } from './ruler'
 
 export default {
@@ -34,13 +34,13 @@ export default {
       deep: true,
       handler() {
         if (this.hRuler) {
-          this.hRuler.setSize(this.canvasConfig.width, 20, this.canvasConfig.scale)
+          this.hRuler.setSize(this.screenConfig.width, 20, this.canvasConfig.scale)
         } else {
           this.initHRuler()
         }
 
         if (this.vRuler) {
-          this.vRuler.setSize(this.canvasConfig.width, 20, this.canvasConfig.scale)
+          this.vRuler.setSize(this.screenConfig.width, 20, this.canvasConfig.scale)
         } else {
           this.initVRuler()
         }
@@ -51,17 +51,15 @@ export default {
     this.initHRuler()
     this.initVRuler()
 
-    on(document.getElementById('screenWrapper'),
-      'scroll', this.onScroll)
+    on($('#screenWrapper'), 'scroll', this.onScroll)
   },
   destroyed() {
-    off(document.getElementById('screenWrapper'),
-      'scroll', this.onScroll)
+    off($('#screenWrapper'), 'scroll', this.onScroll)
   },
   methods: {
     initHRuler() {
       this.hRuler = new RulerBuilder(
-        document.querySelector('.h-container'), {
+        $('.h-container'), {
           direction: 'TB',
           width: this.canvasConfig.width,
           scale: this.canvasConfig.scale
@@ -70,7 +68,7 @@ export default {
     },
     initVRuler() {
       this.vRuler = new RulerBuilder(
-        document.querySelector('.v-container'), {
+        $('.v-container'), {
           direction: 'LR',
           width: this.canvasConfig.height,
           scale: this.canvasConfig.scale

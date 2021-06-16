@@ -39,3 +39,7 @@ export function addClass(el, cls) {
     el.className = curClass
   }
 }
+
+export function $(selector) {
+  return document.querySelector(selector)
+}

@@ -1,4 +1,4 @@
-import { on, off, addClass } from '@/core/dom'
+import { $, on, off, addClass } from '@/core/dom'
 
 // 创建高分辨率画布
 const createCanvas = (el, width, height, ratio) => {
@@ -15,13 +15,13 @@ const createCanvas = (el, width, height, ratio) => {
 }
 
 // 计算指示线位置
-const getLinePos = (el, options, cx, cy) => {
+const getLinePos = (wp, el, options, cx, cy) => {
   const { height, scale, offset } = options
   let dist
   if (options.direction === 'TB') {
-    dist = cx - (el.parentElement?.offsetLeft || 0)
+    dist = cx - (el.parentElement?.offsetLeft || 0) + wp.scrollLeft
   } else {
-    dist = cy - (el.parentElement?.offsetTop || 0)
+    dist = cy - (el.parentElement?.offsetTop || 0) + wp.scrollTop
   }
   dist = dist - height + options.indicatorLineWidth
   const coor = Math.floor((dist - offset) / scale)
@@ -35,12 +35,14 @@ const getPosByCoor = (coor, options) => {
 }
 
 class GuideLine {
+  wp
   el
   options
   guideLine
   coor
 
-  constructor(el, options, ev, coor) {
+  constructor(wp, el, options, ev, coor) {
+    this.wp = wp
     this.el = el
     this.options = options
     this.constructGuide(ev, coor)
@@ -108,8 +110,8 @@ class GuideLine {
     on(document, 'mouseup', up)
   }
   setLine(e, coor = 0) {
-    const { el, options, guideLine } = this
-    const pos = e ? getLinePos(el, options, e.clientX, e.clientY) : getPosByCoor(coor, options)
+    const { wp, el, options, guideLine } = this
+    const pos = e ? getLinePos(wp, el, options, e.clientX, e.clientY) : getPosByCoor(coor, options)
     if (options.direction === 'TB') {
       guideLine.style.left = `${pos.dist}px`
     } else {
@@ -146,6 +148,7 @@ class GuideLine {
 }
 
 export class RulerBuilder {
+  wp
   el
   canvas
   ctx
@@ -177,6 +180,7 @@ export class RulerBuilder {
   }
 
   constructor(container, options) {
+    this.wp = $('#screenWrapper')
     this.el = container
     this.options = { ...this.options, ...options }
 
@@ -279,7 +283,7 @@ export class RulerBuilder {
 
   // 画指示线
   constructIndicator() {
-    const { el, options, canvas } = this
+    const { wp, el, options, canvas } = this
     const indicator = document.createElement('div')
     const indicatorValue = document.createElement('span')
     addClass(indicator, 'ruler-indicator')
@@ -291,7 +295,7 @@ export class RulerBuilder {
     el.appendChild(indicator)
 
     const move = (e) => {
-      const pos = getLinePos(el, options, e.clientX, e.clientY)
+      const pos = getLinePos(wp, el, options, e.clientX, e.clientY)
       indicator.style.left = `${pos.dist}px`
       indicatorValue.textContent = `${pos.coor}`
     }
@@ -311,8 +315,8 @@ export class RulerBuilder {
     ev.preventDefault()
     ev.stopPropagation()
 
-    const { el, options } = this
-    this.guideLines.push(new GuideLine(el, options, ev))
+    const { wp, el, options } = this
+    this.guideLines.push(new GuideLine(wp, el, options, ev))
   }
 
   // 切换参考线

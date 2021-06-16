@@ -13,6 +13,7 @@
 
 <script>
 import { mapState } from 'vuex'
+import { $ } from '@/core/dom'
 import { getItemRotatedStyle } from './calculate'
 
 export default {
@@ -56,12 +57,8 @@ export default {
     showLine(currentItem) {
       if (this.slices.length === 1) return
       const lines = {
-        xt: document.querySelector('.xt'),
-        xc: document.querySelector('.xc'),
-        xb: document.querySelector('.xb'),
-        yl: document.querySelector('.yl'),
-        yc: document.querySelector('.yc'),
-        yr: document.querySelector('.yr')
+        xt: $('.xt'), xc: $('.xc'), xb: $('.xb'),
+        yl: $('.yl'), yc: $('.yc'), yr: $('.yr')
       }
       const thisStyle = {
         top: this.currentItem.y,

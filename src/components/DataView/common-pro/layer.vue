@@ -30,36 +30,46 @@
           </div>
           <a-menu slot="overlay">
             <a-menu-item @click="handleTop(index)">
-              <a-icon type="vertical-align-top" />置顶
+              <a-icon type="vertical-align-top" />
+              置顶
             </a-menu-item>
             <a-menu-item @click="handleBottom(index)">
-              <a-icon type="vertical-align-bottom" />置底
+              <a-icon type="vertical-align-bottom" />
+              置底
             </a-menu-item>
             <a-menu-item @click="handleUp(index)">
-              <a-icon type="arrow-up" />上移一层
+              <a-icon type="arrow-up" />
+              上移一层
             </a-menu-item>
             <a-menu-item @click="handleDown(index)">
-              <a-icon type="arrow-down" />下移一层
+              <a-icon type="arrow-down" />
+              下移一层
             </a-menu-item>
             <a-menu-divider />
             <a-menu-item v-if="item.lock === 'false'" @click="item.lock = 'true'">
-              <a-icon type="lock" />锁定
+              <a-icon type="lock" />
+              锁定
             </a-menu-item>
             <a-menu-item v-if="item.lock === 'true'" @click="item.lock = 'false'">
-              <a-icon type="unlock" />解锁
+              <a-icon type="unlock" />
+              解锁
             </a-menu-item>
             <a-menu-item v-if="item.show === 'true'" @click="item.show = 'false'">
-              <a-icon type="eye-invisible" />隐藏
+              <a-icon type="eye-invisible" />
+              隐藏
             </a-menu-item>
             <a-menu-item v-if="item.show === 'false'" @click="item.show = 'true'">
-              <a-icon type="eye" />显示
+              <a-icon type="eye" />
+              显示
             </a-menu-item>
             <a-menu-divider />
             <a-menu-item @click="handleCopy(index)">
-              <a-icon type="copy" />复制
+              <a-icon type="copy" />
+              复制
             </a-menu-item>
             <a-menu-item @click="handleDelete(index)">
-              <a-icon type="delete" />删除
+              <a-icon type="delete" />
+              删除
             </a-menu-item>
           </a-menu>
         </a-dropdown>
@@ -70,6 +80,7 @@
 
 <script>
 import { mapState } from 'vuex'
+import { $ } from '@/core/dom'
 
 export default {
   name: 'Layer',
@@ -77,16 +88,15 @@ export default {
     'slices',
     'currentItem'
   ]),
-  watch: {
-    currentItem: function(newVal) {
-      if (newVal !== null) {
-        document.getElementById(`layer-${newVal.elId}`).scrollIntoView({ behavior: 'smooth' })
+  mounted() {
+    this.$bus.$on('layer:itemChange', () => {
+      if (this.currentItem !== null) {
+        $(`#layer-${this.currentItem.elId}`).scrollIntoView({ behavior: 'smooth' })
       }
-    }
+    })
   },
   methods: {
     handleSelect(item) {
-      // 设置选中状态
       this.$store.commit('setCurrentItem', item)
     },
     handleTop(index) {

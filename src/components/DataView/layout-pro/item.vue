@@ -102,6 +102,10 @@ export default {
       ev.stopPropagation()
       ev.preventDefault()
     },
+    handleItemChoose() {
+      this.$store.commit('setCurrentItem', this.item)
+      this.$bus.$emit('layer:itemChange')
+    },
     handleRotate(ev) {
       // 已经处于选中状态
       const rect = this.$el.getBoundingClientRect()
@@ -146,7 +150,7 @@ export default {
     handleResize(ev, direction) {
       // 可能没有处于选中状态
       // 需要设置选中状态
-      this.$store.commit('setCurrentItem', this.item)
+      this.handleItemChoose()
 
       const cursor = getCursors(this.item.rotate)
       const style = {
@@ -198,7 +202,7 @@ export default {
     },
     handleMove(ev) {
       // 设置选中状态
-      this.$store.commit('setCurrentItem', this.item)
+      this.handleItemChoose()
 
       const moveInfo = {
         x: this.item.x,

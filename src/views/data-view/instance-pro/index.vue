@@ -2,7 +2,7 @@
 <template>
   <a-layout class="data-view-container">
     <a-layout-header class="data-view-header">
-      <a-icon class="back" type="left-circle" @click="handlerBack()" />
+      <a-icon class="back" type="left-circle" @click="handleBack()" />
       <a-menu
         class="data-view-menu"
         mode="horizontal"
@@ -27,9 +27,9 @@
         </a-sub-menu>
       </a-menu>
       <div class="handler">
-        <a-icon type="save" @click="handlerSave()" />
+        <a-icon type="save" @click="handleSave()" />
         <a-icon type="eye" />
-        <a-icon type="bug" @click="handlerDebug()" />
+        <a-icon type="bug" @click="handleDebug()" />
       </div>
     </a-layout-header>
     <a-layout class="data-view-main">
@@ -59,6 +59,7 @@
           </layout>
         </a-layout-content>
         <a-layout-footer class="data-view-screen-footer">
+          <a-button type="link" size="small" @click="$store.commit('autoCanvasScale')">自适应</a-button>
           <a-slider
             v-model="scale"
             class="data-view-scale"
@@ -120,7 +121,7 @@ import Layer from '@/components/DataView/common-pro/layer'
 import ChartOption from '@/components/DataView/common-pro/chart-option'
 
 import { getDataSourceList } from '@/api/data-source'
-import { getImageList } from '@/api/image'
+import { getImageList, saveThumbnail } from '@/api/image'
 import { getDataView, saveDataView, updateDataView } from '@/api/data-view'
 
 export default {
@@ -237,15 +238,15 @@ export default {
         console.log('获取大屏信息或解析大屏信息失败', e)
       }
     },
-    handlerBack() {
+    handleBack() {
       window.open(this.routerBase + 'data-view/index')
     },
-    async handlerSave() {
-      // const thumbnail = await this.screenshot()
-      // if (!thumbnail.success) {
-      //   this.$message.error('保存缩略图失败')
-      //   return
-      // }
+    async handleSave() {
+      const thumbnail = await this.screenshot()
+      if (!thumbnail.success) {
+        this.$message.error('保存缩略图失败')
+        return
+      }
 
       const items = JSON.parse(JSON.stringify(this.slices))
       items.map((item, index) => {
@@ -266,7 +267,7 @@ export default {
         instance_width: this.screenConfig.width,
         instance_height: this.screenConfig.height,
         instance_background_img: this.screenConfig.backgroundImg,
-        instance_view_thumbnail: 'thumbnail.data',
+        instance_view_thumbnail: thumbnail.data,
         instance_version: this.instanceVersion,
         chart_items: items
       }
@@ -292,8 +293,12 @@ export default {
     },
     async screenshot() {
       const container = document.getElementById('data-view-layout')
+      // 需要移除transform属性
+      const { transform } = container.style
+      container.style.transform = 'scale(1) translate(0px, 0px)'
+
       const params = {
-        scale: 1 / (this.scale / 100),
+        logger: true,
         allowTaint: true,
         useCORS: true,
         scrollX: 0,
@@ -302,10 +307,22 @@ export default {
         height: this.screenConfig.height
       }
       const canvas = await html2canvas(container, params)
-      const blob = canvas.toDataURL('image/png')
-      console.log(blob)
+
+      container.style.transform = transform
+      const blob = this.dataURLtoBlob(canvas.toDataURL('image/png'))
+      const formData = new FormData()
+      formData.append('file', blob, `${new Date().getTime()}_thumbnail.png`)
+      return saveThumbnail(formData)
     },
-    handlerDebug() {
+    dataURLtoBlob(dataURL) {
+      const data = window.atob(dataURL.split(',')[1])
+      const ia = new Uint8Array(data.length)
+      for (let i = 0; i < data.length; i++) {
+        ia[i] = data.charCodeAt(i)
+      }
+      return new Blob([ia], { type: 'image/png' })
+    },
+    handleDebug() {
       this.screenshot()
     }
   }
