@@ -17,7 +17,7 @@
   </div>
 </template>
 <script>
-import '../components/charts'
+import '../components/index'
 import ThemeConfigMap from '../themes/theme-config-map'
 import { getChartData } from '@/api/data-view'
 

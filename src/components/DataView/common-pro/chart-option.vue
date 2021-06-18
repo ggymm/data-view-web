@@ -8,7 +8,7 @@
 
 <script>
 import { mapState } from 'vuex'
-import '../components/options'
+import '../components/index'
 
 export default {
   name: 'ChartOption',

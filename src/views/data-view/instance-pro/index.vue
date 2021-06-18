@@ -3,13 +3,7 @@
   <a-layout class="data-view-container">
     <a-layout-header class="data-view-header">
       <a-icon class="back" type="left-circle" @click="handleBack()" />
-      <a-menu
-        class="data-view-menu"
-        mode="horizontal"
-        theme="dark"
-        :selectable="false"
-        :sub-menu-close-delay="0"
-      >
+      <a-menu class="data-view-menu" mode="horizontal" theme="dark">
         <a-sub-menu v-for="menu in menus" :key="menu.key">
           <span slot="title">{{ menu.title }}<a-icon type="caret-down" style="margin-left: 5px" /></span>
           <template v-for="child in menu.children">
@@ -298,7 +292,7 @@ export default {
       container.style.transform = 'scale(1) translate(0px, 0px)'
 
       const params = {
-        logger: true,
+        logger: false,
         allowTaint: true,
         useCORS: true,
         scrollX: 0,
@@ -322,8 +316,25 @@ export default {
       }
       return new Blob([ia], { type: 'image/png' })
     },
-    handleDebug() {
-      this.screenshot()
+    async handleDebug() {
+      const container = document.getElementById('data-view-layout')
+      // 需要移除transform属性
+      const { transform } = container.style
+      container.style.transform = 'scale(1) translate(0px, 0px)'
+
+      const params = {
+        logger: true,
+        allowTaint: true,
+        useCORS: true,
+        scrollX: 0,
+        scrollY: 0,
+        width: this.screenConfig.width,
+        height: this.screenConfig.height
+      }
+      const canvas = await html2canvas(container, params)
+
+      container.style.transform = transform
+      console.log(canvas.toDataURL('image/png'))
     }
   }
 }

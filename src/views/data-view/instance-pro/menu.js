@@ -1,10 +1,10 @@
 export const menus = [
   {
-    'key': 'chart',
+    'key': 'Chart',
     'title': '基础图表',
     'children': [
       {
-        'key': 'scatter',
+        'key': 'Scatter',
         'title': '散点图',
         'children': [
           {
@@ -15,7 +15,7 @@ export const menus = [
         ]
       },
       {
-        'key': 'line',
+        'key': 'Line',
         'title': '折线图',
         'children': [
           {
@@ -31,7 +31,7 @@ export const menus = [
         ]
       },
       {
-        'key': 'histogram',
+        'key': 'Histogram',
         'title': '柱状图',
         'children': [
           {
@@ -47,7 +47,7 @@ export const menus = [
         ]
       },
       {
-        'key': 'map',
+        'key': 'Map',
         'title': '地图',
         'children': [
           {
@@ -58,7 +58,7 @@ export const menus = [
         ]
       },
       {
-        'key': 'pie',
+        'key': 'Pie',
         'title': '饼图',
         'children': [
           {
@@ -69,7 +69,7 @@ export const menus = [
         ]
       },
       {
-        'key': 'radar',
+        'key': 'Radar',
         'title': '雷达图',
         'children': [
           {
@@ -80,7 +80,7 @@ export const menus = [
         ]
       },
       {
-        'key': 'heat',
+        'key': 'Heat',
         'title': '热力图',
         'children': [
         ]
@@ -90,16 +90,39 @@ export const menus = [
         'title': '关系图',
         'children': [
         ]
+      },
+      {
+        'key': 'OtherChart',
+        'title': '其他图表',
+        'children': [
+          {
+            'key': 'FunnelNormal',
+            'icon': 'FunnelNormal',
+            'title': '漏斗图'
+          }
+        ]
       }
     ]
   },
   {
-    'key': '3d',
-    'title': '高级3D图表',
-    'children': []
+    'key': 'Scene',
+    'title': '场景',
+    'children': [
+      {
+        'key': 'Operations',
+        'title': '运维',
+        'children': [
+          {
+            'key': 'EarlyWarning',
+            'icon': 'EarlyWarning',
+            'title': '预警点滴'
+          }
+        ]
+      }
+    ]
   },
   {
-    'key': 'other',
+    'key': 'Other',
     'title': '其他',
     'children': [
       {
@@ -123,5 +146,10 @@ export const menus = [
         'title': '进度条'
       }
     ]
+  },
+  {
+    'key': '3d',
+    'title': '高级3D图表',
+    'children': []
   }
 ]

@@ -576,6 +576,7 @@
 
 .chart-type-icon {
   vertical-align: middle;
+  line-height: 40px;
   font-size: 25px !important;
 }
 
@@ -586,7 +587,12 @@
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
+
+  &:active {
+    background-color: var(--background-4) !important;
+  }
 }
+
 
 .ant-menu-submenu {
   svg {

@@ -63,6 +63,12 @@ export default {
             backgroundImage: `url(${this.imageBasicUrl}${this.screenConfig.backgroundImg})`
           }
         }
+      } else {
+        style = { ...style,
+          ...{
+            background: '#263546'
+          }
+        }
       }
       return style
     },

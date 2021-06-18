@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import '../components/options'
+import '../components/index'
 
 export default {
   name: 'ChartOption',
