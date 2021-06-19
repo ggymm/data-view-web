@@ -44,7 +44,7 @@
               :index="index"
               :active="item === currentItem"
             >
-              <chart
+              <slice
                 :id="item.elId"
                 :item="item"
                 :theme="screenConfig.theme"
@@ -110,7 +110,7 @@ import defaultSettings from '@/config'
 import OptionConfigMap from '@/components/DataView/components/config'
 import Layout from '@/components/DataView/layout-pro/layout'
 import Item from '@/components/DataView/layout-pro/item'
-import Chart from '@/components/DataView/common-pro/chart'
+import Slice from '@/components/DataView/common-pro/slice'
 import Layer from '@/components/DataView/common-pro/layer'
 import ChartOption from '@/components/DataView/common-pro/chart-option'
 
@@ -123,7 +123,7 @@ export default {
   components: {
     Layout,
     Item,
-    Chart,
+    Slice,
     Layer,
     ChartOption
   },

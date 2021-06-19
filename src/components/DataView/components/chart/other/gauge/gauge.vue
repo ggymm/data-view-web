@@ -1,10 +1,9 @@
 <template>
   <echarts
     ref="chart"
-    :loading="loading"
     :theme="theme"
     :autoresize="true"
-    :option="option"
+    :option="item.option"
     class="chart"
     @click="handleChartClick"
   />
@@ -13,11 +12,8 @@
 export default {
   name: 'Gauge',
   props: {
-    loading: {
-      type: Boolean,
-      default: true
-    },
-    option: {
+    item: {
+      require: true,
       type: Object,
       default() {
         return {}
@@ -53,7 +49,7 @@ export default {
     setData() {
       var seriesData = []
       seriesData = this.apiData[0]
-      this.option.series.data.push(seriesData)
+      this.item.option.series.data.push(seriesData)
     }
   }
 }

@@ -9,6 +9,7 @@
   >
     <component
       :is="item.chartType"
+      :item="item"
       :loading="loading"
       :lock="item.lock"
       :api-data="chartData"

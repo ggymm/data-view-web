@@ -2,12 +2,10 @@
   <div class="data-view-chart">
     <component
       :is="item.chartType"
+      :item="item"
       :loading="loading"
-      :lock="item.lock"
       :api-data="chartData"
-      :option="item.option"
       :update-options="updateOptions"
-      :el-id="item.elId"
       :theme="ThemeConfigMap[theme]"
       @init="chartInit"
     />

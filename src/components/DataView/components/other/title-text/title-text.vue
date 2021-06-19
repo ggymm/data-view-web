@@ -1,15 +1,15 @@
 <template>
-  <div :style="{backgroundColor: option.backgroundColor}" class="chart">
+  <div :style="{backgroundColor: item.option.backgroundColor}" class="chart">
     <div
       :style="{
-        lineHeight: option.height + 'px',
-        color: option.fontColor,
-        fontSize: option.fontSize + 'px',
-        fontWeight: option.fontWeight,
-        textAlign: option.textAlign
+        lineHeight: item.option.height + 'px',
+        color: item.option.fontColor,
+        fontSize: item.option.fontSize + 'px',
+        fontWeight: item.option.fontWeight,
+        textAlign: item.option.textAlign
       }"
     >
-      {{ option.title }}
+      {{ item.option.title }}
     </div>
   </div>
 </template>
@@ -18,7 +18,8 @@
 export default {
   name: 'TitleText',
   props: {
-    option: {
+    item: {
+      require: true,
       type: Object,
       default() {
         return {}

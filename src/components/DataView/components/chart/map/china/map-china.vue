@@ -1,10 +1,9 @@
 <template>
   <echarts
     ref="chart"
-    :loading="loading"
     :theme="theme"
     :autoresize="true"
-    :option="option"
+    :option="item.option"
     :update-options="updateOptions"
     class="chart"
   />
@@ -14,11 +13,8 @@
 export default {
   name: 'MapChina',
   props: {
-    loading: {
-      type: Boolean,
-      default: true
-    },
-    option: {
+    item: {
+      require: true,
       type: Object,
       default() {
         return {}
@@ -60,7 +56,7 @@ export default {
         return
       }
 
-      this.$set(this.option, 'dataset', this.apiData)
+      this.$set(this.item.option, 'dataset', this.apiData)
     }
   }
 }

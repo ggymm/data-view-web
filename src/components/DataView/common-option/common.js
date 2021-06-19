@@ -9,6 +9,7 @@ export const refreshList = [
 ]
 
 export const dataSourceTypeList = [
+  { label: '静态数据源', value: 'Static' },
   { label: '数据库数据源', value: 'DataBase' },
   { label: '接口数据源', value: 'Rest' },
   { label: 'CSV文件数据源', value: 'CSV' }

@@ -109,7 +109,7 @@ export const menus = [
     'title': '场景',
     'children': [
       {
-        'key': 'Operations',
+        'key': 'Operation',
         'title': '运维',
         'children': [
           {

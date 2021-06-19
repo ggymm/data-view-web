@@ -23,6 +23,7 @@ const CounterConfig = function() {
     option: {
       fontColor: '#ffffff',
       fontSize: 16,
+      height: 50,
       fontWeight: 'normal',
       textAlign: 'center',
       thousandth: true,

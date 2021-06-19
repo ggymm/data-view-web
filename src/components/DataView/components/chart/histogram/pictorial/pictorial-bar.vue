@@ -1,10 +1,9 @@
 <template>
   <echarts
     ref="chart"
-    :loading="loading"
     :theme="theme"
     :autoresize="true"
-    :option="option"
+    :option="item.option"
     :update-options="updateOptions"
     class="chart"
   />
@@ -14,15 +13,8 @@
 export default {
   name: 'PictorialBar',
   props: {
-    loading: {
-      type: Boolean,
-      default: true
-    },
-    lock: {
-      type: String,
-      default: 'false'
-    },
-    option: {
+    item: {
+      require: true,
       type: Object,
       default() {
         return {}
@@ -64,25 +56,25 @@ export default {
         return
       }
 
-      this.$set(this.option, 'dataset', this.apiData)
+      this.$set(this.item.option, 'dataset', this.apiData)
 
-      if (this.lock === 'true') {
+      if (this.item.lock === 'true') {
         return
       }
 
       const dimension = this.apiData.source[0]
       const series = []
       if (dimension.length === 1) {
-        if (this.option.series.length === 0 || this.option.series.length !== dimension.length) {
+        if (this.item.option.series.length === 0 || this.item.option.series.length !== dimension.length) {
           series.push({
             type: 'pictorialBar',
             itemStyle: {
             }
           })
-          this.$set(this.option, 'series', series)
+          this.$set(this.item.option, 'series', series)
         }
       } else {
-        if (dimension.length - 1 !== this.option.series.length) {
+        if (dimension.length - 1 !== this.item.option.series.length) {
           // 如果两次数据个数不一致，应该清空重新设置
           for (let i = 1; i < dimension.length; i++) {
             series.push({
@@ -91,7 +83,7 @@ export default {
               }
             })
           }
-          this.$set(this.option, 'series', series)
+          this.$set(this.item.option, 'series', series)
         }
       }
     }

@@ -1,33 +1,33 @@
 <template>
-  <div :loading="loading" :style="{backgroundColor: option.backgroundColor}" class="chart">
+  <div :style="{backgroundColor: item.option.backgroundColor}" class="chart">
     <div
       :style="{
-        color: option.fontColor,
-        fontSize: option.fontSize + 'px',
-        fontWeight: option.fontWeight,
-        textAlign: option.textAlign
+        color: item.option.fontColor,
+        fontSize: item.option.fontSize + 'px',
+        fontWeight: item.option.fontWeight,
+        textAlign: item.option.textAlign
       }"
     >
       <span
-        v-if="option.prefix !== undefined"
+        v-if="item.option.prefix !== undefined"
         :style="{
-          color: option.prefix.fontColor,
-          fontSize: option.prefix.fontSize + 'px',
-          fontWeight: option.prefix.fontWeight
+          color: item.option.prefix.fontColor,
+          fontSize: item.option.prefix.fontSize + 'px',
+          fontWeight: item.option.prefix.fontWeight
         }"
       >
-        {{ option.prefix.title }}
+        {{ item.option.prefix.title }}
       </span>
-      <span v-if="option.thousandth">{{ num | numFormat }}</span>
-      <span v-if="!option.thousandth">{{ num }}</span>
+      <span v-if="item.option.thousandth">{{ num | numFormat }}</span>
+      <span v-if="!item.option.thousandth">{{ num }}</span>
       <span
         :style="{
-          color: option.unit.fontColor,
-          fontSize: option.unit.fontSize + 'px',
-          fontWeight: option.unit.fontWeight
+          color: item.option.unit.fontColor,
+          fontSize: item.option.unit.fontSize + 'px',
+          fontWeight: item.option.unit.fontWeight
         }"
       >
-        {{ option.unit.title }}
+        {{ item.option.unit.title }}
       </span>
     </div>
   </div>
@@ -43,11 +43,8 @@ export default {
     }
   },
   props: {
-    loading: {
-      type: Boolean,
-      default: true
-    },
-    option: {
+    item: {
+      require: true,
       type: Object,
       default() {
         return {}
@@ -81,7 +78,3 @@ export default {
   }
 }
 </script>
-
-<style scoped>
-
-</style>

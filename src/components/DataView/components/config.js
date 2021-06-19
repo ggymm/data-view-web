@@ -1,3 +1,4 @@
+// ================================================== 图表 ==================================================
 import { getScatterNormalConfig } from './chart/scatter/normal/scatter-normal-config'
 
 import { getLineNormalConfig } from './chart/line/normal/line-normal-config'
@@ -16,6 +17,11 @@ import { getWordCloudConfig } from './chart/other/word-cloud/word-cloud-config'
 import { getGaugeConfig } from './chart/other/gauge/gauge-config'
 import { getFunnelNormalConfig } from './chart/other/funnel/funnel-normal-config'
 
+// ================================================== 场景 ==================================================
+import { getEarlyWarningConfig } from './scene/operation/early-warning-config'
+
+// ================================================== 3D ==================================================
+// ================================================== 其他 ==================================================
 import { getCarouselListConfig } from './other/carousel-list/carousel-list-config'
 import { getCounterConfig } from './other/counter/counter-config'
 import { getTitleTextConfig } from './other/title-text/title-text-config'
@@ -40,6 +46,8 @@ const OptionConfigMap = {
   'wordCloud': getWordCloudConfig,
   'gauge': getGaugeConfig,
   'FunnelNormal': getFunnelNormalConfig,
+
+  'EarlyWarning': getEarlyWarningConfig,
 
   'CarouselList': getCarouselListConfig,
   'Counter': getCounterConfig,

@@ -11,14 +11,7 @@ const TitleTextConfig = function() {
     lock: 'false',
     choose: 'false',
     refresh: 'false',
-    chartData: {
-      dataSourceType: '',
-      database: '',
-      fileName: '',
-      sql: '',
-      x: '',
-      name: ''
-    },
+    chartData: {},
     data: [],
     interval: 8000,
     option: {

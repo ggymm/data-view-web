@@ -3,22 +3,22 @@
     <a-spin :spinning="loading" tip="loading">
       <a-icon slot="indicator" type="loading" style="font-size: 24px" spin />
       <a-progress
-        :type="option.type"
+        :type="item.option.type"
         :percent="percent"
-        :show-info="option.showInfo"
-        :stroke-linecap="option.strokeLinecap"
-        :stroke-width="option.strokeWidth"
-        :stroke-color="option.strokeColor"
-        :width="option.width"
-        :gap-degree="option.gapDegree"
-        :gap-position="option.gapPosition"
+        :show-info="item.option.showInfo"
+        :stroke-linecap="item.option.strokeLinecap"
+        :stroke-width="item.option.strokeWidth"
+        :stroke-color="item.option.strokeColor"
+        :width="item.option.width"
+        :gap-degree="item.option.gapDegree"
+        :gap-position="item.option.gapPosition"
         class="chart"
       >
         <template #format="info">
           <span
             :style="{
-              fontSize: option.info.fontSize + 'px',
-              color: option.info.color
+              fontSize: item.option.info.fontSize + 'px',
+              color: item.option.info.color
             }"
           >
             {{ info }}</span>
@@ -32,11 +32,8 @@
 export default {
   name: 'Progress',
   props: {
-    loading: {
-      type: Boolean,
-      default: true
-    },
-    option: {
+    item: {
+      require: true,
       type: Object,
       default() {
         return {}

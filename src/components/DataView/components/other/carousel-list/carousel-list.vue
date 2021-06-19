@@ -1,48 +1,45 @@
 <template>
   <div class="chart">
-    <a-spin :spinning="loading" tip="loading">
-      <a-icon slot="indicator" type="loading" style="font-size: 24px" spin />
-      <div
-        v-if="option.header.show"
+    <div
+      v-if="item.option.header.show"
+      :style="{
+        color: item.option.header.fontColor,
+        height: item.option.header.height + 'px',
+        lineHeight: item.option.header.height + 'px',
+        fontSize: item.option.header.fontSize + 'px',
+      }"
+      class="carousel-header"
+    >
+      <span
+        v-for="(data, index) in item.option.header.data"
+        :key="index"
         :style="{
-          color: option.header.fontColor,
-          height: option.header.height + 'px',
-          lineHeight: option.header.height + 'px',
-          fontSize: option.header.fontSize + 'px',
+          width: data['width'],
+          float: 'left',
+          textAlign: 'center'
         }"
-        class="carousel-header"
-      >
-        <span
-          v-for="(data, index) in option.header.data"
+      >{{ data['label'] }}</span>
+    </div>
+    <div :style="{ height: item.option.body.rowNum * item.option.body.height + 'px' }" class="carousel-container">
+      <ul class="carousel-list">
+        <li
+          v-for="(data, index) in item.option.body.data"
           :key="index"
           :style="{
-            width: data['width'],
-            float: 'left',
-            textAlign: 'center'
+            color: item.option.body.fontColor,
+            height: item.option.body.height + 'px',
+            lineHeight: item.option.body.height + 'px',
+            fontSize: item.option.body.fontSize + 'px'
           }"
-        >{{ data['label'] }}</span>
-      </div>
-      <div :style="{ height: option.body.rowNum * option.body.height + 'px' }" class="carousel-container">
-        <ul class="carousel-list">
-          <li
-            v-for="(data, index) in option.body.data"
-            :key="index"
-            :style="{
-              color: option.body.fontColor,
-              height: option.body.height + 'px',
-              lineHeight: option.body.height + 'px',
-              fontSize: option.body.fontSize + 'px'
-            }"
-          >
-            <span
-              v-for="(dataItem, childIndex) in data"
-              :key="childIndex"
-              :style="{width: option.header.data[childIndex]['width']}"
-            >{{ dataItem }}</span>
-          </li>
-        </ul>
-      </div>
-    </a-spin>
+        >
+          <span
+            v-for="(dataItem, childIndex) in data"
+            :key="childIndex"
+            :style="{width: item.option.header.data[childIndex]['width']}"
+          >{{ dataItem }}</span>
+        </li>
+      </ul>
+    </div>
   </div>
 </template>
 
@@ -50,19 +47,12 @@
 export default {
   name: 'CarouselList',
   props: {
-    loading: {
-      type: Boolean,
-      default: true
-    },
-    option: {
+    item: {
+      require: true,
       type: Object,
       default() {
         return {}
       }
-    },
-    elId: {
-      type: String,
-      required: true
     },
     apiData: {
       type: Object,
@@ -81,7 +71,7 @@ export default {
     return {
       container: null,
       timer: null,
-      speed: this.option.speed
+      speed: this.item.option.speed
     }
   },
   watch: {
@@ -99,7 +89,7 @@ export default {
     option: {
       deep: true,
       handler() {
-        this.speed = this.option.speed
+        this.speed = this.item.option.speed
         this.updateTimer()
       }
     }
@@ -108,7 +98,7 @@ export default {
     clearInterval(this.timer)
   },
   async mounted() {
-    this.container = document.getElementById(this.elId).querySelector('.carousel-list')
+    this.container = document.getElementById(this.item.elId).querySelector('.carousel-list')
     const _this = this
     const animationEndHandler = () => {
       _this.container.style.cssText = 'transform:translate(0,0)'
@@ -122,17 +112,17 @@ export default {
       const _this = this
       this.timer = setInterval(() => {
         if (_this.container.children[0]) {
-          _this.container.style.cssText = `transform:translate(0px,-${_this.option.body.height}px);transition:all .5s ease;`
+          _this.container.style.cssText = `transform:translate(0px,-${_this.item.option.body.height}px);transition:all .5s ease;`
         }
-      }, this.option.body.speed * 1000)
+      }, this.item.option.body.speed * 1000)
     },
     updateTimer() {
       clearInterval(this.timer)
       this.setTimer()
     },
     setData() {
-      this.option.body.data = JSON.parse(JSON.stringify(this.apiData.body))
-      if (this.option.header.data.length === this.apiData.header.length) {
+      this.item.option.body.data = JSON.parse(JSON.stringify(this.apiData.body))
+      if (this.item.option.header.data.length === this.apiData.header.length) {
         return
       }
       const header = []
@@ -142,7 +132,7 @@ export default {
           label: this.apiData.header[i]
         })
       }
-      this.$set(this.option.header, 'data', header)
+      this.$set(this.item.option.header, 'data', header)
     }
   }
 }

@@ -1,10 +1,9 @@
 <template>
   <echarts
     ref="chart"
-    :loading="loading"
     :theme="theme"
     :autoresize="true"
-    :option="option"
+    :option="item.option"
     :update-options="updateOptions"
     class="chart"
   />
@@ -13,15 +12,8 @@
 export default {
   name: 'RadarNormal',
   props: {
-    loading: {
-      type: Boolean,
-      default: true
-    },
-    lock: {
-      type: String,
-      default: 'false'
-    },
-    option: {
+    item: {
+      require: true,
       type: Object,
       default() {
         return {}
@@ -59,8 +51,8 @@ export default {
   },
   methods: {
     setData() {
-      this.option.radar.indicator = this.apiData.indicator
-      this.option.series[0].data = this.apiData.data
+      this.item.option.radar.indicator = this.apiData.indicator
+      this.item.option.series[0].data = this.apiData.data
     }
   }
 }

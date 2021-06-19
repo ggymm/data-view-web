@@ -1,10 +1,9 @@
 <template>
   <echarts
     ref="chart"
-    :loading="loading"
     :theme="theme"
     :autoresize="true"
-    :option="option"
+    :option="item.option"
     class="chart"
   />
 </template>
@@ -12,11 +11,8 @@
 export default {
   name: 'WordCloud',
   props: {
-    loading: {
-      type: Boolean,
-      default: true
-    },
-    option: {
+    item: {
+      require: true,
       type: Object,
       default() {
         return {}
@@ -48,7 +44,7 @@ export default {
   },
   methods: {
     setData() {
-      this.option.series[0].data = this.apiData
+      this.item.option.series[0].data = this.apiData
     }
   }
 }

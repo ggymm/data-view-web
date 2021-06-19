@@ -13,7 +13,10 @@
           </a-select-option>
         </a-select>
       </a-form-item>
-      <template v-if="item.chartData.dataSourceType === 'DataBase'">
+      <template v-if="item.chartData.dataSourceType === 'Static'">
+        静态数据源
+      </template>
+      <template v-else-if="item.chartData.dataSourceType === 'DataBase'">
         <a-form-item label="数据源">
           <a-select v-model="item.chartData.database">
             <a-select-option
