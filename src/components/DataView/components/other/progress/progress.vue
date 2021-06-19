@@ -49,15 +49,15 @@ export default {
     }
   },
   computed: {
-    apiData() {
+    data() {
       return this.item.data
     }
   },
   watch: {
-    apiData: {
+    data: {
       deep: true,
       handler() {
-        this.percent = parseInt(this.apiData.value)
+        this.percent = parseInt(this.data.value)
       }
     }
   }

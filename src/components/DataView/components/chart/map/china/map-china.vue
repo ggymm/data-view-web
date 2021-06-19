@@ -34,12 +34,12 @@ export default {
     }
   },
   computed: {
-    apiData() {
+    data() {
       return this.item.data
     }
   },
   watch: {
-    apiData: function() {
+    data: function() {
       this.setData()
     }
   },
@@ -51,11 +51,11 @@ export default {
   },
   methods: {
     setData() {
-      if (this.apiData.source.length <= 0) {
+      if (this.data.source.length <= 0) {
         return
       }
 
-      this.$set(this.item.option, 'dataset', this.apiData)
+      this.$set(this.item.option, 'dataset', this.data)
     }
   }
 }

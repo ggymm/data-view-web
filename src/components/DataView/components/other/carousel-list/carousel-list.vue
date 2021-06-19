@@ -69,12 +69,12 @@ export default {
     }
   },
   computed: {
-    apiData() {
+    data() {
       return this.item.data
     }
   },
   watch: {
-    apiData: {
+    data: {
       deep: true,
       handler() {
         this.setData()
@@ -122,15 +122,15 @@ export default {
       this.setTimer()
     },
     setData() {
-      this.item.option.body.data = JSON.parse(JSON.stringify(this.apiData.body))
-      if (this.item.option.header.data.length === this.apiData.header.length) {
+      this.item.option.body.data = JSON.parse(JSON.stringify(this.data.body))
+      if (this.item.option.header.data.length === this.data.header.length) {
         return
       }
       const header = []
-      for (let i = 0; i < this.apiData.header.length; i++) {
+      for (let i = 0; i < this.data.header.length; i++) {
         header.push({
           width: '100px',
-          label: this.apiData.header[i]
+          label: this.data.header[i]
         })
       }
       this.$set(this.item.option.header, 'data', header)

@@ -1,0 +1,56 @@
+<template>
+  <div ref="editor" :style="{height: height}" />
+</template>
+
+<script>
+import * as monaco from 'monaco-editor'
+
+export default {
+  name: 'Index',
+  props: {
+    value: {
+      type: String,
+      required: true
+    },
+    language: {
+      type: String,
+      default: 'json'
+    },
+    height: {
+      type: String,
+      default: '200px'
+    }
+  },
+  data() {
+    return {
+      editor: null
+    }
+  },
+  mounted() {
+    this.initEditor()
+  },
+  methods: {
+    initEditor() {
+      this.editor = monaco.editor.create(this.$refs.editor, {
+        value: this.value,
+        language: this.language,
+        automaticLayout: true,
+        roundedSelection: false,
+        fontSize: 16,
+        autoIndent: true,
+        theme: 'vs-dark'
+      })
+      this.editor.onDidChangeModelContent(() => {
+        this.handleValueChange()
+      })
+    },
+    handleValueChange() {
+      this.$emit('change', this.editor.getValue())
+    }
+  }
+}
+</script>
+
+<style scoped>
+
+</style>

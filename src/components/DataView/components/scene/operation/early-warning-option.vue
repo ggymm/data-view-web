@@ -11,11 +11,7 @@
             </a-form>
           </a-collapse-panel>
           <a-collapse-panel key="状态列表" header="状态列表">
-            <a-form layout="horizontal" :label-col="{span: 6}" :wrapper-col="{span: 14, offset: 1}">
-              <a-form-item label="内容">
-                <a-input v-model="item.option.prefix.title" />
-              </a-form-item>
-            </a-form>
+            <a-form layout="horizontal" :label-col="{span: 6}" :wrapper-col="{span: 14, offset: 1}" />
           </a-collapse-panel>
         </a-collapse>
       </a-tab-pane>

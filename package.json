@@ -41,6 +41,7 @@
     "hard-source-webpack-plugin": "^0.13.1",
     "less": "^3.0.4",
     "less-loader": "^5.0.0",
+    "monaco-editor-webpack-plugin": "^4.0.0",
     "vue-template-compiler": "^2.6.11",
     "webpack-theme-color-replacer": "^1.3.14"
   }

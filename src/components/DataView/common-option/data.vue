@@ -14,7 +14,11 @@
         </a-select>
       </a-form-item>
       <template v-if="item.chartData.dataSourceType === 'Static'">
-        静态数据源
+        <code-editor
+          language="json"
+          :value="item.chartData.staticData"
+          @change="handleStaticDataChange"
+        />
       </template>
       <template v-else-if="item.chartData.dataSourceType === 'DataBase'">
         <a-form-item label="数据源">
@@ -108,12 +112,14 @@
 </template>
 
 <script>
+import CodeEditor from '@/components/CodeEditor'
 import ModalPro from '@/components/ModelPro'
 import { dataSourceTypeList } from './common'
 
 export default {
   name: 'CommonDataOption',
   components: {
+    CodeEditor,
     ModalPro
   },
   props: {
@@ -151,6 +157,9 @@ export default {
       this.visibleRestModel = true
     },
     confirmSQL(sql) {
+    },
+    handleStaticDataChange(value) {
+      this.item.chartData.staticData = value
     }
   }
 }

@@ -31,7 +31,7 @@ export default {
     }
   },
   computed: {
-    apiData() {
+    data() {
       return this.item.data
     }
   }

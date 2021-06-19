@@ -13,6 +13,7 @@ const EarlyWarningConfig = function() {
     refresh: 'false',
     chartData: {
       dataSourceType: '',
+      staticData: '{}',
       database: '',
       fileName: '',
       status: 'status',

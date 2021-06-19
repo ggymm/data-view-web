@@ -33,12 +33,12 @@ export default {
     }
   },
   computed: {
-    apiData() {
+    data() {
       return this.item.data
     }
   },
   watch: {
-    apiData: function() {
+    data: function() {
       this.setData()
     }
   },
@@ -51,8 +51,8 @@ export default {
   },
   methods: {
     setData() {
-      this.item.option.radar.indicator = this.apiData.indicator
-      this.item.option.series[0].data = this.apiData.data
+      this.item.option.radar.indicator = this.data.indicator
+      this.item.option.series[0].data = this.data.data
     }
   }
 }

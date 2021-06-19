@@ -18,7 +18,7 @@ export default {
         return {}
       }
     },
-    apiData: {
+    data: {
       type: Array,
       default() {
         return []
@@ -32,7 +32,7 @@ export default {
     }
   },
   watch: {
-    apiData: function() {
+    data: function() {
       this.setData()
     }
   },
@@ -44,7 +44,7 @@ export default {
   },
   methods: {
     setData() {
-      this.item.option.series[0].data = this.apiData
+      this.item.option.series[0].data = this.data
     }
   }
 }

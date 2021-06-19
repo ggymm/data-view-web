@@ -33,12 +33,12 @@ export default {
     }
   },
   computed: {
-    apiData() {
+    data() {
       return this.item.data
     }
   },
   watch: {
-    apiData: function() {
+    data: function() {
       this.setData()
     }
   },
@@ -51,17 +51,17 @@ export default {
   },
   methods: {
     setData() {
-      if (this.apiData.source.length <= 1) {
+      if (this.data.source.length <= 1) {
         return
       }
 
-      this.$set(this.item.option, 'dataset', this.apiData)
+      this.$set(this.item.option, 'dataset', this.data)
 
       if (this.item.lock === 'true') {
         return
       }
 
-      const dimension = this.apiData.source[0]
+      const dimension = this.data.source[0]
       const series = []
       if (dimension.length === 1) {
         if (this.item.option.series.length === 0 || this.item.option.series.length !== dimension.length) {
