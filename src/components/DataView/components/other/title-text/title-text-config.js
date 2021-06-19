@@ -12,7 +12,7 @@ const TitleTextConfig = function() {
     choose: 'false',
     refresh: 'false',
     chartData: {},
-    data: [],
+    data: {},
     interval: 8000,
     option: {
       title: '标题文本',

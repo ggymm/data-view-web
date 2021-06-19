@@ -7,10 +7,8 @@
   >
     <component
       :is="item.chartType"
-      :loading="loading"
-      :api-data="chartData"
-      :option="item.option"
-      :el-id="item.elId"
+      :item="item"
+      :update-options="updateOptions"
       :theme="ThemeConfigMap[theme]"
       @init="chartInit"
     />
@@ -39,7 +37,10 @@ export default {
   },
   data() {
     return {
-      loading: true,
+      updateOptions: {
+        notMerge: true,
+        lazyUpdate: false
+      },
       chart: null,
       chartData: null,
       lastChartData: {},
@@ -116,8 +117,7 @@ export default {
           if (this.checkDataKey(_chartDataConfig)) {
             _chartDataConfig.chartType = this.item.chartType
             getChartData(_chartDataConfig).then(response => {
-              this.chartData = response.data
-              this.loading = false
+              this.item.data = response.data
             })
           }
         } else if (_chartDataConfig.dataSourceType === 'CSV' &&
