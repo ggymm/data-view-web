@@ -3,8 +3,6 @@
     <component
       :is="item.chartType"
       :item="item"
-      :loading="loading"
-      :api-data="chartData"
       :update-options="updateOptions"
       :theme="ThemeConfigMap[theme]"
       @init="chartInit"
@@ -35,13 +33,11 @@ export default {
   },
   data() {
     return {
-      loading: true,
       updateOptions: {
         notMerge: true,
         lazyUpdate: false
       },
       chart: null,
-      chartData: null,
       lastChartData: {},
       timer: null,
       changeTimer: null,
@@ -114,8 +110,7 @@ export default {
           if (this.checkDataKey(config)) {
             config.chartType = this.item.chartType
             getChartData(config).then(response => {
-              this.chartData = response.data
-              this.loading = false
+              this.item.data = response.data
             })
           }
         } else if (config.dataSourceType === 'CSV' && config.fileName !== '') {

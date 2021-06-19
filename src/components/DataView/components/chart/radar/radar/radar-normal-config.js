@@ -21,7 +21,20 @@ const RadarNormalConfig = function() {
       dimension: 'legend',
       sql: 'select * from radar'
     },
-    data: [],
+    data: {
+      'data': [
+        { 'name': '预算分配', 'value': ['4300', '1000', '2800', '3500', '5000', '1900'] },
+        { 'name': '实际开销', 'value': ['5000', '1400', '2800', '3100', '4200', '2100'] }
+      ],
+      'indicator': [
+        { 'max': '6500', 'name': '销售' },
+        { 'max': '1600', 'name': '管理' },
+        { 'max': '3000', 'name': '信息技术' },
+        { 'max': '3800', 'name': '客服' },
+        { 'max': '5200', 'name': '研发' },
+        { 'max': '2500', 'name': '市场' }
+      ]
+    },
     interval: 8000,
     option: {
       title: {

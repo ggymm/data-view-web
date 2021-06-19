@@ -50,12 +50,6 @@ export default {
         return {}
       }
     },
-    apiData: {
-      type: Object,
-      default() {
-        return {}
-      }
-    },
     theme: {
       type: Object,
       default() {
@@ -66,6 +60,11 @@ export default {
   data() {
     return {
       num: 0
+    }
+  },
+  computed: {
+    apiData() {
+      return this.item.data
     }
   },
   watch: {

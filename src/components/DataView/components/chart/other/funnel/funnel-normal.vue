@@ -26,17 +26,16 @@ export default {
         return {}
       }
     },
-    apiData: {
-      type: Object,
-      default() {
-        return {}
-      }
-    },
     theme: {
       type: Object,
       default() {
         return {}
       }
+    }
+  },
+  computed: {
+    apiData() {
+      return this.item.data
     }
   },
   watch: {

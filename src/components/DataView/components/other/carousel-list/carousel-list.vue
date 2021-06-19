@@ -54,12 +54,6 @@ export default {
         return {}
       }
     },
-    apiData: {
-      type: Object,
-      default() {
-        return {}
-      }
-    },
     theme: {
       type: Object,
       default() {
@@ -72,6 +66,11 @@ export default {
       container: null,
       timer: null,
       speed: this.item.option.speed
+    }
+  },
+  computed: {
+    apiData() {
+      return this.item.data
     }
   },
   watch: {
@@ -98,14 +97,16 @@ export default {
     clearInterval(this.timer)
   },
   async mounted() {
+    this.setData()
+
     this.container = document.getElementById(this.item.elId).querySelector('.carousel-list')
     const _this = this
     const animationEndHandler = () => {
       _this.container.style.cssText = 'transform:translate(0,0)'
       _this.container.appendChild(this.container.children[0])
     }
-    _this.container.removeEventListener('transitionend', animationEndHandler)
-    _this.container.addEventListener('transitionend', animationEndHandler)
+    this.container.removeEventListener('transitionend', animationEndHandler)
+    this.container.addEventListener('transitionend', animationEndHandler)
   },
   methods: {
     setTimer: function() {

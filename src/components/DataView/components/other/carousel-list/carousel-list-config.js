@@ -17,7 +17,15 @@ const CarouselListConfig = function() {
       fileName: '',
       sql: 'select * from carousel_list'
     },
-    data: [],
+    data: {
+      'body': [
+        ['1', 'key1', 'value1'],
+        ['2', 'key2', 'value2'],
+        ['3', 'key3', 'value3'],
+        ['4', 'key4', 'value4']
+      ],
+      'header': ['id', 'name', 'value']
+    },
     interval: 8000,
     option: {
       header: {

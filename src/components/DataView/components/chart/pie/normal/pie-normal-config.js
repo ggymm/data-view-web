@@ -19,7 +19,16 @@ const PieNormalConfig = function() {
       value: 'value',
       sql: 'select * from pie_normal'
     },
-    data: [],
+    data: {
+      'source': [
+        ['dimension', ''],
+        ['直接访问', '335'],
+        ['邮件营销', '310'],
+        ['联盟广告', '274'],
+        ['视频广告', '235'],
+        ['搜索引擎', '400']
+      ]
+    },
     interval: 8000,
     option: {
       title: {

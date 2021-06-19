@@ -29,6 +29,11 @@ export default {
       chartType: 'pictureV',
       num: 0
     }
+  },
+  computed: {
+    apiData() {
+      return this.item.data
+    }
   }
 }
 </script>

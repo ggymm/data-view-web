@@ -20,7 +20,18 @@ const HistogramNormalConfig = function() {
       value: 'amount',
       sql: 'select * from histogram_normal'
     },
-    data: [],
+    data: {
+      'source': [
+        ['dimension'],
+        ['周一', '120'],
+        ['周二', '132'],
+        ['周三', '101'],
+        ['周四', '134'],
+        ['周五', '90'],
+        ['周六', '230'],
+        ['周日', '210']
+      ]
+    },
     interval: 8000,
     option: {
       title: {

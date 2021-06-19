@@ -1,30 +1,27 @@
 <template>
   <div class="chart">
-    <a-spin :spinning="loading" tip="loading">
-      <a-icon slot="indicator" type="loading" style="font-size: 24px" spin />
-      <a-progress
-        :type="item.option.type"
-        :percent="percent"
-        :show-info="item.option.showInfo"
-        :stroke-linecap="item.option.strokeLinecap"
-        :stroke-width="item.option.strokeWidth"
-        :stroke-color="item.option.strokeColor"
-        :width="item.option.width"
-        :gap-degree="item.option.gapDegree"
-        :gap-position="item.option.gapPosition"
-        class="chart"
-      >
-        <template #format="info">
-          <span
-            :style="{
-              fontSize: item.option.info.fontSize + 'px',
-              color: item.option.info.color
-            }"
-          >
-            {{ info }}</span>
-        </template>
-      </a-progress>
-    </a-spin>
+    <a-progress
+      :type="item.option.type"
+      :percent="percent"
+      :show-info="item.option.showInfo"
+      :stroke-linecap="item.option.strokeLinecap"
+      :stroke-width="item.option.strokeWidth"
+      :stroke-color="item.option.strokeColor"
+      :width="item.option.width"
+      :gap-degree="item.option.gapDegree"
+      :gap-position="item.option.gapPosition"
+      class="chart"
+    >
+      <template #format="info">
+        <span
+          :style="{
+            fontSize: item.option.info.fontSize + 'px',
+            color: item.option.info.color
+          }"
+        >
+          {{ info }}</span>
+      </template>
+    </a-progress>
   </div>
 </template>
 
@@ -34,12 +31,6 @@ export default {
   props: {
     item: {
       require: true,
-      type: Object,
-      default() {
-        return {}
-      }
-    },
-    apiData: {
       type: Object,
       default() {
         return {}
@@ -55,6 +46,11 @@ export default {
   data() {
     return {
       percent: 0
+    }
+  },
+  computed: {
+    apiData() {
+      return this.item.data
     }
   },
   watch: {
