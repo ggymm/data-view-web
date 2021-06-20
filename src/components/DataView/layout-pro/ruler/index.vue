@@ -34,13 +34,13 @@ export default {
       deep: true,
       handler() {
         if (this.hRuler) {
-          this.hRuler.setSize(this.screenConfig.width, 20, this.canvasConfig.scale)
+          this.hRuler.setSize(this.canvasConfig.width + 100, 20, this.canvasConfig.scale)
         } else {
           this.initHRuler()
         }
 
         if (this.vRuler) {
-          this.vRuler.setSize(this.screenConfig.width, 20, this.canvasConfig.scale)
+          this.vRuler.setSize(this.canvasConfig.width + 100, 20, this.canvasConfig.scale)
         } else {
           this.initVRuler()
         }
@@ -61,7 +61,7 @@ export default {
       this.hRuler = new RulerBuilder(
         $('.h-container'), {
           direction: 'TB',
-          width: this.canvasConfig.width,
+          width: this.canvasConfig.width + 100,
           scale: this.canvasConfig.scale
         }
       )
@@ -70,7 +70,7 @@ export default {
       this.vRuler = new RulerBuilder(
         $('.v-container'), {
           direction: 'LR',
-          width: this.canvasConfig.height,
+          width: this.canvasConfig.height + 100,
           scale: this.canvasConfig.scale
         })
     },
