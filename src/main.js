@@ -7,7 +7,8 @@ import ProLayout, { PageHeaderWrapper } from '@ant-design-vue/pro-layout'
 import GlobalComponents from '@/components/DataView/global-components'
 
 import './core/lazy_use'
-import './global.less'
+import '@/styles/animate.css'
+import '@/styles/global.less'
 
 Vue.config.productionTip = false
 

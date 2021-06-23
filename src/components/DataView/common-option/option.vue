@@ -1,5 +1,5 @@
 <template>
-  <a-collapse :bordered="false" :accordion="true">
+  <a-collapse :bordered="false">
     <a-collapse-panel key="通用配置" header="通用配置">
       <a-form layout="horizontal" :label-col="{span: 6}" :wrapper-col="{span: 14, offset: 1}">
         <a-form-item label="是否锁定">

@@ -16,16 +16,44 @@ const EarlyWarningConfig = function() {
       staticData: '{}',
       database: '',
       fileName: '',
-      status: 'status',
-      sql: 'select status from early_warning'
+      value: 'value',
+      sql: 'select value from early_warning'
     },
-    data: [],
+    data: {
+      value: '0'
+    },
     interval: 8000,
     option: {
       radius: 16,
       boundary: 32,
       spread: 1,
-      series: []
+      symbolSize: 18,
+      series: [
+        {
+          code: '0',
+          codeColor: '#00E6B6',
+          label: '',
+          labelColor: '',
+          alert: false,
+          symbol: '√'
+        },
+        {
+          code: '1',
+          codeColor: '#EF5350',
+          label: '',
+          labelColor: '',
+          alert: true,
+          symbol: '✕'
+        },
+        {
+          code: '2',
+          codeColor: '#FFFF00',
+          label: '',
+          labelColor: '',
+          alert: true,
+          symbol: '!'
+        }
+      ]
     }
   }
 }

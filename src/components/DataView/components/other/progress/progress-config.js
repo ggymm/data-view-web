@@ -13,6 +13,7 @@ const ProgressConfig = function() {
     refresh: 'false',
     chartData: {
       dataSourceType: '',
+      staticData: '{}',
       database: '',
       fileName: '',
       value: 'value',

@@ -1,5 +1,7 @@
 <template>
-  <div ref="editor" :style="{height: height}" />
+  <div ref="editor" :style="{height: height}">
+    <slot />
+  </div>
 </template>
 
 <script>
@@ -40,17 +42,23 @@ export default {
         autoIndent: true,
         theme: 'vs-dark'
       })
+      this.editor.trigger('anything', 'editor.action.formatDocument')
+      this.editor.onDidBlurEditorText(() => {
+        this.handleEditorBlur()
+      })
       this.editor.onDidChangeModelContent(() => {
         this.handleValueChange()
       })
     },
+    handleEditorBlur() {
+      this.$emit('blur')
+    },
     handleValueChange() {
       this.$emit('change', this.editor.getValue())
+    },
+    setValue(newVal) {
+      this.editor.setValue(newVal)
     }
   }
 }
 </script>
-
-<style scoped>
-
-</style>

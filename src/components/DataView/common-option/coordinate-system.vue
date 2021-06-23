@@ -1,6 +1,6 @@
 <!--suppress JSUnresolvedVariable, JSUnusedLocalSymbols -->
 <template>
-  <a-collapse :bordered="false" :accordion="true">
+  <a-collapse :bordered="false">
     <a-collapse-panel key="网格配置" header="网格配置">
       <a-form layout="horizontal" :label-col="{span: 6}" :wrapper-col="{span: 14, offset: 1}">
         <a-form-item label="上">

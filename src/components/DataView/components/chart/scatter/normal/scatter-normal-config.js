@@ -13,12 +13,13 @@ const ScatterNormalConfig = function() {
     refresh: 'false',
     chartData: {
       dataSourceType: '',
+      staticData: '{}',
       database: '',
-      fileName: '',
       dimension: '无',
       name: 'x',
       value: 'y',
-      sql: 'select * from scatter_normal'
+      sql: 'select * from scatter_normal',
+      fileName: ''
     },
     data: {
       'source': [

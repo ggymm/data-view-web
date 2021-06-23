@@ -13,6 +13,7 @@ const PictureConfig = function() {
     refresh: 'false',
     chartData: {
       dataSourceType: '',
+      staticData: '{}',
       database: '',
       fileName: '',
       sql: '',

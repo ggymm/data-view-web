@@ -1,9 +1,9 @@
 <!--suppress JSUnresolvedVariable, JSUnusedLocalSymbols -->
 <template>
-  <div>
+  <div class="chart-data-option">
     <a-form :model="item" layout="horizontal" :label-col="{span: 6}" :wrapper-col="{span: 14, offset: 1}">
       <a-form-item label="数据源类型">
-        <a-select v-model="item.chartData.dataSourceType">
+        <a-select v-model="item.chartData.dataSourceType" @change="handleConfigChange">
           <a-select-option
             v-for="dataSourceType in dataSourceTypeList"
             :key="dataSourceType.value"
@@ -15,14 +15,18 @@
       </a-form-item>
       <template v-if="item.chartData.dataSourceType === 'Static'">
         <code-editor
+          ref="staticData"
           language="json"
           :value="item.chartData.staticData"
           @change="handleStaticDataChange"
-        />
+          @blur="handleConfigChange"
+        >
+          <icon class="fullscreen" type="icon-fullscreen-expand" @click="visibleStaticDataModel = true" />
+        </code-editor>
       </template>
       <template v-else-if="item.chartData.dataSourceType === 'DataBase'">
         <a-form-item label="数据源">
-          <a-select v-model="item.chartData.database">
+          <a-select v-model="item.chartData.database" @change="handleConfigChange">
             <a-select-option
               v-for="dataSource in dataSourceList"
               :key="dataSource.data_source_id"
@@ -33,7 +37,7 @@
           </a-select>
         </a-form-item>
         <a-form-item v-for="(param, index) in params" :key="index" :label="param.label">
-          <a-input v-model="item.chartData[param.value]" />
+          <a-input v-model="item.chartData[param.value]" @change="handleConfigChange" />
         </a-form-item>
         <a-form-item label="SQL">
           <a-textarea v-model="item.chartData.sql" />
@@ -47,6 +51,19 @@
       </template>
       <template v-else-if="item.chartData.dataSourceType === 'Csv'" />
     </a-form>
+    <modal-pro
+      :title="'静态数据'"
+      :visible.sync="visibleStaticDataModel"
+      :width="'75%'"
+      @confirm="handleSetStaticData"
+      @close="visibleStaticDataModel = false"
+    >
+      <code-editor
+        language="json"
+        :value="item.chartData.staticData"
+        @change="handleStaticDataChange"
+      />
+    </modal-pro>
     <modal-pro
       :title="'SQL编辑器'"
       :visible.sync="visibleSQLModel"
@@ -144,12 +161,25 @@ export default {
   },
   data() {
     return {
+      dataOptionForm: null,
       dataSourceTypeList,
+      visibleStaticDataModel: false,
       visibleSQLModel: false,
       visibleRestModel: false
     }
   },
   methods: {
+    handleConfigChange() {
+      if (this.item.chartData.dataSourceType === 'Static') {
+        this.$bus.$emit('handleStaticData')
+      } else if (this.item.chartData.dataSourceType === 'DataBase') {
+        this.$bus.$emit('handleDataBaseData')
+      } else if (this.item.chartData.dataSourceType === 'Rest') {
+        this.$bus.$emit('handleRestData')
+      } else if (this.item.chartData.dataSourceType === 'File') {
+        this.$bus.$emit('handleFileData')
+      }
+    },
     handleEditSQL() {
       this.visibleSQLModel = true
     },
@@ -160,7 +190,23 @@ export default {
     },
     handleStaticDataChange(value) {
       this.item.chartData.staticData = value
+    },
+    handleSetStaticData() {
+      this.$refs.staticData.setValue(this.item.chartData.staticData)
+      this.visibleStaticDataModel = false
     }
   }
 }
 </script>
+<style lang="less">
+.chart-data-option {
+  .fullscreen {
+    z-index: 99;
+    cursor: pointer;
+    position: absolute;
+    bottom: 25px;
+    right: 45px;
+    font-size: 20px;
+  }
+}
+</style>

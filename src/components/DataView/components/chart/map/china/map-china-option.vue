@@ -4,7 +4,7 @@
     <a-tabs>
       <a-tab-pane key="style" tab="样式">
         <common-chart-option :item="item" />
-        <a-collapse :bordered="false" :accordion="true">
+        <a-collapse :bordered="false">
           <a-collapse-panel key="视觉映射配置" header="视觉映射配置">
             <a-form :model="item" layout="horizontal" :label-col="{span: 6}" :wrapper-col="{span: 14, offset: 1}">
               <a-form-item label="显示">

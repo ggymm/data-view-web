@@ -11,19 +11,19 @@
       class="carousel-header"
     >
       <span
-        v-for="(data, index) in item.option.header.data"
+        v-for="(h, index) in item.option.header.data"
         :key="index"
         :style="{
-          width: data['width'],
+          width: h['width'],
           float: 'left',
           textAlign: 'center'
         }"
-      >{{ data['label'] }}</span>
+      >{{ h['label'] }}</span>
     </div>
     <div :style="{ height: item.option.body.rowNum * item.option.body.height + 'px' }" class="carousel-container">
       <ul class="carousel-list">
         <li
-          v-for="(data, index) in item.option.body.data"
+          v-for="(b, index) in item.option.body.data"
           :key="index"
           :style="{
             color: item.option.body.fontColor,
@@ -33,9 +33,9 @@
           }"
         >
           <span
-            v-for="(dataItem, childIndex) in data"
+            v-for="(dataItem, childIndex) in b"
             :key="childIndex"
-            :style="{width: item.option.header.data[childIndex]['width']}"
+            :style="{width: item.option.header.b[childIndex]['width']}"
           >{{ dataItem }}</span>
         </li>
       </ul>

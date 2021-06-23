@@ -12,7 +12,7 @@ export const dataSourceTypeList = [
   { label: '静态数据源', value: 'Static' },
   { label: '数据库数据源', value: 'DataBase' },
   { label: '接口数据源', value: 'Rest' },
-  { label: 'CSV文件数据源', value: 'CSV' }
+  { label: '文件数据源', value: 'File' }
 ]
 
 export const axisTypeList = [
@@ -72,6 +72,13 @@ export const gapPositionList = [
   { label: '右', value: 'right' }
 ]
 
+export const titlePositionList = [
+  { label: '标题在上', value: 'column' },
+  { label: '标题在下', value: 'column-reverse' },
+  { label: '标题在左', value: 'row' },
+  { label: '标题在右', value: 'row-reverse' }
+]
+
 export const symbolTypeList = [
   { label: 'circle', value: 'circle' },
   { label: 'rect', value: 'rect' },
@@ -81,4 +88,11 @@ export const symbolTypeList = [
   { label: 'pin', value: 'pin' },
   { label: 'arrow', value: 'arrow' },
   { label: 'none', value: 'none' }
+]
+
+export const alertSymbolTypeList = [
+  { label: '实心点', value: 'point' },
+  { label: '对号', value: '√' },
+  { label: '感叹号', value: '!' },
+  { label: '叉号', value: '✕' }
 ]

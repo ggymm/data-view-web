@@ -44,7 +44,7 @@
               :index="index"
               :active="item === currentItem"
             >
-              <slice
+              <chart
                 :id="item.elId"
                 :item="item"
                 :theme="screenConfig.theme"
@@ -71,8 +71,8 @@
         :reverse-arrow="true"
         collapsible
       >
-        <div v-if="currentItem === null" class="data-view-screen-option">
-          <a-form :model="screenConfig" layout="horizontal" :label-col="{span: 6}" :wrapper-col="{span: 14}">
+        <div v-if="currentItem === null" class="data-view-screen-option dark-theme">
+          <a-form class="dark" :model="screenConfig" layout="horizontal" :label-col="{span: 6}" :wrapper-col="{span: 14}">
             <a-form-item label="大屏标题">
               <a-input v-model="screenConfig.title" />
             </a-form-item>
@@ -110,7 +110,7 @@ import defaultSettings from '@/config'
 import OptionConfigMap from '@/components/DataView/components/config'
 import Layout from '@/components/DataView/layout-pro/layout'
 import Item from '@/components/DataView/layout-pro/item'
-import Slice from '@/components/DataView/common-pro/slice'
+import Chart from '@/components/DataView/common-pro/chart'
 import Layer from '@/components/DataView/common-pro/layer'
 import ChartOption from '@/components/DataView/common-pro/chart-option'
 
@@ -123,7 +123,7 @@ export default {
   components: {
     Layout,
     Item,
-    Slice,
+    Chart,
     Layer,
     ChartOption
   },

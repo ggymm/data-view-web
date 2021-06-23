@@ -114,7 +114,7 @@ export const menus = [
         'children': [
           {
             'key': 'EarlyWarning',
-            'icon': 'EarlyWarning',
+            'icon': 'EarlyWarningNew',
             'title': '预警点滴'
           }
         ]
@@ -131,14 +131,19 @@ export const menus = [
         'title': '轮播列表'
       },
       {
-        'key': 'Counter',
-        'icon': 'CounterNew',
-        'title': '计数器'
+        'key': 'NumberFlop',
+        'icon': 'NumberFlopNew',
+        'title': '数字翻牌器'
       },
       {
         'key': 'TitleText',
         'icon': 'TitleTextNew',
         'title': '标题文本'
+      },
+      {
+        'key': 'Counter',
+        'icon': 'CounterNew',
+        'title': '计数器'
       },
       {
         'key': 'Progress',

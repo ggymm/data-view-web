@@ -6,39 +6,31 @@
         <a-collapse :bordered="false">
           <a-collapse-panel key="文本配置" header="文本配置">
             <a-form layout="horizontal" :label-col="{span: 6}" :wrapper-col="{span: 14, offset: 1}">
-              <a-form-item label="颜色">
-                <a-input v-model="item.option.fontColor" />
-              </a-form-item>
-              <a-form-item label="字体">
-                <a-input-number v-model="item.option.fontSize" :min="0" :precision="0" />
-              </a-form-item>
-              <a-form-item label="高度">
-                <a-input-number v-model="item.option.height" :min="0" :precision="0" />
-              </a-form-item>
-              <a-form-item label="加粗">
-                <a-select v-model="item.option.fontWeight">
+              <a-form-item label="对齐方式">
+                <a-select v-model="item.option.align">
                   <a-select-option
-                    v-for="fontWeigh in fontWeightList"
-                    :key="fontWeigh.value"
-                    :value="fontWeigh.value"
-                  >
-                    {{ fontWeigh.label }}
-                  </a-select-option>
-                </a-select>
-              </a-form-item>
-              <a-form-item label="位置">
-                <a-select v-model="item.option.textAlign">
-                  <a-select-option
-                    v-for="position in positionList"
-                    :key="position.value"
-                    :value="position.value"
+                    v-for="(position, index) in positionList"
+                    :key="index"
+                    :value="index"
                   >
                     {{ position.label }}
                   </a-select-option>
                 </a-select>
               </a-form-item>
-              <a-form-item label="千分位分隔符">
-                <a-switch v-model="item.option.thousandth" />
+            </a-form>
+          </a-collapse-panel>
+          <a-collapse-panel key="标题配置" header="标题配置">
+            <a-form layout="horizontal" :label-col="{span: 6}" :wrapper-col="{span: 14, offset: 1}">
+              <a-form-item label="排列方式">
+                <a-select v-model="item.option.title.position">
+                  <a-select-option
+                    v-for="titlePosition in titlePositionList"
+                    :key="titlePosition.value"
+                    :value="titlePosition.value"
+                  >
+                    {{ titlePosition.label }}
+                  </a-select-option>
+                </a-select>
               </a-form-item>
             </a-form>
           </a-collapse-panel>
@@ -109,7 +101,7 @@
 <script>
 import CommonOption from '@/components/DataView/common-option/option'
 import CommonDataOption from '@/components/DataView/common-option/data'
-import { fontWeightList, positionList } from '@/components/DataView/common-option/common'
+import { positionList, titlePositionList, fontWeightList } from '@/components/DataView/common-option/common'
 
 export default {
   name: 'CounterOption',
@@ -139,8 +131,9 @@ export default {
           'value': 'value'
         }
       ],
-      fontWeightList,
-      positionList
+      positionList,
+      titlePositionList,
+      fontWeightList
     }
   }
 }

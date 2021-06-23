@@ -64,11 +64,20 @@ export default {
     visible: {
       type: Boolean,
       default: false
+    },
+    width: {
+      type: String,
+      default: null
+    },
+    height: {
+      type: String,
+      default: null
     }
   },
   data() {
     return {
       max: false,
+      modalWidth: null,
       modalHeight: null
     }
   },
@@ -90,12 +99,37 @@ export default {
   },
   methods: {
     initDrag() {
-      let modalWidth = document.body.clientWidth / 2
-      this.modalHeight = document.body.clientHeight / 4 * 3
+      const width = document.body.clientWidth
+      const height = document.body.clientHeight
+
+      if (this.width) {
+        if (this.width.endsWith('%')) {
+          const present = parseInt(this.width.replace('%', ''))
+          this.modalWidth = width * present / 100
+        } else if (this.width.endsWith('px')) {
+          this.modalWidth = this.width.replace('px', '')
+        } else {
+          this.modalWidth = parseInt(this.width)
+        }
+      } else {
+        this.modalWidth = width / 2
+      }
+      if (this.height) {
+        if (this.width.endsWith('%')) {
+          const present = parseInt(this.height.replace('%', ''))
+          this.modalHeight = height * present / 100
+        } else if (this.height.endsWith('px')) {
+          this.modalHeight = this.height.replace('px', '')
+        } else {
+          this.modalHeight = parseInt(this.height)
+        }
+      } else {
+        this.modalHeight = height / 4 * 3
+      }
       const container = document.querySelector('#config-modal > div > div.ant-modal')
-      container.style.top = document.body.clientHeight / 8 + 'px'
-      container.style.left = modalWidth / 2 + 'px'
-      container.style.width = modalWidth + 'px'
+      container.style.top = (height - this.modalHeight) / 2 + 'px'
+      container.style.left = (width - this.modalWidth) / 2 + 'px'
+      container.style.width = this.modalWidth + 'px'
       container.style.height = this.modalHeight + 'px'
 
       const _this = this
@@ -191,11 +225,11 @@ export default {
           case 'left':
             container.style.left = e.clientX + 'px'
             container.style.width = r - e.clientX + 'px'
-            modalWidth = r - e.clientX
+            this.modalWidth = r - e.clientX
             break
           case 'right':
             container.style.width = e.clientX - l + 'px'
-            modalWidth = e.clientX - l
+            this.modalWidth = e.clientX - l
             break
           case 'top':
             container.style.top = e.clientY + 'px'
@@ -210,7 +244,7 @@ export default {
             // left
             container.style.left = e.clientX + 'px'
             container.style.width = r - e.clientX + 'px'
-            modalWidth = r - e.clientX
+            this.modalWidth = r - e.clientX
             // top
             container.style.top = e.clientY + 'px'
             container.style.height = b - e.clientY + 'px'
@@ -219,7 +253,7 @@ export default {
           case 'right-top':
             // right
             container.style.width = e.clientX - l + 'px'
-            modalWidth = e.clientX - l
+            this.modalWidth = e.clientX - l
             // top
             container.style.top = e.clientY + 'px'
             container.style.height = b - e.clientY + 'px'
@@ -229,7 +263,7 @@ export default {
             // left
             container.style.left = e.clientX + 'px'
             container.style.width = r - e.clientX + 'px'
-            modalWidth = r - e.clientX
+            this.modalWidth = r - e.clientX
             // bottom
             container.style.height = e.clientY - t + 'px'
             _this.modalHeight = e.clientY - t
@@ -237,7 +271,7 @@ export default {
           case 'right-bottom':
             // right
             container.style.width = e.clientX - l + 'px'
-            modalWidth = e.clientX - l
+            this.modalWidth = e.clientX - l
             // bottom
             container.style.height = e.clientY - t + 'px'
             _this.modalHeight = e.clientY - t
@@ -260,6 +294,7 @@ export default {
       this.$emit('close')
     },
     confirm() {
+      this.$emit('confirm')
     }
   }
 }

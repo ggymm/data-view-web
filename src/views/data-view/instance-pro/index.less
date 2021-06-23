@@ -31,8 +31,8 @@
 
   .data-view-header {
     z-index: 99;
-    height: 50px;
-    line-height: 50px;
+    height: 48px;
+    line-height: 48px;
     padding: 0 20px;
     display: flex;
     align-items: center;
@@ -58,8 +58,8 @@
 
     .data-view-menu {
       display: flex;
-      height: 50px;
-      line-height: 50px;
+      height: 48px;
+      line-height: 48px;
     }
 
     .handler {
@@ -69,8 +69,8 @@
       margin-right: -10px;
 
       i {
-        width: 50px;
-        height: 50px;
+        width: 48px;
+        height: 48px;
         font-size: 20px;
         display: flex;
         align-items: center;
@@ -92,8 +92,8 @@
       top: unset;
       bottom: 0;
       z-index: 9;
-      height: 35px;
-      line-height: 35px;
+      height: 36px;
+      line-height: 36px;
     }
 
     .data-view-layer {
@@ -113,8 +113,8 @@
         width: 200px;
         z-index: 99;
         font-size: 13px;
-        height: 35px;
-        line-height: 35px;
+        height: 36px;
+        line-height: 36px;
         color: var(--text-2);
         text-align: center;
         text-indent: 2px;
@@ -140,7 +140,7 @@
           display: flex;
           flex: none;
           width: 100%;
-          height: 50px;
+          height: 48px;
           padding: 0 5px;
           position: relative;
           color: #bcc8d4;
@@ -173,7 +173,7 @@
             background-color: #282a30;
 
             i {
-              font-size: 18px;
+              font-size: 25px;
             }
           }
 
@@ -270,7 +270,7 @@
 
               .rotate-handler {
                 position: absolute;
-                top: -35px;
+                top: -36px;
                 left: 50%;
                 transform: translateX(-50%);
                 cursor: grab;
@@ -385,8 +385,8 @@
       }
 
       .ant-layout-footer {
-        height: 35px;
-        line-height: 35px;
+        height: 36px;
+        line-height: 36px;
         padding: 0 40px;
         background-color: #001529;
         display: flex;
@@ -457,14 +457,14 @@
 
         .ant-tabs-bar {
           position: fixed;
-          top: 50px;
+          top: 48px;
           width: 400px;
-          margin: 0;
+          margin-top: 1px;
           z-index: 99;
         }
 
         .ant-tabs-content {
-          margin-top: 44px;
+          margin-top: 46px;
 
           .ant-collapse {
             background-color: var(--background-2);
@@ -495,45 +495,46 @@
           }
         }
       }
+    }
+  }
+}
+.dark-theme {
+  .ant-form {
+    padding: 20px;
+    color: var(--text-2);
+    background-color: var(--background-2);
 
-      .ant-form {
-        padding: 20px;
-        color: var(--text-2);
-        background-color: var(--background-2);
+    label {
+      color: var(--text-2);
+    }
 
-        label {
+    .ant-input,
+    .ant-switch,
+    .ant-input-number,
+    .ant-select-selection {
+      color: var(--input-text-color);
+      background-color: var(--input-background);
+      border: 1px solid #5a5a5a;
+    }
+
+    .ant-select-arrow {
+      color: var(--text-2);
+    }
+
+    .ant-input-number-handler-wrap {
+      border: none;
+      background-color: var(--input-background);
+
+      .ant-input-number-handler {
+        &:active {
+          background-color: var(--input-background);
+        }
+
+        i {
           color: var(--text-2);
         }
 
-        .ant-input,
-        .ant-switch,
-        .ant-input-number,
-        .ant-select-selection {
-          color: var(--input-text-color);
-          background-color: var(--input-background);
-          border: 1px solid #5a5a5a;
-        }
-
-        .ant-select-arrow {
-          color: var(--text-2);
-        }
-
-        .ant-input-number-handler-wrap {
-          border: none;
-          background-color: var(--input-background);
-
-          .ant-input-number-handler {
-            &:active {
-              background-color: var(--input-background);
-            }
-
-            i {
-              color: var(--text-2);
-            }
-
-            border: 1px solid #0b0c0d;
-          }
-        }
+        border: 1px solid #0b0c0d;
       }
     }
   }

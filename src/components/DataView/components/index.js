@@ -104,6 +104,13 @@ import CounterOption from './other/counter/counter-option'
 Vue.component('Counter', Counter)
 Vue.component('CounterOption', CounterOption)
 
+// 数字翻牌器
+import NumberFlop from './other/number-flop/number-flop'
+import NumberFlopOption from './other/number-flop/number-flop-option'
+
+Vue.component('NumberFlop', NumberFlop)
+Vue.component('NumberFlopOption', NumberFlopOption)
+
 // 标题文本
 import TitleText from './other/title-text/title-text'
 import TitleTextOption from './other/title-text/title-text-option'

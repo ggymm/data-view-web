@@ -13,6 +13,7 @@ const FunnelNormalConfig = function() {
     refresh: 'false',
     chartData: {
       dataSourceType: '',
+      staticData: '{}',
       database: '',
       fileName: '',
       name: 'name',

@@ -1,6 +1,7 @@
 <template>
   <component
     :is="currentItem.chartType + 'Option'"
+    class="dark-theme"
     :item="currentItem"
     :data-source-list="dataSourceList"
   />

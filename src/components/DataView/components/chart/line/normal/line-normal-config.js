@@ -13,6 +13,7 @@ const LineNormalConfig = function() {
     refresh: 'false',
     chartData: {
       dataSourceType: '',
+      staticData: '{}',
       database: '',
       fileName: '',
       dimension: '无',

@@ -13,6 +13,7 @@ const CarouselListConfig = function() {
     refresh: 'false',
     chartData: {
       dataSourceType: '',
+      staticData: '{}',
       database: '',
       fileName: '',
       sql: 'select * from carousel_list'

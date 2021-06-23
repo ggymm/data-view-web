@@ -1,11 +1,11 @@
-const CounterConfig = function() {
+const NumberFlopConfig = function() {
   this.config = {
     x: 0,
     y: 0,
     width: 200,
     height: 50,
-    chartName: '计数器',
-    chartType: 'Counter',
+    chartName: '数字翻牌器',
+    chartType: 'NumberFlop',
     rotate: 0,
     show: 'true',
     lock: 'false',
@@ -24,12 +24,22 @@ const CounterConfig = function() {
     },
     interval: 8000,
     option: {
-      fontColor: '#ffffff',
-      fontSize: 16,
-      height: 50,
-      fontWeight: 'normal',
-      textAlign: 'center',
-      thousandth: true,
+      padding: 20,
+      align: 'left',
+      title: {
+        position: 'column',
+        fontColor: '#ffffff',
+        fontSize: 16,
+        fontWeight: 'normal',
+        thousandth: true
+      },
+      number: {
+        fontColor: '#ffffff',
+        fontSize: 16,
+        fontWeight: 'normal',
+        fontFamily: 'arial',
+        thousandth: true
+      },
       prefix: {
         title: '某某数据：',
         fontColor: '#ffffff',
@@ -46,8 +56,8 @@ const CounterConfig = function() {
   }
 }
 
-const getCounterConfig = function() {
-  return new CounterConfig().config
+const getNumberFlopConfig = function() {
+  return new NumberFlopConfig().config
 }
 
-export { getCounterConfig }
+export { getNumberFlopConfig }

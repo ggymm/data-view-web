@@ -12,6 +12,7 @@ const GaugeConfig = function() {
     refresh: 'false',
     chartData: {
       dataSourceType: '',
+      staticData: '{}',
       database: '',
       fileName: '',
       sql: 'select name,value from gauge',

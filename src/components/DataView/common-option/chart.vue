@@ -1,6 +1,6 @@
 <!--suppress JSUnresolvedVariable, JSUnusedLocalSymbols -->
 <template>
-  <a-collapse :bordered="false" :accordion="true">
+  <a-collapse :bordered="false">
     <a-collapse-panel key="自定义配色" header="自定义配色">
       <a-form layout="horizontal" :label-col="{span: 6}" :wrapper-col="{span: 14, offset: 1}">
         <a-form-item label="颜色列表">

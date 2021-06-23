@@ -24,6 +24,7 @@ import { getEarlyWarningConfig } from './scene/operation/early-warning-config'
 // ================================================== 其他 ==================================================
 import { getCarouselListConfig } from './other/carousel-list/carousel-list-config'
 import { getCounterConfig } from './other/counter/counter-config'
+import { getNumberFlopConfig } from './other/number-flop/number-flop-config'
 import { getTitleTextConfig } from './other/title-text/title-text-config'
 import { getProgressConfig } from './other/progress/progress-config'
 import { getPictureConfig } from './other/picture/picture-config'
@@ -51,6 +52,7 @@ const OptionConfigMap = {
 
   'CarouselList': getCarouselListConfig,
   'Counter': getCounterConfig,
+  'NumberFlop': getNumberFlopConfig,
   'TitleText': getTitleTextConfig,
   'Progress': getProgressConfig,
   'picture': getPictureConfig

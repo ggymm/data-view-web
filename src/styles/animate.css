@@ -1,0 +1,29 @@
+@keyframes alert_wave {
+    0% {
+        transform: scale(1);
+        opacity: 0.1;
+    }
+    25% {
+        transform: scale(1.4);
+        opacity: 0.2;
+    }
+    50% {
+        transform: scale(1.8);
+        opacity: 0.3;
+    }
+    75% {
+        transform: scale(2.2);
+        opacity: 0.4;
+    }
+    100% {
+        transform: scale(2.6);
+        opacity: 0;
+    }
+}
+
+.alert-wave {
+    animation-name: alert_wave;
+    animation-iteration-count: infinite;
+    animation-duration: 1100ms;
+    animation-timing-function: ease-out;
+}
