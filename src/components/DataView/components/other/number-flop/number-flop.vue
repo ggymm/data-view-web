@@ -1,11 +1,27 @@
 <template>
   <div class="number-flop" :style="getItemStyle()">
-    <span class="number-flop-title" :style="getTitleStyle()">标题</span>
-    <span class="number-flop-number" :style="getNumberStyle()">数据</span>
+    <span v-if="item.option.title.show" class="number-flop-title" :style="getTitleStyle()">
+      {{ item.option.title.text }}
+    </span>
+    <span class="number-flop-number" :style="getNumberStyle()">
+      <span v-if="item.option.prefix.show" :style="getPrefixStyle()">
+        {{ item.option.prefix.text }}
+      </span>
+      <span class="number-flop-numbers">
+        <span v-for="(n, index) in getNumbers()" :key="index" :style="getNumberItemStyle()">
+          <span>{{ n }}</span>
+        </span>
+      </span>
+      <span v-if="item.option.suffix.show" :style="getSuffixStyle()">
+        {{ item.option.suffix.text }}
+      </span>
+    </span>
   </div>
 </template>
 
 <script>
+import { formatNumber } from '@/utils/number'
+
 export default {
   name: 'NumberFlop',
   props: {
@@ -19,20 +35,32 @@ export default {
   },
   data() {
     return {
-      positive: {
-        'left': 'flex-start',
-        'center': 'center',
-        'right': 'flex-end'
-      }
+      positive: ['flex-start', 'center', 'flex-end'],
+      numbers: []
+    }
+  },
+  computed: {
+    data() {
+      return this.item.data
     }
   },
   methods: {
+    getNumbers() {
+      const { number } = this.item.option
+      let value = formatNumber(this.data.value,
+        number.decimal, number.decimalSep,
+        number.thousandth ? number.thousandthSep : null)
+      if (value.length < number.digit) {
+        value = (Array(number.digit).join('0') + value).slice(-number.digit)
+      }
+      return value
+    },
     getItemStyle() {
       const align = this.item.option.align
       const position = this.item.option.title.position
       const style = {
         width: `${this.item.width}px`,
-        height: `${this.item.height}px,`,
+        height: `${this.item.height}px`,
         padding: `${this.item.option.padding}px`,
         flexDirection: position
       }
@@ -49,20 +77,39 @@ export default {
       return style
     },
     getTitleStyle() {
-      const position = this.item.option.title.position
-      if (position.startsWith('column')) {
-        return { [`margin${position.endsWith('reverse') ? 'Top' : 'Bottom'}`]: '10px' }
-      } else {
-        return { [`margin${position.endsWith('reverse') ? 'Left' : 'Right'}`]: '10px' }
+      const { title } = this.item.option
+      const style = {
+        color: title.fontColor,
+        fontSize: `${title.fontSize}px`,
+        fontWeight: title.fontWeight
       }
+      if (title.position.startsWith('column')) {
+        style[`margin${title.position.endsWith('reverse') ? 'Top' : 'Bottom'}`] = `${title.margin}px`
+      } else {
+        style[`margin${title.position.endsWith('reverse') ? 'Left' : 'Right'}`] = `${title.margin}px`
+      }
+      return style
     },
     getNumberStyle() {
-      switch (this.item.option.title.position) {
-        case 'top':
-          return { flex: '1 1 0%' }
-        case 'bottom':
-          return { flex: '1 1 0%' }
+      if (this.item.option.title.position.startsWith('column')) {
+        return { flex: '1 1 0%' }
       }
+    },
+    getNumberItemStyle() {
+      return {
+        display: 'flex',
+        height: '100%',
+        alignItems: 'center',
+        justifyContent: 'center',
+        fontFamily: 'arial',
+        fontSize: '20px',
+        margin: '0 1px 0 1px',
+        color: '#ffffff'
+      }
+    },
+    getPrefixStyle() {
+    },
+    getSuffixStyle() {
     }
   }
 }
@@ -80,6 +127,13 @@ export default {
   .number-flop-number {
     display: flex;
     align-items: baseline;
+
+    .number-flop-numbers {
+      display: flex;
+      flex: 1 1 0;
+      height: 100%;
+      align-items: baseline;
+    }
   }
 }
 </style>

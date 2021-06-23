@@ -25,29 +25,37 @@ const NumberFlopConfig = function() {
     interval: 8000,
     option: {
       padding: 20,
-      align: 'left',
+      align: 0,
       title: {
+        show: true,
+        text: '标题',
         position: 'column',
+        margin: 10,
         fontColor: '#ffffff',
         fontSize: 16,
-        fontWeight: 'normal',
-        thousandth: true
+        fontWeight: 'normal'
       },
       number: {
         fontColor: '#ffffff',
         fontSize: 16,
         fontWeight: 'normal',
         fontFamily: 'arial',
-        thousandth: true
+        digit: 0,
+        decimal: 0,
+        decimalSep: '.',
+        thousandth: true,
+        thousandthSep: ','
       },
       prefix: {
-        title: '某某数据：',
+        show: false,
+        text: '某某数据：',
         fontColor: '#ffffff',
         fontSize: 16,
         fontWeight: 'normal'
       },
-      unit: {
-        title: '单位',
+      suffix: {
+        show: false,
+        text: '单位',
         fontColor: '#ffffff',
         fontSize: 16,
         fontWeight: 'normal'
