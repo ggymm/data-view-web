@@ -95,7 +95,9 @@
               <a-form-item label="间隔">
                 <a-input-number v-model="item.option.number.space" :min="0" :precision="0" />
               </a-form-item>
-              <a-form-item label="背景图" />
+              <a-form-item label="背景图">
+                <upload-image height="120px" />
+              </a-form-item>
             </a-form>
           </a-collapse-panel>
           <a-collapse-panel key="数字格式配置" header="数字格式配置">
@@ -192,6 +194,7 @@
 </template>
 
 <script>
+import UploadImage from '@/components/UploadImage/index'
 import CommonOption from '@/components/DataView/common-option/option'
 import CommonDataOption from '@/components/DataView/common-option/data'
 import { positionList, titlePositionList, fontWeightList, fontFamilyList } from '@/components/DataView/common-option/common'
@@ -199,6 +202,7 @@ import { positionList, titlePositionList, fontWeightList, fontFamilyList } from 
 export default {
   name: 'CounterOption',
   components: {
+    UploadImage,
     CommonOption,
     CommonDataOption
   },
