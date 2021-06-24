@@ -35,7 +35,7 @@
           <span
             v-for="(dataItem, childIndex) in b"
             :key="childIndex"
-            :style="{width: item.option.header.b[childIndex]['width']}"
+            :style="{width: item.option.header.data[childIndex]['width']}"
           >{{ dataItem }}</span>
         </li>
       </ul>
@@ -75,7 +75,6 @@ export default {
   },
   watch: {
     data: {
-      deep: true,
       handler() {
         this.setData()
         this.$nextTick(function() {
@@ -98,7 +97,6 @@ export default {
   },
   async mounted() {
     this.setData()
-
     this.container = document.getElementById(this.item.elId).querySelector('.carousel-list')
     const _this = this
     const animationEndHandler = () => {
