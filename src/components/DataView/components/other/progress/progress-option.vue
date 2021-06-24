@@ -19,7 +19,7 @@
             <a-switch v-model="item.option.showInfo" checked-children="显示" un-checked-children="不显示" />
           </a-form-item>
           <template v-if="item.option.showInfo">
-            <a-form-item label="字体大小">
+            <a-form-item label="字号">
               <a-input-number v-model="item.option.info.fontSize" :min="0" :precision="0" />
             </a-form-item>
             <a-form-item label="字体颜色">

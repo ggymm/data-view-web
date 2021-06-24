@@ -9,7 +9,7 @@
               <a-form-item label="颜色">
                 <a-input v-model="item.option.fontColor" />
               </a-form-item>
-              <a-form-item label="字体">
+              <a-form-item label="字号">
                 <a-input-number v-model="item.option.fontSize" :min="0" :precision="0" />
               </a-form-item>
               <a-form-item label="高度">
@@ -50,7 +50,7 @@
               <a-form-item label="颜色">
                 <a-input v-model="item.option.prefix.fontColor" />
               </a-form-item>
-              <a-form-item label="字体">
+              <a-form-item label="字号">
                 <a-input-number v-model="item.option.prefix.fontSize" :min="0" :precision="0" />
               </a-form-item>
               <a-form-item label="加粗">
@@ -74,7 +74,7 @@
               <a-form-item label="颜色">
                 <a-input v-model="item.option.unit.fontColor" />
               </a-form-item>
-              <a-form-item label="字体">
+              <a-form-item label="字号">
                 <a-input-number v-model="item.option.unit.fontSize" :min="0" :precision="0" />
               </a-form-item>
               <a-form-item label="加粗">

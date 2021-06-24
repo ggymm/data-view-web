@@ -17,10 +17,14 @@ export function formatNumber(number, decimal, dec_sep, thousands_sep) {
   const t = (typeof thousands_sep === 'undefined') ? ',' : thousands_sep
   // 小数分隔符
   const d = (typeof dec_sep === 'undefined') ? '.' : dec_sep
+
+  // 执行保留小数
   const toFixedFix = function(n, p) {
     return n.toString().replace(new RegExp(`^(.*\\..{${p}}).*$`), '$1')
   }
   const s = (p ? toFixedFix(n, p) : '' + Math.round(n)).split('.')
+
+  // 执行千分位分割
   const re = /(-?\d+)(\d{3})/
   if (t) {
     while (re.test(s[0])) {

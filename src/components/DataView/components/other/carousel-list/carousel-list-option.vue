@@ -14,7 +14,7 @@
               <a-form-item label="字体颜色">
                 <a-input v-model="item.option.header.fontColor" />
               </a-form-item>
-              <a-form-item label="字体大小">
+              <a-form-item label="字号">
                 <a-input-number v-model="item.option.header.fontSize" :min="0" :precision="0" />
               </a-form-item>
               <div v-for="(header, i) in item.option.header.data" :key="i">
@@ -35,7 +35,7 @@
               <a-form-item label="字体颜色">
                 <a-input v-model="item.option.body.fontColor" />
               </a-form-item>
-              <a-form-item label="字体大小">
+              <a-form-item label="字号">
                 <a-input-number v-model="item.option.body.fontSize" :min="0" :precision="0" />
               </a-form-item>
               <a-form-item label="显示行数">

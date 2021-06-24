@@ -96,3 +96,16 @@ export const alertSymbolTypeList = [
   { label: '感叹号', value: '!' },
   { label: '叉号', value: '✕' }
 ]
+
+export const fontFamilyList = [
+  { label: '微软雅黑', value: '微软雅黑' },
+  { label: '楷体', value: '楷体' },
+  { label: '宋体', value: '宋体' },
+  { label: 'arial', value: 'arial' },
+  { label: 'tahoma', value: 'tahoma' },
+  { label: 'BankGothic-Regular', value: 'BankGothic-Regular' },
+  { label: '液晶数字', value: 'LcdD' },
+  { label: 'Abduction2002', value: 'Abduction2002' },
+  { label: 'AgencyFB-Regular', value: 'AgencyFB-Regular' },
+  { label: 'DIN-BlackItalicAlt', value: 'DIN-BlackItalicAlt' }
+]

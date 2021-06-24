@@ -7,8 +7,8 @@
       <span v-if="item.option.prefix.show" :style="getPrefixStyle()">
         {{ item.option.prefix.text }}
       </span>
-      <span class="number-flop-numbers">
-        <span v-for="(n, index) in getNumbers()" :key="index" :style="getNumberItemStyle()">
+      <span class="number-flop-numbers" :style="getNumbersStyle()">
+        <span v-for="(n, index) in getNumbers()" :key="index" :style="getNumberItemStyle(n)">
           <span>{{ n }}</span>
         </span>
       </span>
@@ -95,16 +95,28 @@ export default {
         return { flex: '1 1 0%' }
       }
     },
-    getNumberItemStyle() {
+    getNumbersStyle() {
+      const { number } = this.item.option
       return {
         display: 'flex',
         height: '100%',
         alignItems: 'center',
         justifyContent: 'center',
-        fontFamily: 'arial',
-        fontSize: '20px',
-        margin: '0 1px 0 1px',
-        color: '#ffffff'
+        color: number.fontColor,
+        fontSize: `${number.fontSize}px`,
+        fontFamily: number.fontFamily
+      }
+    },
+    getNumberItemStyle(n) {
+      const { number } = this.item.option
+      if (n === number.decimalSep || n === number.thousandthSep) {
+        return {
+          margin: '0'
+        }
+      } else {
+        return {
+          margin: `0 ${number.space}px`
+        }
       }
     },
     getPrefixStyle() {
@@ -129,10 +141,7 @@ export default {
     align-items: baseline;
 
     .number-flop-numbers {
-      display: flex;
       flex: 1 1 0;
-      height: 100%;
-      align-items: baseline;
     }
   }
 }

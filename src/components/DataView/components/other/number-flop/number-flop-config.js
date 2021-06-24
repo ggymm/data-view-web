@@ -40,6 +40,7 @@ const NumberFlopConfig = function() {
         fontSize: 16,
         fontWeight: 'normal',
         fontFamily: 'arial',
+        space: 1,
         digit: 0,
         decimal: 0,
         decimalSep: '.',
