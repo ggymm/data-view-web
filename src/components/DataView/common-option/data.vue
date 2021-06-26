@@ -129,6 +129,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 import CodeEditor from '@/components/CodeEditor'
 import ModalPro from '@/components/ModelPro'
 import { dataSourceTypeList } from './common'
@@ -166,6 +167,16 @@ export default {
       visibleStaticDataModel: false,
       visibleSQLModel: false,
       visibleRestModel: false
+    }
+  },
+  computed: mapState([
+    'currentItem'
+  ]),
+  watch: {
+    currentItem: function() {
+      if (this.item.chartData.dataSourceType === 'Static') {
+        this.$refs.staticData.setValue(this.item.chartData.staticData)
+      }
     }
   },
   methods: {
