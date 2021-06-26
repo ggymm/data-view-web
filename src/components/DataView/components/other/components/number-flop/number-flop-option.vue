@@ -43,7 +43,7 @@
                   </a-select>
                 </a-form-item>
                 <a-form-item label="颜色">
-                  <a-input v-model="item.option.title.fontColor" />
+                  <a-input v-model="item.option.title.color" />
                 </a-form-item>
                 <a-form-item label="字号">
                   <a-input-number v-model="item.option.title.fontSize" :min="0" :precision="0" />
@@ -65,7 +65,7 @@
           <a-collapse-panel key="数字样式配置" header="数字样式配置">
             <a-form layout="horizontal" :label-col="{span: 6}" :wrapper-col="{span: 14, offset: 1}">
               <a-form-item label="颜色">
-                <a-input v-model="item.option.number.fontColor" />
+                <a-input v-model="item.option.number.color" />
               </a-form-item>
               <a-form-item label="字体">
                 <a-select v-model="item.option.number.fontFamily">
@@ -96,7 +96,12 @@
                 <a-input-number v-model="item.option.number.space" :min="0" :precision="0" />
               </a-form-item>
               <a-form-item label="背景图">
-                <upload-image height="120px" />
+                <upload-image
+                  height="120px"
+                  :image-type="'number_flop_background'"
+                  :image-url="item.option.number.backgroundImage"
+                  @uploaded="handleBackgroundUploaded"
+                />
               </a-form-item>
             </a-form>
           </a-collapse-panel>
@@ -126,13 +131,27 @@
               </a-form-item>
               <template v-if="item.option.prefix.show">
                 <a-form-item label="内容">
-                  <a-input v-model="item.option.prefix.title" />
+                  <a-input v-model="item.option.prefix.text" />
+                </a-form-item>
+                <a-form-item label="间隔">
+                  <a-input-number v-model="item.option.prefix.right" :min="0" :precision="0" />
                 </a-form-item>
                 <a-form-item label="颜色">
-                  <a-input v-model="item.option.prefix.fontColor" />
+                  <a-input v-model="item.option.prefix.color" />
                 </a-form-item>
                 <a-form-item label="字号">
                   <a-input-number v-model="item.option.prefix.fontSize" :min="0" :precision="0" />
+                </a-form-item>
+                <a-form-item label="字体">
+                  <a-select v-model="item.option.prefix.fontFamily">
+                    <a-select-option
+                      v-for="fontFamily in fontFamilyList"
+                      :key="fontFamily.value"
+                      :value="fontFamily.value"
+                    >
+                      {{ fontFamily.label }}
+                    </a-select-option>
+                  </a-select>
                 </a-form-item>
                 <a-form-item label="加粗">
                   <a-select v-model="item.option.prefix.fontWeight">
@@ -155,13 +174,27 @@
               </a-form-item>
               <template v-if="item.option.suffix.show">
                 <a-form-item label="内容">
-                  <a-input v-model="item.option.suffix.title" />
+                  <a-input v-model="item.option.suffix.text" />
+                </a-form-item>
+                <a-form-item label="间隔">
+                  <a-input-number v-model="item.option.suffix.left" :min="0" :precision="0" />
                 </a-form-item>
                 <a-form-item label="颜色">
-                  <a-input v-model="item.option.suffix.fontColor" />
+                  <a-input v-model="item.option.suffix.color" />
                 </a-form-item>
                 <a-form-item label="字号">
                   <a-input-number v-model="item.option.suffix.fontSize" :min="0" :precision="0" />
+                </a-form-item>
+                <a-form-item label="字体">
+                  <a-select v-model="item.option.suffix.fontFamily">
+                    <a-select-option
+                      v-for="fontFamily in fontFamilyList"
+                      :key="fontFamily.value"
+                      :value="fontFamily.value"
+                    >
+                      {{ fontFamily.label }}
+                    </a-select-option>
+                  </a-select>
                 </a-form-item>
                 <a-form-item label="加粗">
                   <a-select v-model="item.option.suffix.fontWeight">
@@ -194,7 +227,7 @@
 </template>
 
 <script>
-import UploadImage from '@/components/UploadImage/index'
+import UploadImage from '@/components/UploadImage'
 import CommonOption from '@/components/DataView/common-option/option'
 import CommonDataOption from '@/components/DataView/common-option/data'
 import { positionList, titlePositionList, fontWeightList, fontFamilyList } from '@/components/DataView/common-option/common'
@@ -232,6 +265,11 @@ export default {
       titlePositionList,
       fontWeightList,
       fontFamilyList
+    }
+  },
+  methods: {
+    handleBackgroundUploaded(url) {
+      this.item.option.number.backgroundImage = url
     }
   }
 }

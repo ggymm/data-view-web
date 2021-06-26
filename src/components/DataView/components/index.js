@@ -90,77 +90,44 @@ Vue.component('EarlyWarningOption', EarlyWarningOption)
 
 // ================================================== 3D ==================================================
 // ================================================== 其他 ==================================================
+// 标题文本
+import TitleText from './other/auxiliary/title-text/title-text'
+import TitleTextOption from './other/auxiliary/title-text/title-text-option'
+
+Vue.component('TitleText', TitleText)
+Vue.component('TitleTextOption', TitleTextOption)
+
+// 图片
+import ImageChart from './other/auxiliary/image/image'
+import ImageChartOption from './other/auxiliary/image/image-option'
+
+Vue.component('ImageChart', ImageChart)
+Vue.component('ImageChartOption', ImageChartOption)
+
 // 轮播列表
-import CarouselList from './other/carousel-list/carousel-list'
-import CarouselListOption from './other/carousel-list/carousel-list-option'
+import CarouselList from './other/components/carousel-list/carousel-list'
+import CarouselListOption from './other/components/carousel-list/carousel-list-option'
 
 Vue.component('CarouselList', CarouselList)
 Vue.component('CarouselListOption', CarouselListOption)
 
 // 计数器
-import Counter from './other/counter/counter'
-import CounterOption from './other/counter/counter-option'
+import Counter from './other/components/counter/counter'
+import CounterOption from './other/components/counter/counter-option'
 
 Vue.component('Counter', Counter)
 Vue.component('CounterOption', CounterOption)
 
 // 数字翻牌器
-import NumberFlop from './other/number-flop/number-flop'
-import NumberFlopOption from './other/number-flop/number-flop-option'
+import NumberFlop from './other/components/number-flop/number-flop'
+import NumberFlopOption from './other/components/number-flop/number-flop-option'
 
 Vue.component('NumberFlop', NumberFlop)
 Vue.component('NumberFlopOption', NumberFlopOption)
 
-// 标题文本
-import TitleText from './other/title-text/title-text'
-import TitleTextOption from './other/title-text/title-text-option'
-
-Vue.component('TitleText', TitleText)
-Vue.component('TitleTextOption', TitleTextOption)
-
 // 进度条
-import Progress from './other/progress/progress'
-import ProgressOption from './other/progress/progress-option'
+import Progress from './other/components/progress/progress'
+import ProgressOption from './other/components/progress/progress-option'
 
 Vue.component('Progress', Progress)
 Vue.component('ProgressOption', ProgressOption)
-
-export {
-  ScatterNormal,
-  ScatterNormalOption,
-
-  LineNormal,
-  LineNormalOption,
-  LineArea,
-  LineAreaOption,
-
-  HistogramNormal,
-  HistogramNormalOption,
-  PictorialBar,
-  PictorialBarOption,
-
-  MapChina,
-  MapChinaOption,
-
-  PieNormal,
-  PieNormalOption,
-
-  RadarNormal,
-  RadarNormalOption,
-
-  WordCloud,
-  WordCloudOption,
-  Gauge,
-  GaugeOption,
-  FunnelNormal,
-  FunnelNormalOption,
-
-  CarouselList,
-  CarouselListOption,
-  Counter,
-  CounterOption,
-  TitleText,
-  TitleTextOption,
-  Progress,
-  ProgressOption
-}

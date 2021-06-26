@@ -7,7 +7,9 @@
       name="file"
       accept="image/*"
       :show-upload-list="false"
+      :data="{'imageType': imageType}"
       :action="imageBasicUrl+'/api/v1/image/'"
+      @change="handleUploadChange"
     >
       <a-button class="upload-button" type="primary">上传</a-button>
     </a-upload>
@@ -30,6 +32,12 @@ export default {
         return '100px'
       }
     },
+    imageType: {
+      type: String,
+      default() {
+        return ''
+      }
+    },
     imageUrl: {
       type: String,
       default() {
@@ -45,12 +53,19 @@ export default {
   methods: {
     getImageStyle() {
       return {
-        backgroundImage: `url(${this.imageUrl})`,
+        backgroundImage: `url(${this.imageBasicUrl}${this.imageUrl})`,
         backgroundRepeat: 'no-repeat',
         backgroundPosition: 'center center',
         backgroundSize: 'contain',
         width: '100%',
         height: '100%'
+      }
+    },
+    handleUploadChange({ file }) {
+      if (file.status === 'done') {
+        if (file.response.success) {
+          this.$emit('uploaded', file.response.data)
+        }
       }
     }
   }
@@ -101,6 +116,10 @@ export default {
     font-size: 16px;
     width: 16px;
     margin: 0 4px;
+
+    &:hover {
+      color: var(--primary-color);
+    }
   }
 
   .image-upload {
@@ -108,7 +127,7 @@ export default {
   }
 
   .image-delete {
-    right: 12px;
+    right: 8px;
   }
 }
 

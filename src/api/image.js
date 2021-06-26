@@ -3,10 +3,11 @@ import defaultSettings from '@/config'
 
 const baseUrl = defaultSettings.serviceBaseUrl
 
-export function getImageList() {
+export function getImageList(params) {
   return request({
     url: baseUrl + 'image/list',
-    method: 'get'
+    method: 'get',
+    params: params
   })
 }
 

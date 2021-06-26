@@ -16,6 +16,7 @@
             </span>
             <span class="layer-item-label">
               <span v-if="item.chartType === 'TitleText'">{{ item.option.title }}</span>
+              <span v-else-if="item.chartType === 'ImageChart'">{{ item.chartName }}</span>
               <span v-else-if="item.chartType === 'CarouselList'">{{ item.chartName }}</span>
               <span v-else-if="item.chartType === 'Counter'">{{ item.chartName }}</span>
               <span v-else>

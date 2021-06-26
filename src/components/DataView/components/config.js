@@ -22,12 +22,13 @@ import { getEarlyWarningConfig } from './scene/operation/early-warning-config'
 
 // ================================================== 3D ==================================================
 // ================================================== 其他 ==================================================
-import { getCarouselListConfig } from './other/carousel-list/carousel-list-config'
-import { getCounterConfig } from './other/counter/counter-config'
-import { getNumberFlopConfig } from './other/number-flop/number-flop-config'
-import { getTitleTextConfig } from './other/title-text/title-text-config'
-import { getProgressConfig } from './other/progress/progress-config'
-import { getPictureConfig } from './other/picture/picture-config'
+import { getTitleTextConfig } from './other/auxiliary/title-text/title-text-config'
+import { getImageChartConfig } from './other/auxiliary/image/image-config'
+
+import { getCarouselListConfig } from './other/components/carousel-list/carousel-list-config'
+import { getCounterConfig } from './other/components/counter/counter-config'
+import { getNumberFlopConfig } from './other/components/number-flop/number-flop-config'
+import { getProgressConfig } from './other/components/progress/progress-config'
 
 const OptionConfigMap = {
   'ScatterNormal': getScatterNormalConfig,
@@ -50,12 +51,13 @@ const OptionConfigMap = {
 
   'EarlyWarning': getEarlyWarningConfig,
 
+  'TitleText': getTitleTextConfig,
+  'ImageChart': getImageChartConfig,
+
   'CarouselList': getCarouselListConfig,
   'Counter': getCounterConfig,
   'NumberFlop': getNumberFlopConfig,
-  'TitleText': getTitleTextConfig,
-  'Progress': getProgressConfig,
-  'picture': getPictureConfig
+  'Progress': getProgressConfig
 }
 
 export default OptionConfigMap

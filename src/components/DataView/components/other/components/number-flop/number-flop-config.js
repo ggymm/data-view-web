@@ -31,12 +31,12 @@ const NumberFlopConfig = function() {
         text: '标题',
         position: 'column',
         margin: 10,
-        fontColor: '#ffffff',
+        color: '#ffffff',
         fontSize: 16,
         fontWeight: 'normal'
       },
       number: {
-        fontColor: '#ffffff',
+        color: '#ffffff',
         fontSize: 16,
         fontWeight: 'normal',
         fontFamily: 'arial',
@@ -45,21 +45,26 @@ const NumberFlopConfig = function() {
         decimal: 0,
         decimalSep: '.',
         thousandth: true,
-        thousandthSep: ','
+        thousandthSep: ',',
+        backgroundImage: ''
       },
       prefix: {
         show: false,
-        text: '某某数据：',
-        fontColor: '#ffffff',
+        text: '',
+        right: 0,
+        color: '#ffffff',
         fontSize: 16,
-        fontWeight: 'normal'
+        fontWeight: 'normal',
+        fontFamily: ''
       },
       suffix: {
         show: false,
-        text: '单位',
-        fontColor: '#ffffff',
+        text: '',
+        left: 0,
+        color: '#ffffff',
         fontSize: 16,
-        fontWeight: 'normal'
+        fontWeight: 'normal',
+        fontFamily: ''
       }
     }
   }

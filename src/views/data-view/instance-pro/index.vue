@@ -204,7 +204,9 @@ export default {
       this.dataSourceList = response.data
     },
     async getImageList() {
-      const response = await getImageList()
+      const response = await getImageList({
+        'imageType': 'screen_background'
+      })
       this.backgroundImgList = response.data
     },
     async getDataView(instanceId) {

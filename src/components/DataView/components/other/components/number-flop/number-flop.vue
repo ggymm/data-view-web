@@ -79,7 +79,7 @@ export default {
     getTitleStyle() {
       const { title } = this.item.option
       const style = {
-        color: title.fontColor,
+        color: title.color,
         fontSize: `${title.fontSize}px`,
         fontWeight: title.fontWeight
       }
@@ -102,26 +102,43 @@ export default {
         height: '100%',
         alignItems: 'center',
         justifyContent: 'center',
-        color: number.fontColor,
+        color: number.color,
         fontSize: `${number.fontSize}px`,
         fontFamily: number.fontFamily
       }
     },
     getNumberItemStyle(n) {
       const { number } = this.item.option
-      if (n === number.decimalSep || n === number.thousandthSep) {
-        return {
-          margin: '0'
-        }
-      } else {
-        return {
-          margin: `0 ${number.space}px`
-        }
+      const style = {}
+      if (number.backgroundImage) {
+        style.background = `url(${number.backgroundImage}) no-repeat center center`
       }
+      if (n === number.decimalSep || n === number.thousandthSep) {
+        style.margin = '0'
+      } else {
+        style.margin = `0 ${number.space}px`
+      }
+      return style
     },
     getPrefixStyle() {
+      const { prefix } = this.item.option
+
+      return {
+        color: prefix.color,
+        marginRight: `${prefix.right}px`,
+        fontSize: `${prefix.fontSize}px`,
+        fontFamily: prefix.fontFamily
+      }
     },
     getSuffixStyle() {
+      const { suffix } = this.item.option
+
+      return {
+        color: suffix.color,
+        marginLeft: `${suffix.left}px`,
+        fontSize: `${suffix.fontSize}px`,
+        fontFamily: suffix.fontFamily
+      }
     }
   }
 }

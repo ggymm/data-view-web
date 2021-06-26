@@ -126,29 +126,51 @@ export const menus = [
     'title': '其他',
     'children': [
       {
-        'key': 'CarouselList',
-        'icon': 'CarouselListNew',
-        'title': '轮播列表'
+        'key': 'Auxiliary',
+        'title': '辅助',
+        'children': [
+          {
+            'key': 'TitleText',
+            'icon': 'TitleTextNew',
+            'title': '标题文本'
+          },
+          {
+            'key': 'ImageChart',
+            'icon': 'ImageChartNew',
+            'title': '图片'
+          },
+          {
+            'key': 'Frame',
+            'icon': 'FrameNew',
+            'title': '边框'
+          }
+        ]
       },
       {
-        'key': 'NumberFlop',
-        'icon': 'NumberFlopNew',
-        'title': '数字翻牌器'
-      },
-      {
-        'key': 'TitleText',
-        'icon': 'TitleTextNew',
-        'title': '标题文本'
-      },
-      {
-        'key': 'Counter',
-        'icon': 'CounterNew',
-        'title': '计数器'
-      },
-      {
-        'key': 'Progress',
-        'icon': 'ProgressNew',
-        'title': '进度条'
+        'key': 'Components',
+        'title': '组件',
+        'children': [
+          {
+            'key': 'CarouselList',
+            'icon': 'CarouselListNew',
+            'title': '轮播列表'
+          },
+          {
+            'key': 'NumberFlop',
+            'icon': 'NumberFlopNew',
+            'title': '数字翻牌器'
+          },
+          {
+            'key': 'Counter',
+            'icon': 'CounterNew',
+            'title': '计数器'
+          },
+          {
+            'key': 'Progress',
+            'icon': 'ProgressNew',
+            'title': '进度条'
+          }
+        ]
       }
     ]
   },
