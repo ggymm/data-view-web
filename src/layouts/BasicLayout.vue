@@ -11,7 +11,6 @@
   >
     <template v-slot:menuHeaderRender>
       <div>
-        <logo-svg />
         <h1>{{ title }}</h1>
       </div>
     </template>
@@ -29,13 +28,11 @@ import { CONTENT_WIDTH_TYPE, SIDEBAR_TYPE, TOGGLE_MOBILE_TYPE } from '@/store/mu
 
 import defaultSettings from '@/config'
 import RightContent from '@/components/GlobalHeader/RightContent'
-import LogoSvg from '../assets/logo.svg?inline'
 
 export default {
   name: 'BasicLayout',
   components: {
-    RightContent,
-    LogoSvg
+    RightContent
   },
   data() {
     return {

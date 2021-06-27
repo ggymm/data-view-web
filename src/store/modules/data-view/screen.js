@@ -5,6 +5,8 @@ export default {
   state: {
     slices: [],
     currentItem: null,
+    currentIndex: 0,
+
     // 图表状态
     moving: false,
     resizing: false,
@@ -63,8 +65,9 @@ export default {
           break
       }
     },
-    setCurrentItem(state, item) {
+    setCurrentItem(state, { item, index }) {
       state.currentItem = item
+      state.currentIndex = index
     },
     setResizeStatus(state, status) {
       state.resizing = status

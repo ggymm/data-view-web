@@ -17,6 +17,9 @@
                   </a-select-option>
                 </a-select>
               </a-form-item>
+              <a-form-item label="边距">
+                <a-input-number v-model="item.option.padding" :min="0" :precision="0" />
+              </a-form-item>
             </a-form>
           </a-collapse-panel>
           <a-collapse-panel key="标题配置" header="标题配置">

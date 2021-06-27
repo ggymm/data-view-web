@@ -7,7 +7,7 @@
           <div
             :id="`layer-${item.elId}`"
             :class="['layer-item', {'active': item === currentItem}]"
-            @mousedown="handleSelect(item)"
+            @mousedown="handleSelect(item, index)"
             @mouseenter="item.hover = true"
             @mouseleave="item.hover = false"
           >
@@ -97,8 +97,8 @@ export default {
     })
   },
   methods: {
-    handleSelect(item) {
-      this.$store.commit('setCurrentItem', item)
+    handleSelect(item, index) {
+      this.$store.commit('setCurrentItem', { item: item, index: index })
     },
     handleTop(index) {
       this.$store.commit('moveItem', { i: index, type: 'top' })

@@ -102,6 +102,7 @@
 </template>
 
 <script>
+import hotkeys from 'hotkeys-js'
 import html2canvas from 'html2canvas'
 import { mapState } from 'vuex'
 import { menus } from './menu'
@@ -181,6 +182,20 @@ export default {
     }
   },
   mounted() {
+    const _this = this
+    hotkeys('ctrl+c, ctrl+v', function(event, handler) {
+      switch (handler.key) {
+        case 'ctrl+c':
+          _this.$store.commit('itemCopy')
+          break
+        case 'ctrl+v':
+          _this.$store.commit('itemPaste', { mouse: false })
+          break
+      }
+    })
+  },
+  beforeDestroy() {
+    hotkeys.unbind('ctrl+c, ctrl+v')
   },
   methods: {
     handleDragStart(event, key) {
@@ -197,7 +212,7 @@ export default {
       this.$store.commit('addItem', newItem)
     },
     handleItemUnChoose() {
-      this.$store.commit('setCurrentItem', null)
+      this.$store.commit('setCurrentItem', { item: null, index: -1 })
     },
     async getDataSourceList() {
       const response = await getDataSourceList()
@@ -319,24 +334,6 @@ export default {
       return new Blob([ia], { type: 'image/png' })
     },
     async handleDebug() {
-      const container = document.getElementById('data-view-layout')
-      // 需要移除transform属性
-      const { transform } = container.style
-      container.style.transform = 'scale(1) translate(0px, 0px)'
-
-      const params = {
-        logger: true,
-        allowTaint: true,
-        useCORS: true,
-        scrollX: 0,
-        scrollY: 0,
-        width: this.screenConfig.width,
-        height: this.screenConfig.height
-      }
-      const canvas = await html2canvas(container, params)
-
-      container.style.transform = transform
-      console.log(canvas.toDataURL('image/png'))
     }
   }
 }

@@ -103,7 +103,7 @@ export default {
       ev.preventDefault()
     },
     handleItemChoose() {
-      this.$store.commit('setCurrentItem', this.item)
+      this.$store.commit('setCurrentItem', { item: this.item, index: this.index })
       this.$bus.$emit('layer:itemChange')
     },
     handleRotate(ev) {

@@ -29,6 +29,12 @@ const CarouselListConfig = function() {
     },
     interval: 8000,
     option: {
+      index: {
+        show: false,
+        width: 16,
+        height: 16,
+        background: []
+      },
       header: {
         show: true,
         height: 50,
