@@ -26,7 +26,7 @@
                   </a-select-option>
                 </a-select>
               </a-form-item>
-              <a-form-item label="位置">
+              <a-form-item label="对齐">
                 <a-select v-model="item.option.textAlign">
                   <a-select-option
                     v-for="position in positionList"

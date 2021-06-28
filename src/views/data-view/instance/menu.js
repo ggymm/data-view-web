@@ -164,7 +164,7 @@ export const menus = [
         'title': '组件',
         'children': [
           {
-            'version': 1,
+            'version': 2,
             'key': 'CarouselList',
             'icon': 'CarouselListNew',
             'title': '轮播列表'

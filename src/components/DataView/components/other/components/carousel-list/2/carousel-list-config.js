@@ -36,19 +36,25 @@ const CarouselListConfig = function() {
         height: 16,
         background: []
       },
+      carousel: {
+        show: true,
+        speed: 3,
+        rowNum: 5
+      },
+      column: [],
       header: {
         show: true,
         height: 50,
         fontColor: '#ffffff',
         fontSize: 13,
+        textAlign: [],
         data: []
       },
       body: {
         height: 30,
         fontColor: '#e2e2e2',
         fontSize: 12,
-        speed: 3,
-        rowNum: 5,
+        textAlign: [],
         data: []
       }
     }

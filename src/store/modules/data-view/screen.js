@@ -66,6 +66,8 @@ export default {
       }
     },
     setCurrentItem(state, { item, index }) {
+      // 每次选中，重置复制次数
+      state.copyNum = 1
       state.currentItem = item
       state.currentIndex = index
     },

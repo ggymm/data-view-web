@@ -111,6 +111,12 @@ import CarouselListOption_1 from './other/components/carousel-list/1/carousel-li
 Vue.component('CarouselList_1', CarouselList_1)
 Vue.component('CarouselListOption_1', CarouselListOption_1)
 
+import CarouselList_2 from './other/components/carousel-list/2/carousel-list'
+import CarouselListOption_2 from './other/components/carousel-list/2/carousel-list-option'
+
+Vue.component('CarouselList_2', CarouselList_2)
+Vue.component('CarouselListOption_2', CarouselListOption_2)
+
 // 计数器
 import Counter_1 from './other/components/counter/1/counter'
 import CounterOption_1 from './other/components/counter/1/counter-option'
