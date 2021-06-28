@@ -4,7 +4,6 @@
     <a-card :bordered="false">
       <div class="handle">
         <div class="table-operator">
-          <a-button type="primary" icon="plus" @click="handleCreatePro">新建（Pro）</a-button>
           <a-button type="primary" icon="plus" @click="handleCreate">新建</a-button>
           <a-button type="primary" icon="bug" @click="handleDebug">调试</a-button>
         </div>
@@ -84,9 +83,6 @@ export default {
       this.pagination.total = response.data.count
     },
     handleFilter() {
-    },
-    handleCreatePro() {
-      window.open(this.routerBase + 'data-view-instance/index')
     },
     handleCreate() {
       window.open(this.routerBase + 'data-view-instance/index')

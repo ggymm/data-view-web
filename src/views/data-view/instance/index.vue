@@ -7,12 +7,12 @@
         <a-sub-menu v-for="menu in menus" :key="menu.key">
           <span slot="title">{{ menu.title }}<a-icon type="caret-down" style="margin-left: 5px" /></span>
           <template v-for="child in menu.children">
-            <a-menu-item v-if="child.children === undefined" :key="child.key" :draggable="true" @dragstart="handleDragStart($event, child.key)">
+            <a-menu-item v-if="child.children === undefined" :key="child.key" :draggable="true" @dragstart="handleDragStart($event, child.key, child.version)">
               <icon class="chart-type-icon" :type="`icon-${child.icon}`" />
               <span>{{ child.title }}</span>
             </a-menu-item>
             <a-sub-menu v-else :key="child.key" :title="child.title">
-              <a-menu-item v-for="grandson in child.children" :key="grandson.key" :draggable="true" @dragstart="handleDragStart($event, grandson.key)">
+              <a-menu-item v-for="grandson in child.children" :key="grandson.key" :draggable="true" @dragstart="handleDragStart($event, grandson.key, grandson.version)">
                 <icon class="chart-type-icon" :type="`icon-${grandson.icon}`" />
                 <span>{{ grandson.title }}</span>
               </a-menu-item>
@@ -198,15 +198,15 @@ export default {
     hotkeys.unbind('ctrl+c, ctrl+v')
   },
   methods: {
-    handleDragStart(event, key) {
-      event.dataTransfer.setData('key', key)
+    handleDragStart(event, key, version) {
+      event.dataTransfer.setData('type', `${key}_${version}`)
     },
     handleDragOver(event) {
       event.preventDefault()
     },
     handleDrop(event) {
-      const key = event.dataTransfer.getData('key')
-      const newItem = OptionConfigMap[key]()
+      const type = event.dataTransfer.getData('type')
+      const newItem = OptionConfigMap[type]()
       newItem.x = event.offsetX - newItem.width / 2
       newItem.y = event.offsetY - newItem.height / 2
       this.$store.commit('addItem', newItem)
