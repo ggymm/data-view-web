@@ -133,35 +133,6 @@ export const asyncRouterMap = [
             meta: {
               title: '可视化大屏编辑'
             }
-          },
-          {
-            path: 'preview/:instance_id',
-            component: () => import('@/views/data-view/instance/preview'),
-            meta: {
-              title: '可视化大屏预览'
-            }
-          }
-        ]
-      },
-      {
-        path: '/data-view-instance-pro',
-        redirect: '/data-view-instance-pro/index',
-        component: RouteView,
-        hidden: true,
-        children: [
-          {
-            path: 'index',
-            component: () => import('@/views/data-view/instance-pro/index'),
-            meta: {
-              title: '可视化大屏创建'
-            }
-          },
-          {
-            path: 'index/:instance_id/:is_copy',
-            component: () => import('@/views/data-view/instance-pro/index'),
-            meta: {
-              title: '可视化大屏编辑'
-            }
           }
         ]
       }

@@ -1,73 +1,87 @@
 <template>
-  <div
-    :style="{background: backgroundColor,
-             backgroundImage: backgroundImg,
-             backgroundRepeat: 'no-repeat',
-             backgroundSize: '100% 100%'}"
-    class="data-view-layout"
-  >
-    <slot />
+  <div :style="screenWrapperStyle()">
+    <!-- 标尺 -->
+    <ruler />
+    <div
+      id="data-view-layout"
+      class="data-view-layout"
+      :style="layoutStyle()"
+    >
+      <slot />
+      <!-- 对齐线 -->
+      <mark-line />
+      <!-- 选中区域 -->
+      <choose-area v-show="isShowArea" :start="start" :width="width" :height="height" />
+    </div>
   </div>
 </template>
 
 <script>
-import Vue from 'vue'
+import { mapState } from 'vuex'
+import defaultSettings from '@/config'
+import Ruler from './ruler/index'
+import MarkLine from './mark-line'
+import ChooseArea from './area'
 
 export default {
   name: 'Layout',
-  provide() {
+  components: {
+    Ruler,
+    MarkLine,
+    ChooseArea
+  },
+  data() {
     return {
-      eventBus: null
+      imageBasicUrl: defaultSettings.imageBasicUrl,
+      editorX: 0,
+      editorY: 0,
+      start: {
+        x: 0,
+        y: 0
+      },
+      width: 0,
+      height: 0,
+      isShowArea: false
     }
   },
-  props: {
-    backgroundColor: {
-      type: String,
-      required: true,
-      default: '#263546'
-    },
-    backgroundImg: {
-      type: String,
-      default: ''
-    }
-  },
-  data: function() {
-    return {
-    }
-  },
-  watch: {},
-  created() {
-    const self = this
-    self.dragEventHandler = function(eventType, i, x, y, h, w) {
-      self.dragEvent(eventType, i, x, y, h, w)
-    }
-    self.resizeEventHandler = function(eventType, i, x, y, h, w) {
-      self.resizeEvent(eventType, i, x, y, h, w)
-    }
-    self._provided.eventBus = new Vue()
-    self.eventBus = self._provided.eventBus
-    self.eventBus.$on('dragEvent', self.dragEventHandler)
-    self.eventBus.$on('resizeEvent', self.resizeEventHandler)
-  },
-  beforeDestroy: function() {
-    this.eventBus.$off('dragEvent', this.dragEventHandler)
-    this.eventBus.$off('resizeEvent', this.resizeEventHandler)
-  },
+  computed: mapState([
+    'canvasConfig',
+    'screenConfig'
+  ]),
   methods: {
-    dragEvent: function(eventName, i, x, y, h, w) {
-      // 可能会有什么操作之类的
-      // 告诉Item层更新元素状态
-      this.eventBus.$emit('compact')
-      const layout = { i: i, x: x, y: y, h: h, w: w }
-      if (eventName === 'dragend') this.$emit('layoutUpdated', layout)
+    layoutStyle() {
+      let style = {
+        width: `${this.screenConfig.width}px`,
+        height: `${this.screenConfig.height}px`,
+        transform: `scale(${this.canvasConfig.scale}) translate(0px, 0px)`,
+        backgroundRepeat: 'no-repeat',
+        backgroundSize: '100% 100%'
+      }
+      if (this.screenConfig.backgroundImg.length !== 0) {
+        style = { ...style,
+          ...{
+            backgroundImage: `url(${this.imageBasicUrl}${this.screenConfig.backgroundImg})`
+          }
+        }
+      } else {
+        style = { ...style,
+          ...{
+            background: '#263546'
+          }
+        }
+      }
+      return style
     },
-    resizeEvent: function(eventName, i, x, y, h, w) {
-      // 可能会有什么操作之类的
-      // 告诉Item层更新元素状态
-      this.eventBus.$emit('compact')
-      const size = { i: i, h: h, w: w }
-      if (eventName === 'resizeend') this.$emit('sizeUpdate', size)
+    screenWrapperStyle() {
+      return {
+        width: `${this.canvasConfig.width}px`,
+        height: `${this.canvasConfig.height}px`
+      }
     }
   }
 }
 </script>
+
+<style scoped>
+
+</style>

@@ -1,119 +1,122 @@
 <!--suppress JSUnresolvedVariable, JSUnusedLocalSymbols -->
 <template>
-  <div class="data-view-container">
-    <div class="data-view-header">
-      <a-menu
-        class="data-view-menu"
-        mode="horizontal"
-        theme="dark"
-        :selectable="false"
-        :sub-menu-close-delay="0"
-      >
+  <a-layout class="data-view-container">
+    <a-layout-header class="data-view-header">
+      <a-icon class="back" type="left-circle" @click="handleBack()" />
+      <a-menu class="data-view-menu" mode="horizontal" theme="dark">
         <a-sub-menu v-for="menu in menus" :key="menu.key">
           <span slot="title">{{ menu.title }}<a-icon type="caret-down" style="margin-left: 5px" /></span>
-          <a-menu-item v-for="child in menu.children" :key="child.key" :draggable="true" @dragstart="dragItem($event, child.key)">
-            <icon :type="`icon-${child.icon}`" />
-            <span>{{ child.title }}</span>
-          </a-menu-item>
+          <template v-for="child in menu.children">
+            <a-menu-item v-if="child.children === undefined" :key="child.key" :draggable="true" @dragstart="handleDragStart($event, child.key)">
+              <icon class="chart-type-icon" :type="`icon-${child.icon}`" />
+              <span>{{ child.title }}</span>
+            </a-menu-item>
+            <a-sub-menu v-else :key="child.key" :title="child.title">
+              <a-menu-item v-for="grandson in child.children" :key="grandson.key" :draggable="true" @dragstart="handleDragStart($event, grandson.key)">
+                <icon class="chart-type-icon" :type="`icon-${grandson.icon}`" />
+                <span>{{ grandson.title }}</span>
+              </a-menu-item>
+            </a-sub-menu>
+          </template>
         </a-sub-menu>
       </a-menu>
-      <a-space class="data-view-handler">
-        <a-button type="primary" size="small" @click="handleSave">保存</a-button>
-        <a-button v-if="Object.keys(chooseItem).length >= 0" type="primary" size="small" @click="chooseItem = {}">画板设置</a-button>
-        <a-button type="primary" size="small" @click="previewScreen">预览</a-button>
-        <a-button type="primary" size="small" @click="debug">调试</a-button>
-      </a-space>
-    </div>
-    <div class="data-view-main">
-      <div ref="data-view-panel" class="data-view-panel">
-        <div
-          class="data-view-screen"
-          :style="{width: panelConfig.panelWidth + 40 + 'px', height: panelConfig.panelHeight + 40 + 'px'}"
-          @dragover="allowItemDrop"
-          @drop="itemDrop($event)"
+      <div class="handler">
+        <a-icon type="save" @click="handleSave()" />
+        <a-icon type="eye" />
+        <a-icon type="bug" @click="handleDebug()" />
+      </div>
+    </a-layout-header>
+    <a-layout class="data-view-main">
+      <a-layout-sider v-model="layerCollapsed" collapsed-width="0" collapsible>
+        <layer />
+      </a-layout-sider>
+      <a-layout class="data-view-screen">
+        <a-layout-content
+          id="screenWrapper"
+          class="data-view-screen-wrapper"
+          @mousedown="handleItemUnChoose"
         >
-          <layout
-            :background-color="panelConfig.backgroundColor"
-            :background-img="'url(' + imageBasicUrl + panelConfig.backgroundImg + ')'"
-            @layoutUpdated="handleLayoutUpdated"
-            @sizeUpdate="handleSizeUpdate"
-          >
+          <layout @dragover.native="handleDragOver" @drop.native="handleDrop">
             <item
               v-for="(item, index) in slices"
               :key="index"
-              :x.sync="item.x"
-              :y.sync="item.y"
-              :width.sync="item.width"
-              :height.sync="item.height"
-              :i="index"
-              :panel-width="panelConfig.panelWidth"
-              :panel-height="panelConfig.panelHeight"
-              drag-allow-from=".chart,.data-view-item"
-              drag-ignore-from=""
+              :item="item"
+              :index="index"
+              :active="item === currentItem"
             >
-              <slice
+              <chart
                 :id="item.elId"
                 :item="item"
-                :theme="panelConfig.instanceTheme"
-                @transferHandleItemChoose="handleItemChoose(item)"
+                :theme="screenConfig.theme"
               />
             </item>
           </layout>
-        </div>
-      </div>
-      <div class="data-view-option">
-        <div v-if="Object.keys(chooseItem).length === 0" class="data-view-option-panel">
-          <a-form :model="panelConfig" layout="horizontal" :label-col="{span: 6}" :wrapper-col="{span: 14}">
+        </a-layout-content>
+        <a-layout-footer class="data-view-screen-footer">
+          <a-button type="link" size="small" @click="$store.commit('autoCanvasScale')">自适应</a-button>
+          <a-slider
+            v-model="scale"
+            class="data-view-scale"
+            :min="20"
+            :max="200"
+            :marks="{ 100:{} }"
+          />
+        </a-layout-footer>
+      </a-layout>
+      <a-layout-sider
+        v-model="optionCollapsed"
+        class="data-view-option-panel"
+        width="400"
+        collapsed-width="0"
+        :reverse-arrow="true"
+        collapsible
+      >
+        <div v-if="currentItem === null" class="data-view-screen-option dark-theme">
+          <a-form class="dark" :model="screenConfig" layout="horizontal" :label-col="{span: 6}" :wrapper-col="{span: 14}">
             <a-form-item label="大屏标题">
-              <a-input v-model="panelConfig.title" />
+              <a-input v-model="screenConfig.title" />
             </a-form-item>
             <a-form-item label="画板宽度">
-              <a-input-number v-model="panelConfig.panelWidth" :min="1" :step="10" />
+              <a-input-number v-model="screenConfig.width" :min="1" :step="10" />
             </a-form-item>
             <a-form-item label="画板高度">
-              <a-input-number v-model="panelConfig.panelHeight" :min="1" :step="10" />
-            </a-form-item>
-            <a-form-item label="背景色">
-              <a-input v-model="panelConfig.backgroundColor" type="color" />
+              <a-input-number v-model="screenConfig.height" :min="1" :step="10" />
             </a-form-item>
             <a-form-item label="背景图">
-              <a-select v-model="panelConfig.backgroundImg">
+              <a-select v-model="screenConfig.backgroundImg">
                 <a-select-option
-                  v-for="backgroundImg in backgroundImgList"
-                  :key="backgroundImg.image_path"
-                  :value="backgroundImg.image_path"
+                  v-for="image in backgroundImgList"
+                  :key="image.image_path"
+                  :value="image.image_path"
                 >
-                  {{ backgroundImg.image_name }}
+                  {{ image.image_name }}
                 </a-select-option>
               </a-select>
             </a-form-item>
           </a-form>
         </div>
-        <chart-option
-          v-else
-          class="data-view-chart-option"
-          :data-source-list="dataSourceList"
-          :item="chooseItem"
-          @handleDeleteItem="handleDelete"
-        />
-      </div>
-    </div>
-  </div>
+        <chart-option v-else class="data-view-chart-option" :data-source-list="dataSourceList" />
+      </a-layout-sider>
+    </a-layout>
+  </a-layout>
 </template>
 
 <script>
+import hotkeys from 'hotkeys-js'
 import html2canvas from 'html2canvas'
-import { v4 as uuidv4 } from 'uuid'
+import { mapState } from 'vuex'
 import { menus } from './menu'
 import defaultSettings from '@/config'
+
+import OptionConfigMap from '@/components/DataView/components/config'
 import Layout from '@/components/DataView/layout/layout'
 import Item from '@/components/DataView/layout/item'
-import Slice from '@/components/DataView/common/slice'
+import Chart from '@/components/DataView/common/chart'
+import Layer from '@/components/DataView/common/layer'
 import ChartOption from '@/components/DataView/common/chart-option'
-import OptionConfigMap from '@/components/DataView/components/config'
 
-import { getImageList, saveThumbnail } from '@/api/image'
 import { getDataSourceList } from '@/api/data-source'
+import { getImageList, saveThumbnail } from '@/api/image'
 import { getDataView, saveDataView, updateDataView } from '@/api/data-view'
 
 export default {
@@ -121,97 +124,117 @@ export default {
   components: {
     Layout,
     Item,
-    Slice,
+    Chart,
+    Layer,
     ChartOption
   },
   data() {
     return {
       menus,
-      imageBasicUrl: defaultSettings.imageBasicUrl,
+      routerBase: defaultSettings.routerBase,
+      layerCollapsed: false,
+      optionCollapsed: false,
       loading: true,
       instanceId: null,
       isCopy: null,
-      slices: [],
       dataSourceList: [],
       backgroundImgList: [],
-      panelConfig: {
-        title: '',
-        // panelWidth: 1920,
-        panelWidth: 1452,
-        // panelHeight: 1080,
-        panelHeight: 842,
-        backgroundColor: '#263546',
-        backgroundImg: null,
-        instanceTheme: '',
-        instanceVersion: 1
-      },
-      chooseItem: {}
+      instanceVersion: 1
     }
   },
-  inject: ['reload'],
+  computed: {
+    scale: {
+      get() {
+        return this.$store.state.canvasConfig.scale * 100
+      },
+      set(val) {
+        this.$store.commit('setCanvasScale', val)
+      }
+    },
+    screenConfig: {
+      get() {
+        return this.$store.state.screenConfig
+      },
+      set(val) {
+        this.$store.commit('setScreenConfig', val)
+      }
+    },
+    ...mapState([
+      'slices',
+      'canvasConfig',
+      'currentItem'
+    ])
+  },
+  watch: {},
   created() {
+    // 初始化页面选项
     this.getDataSourceList()
     this.getImageList()
     const instanceId = this.$route.params.instance_id
     const isCopy = this.$route.params.is_copy
-    this.initPageStyle()
     if (instanceId) {
       this.instanceId = parseInt(instanceId)
       this.isCopy = parseInt(isCopy)
       this.getDataView(instanceId)
+    } else {
+      // 初始化默认缩放比例
+      this.$store.commit('autoCanvasScale')
     }
-    this.loading = false
+  },
+  mounted() {
+    const _this = this
+    hotkeys('ctrl+c, ctrl+v', function(event, handler) {
+      switch (handler.key) {
+        case 'ctrl+c':
+          _this.$store.commit('itemCopy')
+          break
+        case 'ctrl+v':
+          _this.$store.commit('itemPaste', { mouse: false })
+          break
+      }
+    })
+  },
+  beforeDestroy() {
+    hotkeys.unbind('ctrl+c, ctrl+v')
   },
   methods: {
-    dragItem(event, key) {
+    handleDragStart(event, key) {
       event.dataTransfer.setData('key', key)
     },
-    allowItemDrop(event) {
+    handleDragOver(event) {
       event.preventDefault()
     },
-    itemDrop(event) {
+    handleDrop(event) {
       const key = event.dataTransfer.getData('key')
       const newItem = OptionConfigMap[key]()
-      newItem.elId = uuidv4()
       newItem.x = event.offsetX - newItem.width / 2
       newItem.y = event.offsetY - newItem.height / 2
-      this.slices.push(newItem)
+      this.$store.commit('addItem', newItem)
     },
-    initPageStyle() {
-      const width = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth
-      const height = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight
-      this.panelConfig.panelWidth = width - 450 - 20 * 2
-      this.panelConfig.panelHeight = height - 50 - 20 * 2
+    handleItemUnChoose() {
+      this.$store.commit('setCurrentItem', { item: null, index: -1 })
     },
-    handleLayoutUpdated(layout) {
-      this.slices[layout.i].x = layout.x
-      this.slices[layout.i].y = layout.y
+    async getDataSourceList() {
+      const response = await getDataSourceList()
+      this.dataSourceList = response.data
     },
-    handleSizeUpdate(size) {
-      this.slices[size.i].width = size.w
-      this.slices[size.i].height = size.h
-    },
-    handleItemChoose(item) {
-      // 此处应该显示对应的Options
-      // 对应类别显示，数据则从数组里面取
-      this.chooseItem = item
-    },
-    handleDelete() {
-    },
-    getDataSourceList() {
-      getDataSourceList().then(response => {
-        this.dataSourceList = response.data
+    async getImageList() {
+      const response = await getImageList({
+        'imageType': 'screen_background'
       })
-    },
-    getImageList() {
-      getImageList().then(response => {
-        this.backgroundImgList = response.data
-      })
+      this.backgroundImgList = response.data
     },
     async getDataView(instanceId) {
       try {
         const response = await getDataView(instanceId)
-        const items = JSON.parse(JSON.stringify(response.data.chart_items))
+        // 渲染大屏数据
+        this.screenConfig.title = response.data.instance_title
+        this.screenConfig.width = response.data.instance_width
+        this.screenConfig.height = response.data.instance_height
+        this.screenConfig.backgroundImg = response.data.instance_background_img
+        this.$store.commit('autoCanvasScale')
+        // 渲染图表数据
+        const items = response.data.chart_items
         if (items !== null && items !== undefined && items.length > 0) {
           items.map((item) => {
             item.data = JSON.parse(item.data)
@@ -219,33 +242,15 @@ export default {
             item.option = JSON.parse(item.option)
             return item
           })
-          const panelConfig = {
-            title: response.data.instance_title,
-            panelWidth: response.data.instance_width,
-            panelHeight: response.data.instance_height,
-            backgroundColor: response.data.instance_background_color,
-            backgroundImg: response.data.instance_background_img,
-            instanceVersion: response.data.instance_version
-          }
-          this.panelConfig = JSON.parse(JSON.stringify(panelConfig))
-          this.slices = JSON.parse(JSON.stringify(items))
-        } else {
-          const panelConfig = {
-            title: response.data.instance_title,
-            panelWidth: response.data.instance_width,
-            panelHeight: response.data.instance_height,
-            backgroundColor: response.data.instance_background_color,
-            backgroundImg: response.data.instance_background_img,
-            instanceVersion: response.data.instance_version
-          }
-          this.panelConfig = JSON.parse(JSON.stringify(panelConfig))
-          this.slices = []
+          this.instanceVersion = response.data.instance_version
+          await this.$store.dispatch('setCharts', items)
         }
       } catch (e) {
         console.log('获取大屏信息或解析大屏信息失败', e)
-      } finally {
-        console.groupEnd()
       }
+    },
+    handleBack() {
+      window.open(this.routerBase + 'data-view/index')
     },
     async handleSave() {
       const thumbnail = await this.screenshot()
@@ -255,7 +260,8 @@ export default {
       }
 
       const items = JSON.parse(JSON.stringify(this.slices))
-      items.map((item) => {
+      items.map((item, index) => {
+        item.index = index
         item.data = JSON.stringify(item.data)
         item.chartData = JSON.stringify(item.chartData)
         item.option = JSON.stringify(item.option)
@@ -268,13 +274,12 @@ export default {
       }
       const screenInstance = {
         instance_id: this.instanceId,
-        instance_title: this.panelConfig.title,
-        instance_width: this.panelConfig.panelWidth,
-        instance_height: this.panelConfig.panelHeight,
-        instance_background_color: this.panelConfig.backgroundColor,
-        instance_background_img: this.panelConfig.backgroundImg,
+        instance_title: this.screenConfig.title,
+        instance_width: this.screenConfig.width,
+        instance_height: this.screenConfig.height,
+        instance_background_img: this.screenConfig.backgroundImg,
         instance_view_thumbnail: thumbnail.data,
-        instance_version: this.panelConfig.instanceVersion,
+        instance_version: this.instanceVersion,
         chart_items: items
       }
       if (this.instanceId) {
@@ -282,7 +287,7 @@ export default {
         const response = await updateDataView(screenInstance)
         if (response.success) {
           this.$message.success('更新成功')
-          window.location.href = '/data-view-web/data-view-instance/index/' + this.instanceId + '/0'
+          window.location.href = this.routerBase + 'data-view-instance-pro/index/' + this.instanceId + '/0'
         } else {
           this.$message.success('更新失败, ' + response.data)
         }
@@ -291,59 +296,30 @@ export default {
         if (response.success) {
           const instanceId = response.data
           this.$message.success('保存成功')
-          window.location.href = '/data-view-web/data-view-instance/index/' + instanceId + '/0'
+          window.location.href = this.routerBase + 'data-view-instance-pro/index/' + instanceId + '/0'
         } else {
           this.$message.success('保存失败, ' + response.data)
         }
       }
     },
-    previewScreen() {
-      if (this.instanceId) {
-        window.open('/data-view-web/data-view-instance/preview/' + this.instanceId)
-      } else {
-        this.$message.info('请先保存图表后预览')
-      }
-    },
     async screenshot() {
       const container = document.getElementById('data-view-layout')
-
-      const width = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth
-      const height = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight
-      const lw = width - 450 - 20 * 2
-      const lh = height
-
-      const w = this.panelConfig.panelWidth
-      const h = this.panelConfig.panelHeight
-
-      let nw, nh
-      if ((w / h) >= (lw / lh)) {
-        // 先适配宽度
-        nw = lw
-        nh = lw / (w / h)
-        container.style.transform = `scale(${nw / w}, ${nh / h})`
-        container.style.transformOrigin = `0 ${(lh - nh) / 2 + 'px'}`
-      } else {
-        nh = lh
-        nw = lh * (w / h)
-        container.style.transform = `scale(${nw / w}, ${nh / h})`
-        container.style.transformOrigin = `${(lw - nw) / 2 + 'px'} 0`
-      }
+      // 需要移除transform属性
+      const { transform } = container.style
+      container.style.transform = 'scale(1) translate(0px, 0px)'
 
       const params = {
-        scale: 0.94,
-        logging: false,
+        logger: false,
         allowTaint: true,
         useCORS: true,
         scrollX: 0,
         scrollY: 0,
-        width: nw,
-        height: nh
+        width: this.screenConfig.width,
+        height: this.screenConfig.height
       }
-
       const canvas = await html2canvas(container, params)
-      container.style.transform = ''
-      container.style.transformOrigin = ''
 
+      container.style.transform = transform
       const blob = this.dataURLtoBlob(canvas.toDataURL('image/png'))
       const formData = new FormData()
       formData.append('file', blob, `${new Date().getTime()}_thumbnail.png`)
@@ -357,14 +333,11 @@ export default {
       }
       return new Blob([ia], { type: 'image/png' })
     },
-    debug() {
-      this.screenshot()
-      console.log(JSON.stringify(this.slices))
+    async handleDebug() {
     }
   }
 }
 </script>
-
 <style lang="less">
 @import "index.less";
 </style>

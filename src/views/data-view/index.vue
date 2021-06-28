@@ -37,9 +37,6 @@
               <a-tooltip title="编辑" @click="handleEdit(item.instance_id)">
                 <a-icon type="edit" />
               </a-tooltip>
-              <a-tooltip title="编辑(Pro)" @click="handleEditPro(item.instance_id)">
-                <a-icon type="edit" />
-              </a-tooltip>
               <a-tooltip title="删除" @click="handleDelete(item.instance_id)">
                 <a-icon type="delete" />
               </a-tooltip>
@@ -89,7 +86,7 @@ export default {
     handleFilter() {
     },
     handleCreatePro() {
-      window.open(this.routerBase + 'data-view-instance-pro/index')
+      window.open(this.routerBase + 'data-view-instance/index')
     },
     handleCreate() {
       window.open(this.routerBase + 'data-view-instance/index')
@@ -102,9 +99,6 @@ export default {
     },
     handleEdit(instance_id) {
       window.open(this.routerBase + 'data-view-instance/index/' + instance_id + '/0')
-    },
-    handleEditPro(instance_id) {
-      window.open(this.routerBase + 'data-view-instance-pro/index/' + instance_id + '/0')
     },
     handleDelete() {
     }

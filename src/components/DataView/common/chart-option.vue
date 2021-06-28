@@ -1,26 +1,19 @@
 <template>
   <component
-    :is="item.chartType + 'Option'"
-    :item="item"
+    :is="currentItem.chartType + 'Option_' + currentItem.chartVersion"
+    class="dark-theme"
+    :item="currentItem"
     :data-source-list="dataSourceList"
-    @handleDeleteItem="handleDeleteItem"
-    @handleEditOption="handleEditOption"
-    @handleEditSql="handleEditSql"
   />
 </template>
 
 <script>
+import { mapState } from 'vuex'
 import '../components/index'
 
 export default {
   name: 'ChartOption',
   props: {
-    item: {
-      type: Object,
-      default() {
-        return {}
-      }
-    },
     dataSourceList: {
       type: Array,
       default() {
@@ -32,16 +25,12 @@ export default {
     return {
     }
   },
+  computed: mapState([
+    'currentItem'
+  ]),
   mounted() {
   },
   methods: {
-    handleDeleteItem(item) {
-      this.$emit('handleDeleteItem', item)
-    },
-    handleEditOption(option) {
-    },
-    handleEditSql(sql) {
-    }
   }
 }
 </script>

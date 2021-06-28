@@ -1,334 +1,264 @@
 <template>
-  <div ref="item" :style="position" class="data-view-item">
-    <slot />
-    <span ref="handle" :class="resizableHandleClass" />
+  <div
+    v-show="item.show === 'true'"
+    :class="{ active }"
+    :style="itemStyle()"
+    class="data-view-item"
+    @click="handleItemClick"
+    @mousedown.prevent.stop="handleMove"
+  >
+    <div
+      class="data-view-item-handler"
+      :class="itemHandlerClass()"
+      @mouseenter="item.hover = true"
+      @mouseleave="item.hover = false"
+    >
+      <a-icon v-show="isActive()" type="reload" class="rotate-handler" @mousedown.prevent.stop="handleRotate" />
+      <i
+        v-for="(v, k) in points()"
+        :key="k"
+        :class="[`${v.name}-handler`, v.name.indexOf('-') > 0 ? 'spot-handler' : 'line-handler']"
+      >
+        <span class="control-point" :style="v.style" @mousedown.prevent.stop="handleResize($event, k)" />
+      </i>
+      <slot />
+    </div>
   </div>
 </template>
 
 <script>
-import { getControlPosition, createCoreData } from './draggable'
-import interact from 'interactjs'
+import { mapState } from 'vuex'
+import { on, off } from '@/core/dom'
+import { getCursors, calcResizeInfo } from './calculate'
 
 export default {
   name: 'Item',
   props: {
-    x: {
+    active: {
+      type: Boolean,
+      default: false
+    },
+    item: {
+      type: Object,
+      default() {
+        return {}
+      }
+    },
+    index: {
       type: Number,
-      required: true
-    },
-    y: {
-      type: Number,
-      required: true
-    },
-    width: {
-      type: Number,
-      required: true
-    },
-    height: {
-      type: Number,
-      required: true
-    },
-    i: {
-      type: undefined,
-      required: true
-    },
-    panelWidth: {
-      type: Number,
-      required: true
-    },
-    panelHeight: {
-      type: Number,
-      required: true
-    },
-    dragIgnoreFrom: {
-      type: String,
-      required: false,
-      default: 'a, button'
-    },
-    dragAllowFrom: {
-      type: String,
-      required: false,
-      default: null
-    },
-    resizeIgnoreFrom: {
-      type: String,
-      required: false,
-      default: 'a, button'
-    },
-    minH: {
-      type: Number,
-      required: false,
-      default: 1
-    },
-    minW: {
-      type: Number,
-      required: false,
-      default: 1
-    },
-    maxH: {
-      type: Number,
-      required: false,
-      default: Infinity
-    },
-    maxW: {
-      type: Number,
-      required: false,
-      default: Infinity
+      default() {
+        return 0
+      }
     }
   },
-  inject: ['eventBus'],
-  data: function() {
-    return {
-      position: {},
-      interactObj: null,
-      dragEventSet: false,
-      resizeEventSet: false,
-      isDragging: false,
-      dragging: null,
-      isResizing: false,
-      resizing: null,
-      lastX: NaN,
-      lastY: NaN,
-      lastW: NaN,
-      lastH: NaN,
-      previousW: null,
-      previousH: null,
-      previousX: null,
-      previousY: null,
-      innerX: this.x,
-      innerY: this.y,
-      innerWidth: this.width,
-      innerHeight: this.height
-    }
+  data() {
+    return {}
   },
-  computed: {
-    resizableHandleClass() {
-      return 'vue-resizable-handle'
-    }
-  },
-  watch: {
-    x: function(newVal) {
-      this.innerX = newVal
-      this.createStyle()
-    },
-    y: function(newVal) {
-      this.innerY = newVal
-      this.createStyle()
-    },
-    width: function(newVal) {
-      this.innerWidth = newVal
-      this.createStyle()
-    },
-    height: function(newVal) {
-      this.innerHeight = newVal
-      this.createStyle()
-    }
-  },
-  created() {
-    const self = this
-    self.compactHandler = function(layout) {
-      self.compact(layout)
-    }
-    this.eventBus.$on('compact', self.compactHandler)
-  },
-  beforeDestroy: function() {
-    const self = this
-    this.eventBus.$off('compact', self.compactHandler)
-    this.interactObj.unset()
-  },
+  computed: mapState([
+    'resizing',
+    'canvasConfig',
+    'screenConfig',
+    'currentItem'
+  ]),
   mounted() {
-    this.createStyle()
-    this.draggable()
-    this.resizable()
   },
   methods: {
-    createStyle: function() {
-      var pos = { left: this.innerX, top: this.innerY, width: this.innerWidth, height: this.innerHeight }
-
-      if (this.isDragging) {
-        pos.top = this.dragging.top
-        pos.left = this.dragging.left
-      }
-      if (this.isResizing) {
-        pos.width = this.resizing.width
-        pos.height = this.resizing.height
-      }
-      this.position = {
-        top: pos.top + 'px',
-        left: pos.left + 'px',
-        width: pos.width + 'px',
-        height: pos.height + 'px'
+    itemStyle() {
+      return {
+        zIndex: this.index + 9,
+        top: 0,
+        left: 0,
+        width: `${this.item.width}px`,
+        height: `${this.item.height}px`,
+        transform: `translate(${this.item.x}px, ${this.item.y}px) rotate(${this.item.rotate}deg)`
       }
     },
-    draggable: function() {
-      var self = this
-      if (this.interactObj === null || this.interactObj === undefined) {
-        this.interactObj = interact(this.$refs['item'])
+    itemHandlerClass() {
+      // 当前组件不是选中的
+      // 当前组件没有正在进行拖拽
+      // 当前组件处于hover状态
+      return {
+        'hover': !this.isActive() && !this.resizing && this.item.hover
       }
-      var opts = {
-        ignoreFrom: this.dragIgnoreFrom,
-        allowFrom: this.dragAllowFrom
+    },
+    isActive() {
+      return this.active
+    },
+    points() {
+      const cursor = getCursors(this.item.rotate)
+      const transform = `scale(${1 / this.canvasConfig.scale}, ${1 / this.canvasConfig.scale})`
+      return {
+        't': { name: 'top', style: { cursor: cursor.t, transform }},
+        'rt': { name: 'top-right', style: { cursor: cursor.rt, transform }},
+        'r': { name: 'right', style: { cursor: cursor.r, transform }},
+        'rb': { name: 'bottom-right', style: { cursor: cursor.rb, transform }},
+        'b': { name: 'bottom', style: { cursor: cursor.b, transform }},
+        'lb': { name: 'bottom-left', style: { cursor: cursor.lb, transform }},
+        'l': { name: 'left', style: { cursor: cursor.l, transform }},
+        'lt': { name: 'top-left', style: { cursor: cursor.lt, transform }}
       }
-      this.interactObj.draggable(opts)
-      if (!this.dragEventSet) {
-        this.dragEventSet = true
-        this.interactObj.on('dragstart dragmove dragend', function(event) {
-          self.handleDrag(event)
+    },
+    handleItemClick(ev) {
+      ev.stopPropagation()
+      ev.preventDefault()
+    },
+    handleItemChoose() {
+      this.$store.commit('setCurrentItem', { item: this.item, index: this.index })
+      this.$bus.$emit('layer:itemChange')
+    },
+    handleRotate(ev) {
+      // 已经处于选中状态
+      const rect = this.$el.getBoundingClientRect()
+      const centerX = rect.left + rect.width / 2
+      const centerY = rect.top + rect.height / 2
+
+      const startAngle = Math.atan2(
+        centerY - ev.clientY,
+        centerX - ev.clientX
+      ) * 180 / Math.PI - this.item.rotate
+
+      let moved = false
+      const move = (e) => {
+        moved = true
+        this.setCursor('grab')
+        // 计算旋转角度
+        const angle = Math.atan2(
+          centerY - e.clientY,
+          centerX - e.clientX
+        ) * 180 / Math.PI - startAngle
+
+        const rotate = Math.round(angle % 360)
+        // 更新组件旋转信息
+        this.setItemStyle({ rotate: rotate < 0 ? rotate + 360 : rotate })
+      }
+
+      const up = () => {
+        this.setCursor('')
+        // 保存快照
+        if (moved) {
+          this.$store.dispatch('recordSnapshot')
+        }
+        // 移除监听
+        off(document, 'mousemove', move)
+        off(document, 'mouseup', up)
+      }
+
+      // 添加监听
+      on(document, 'mousemove', move)
+      on(document, 'mouseup', up)
+    },
+    handleResize(ev, direction) {
+      // 可能没有处于选中状态
+      // 需要设置选中状态
+      this.handleItemChoose()
+
+      const cursor = getCursors(this.item.rotate)
+      const style = {
+        x: Math.round(this.item.x * this.canvasConfig.scale),
+        y: Math.round(this.item.y * this.canvasConfig.scale),
+        width: Math.round(this.item.width * this.canvasConfig.scale),
+        height: Math.round(this.item.height * this.canvasConfig.scale),
+        rotate: this.item.rotate,
+        scale: this.canvasConfig.scale
+      }
+      // 组件中心点
+      const center = { x: style.x + style.width / 2, y: style.y + style.height / 2 }
+      // 获取画布位移信息
+      const layoutRect = document.querySelector('#data-view-layout').getBoundingClientRect()
+      // 当前点击坐标
+      const startPoint = { x: ev.clientX - layoutRect.left, y: ev.clientY - layoutRect.top }
+      // 获取对称点的坐标
+      const symmetricPoint = { x: center.x - (startPoint.x - center.x), y: center.y - (startPoint.y - center.y) }
+
+      let moved = false
+      const move = (e) => {
+        moved = true
+        this.setCursor(cursor[direction])
+        this.$store.commit('setResizeStatus', true)
+        // 计算新的位置
+        const newStyle = calcResizeInfo(direction, style, startPoint, symmetricPoint, {
+          x: e.clientX - layoutRect.left,
+          y: e.clientY - layoutRect.top
+        })
+        // 更新组件大小，位置信息
+        this.setItemStyle(newStyle)
+      }
+
+      const up = () => {
+        this.setCursor('')
+        this.$store.commit('setResizeStatus', false)
+        // 保存快照
+        if (moved) {
+          this.$store.dispatch('recordSnapshot')
+        }
+        // 移除监听
+        off(document, 'mousemove', move)
+        off(document, 'mouseup', up)
+      }
+
+      // 添加监听
+      on(document, 'mousemove', move)
+      on(document, 'mouseup', up)
+    },
+    handleMove(ev) {
+      // 设置选中状态
+      this.handleItemChoose()
+
+      const moveInfo = {
+        x: this.item.x,
+        y: this.item.y,
+        width: this.item.width,
+        height: this.item.height,
+        sWidth: this.screenConfig.width,
+        sHeight: this.screenConfig.height
+      }
+      const scale = this.canvasConfig.scale
+
+      let moved = false
+      const move = (e) => {
+        moved = true
+        this.setCursor('move')
+        const style = {
+          x: moveInfo.x + Math.round((e.clientX - ev.clientX) / scale),
+          y: moveInfo.y + Math.round((e.clientY - ev.clientY) / scale)
+        }
+        // 更新组件位置信息
+        this.setItemStyle(style)
+        // 等更新完当前组件的样式并绘制到屏幕后再判断是否需要吸附
+        // 如果不使用 $nextTick，吸附后将无法移动
+        this.$nextTick(() => {
+          // 触发元素移动事件，用于显示标线、吸附功能
+          this.$bus.$emit('moving', this.item)
         })
       }
-    },
-    resizable: function() {
-      var self = this
-      if (this.interactObj === null || this.interactObj === undefined) {
-        this.interactObj = interact(this.$refs['item'])
-      }
-      var opts = {
-        preserveAspectRatio: false,
-        edges: {
-          left: false,
-          right: '.' + this.resizableHandleClass,
-          bottom: '.' + this.resizableHandleClass,
-          top: false
-        },
-        ignoreFrom: this.resizeIgnoreFrom
+
+      const up = () => {
+        this.setCursor('')
+        // 通知移动完毕，隐藏对齐线
+        this.$bus.$emit('moved')
+        // 保存快照
+        if (moved) {
+          this.$store.dispatch('recordSnapshot')
+        }
+        // 移除监听
+        off(document, 'mousemove', move)
+        off(document, 'mouseup', up)
       }
 
-      this.interactObj.resizable(opts)
-      if (!this.resizeEventSet) {
-        this.resizeEventSet = true
-        this.interactObj.on('resizestart resizemove resizeend', function(event) {
-          self.handleResize(event)
-        })
-      }
+      // 添加监听
+      on(document, 'mousemove', move)
+      on(document, 'mouseup', up)
     },
-    handleDrag: function(event) {
-      // 正在缩放时不可以移动
-      if (this.isResizing) return
-      const position = getControlPosition(event)
-      if (position === null) return
-      const { x, y } = position
-      const newPosition = { top: 0, left: 0 }
-      switch (event.type) {
-        case 'dragstart':
-          this.previousX = this.innerX
-          this.previousY = this.innerY
-          var parentRect = event.target.offsetParent.getBoundingClientRect()
-          var clientRect = event.target.getBoundingClientRect()
-          newPosition.left = clientRect.left - parentRect.left
-          newPosition.top = clientRect.top - parentRect.top
-          this.dragging = newPosition
-          this.isDragging = true
-          break
-        case 'dragend':
-          if (!this.isDragging) return
-          parentRect = event.target.offsetParent.getBoundingClientRect()
-          clientRect = event.target.getBoundingClientRect()
-          newPosition.left = clientRect.left - parentRect.left
-          newPosition.top = clientRect.top - parentRect.top
-          this.innerX = newPosition.left
-          this.innerY = newPosition.top
-          this.dragging = null
-          this.isDragging = false
-          break
-        case 'dragmove':
-          var coreEvent = createCoreData(this.lastX, this.lastY, x, y)
-          newPosition.left = this.dragging.left + coreEvent.deltaX
-          newPosition.top = this.dragging.top + coreEvent.deltaY
-          var pos = this.calcXY(newPosition.left, newPosition.top)
-          newPosition.left = pos.left
-          newPosition.top = pos.top
-          this.dragging = newPosition
-          break
-      }
-      this.lastX = x
-      this.lastY = y
-      // 告诉父层，更新配置状态
-      this.eventBus.$emit('dragEvent', event.type, this.i, newPosition.left, newPosition.top, this.innerHeight, this.innerWidth)
+    setItemStyle(style) {
+      if (style.x) this.item.x = style.x
+      if (style.y) this.item.y = style.y
+      if (style.width) this.item.width = style.width
+      if (style.height) this.item.height = style.height
+      if (style.rotate) this.item.rotate = style.rotate
     },
-    calcXY(left, top) {
-      // 计算当前位置是否符合规则
-      return { left: Math.max(Math.min(left, this.panelWidth - this.innerWidth), 0),
-        top: Math.max(Math.min(top, this.panelHeight - this.innerHeight), 0) }
-    },
-    handleResize: function(event) {
-      const position = getControlPosition(event)
-      if (position == null) return
-      const { x, y } = position
-
-      const newSize = { width: 0, height: 0 }
-      switch (event.type) {
-        case 'resizestart':
-          this.previousW = this.innerWidth
-          this.previousH = this.innerHeight
-          newSize.width = this.innerWidth
-          newSize.height = this.innerHeight
-          this.resizing = newSize
-          this.isResizing = true
-          break
-        case 'resizemove':
-          var coreEvent = createCoreData(this.lastW, this.lastH, x, y)
-          newSize.width = this.resizing.width + coreEvent.deltaX
-          newSize.height = this.resizing.height + coreEvent.deltaY
-          this.resizing = newSize
-          break
-        case 'resizeend':
-          this.innerWidth = this.resizing.width
-          this.innerHeight = this.resizing.height
-          newSize.width = this.innerWidth
-          newSize.height = this.innerHeight
-          this.resizing = null
-          this.isResizing = false
-          break
-      }
-      // Get new WH
-      var nowPos = { h: newSize.height, w: newSize.width }
-      if (nowPos.w < this.minW) {
-        nowPos.w = this.minW
-      }
-      if (nowPos.w > this.maxW) {
-        nowPos.w = this.maxW
-      }
-      if (nowPos.h < this.minH) {
-        nowPos.h = this.minH
-      }
-      if (nowPos.h > this.maxH) {
-        nowPos.h = this.maxH
-      }
-      if (nowPos.h < 1) {
-        nowPos.h = 1
-      }
-      if (nowPos.w < 1) {
-        nowPos.w = 1
-      }
-      this.lastW = x
-      this.lastH = y
-
-      // 告诉父层，更新配置状态
-      this.eventBus.$emit('resizeEvent', event.type, this.i, this.innerX, this.innerY, nowPos.h, nowPos.w)
-    },
-    compact: function() {
-      this.createStyle()
+    setCursor(cursor) {
+      document.body.style.cursor = cursor
     }
   }
 }
 </script>
-
-<style>
-  .data-view-item {
-    position: absolute;
-  }
-  .data-view-item > .vue-resizable-handle {
-    position: absolute;
-    width: 20px;
-    height: 20px;
-    bottom: 0;
-    right: 0;
-    background: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBzdGFuZGFsb25lPSJubyI/Pg08IS0tIEdlbmVyYXRvcjogQWRvYmUgRmlyZXdvcmtzIENTNiwgRXhwb3J0IFNWRyBFeHRlbnNpb24gYnkgQWFyb24gQmVhbGwgKGh0dHA6Ly9maXJld29ya3MuYWJlYWxsLmNvbSkgLiBWZXJzaW9uOiAwLjYuMSAgLS0+DTwhRE9DVFlQRSBzdmcgUFVCTElDICItLy9XM0MvL0RURCBTVkcgMS4xLy9FTiIgImh0dHA6Ly93d3cudzMub3JnL0dyYXBoaWNzL1NWRy8xLjEvRFREL3N2ZzExLmR0ZCI+DTxzdmcgaWQ9IlVudGl0bGVkLVBhZ2UlMjAxIiB2aWV3Qm94PSIwIDAgNiA2IiBzdHlsZT0iYmFja2dyb3VuZC1jb2xvcjojZmZmZmZmMDAiIHZlcnNpb249IjEuMSINCXhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHhtbDpzcGFjZT0icHJlc2VydmUiDQl4PSIwcHgiIHk9IjBweCIgd2lkdGg9IjZweCIgaGVpZ2h0PSI2cHgiDT4NCTxnIG9wYWNpdHk9IjAuMzAyIj4NCQk8cGF0aCBkPSJNIDYgNiBMIDAgNiBMIDAgNC4yIEwgNCA0LjIgTCA0LjIgNC4yIEwgNC4yIDAgTCA2IDAgTCA2IDYgTCA2IDYgWiIgZmlsbD0iIzAwMDAwMCIvPg0JPC9nPg08L3N2Zz4=');
-    background-position: bottom right;
-    padding: 0 3px 3px 0;
-    background-repeat: no-repeat;
-    background-origin: content-box;
-    box-sizing: border-box;
-    cursor: se-resize;
-  }
-</style>

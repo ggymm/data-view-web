@@ -1,63 +1,65 @@
 // ================================================== 图表 ==================================================
-import { getScatterNormalConfig } from './chart/scatter/normal/scatter-normal-config'
+import { getScatterNormalConfig_1 } from './chart/scatter/normal/1/scatter-normal-config'
 
-import { getLineNormalConfig } from './chart/line/normal/line-normal-config'
-import { getLineAreaConfig } from './chart/line/area/line-area-config'
+import { getLineNormalConfig_1 } from './chart/line/normal/1/line-normal-config'
+import { getLineAreaConfig_1 } from './chart/line/area/1/line-area-config'
 
-import { getHistogramNormalConfig } from './chart/histogram/normal/histogram-normal-config'
-import { getPictorialBarConfig } from './chart/histogram/pictorial/pictorial-bar-config'
+import { getHistogramNormalConfig_1 } from './chart/histogram/normal/1/histogram-normal-config'
+import { getPictorialBarConfig_1 } from './chart/histogram/pictorial/1/pictorial-bar-config'
 
-import { getMapChinaConfig } from './chart/map/china/map-china-config'
+import { getMapChinaConfig_1 } from './chart/map/china/1/map-china-config'
 
-import { getPieNormalConfig } from './chart/pie/normal/pie-normal-config'
+import { getPieNormalConfig_1 } from './chart/pie/normal/1/pie-normal-config'
 
-import { getRadarNormalConfig } from './chart/radar/radar/radar-normal-config'
+import { getRadarNormalConfig_1 } from './chart/radar/radar/1/radar-normal-config'
 
-import { getWordCloudConfig } from './chart/other/word-cloud/word-cloud-config'
-import { getGaugeConfig } from './chart/other/gauge/gauge-config'
-import { getFunnelNormalConfig } from './chart/other/funnel/funnel-normal-config'
+import { getWordCloudConfig_1 } from './chart/other/word-cloud/1/word-cloud-config'
+import { getGaugeConfig_1 } from './chart/other/gauge/1/gauge-config'
+import { getFunnelNormalConfig_1 } from './chart/other/funnel/1/funnel-normal-config'
 
 // ================================================== 场景 ==================================================
-import { getEarlyWarningConfig } from './scene/operation/early-warning-config'
+import { getEarlyWarningConfig_1 } from './scene/operation/1/early-warning-config'
 
 // ================================================== 3D ==================================================
 // ================================================== 其他 ==================================================
-import { getTitleTextConfig } from './other/auxiliary/title-text/title-text-config'
-import { getImageChartConfig } from './other/auxiliary/image/image-config'
+import { getTitleTextConfig_1 } from './other/auxiliary/title-text/1/title-text-config'
+import { getImageChartConfig_1 } from './other/auxiliary/image/1/image-config'
 
-import { getCarouselListConfig } from './other/components/carousel-list/carousel-list-config'
-import { getCounterConfig } from './other/components/counter/counter-config'
-import { getNumberFlopConfig } from './other/components/number-flop/number-flop-config'
-import { getProgressConfig } from './other/components/progress/progress-config'
+import { getCarouselListConfig_1 } from './other/components/carousel-list/1/carousel-list-config'
+import { getCarouselListConfig_2 } from './other/components/carousel-list/2/carousel-list-config'
+import { getCounterConfig_1 } from './other/components/counter/1/counter-config'
+import { getNumberFlopConfig_1 } from './other/components/number-flop/1/number-flop-config'
+import { getProgressConfig_1 } from './other/components/progress/1/progress-config'
 
 const OptionConfigMap = {
-  'ScatterNormal': getScatterNormalConfig,
+  'ScatterNormal_1': getScatterNormalConfig_1,
 
-  'LineNormal': getLineNormalConfig,
-  'LineArea': getLineAreaConfig,
+  'LineNormal_1': getLineNormalConfig_1,
+  'LineArea_1': getLineAreaConfig_1,
 
-  'HistogramNormal': getHistogramNormalConfig,
-  'PictorialBar': getPictorialBarConfig,
+  'HistogramNormal_1': getHistogramNormalConfig_1,
+  'PictorialBar_1': getPictorialBarConfig_1,
 
-  'MapChina': getMapChinaConfig,
+  'MapChina_1': getMapChinaConfig_1,
 
-  'PieNormal': getPieNormalConfig,
+  'PieNormal_1': getPieNormalConfig_1,
 
-  'RadarNormal': getRadarNormalConfig,
+  'RadarNormal_1': getRadarNormalConfig_1,
 
-  'wordCloud': getWordCloudConfig,
-  'gauge': getGaugeConfig,
-  'FunnelNormal': getFunnelNormalConfig,
+  'wordCloud_1': getWordCloudConfig_1,
+  'gauge_1': getGaugeConfig_1,
+  'FunnelNormal_1': getFunnelNormalConfig_1,
 
-  'EarlyWarning': getEarlyWarningConfig,
+  'EarlyWarning_1': getEarlyWarningConfig_1,
 
-  'TitleText': getTitleTextConfig,
-  'ImageChart': getImageChartConfig,
+  'TitleText_1': getTitleTextConfig_1,
+  'ImageChart_1': getImageChartConfig_1,
 
-  'CarouselList': getCarouselListConfig,
-  'Counter': getCounterConfig,
-  'NumberFlop': getNumberFlopConfig,
-  'Progress': getProgressConfig
+  'CarouselList_1': getCarouselListConfig_1,
+  'CarouselList_2': getCarouselListConfig_2,
+  'Counter_1': getCounterConfig_1,
+  'NumberFlop_1': getNumberFlopConfig_1,
+  'Progress_1': getProgressConfig_1
 }
 
 export default OptionConfigMap

@@ -1,206 +1,182 @@
 export const menus = [
   {
-    'key': 'scatter',
-    'title': '散点图',
+    'key': 'Chart',
+    'title': '基础图表',
     'children': [
       {
-        'key': 'ScatterNormal',
-        'icon': 'ScatterNormal',
-        'title': '散点图'
+        'key': 'Scatter',
+        'title': '散点图',
+        'children': [
+          {
+            'key': 'ScatterNormal',
+            'icon': 'ScatterNormalNew',
+            'title': '散点图'
+          }
+        ]
       },
       {
-        'key': 'ScatterBubble',
-        'icon': 'ScatterBubble',
-        'title': '气泡散点图'
+        'key': 'Line',
+        'title': '折线图',
+        'children': [
+          {
+            'key': 'LineNormal',
+            'icon': 'LineNormalNew',
+            'title': '折线图'
+          },
+          {
+            'key': 'LineArea',
+            'icon': 'LineAreaNew',
+            'title': '折线面积图'
+          }
+        ]
       },
       {
-        'key': 'plotMap',
-        'icon': 'plotMap',
-        'title': '散点地图'
+        'key': 'Histogram',
+        'title': '柱状图',
+        'children': [
+          {
+            'key': 'HistogramNormal',
+            'icon': 'HistogramNormalNew',
+            'title': '柱状图'
+          },
+          {
+            'key': 'PictorialBar',
+            'icon': 'PictorialBarNew',
+            'title': '象形柱状图'
+          }
+        ]
+      },
+      {
+        'key': 'Map',
+        'title': '地图',
+        'children': [
+          {
+            'key': 'MapChina',
+            'icon': 'MapChinaNew',
+            'title': '中国地图'
+          }
+        ]
+      },
+      {
+        'key': 'Pie',
+        'title': '饼图',
+        'children': [
+          {
+            'key': 'PieNormal',
+            'icon': 'PieNormalNew',
+            'title': '普通饼图'
+          }
+        ]
+      },
+      {
+        'key': 'Radar',
+        'title': '雷达图',
+        'children': [
+          {
+            'key': 'RadarNormal',
+            'icon': 'RadarNormalNew',
+            'title': '雷达图'
+          }
+        ]
+      },
+      {
+        'key': 'Heat',
+        'title': '热力图',
+        'children': [
+        ]
+      },
+      {
+        'key': 'relation',
+        'title': '关系图',
+        'children': [
+        ]
+      },
+      {
+        'key': 'OtherChart',
+        'title': '其他图表',
+        'children': [
+          {
+            'key': 'FunnelNormal',
+            'icon': 'FunnelNormal',
+            'title': '漏斗图'
+          }
+        ]
       }
     ]
   },
   {
-    'key': 'line',
-    'title': '折线图',
+    'key': 'Scene',
+    'title': '场景',
     'children': [
       {
-        'key': 'LineNormal',
-        'icon': 'LineNormal',
-        'title': '折线图'
-      },
-      {
-        'key': 'LineArea',
-        'icon': 'LineArea',
-        'title': '折线面积图'
+        'key': 'Operation',
+        'title': '运维',
+        'children': [
+          {
+            'key': 'EarlyWarning',
+            'icon': 'EarlyWarningNew',
+            'title': '预警点滴'
+          }
+        ]
       }
     ]
   },
   {
-    'key': 'histogram',
-    'title': '柱状图',
-    'children': [
-      {
-        'key': 'HistogramNormal',
-        'icon': 'HistogramNormal',
-        'title': '柱状图'
-      },
-      {
-        'key': 'histogramStacking',
-        'icon': 'histogramStacking',
-        'title': '堆叠柱状图'
-      },
-      {
-        'key': 'PictorialBar',
-        'icon': 'PictorialBar',
-        'title': '象形柱状图'
-      }
-    ]
-  },
-  {
-    'key': 'map',
-    'title': '地图',
-    'children': [
-      {
-        'key': 'MapChina',
-        'icon': 'MapChina',
-        'title': '中国地图'
-      },
-      {
-        'key': 'mapWorld',
-        'icon': 'mapWorld',
-        'title': '世界地图'
-      },
-      {
-        'key': 'mapProvince',
-        'icon': 'mapProvince',
-        'title': '省份地图'
-      }
-    ]
-  },
-  {
-    'key': 'pie',
-    'title': '饼图',
-    'children': [
-      {
-        'key': 'PieNormal',
-        'icon': 'PieNormal',
-        'title': '普通饼图'
-      }
-    ]
-  },
-  {
-    'key': 'radar',
-    'title': '雷达图',
-    'children': [
-      {
-        'key': 'RadarNormal',
-        'icon': 'RadarNormal',
-        'title': '雷达图'
-      }
-    ]
-  },
-  {
-    'key': 'heat',
-    'title': '热力图',
-    'children': [
-      {
-        'key': 'heatBasic',
-        'icon': 'heatBasic',
-        'title': '基础热力图'
-      },
-      {
-        'key': 'heatProvince',
-        'icon': 'heatProvince',
-        'title': '省份热力图'
-      },
-      {
-        'key': 'heatMap',
-        'icon': 'heatMap',
-        'title': '热力地图'
-      },
-      {
-        'key': 'heatMapLargePiecewise',
-        'icon': 'heatMapLargePiecewise',
-        'title': '颜色的离散映射'
-      }
-    ]
-  },
-  {
-    'key': 'relation',
-    'title': '关系图',
-    'children': [
-      {
-        'key': 'relationOne',
-        'icon': 'relationOne',
-        'title': '关系图1'
-      },
-      {
-        'key': 'relationTwo',
-        'icon': 'relationTwo',
-        'title': '关系图2'
-      },
-      {
-        'key': 'relationThree',
-        'icon': 'relationThree',
-        'title': '关系图3'
-      },
-      {
-        'key': 'relationFour',
-        'icon': 'relationFour',
-        'title': '关系图4'
-      },
-      {
-        'key': 'relationFive',
-        'icon': 'relationFive',
-        'title': '关系图5'
-      }
-    ]
-  },
-  {
-    'key': 'other',
+    'key': 'Other',
     'title': '其他',
     'children': [
       {
-        'key': 'wordCloud',
-        'icon': 'wordCloud',
-        'title': '词云'
+        'key': 'Auxiliary',
+        'title': '辅助',
+        'children': [
+          {
+            'key': 'TitleText',
+            'icon': 'TitleTextNew',
+            'title': '标题文本'
+          },
+          {
+            'key': 'ImageChart',
+            'icon': 'ImageChartNew',
+            'title': '图片'
+          },
+          {
+            'key': 'Frame',
+            'icon': 'FrameNew',
+            'title': '边框'
+          }
+        ]
       },
       {
-        'key': 'CarouselList',
-        'icon': 'CarouselList',
-        'title': '轮播列表'
-      },
-      {
-        'key': 'Counter',
-        'icon': 'Counter',
-        'title': '计数器'
-      },
-      {
-        'key': 'TitleText',
-        'icon': 'TitleText',
-        'title': '标题文本'
-      },
-      {
-        'key': 'Progress',
-        'icon': 'Progress',
-        'title': '进度条'
-      },
-      {
-        'key': 'picture',
-        'icon': 'picture',
-        'title': '图片'
-      },
-      {
-        'key': 'clock',
-        'icon': 'clock',
-        'title': '时间'
-      },
-      {
-        'key': 'gauge',
-        'icon': 'gauge',
-        'title': '仪表盘'
+        'key': 'Components',
+        'title': '组件',
+        'children': [
+          {
+            'key': 'CarouselList',
+            'icon': 'CarouselListNew',
+            'title': '轮播列表'
+          },
+          {
+            'key': 'NumberFlop',
+            'icon': 'NumberFlopNew',
+            'title': '数字翻牌器'
+          },
+          {
+            'key': 'Counter',
+            'icon': 'CounterNew',
+            'title': '计数器'
+          },
+          {
+            'key': 'Progress',
+            'icon': 'ProgressNew',
+            'title': '进度条'
+          }
+        ]
       }
     ]
+  },
+  {
+    'key': '3d',
+    'title': '高级3D图表',
+    'children': []
   }
 ]
