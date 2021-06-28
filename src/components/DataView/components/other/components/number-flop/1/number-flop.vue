@@ -1,18 +1,18 @@
 <template>
-  <div class="number-flop" :style="getItemStyle()">
-    <span v-if="item.option.title.show" class="number-flop-title" :style="getTitleStyle()">
+  <div class="number-flop" :style="itemStyle()">
+    <span v-if="item.option.title.show" class="number-flop-title" :style="titleStyle()">
       {{ item.option.title.text }}
     </span>
-    <span class="number-flop-number" :style="getNumberStyle()">
-      <span v-if="item.option.prefix.show" :style="getPrefixStyle()">
+    <span class="number-flop-number" :style="numberStyle()">
+      <span v-if="item.option.prefix.show" :style="prefixStyle()">
         {{ item.option.prefix.text }}
       </span>
-      <span class="number-flop-numbers" :style="getNumbersStyle()">
-        <span v-for="(n, index) in getNumbers()" :key="index" :style="getNumberItemStyle(n)">
+      <span class="number-flop-numbers" :style="numbersStyle()">
+        <span v-for="(n, index) in getNumbers()" :key="index" :style="numberItemStyle(n)">
           <span>{{ n }}</span>
         </span>
       </span>
-      <span v-if="item.option.suffix.show" :style="getSuffixStyle()">
+      <span v-if="item.option.suffix.show" :style="suffixStyle()">
         {{ item.option.suffix.text }}
       </span>
     </span>
@@ -55,7 +55,7 @@ export default {
       }
       return value
     },
-    getItemStyle() {
+    itemStyle() {
       const align = this.item.option.align
       const position = this.item.option.title.position
       const style = {
@@ -76,7 +76,7 @@ export default {
       }
       return style
     },
-    getTitleStyle() {
+    titleStyle() {
       const { title } = this.item.option
       const style = {
         color: title.color,
@@ -90,12 +90,12 @@ export default {
       }
       return style
     },
-    getNumberStyle() {
+    numberStyle() {
       if (this.item.option.title.position.startsWith('column')) {
         return { flex: '1 1 0%' }
       }
     },
-    getNumbersStyle() {
+    numbersStyle() {
       const { number } = this.item.option
       return {
         display: 'flex',
@@ -107,7 +107,7 @@ export default {
         fontFamily: number.fontFamily
       }
     },
-    getNumberItemStyle(n) {
+    numberItemStyle(n) {
       const { number } = this.item.option
       const style = {}
       if (number.backgroundImage) {
@@ -120,7 +120,7 @@ export default {
       }
       return style
     },
-    getPrefixStyle() {
+    prefixStyle() {
       const { prefix } = this.item.option
 
       return {
@@ -130,7 +130,7 @@ export default {
         fontFamily: prefix.fontFamily
       }
     },
-    getSuffixStyle() {
+    suffixStyle() {
       const { suffix } = this.item.option
 
       return {

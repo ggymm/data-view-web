@@ -1,12 +1,12 @@
 <template>
   <div class="chart">
-    <div v-if="item.option.header.show" :style="getHeaderStyle()" class="carousel-header">
-      <span v-for="(h, index) in item.option.header.data" :key="index" :style="getHeaderItemStyle(index)">{{ h }}</span>
+    <div v-if="item.option.header.show" :style="headerStyle()" class="carousel-header">
+      <span v-for="(h, index) in item.option.header.data" :key="index" :style="headerItemStyle(index)">{{ h }}</span>
     </div>
     <div :style="{ height: item.option.carousel.rowNum * item.option.body.height + 'px' }" class="carousel-container">
       <ul class="carousel-list">
-        <li v-for="(b, index) in item.option.body.data" :key="index" :style="getListStyle()">
-          <span v-for="(dataItem, childIndex) in b" :key="childIndex" :style="getListItemStyle(childIndex)">{{ dataItem }}</span>
+        <li v-for="(b, index) in item.option.body.data" :key="index" :style="listStyle()">
+          <span v-for="(dataItem, childIndex) in b" :key="childIndex" :style="listItemStyle(childIndex)">{{ dataItem }}</span>
         </li>
       </ul>
     </div>
@@ -75,7 +75,7 @@ export default {
     this.container.addEventListener('transitionend', animationEndHandler)
   },
   methods: {
-    getHeaderStyle() {
+    headerStyle() {
       return {
         color: this.item.option.header.fontColor,
         height: this.item.option.header.height + 'px',
@@ -83,13 +83,13 @@ export default {
         fontSize: this.item.option.header.fontSize + 'px'
       }
     },
-    getHeaderItemStyle(index) {
+    headerItemStyle(index) {
       return {
         flex: `${this.item.option.column[index]['width']} 1 0%`,
         textAlign: this.item.option.header.textAlign[index]
       }
     },
-    getListStyle() {
+    listStyle() {
       return {
         color: this.item.option.body.fontColor,
         height: this.item.option.body.height + 'px',
@@ -97,7 +97,7 @@ export default {
         fontSize: this.item.option.body.fontSize + 'px'
       }
     },
-    getListItemStyle(index) {
+    listItemStyle(index) {
       return {
         flex: `${this.item.option.column[index]['width']} 1 0%`,
         textAlign: this.item.option.body.textAlign[index]

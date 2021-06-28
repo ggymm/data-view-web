@@ -1,7 +1,7 @@
 <template>
   <div class="upload-container" :style="{height: height}">
     <div class="upload-image">
-      <div :style="getImageStyle()" />
+      <div :style="imageStyle()" />
     </div>
     <a-upload
       name="file"
@@ -51,7 +51,7 @@ export default {
     }
   },
   methods: {
-    getImageStyle() {
+    imageStyle() {
       return {
         backgroundImage: `url(${this.imageBasicUrl}${this.imageUrl})`,
         backgroundRepeat: 'no-repeat',

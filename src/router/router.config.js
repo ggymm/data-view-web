@@ -133,6 +133,13 @@ export const asyncRouterMap = [
             meta: {
               title: '可视化大屏编辑'
             }
+          },
+          {
+            path: 'preview/:instance_id',
+            component: () => import('@/views/data-view/instance/preview'),
+            meta: {
+              title: '可视化大屏预览'
+            }
           }
         ]
       }

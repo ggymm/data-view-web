@@ -21,7 +21,7 @@
       <!-- xs: <576px; sm: ≥576px -->
       <!-- md: ≥768px; lg: ≥992px -->
       <!-- xl: ≥1200px; xxl: ≥1600px -->
-      <a-list :grid="{ gutter: 20, xs: 1, sm: 2, md: 2, lg: 3, xl: 3, xxl: 4 }" :data-source="list">
+      <a-list :grid="{ gutter: 36, xs: 1, sm: 2, md: 2, lg: 3, xl: 4, xxl: 6 }" :data-source="list">
         <a-list-item slot="renderItem" slot-scope="item">
           <a-card>
             <div slot="cover" class="thumbnails">
@@ -104,7 +104,8 @@ export default {
 
 <style lang="less">
 .thumbnails {
-  height: 160px;
+  position: relative;
+  height: 180px;
 }
 
 .thumbnails:hover .edit-shade {
@@ -124,20 +125,20 @@ export default {
 .thumbnails .edit-shade {
   background: #000000 none repeat scroll 0 0;
   opacity: 0.5;
-  height: 160px;
+  height: 180px;
   position: relative;
   text-align: center;
-  top: -160px;
-  z-index: 99999;
+  top: -180px;
+  z-index: 99;
   display: none;
 }
 
 .thumbnails button {
-  position: relative;
-  z-index: 99999;
-  top: -250px;
-  padding: 5px 6px;
-  margin: auto;
+  position: absolute;
+  z-index: 999;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
   display: none;
 }
 

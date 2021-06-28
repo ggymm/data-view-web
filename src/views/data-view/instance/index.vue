@@ -22,7 +22,7 @@
       </a-menu>
       <div class="handler">
         <a-icon type="save" @click="handleSave()" />
-        <a-icon type="eye" />
+        <a-icon type="eye" @click="handlePreview()" />
         <a-icon type="bug" @click="handleDebug()" />
       </div>
     </a-layout-header>
@@ -332,6 +332,13 @@ export default {
         ia[i] = data.charCodeAt(i)
       }
       return new Blob([ia], { type: 'image/png' })
+    },
+    handlePreview() {
+      if (this.instanceId) {
+        window.open(this.routerBase + 'data-view-instance/preview/' + this.instanceId)
+      } else {
+        this.$message.info('请先保存图表后预览')
+      }
     },
     async handleDebug() {
     }

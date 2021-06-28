@@ -6,9 +6,9 @@
       width="100%"
       height="100%"
       :src="`${imageBasicUrl}${item.option.url}`"
-      :style="getItemStyle()"
+      :style="itemStyle()"
     >
-    <icon v-else type="icon-ImageChartNew" :style="getDefaultImageStyle()" />
+    <icon v-else type="icon-ImageChartNew" :style="defaultImageStyle()" />
   </div>
 </template>
 
@@ -32,7 +32,7 @@ export default {
     }
   },
   methods: {
-    getItemStyle() {
+    itemStyle() {
       const { option } = this.item
       return {
         borderStyle: 'none',
@@ -44,7 +44,7 @@ export default {
           translate(${option.translateX}px, ${option.translateY}px)`
       }
     },
-    getDefaultImageStyle() {
+    defaultImageStyle() {
       return {
         width: `${this.item.width}px`,
         height: `${this.item.height}px`,

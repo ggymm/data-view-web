@@ -1,10 +1,10 @@
 <template>
-  <div v-if="current" class="early-warning" :style="getItemStyle()">
-    <div :style="getSymbolStyle()">
+  <div v-if="current" class="early-warning" :style="itemStyle()">
+    <div :style="symbolStyle()">
       {{ current.symbol }}
     </div>
-    <div :style="getBorderStyle()" />
-    <div v-if="current.alert" class="alert-wave" :style="getWarningStyle()" />
+    <div :style="borderStyle()" />
+    <div v-if="current.alert" class="alert-wave" :style="warningStyle()" />
   </div>
 </template>
 
@@ -39,13 +39,13 @@ export default {
     this.setData()
   },
   methods: {
-    getItemStyle() {
+    itemStyle() {
       return {
         top: `${(this.item.height - this.item.option.boundary) / 2}px`,
         left: `${(this.item.width - this.item.option.boundary) / 2}px`
       }
     },
-    getSymbolStyle() {
+    symbolStyle() {
       return {
         borderRadius: '50%',
         width: `${this.item.option.radius}px`,
@@ -57,7 +57,7 @@ export default {
         textAlign: 'center'
       }
     },
-    getBorderStyle() {
+    borderStyle() {
       return {
         position: 'absolute',
         left: 0,
@@ -68,7 +68,7 @@ export default {
         borderRadius: '50%'
       }
     },
-    getWarningStyle() {
+    warningStyle() {
       return {
         position: 'absolute',
         left: 0,
