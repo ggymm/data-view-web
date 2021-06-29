@@ -82,8 +82,8 @@ Vue.component('FunnelNormalOption_1', FunnelNormalOption_1)
 
 // ================================================== 场景 ==================================================
 // 预警点滴
-import EarlyWarning_1 from './scene/operation/1/early-warning'
-import EarlyWarningOption_1 from './scene/operation/1/early-warning-option'
+import EarlyWarning_1 from './scene/operation/early-warning/1/early-warning'
+import EarlyWarningOption_1 from './scene/operation/early-warning/1/early-warning-option'
 
 Vue.component('EarlyWarning_1', EarlyWarning_1)
 Vue.component('EarlyWarningOption_1', EarlyWarningOption_1)

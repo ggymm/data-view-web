@@ -85,7 +85,7 @@
 </template>
 
 <script>
-import { positionList } from '@/components/DataView/common-option/common'
+import { positionList } from '@/components/DataView/common/common'
 
 export default {
   name: 'CarouselListOption',

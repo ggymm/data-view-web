@@ -1,18 +1,18 @@
 <!--suppress JSUnresolvedVariable, JSUnusedLocalSymbols -->
 <template>
   <div>
-    <common-chart-option :item="item" />
+    <chart-option :item="item" />
   </div>
 </template>
 
 <script>
-import CommonChartOption from '@/components/DataView/common-option/chart'
-import { labelPositionList } from '@/components/DataView/common-option/common'
+import ChartOption from '@/components/DataView/common/option/chart'
+import { labelPositionList } from '@/components/DataView/common/common'
 
 export default {
   name: 'FunnelNormalOption',
   components: {
-    CommonChartOption
+    ChartOption
   },
   props: {
     item: {

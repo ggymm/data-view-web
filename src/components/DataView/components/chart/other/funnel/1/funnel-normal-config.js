@@ -4,7 +4,7 @@ const FunnelNormalConfig = function() {
     y: 0,
     width: 350,
     height: 250,
-    chartName: '',
+    chartName: '普通漏斗图',
     chartType: 'FunnelNormal',
     chartVersion: 1,
     rotate: 0,

@@ -1,0 +1,268 @@
+<!--suppress JSUnresolvedVariable, JSUnusedLocalSymbols -->
+<template>
+  <div :class="[showData() ? 'three' : 'two']">
+    <a-tabs>
+      <a-tab-pane key="style" tab="样式">
+        <div class="info">
+          <span class="title">
+            <span>{{ currentItem.chartName }}</span>
+            <span class="update">
+              <a-button size="small" type="primary" :ghost="true">更新版本</a-button>
+            </span>
+          </span>
+          <span class="version">V{{ currentItem.chartVersion }}</span>
+        </div>
+        <a-collapse :bordered="false" default-active-key="基础配置">
+          <a-collapse-panel key="基础配置" header="基础配置">
+            <a-form layout="horizontal" :label-col="{span: 6}" :wrapper-col="{span: 14, offset: 1}">
+              <a-form-item label="位置">
+                <a-row :gutter="20">
+                  <a-col :span="12">
+                    <a-input-number v-model="currentItem.x" :min="0" :precision="0" />
+                  </a-col>
+                  <a-col :span="12">
+                    <a-input-number v-model="currentItem.y" :min="0" :precision="0" />
+                  </a-col>
+                </a-row>
+              </a-form-item>
+              <a-form-item label="大小">
+                <a-row :gutter="20">
+                  <a-col :span="12">
+                    <a-input-number v-model="currentItem.width" :min="0" :precision="0" />
+                  </a-col>
+                  <a-col :span="12">
+                    <a-input-number v-model="currentItem.height" :min="0" :precision="0" />
+                  </a-col>
+                </a-row>
+              </a-form-item>
+              <a-form-item label="旋转角度">
+                <a-input-number v-model="currentItem.rotate" :min="0" :max="360" :precision="0" />
+              </a-form-item>
+            </a-form>
+          </a-collapse-panel>
+        </a-collapse>
+        <component
+          :is="currentItem.chartType + 'Option_' + currentItem.chartVersion"
+          :item="currentItem"
+        />
+      </a-tab-pane>
+      <a-tab-pane key="attribute" tab="属性" :force-render="true">
+        <a-form layout="horizontal" :label-col="{span: 6}" :wrapper-col="{span: 14, offset: 1}">
+          <a-form-item label="是否锁定">
+            <a-select v-model="currentItem.lock">
+              <a-select-option value="false">不锁定</a-select-option>
+              <a-select-option value="true">锁定</a-select-option>
+            </a-select>
+          </a-form-item>
+        </a-form>
+      </a-tab-pane>
+      <a-tab-pane v-if="showData()" key="data" tab="数据" :force-render="true">
+        <a-form layout="horizontal" :label-col="{span: 6}" :wrapper-col="{span: 14, offset: 1}" class="chart-data-option">
+          <a-form-item label="数据源类型">
+            <a-select v-model="currentItem.chartData.dataSourceType" @change="handleConfigChange">
+              <a-select-option
+                v-for="dataSourceType in dataSourceTypeList"
+                :key="dataSourceType.value"
+                :value="dataSourceType.value"
+              >
+                {{ dataSourceType.label }}
+              </a-select-option>
+            </a-select>
+          </a-form-item>
+          <template v-if="currentItem.chartData.dataSourceType === 'Static'">
+            <code-editor
+              ref="staticData"
+              language="json"
+              :value="currentItem.chartData.staticData"
+              @change="handleStaticDataChange"
+              @blur="handleConfigChange"
+            >
+              <icon class="fullscreen" type="icon-fullscreen-expand" @click="visibleStaticDataModel = true" />
+            </code-editor>
+          </template>
+          <template v-else-if="currentItem.chartData.dataSourceType === 'DataBase'">
+            <a-form-item label="数据源">
+              <a-select v-model="currentItem.chartData.database" @change="handleConfigChange">
+                <a-select-option
+                  v-for="dataSource in dataSourceList"
+                  :key="dataSource.data_source_id"
+                  :value="dataSource.data_source_id"
+                >
+                  {{ dataSource.data_source_name }}
+                </a-select-option>
+              </a-select>
+            </a-form-item>
+            <a-form-item v-for="(param, index) in params()" :key="index" :label="param.label">
+              <a-input v-model="currentItem.chartData[param.value]" @change="handleConfigChange" />
+            </a-form-item>
+            <a-form-item label="SQL">
+              <a-textarea v-model="currentItem.chartData.sql" />
+            </a-form-item>
+            <a-form-item>
+              <a-button type="primary" size="small" @click="handleEditSQL">调试SQL</a-button>
+            </a-form-item>
+          </template>
+          <template v-else-if="currentItem.chartData.dataSourceType === 'Rest'">
+            <a-button type="primary" size="small" @click="handleEditRest">调试API</a-button>
+          </template>
+          <template v-else-if="currentItem.chartData.dataSourceType === 'Csv'" />
+        </a-form>
+      </a-tab-pane>
+    </a-tabs>
+  </div>
+</template>
+
+<script>
+import { mapState } from 'vuex'
+import '../components/index'
+import CodeEditor from '@/components/CodeEditor'
+import {
+  dataSourceTypeList, positionList,
+  positionTopList, legendTypeList, orientList
+} from '../common/common'
+
+const coordinateSystemParams = [
+  {
+    'label': '分类字段',
+    'value': 'dimension'
+  },
+  {
+    'label': 'x轴字段',
+    'value': 'name'
+  },
+  {
+    'label': 'y轴字段',
+    'value': 'value'
+  }
+]
+
+const keyValueParams = [
+  {
+    'label': '数据字段',
+    'value': 'name'
+  },
+  {
+    'label': '值字段',
+    'value': 'value'
+  }
+]
+
+const valueParams = [
+  {
+    'label': '数据字段',
+    'value': 'value'
+  }
+]
+
+const paramsMap = {
+  'ScatterNormal_1': coordinateSystemParams,
+  'LineNormal_1': coordinateSystemParams,
+  'LineArea_1': coordinateSystemParams,
+  'HistogramNormal_1': coordinateSystemParams,
+  'PictorialBar_1': coordinateSystemParams,
+  'MapChina_1': keyValueParams,
+  'PieNormal_1': keyValueParams,
+  'RadarNormal_1': [
+    {
+      'label': '分类字段',
+      'value': 'dimension'
+    },
+    {
+      'label': '最大值',
+      'value': 'max'
+    },
+    {
+      'label': '数据字段',
+      'value': 'name'
+    },
+    {
+      'label': '值字段',
+      'value': 'value'
+    }
+  ],
+  'wordCloud_1': [],
+  'gauge_1': [],
+  'FunnelNormal_1': [],
+  'EarlyWarning_1': valueParams,
+  'TitleText_1': null,
+  'ImageChart_1': null,
+  'CarouselList_1': [],
+  'CarouselList_2': [],
+  'Counter_1': valueParams,
+  'NumberFlop_1': valueParams,
+  'Progress_1': valueParams
+}
+
+export default {
+  name: 'ChartOption',
+  components: {
+    CodeEditor
+  },
+  props: {
+    dataSourceList: {
+      type: Array,
+      default() {
+        return []
+      }
+    }
+  },
+  data() {
+    return {
+      paramsMap,
+      dataSourceTypeList,
+      positionList,
+      positionTopList,
+      legendTypeList,
+      orientList
+    }
+  },
+  computed: mapState([
+    'currentItem'
+  ]),
+  watch: {
+    currentItem: function() {
+      if (this.currentItem.chartData.dataSourceType === 'Static') {
+        this.$nextTick(() => {
+          this.$refs.staticData.setValue(this.currentItem.chartData.staticData)
+        })
+      }
+    }
+  },
+  mounted() {
+  },
+  methods: {
+    showData() {
+      return this.params() !== null
+    },
+    params() {
+      return paramsMap[`${this.currentItem.chartType}_${this.currentItem.chartVersion}`]
+    },
+    handleConfigChange() {
+      if (this.currentItem.chartData.dataSourceType === 'Static') {
+        this.$bus.$emit('handleStaticData')
+      } else if (this.currentItem.chartData.dataSourceType === 'DataBase') {
+        this.$bus.$emit('handleDataBaseData')
+      } else if (this.currentItem.chartData.dataSourceType === 'Rest') {
+        this.$bus.$emit('handleRestData')
+      } else if (this.currentItem.chartData.dataSourceType === 'File') {
+        this.$bus.$emit('handleFileData')
+      }
+    },
+    handleStaticDataChange(value) {
+      this.currentItem.chartData.staticData = value
+    }
+  }
+}
+</script>
+<style lang="less">
+.chart-data-option {
+  .fullscreen {
+    z-index: 99;
+    cursor: pointer;
+    position: absolute;
+    bottom: 25px;
+    right: 45px;
+    font-size: 20px;
+  }
+}
+</style>

@@ -125,7 +125,7 @@
 </template>
 
 <script>
-import { axisTypeList } from './common'
+import { axisTypeList } from '../common'
 
 export default {
   name: 'CoordinateSystemOption',

@@ -66,7 +66,7 @@
 </template>
 
 <script>
-import { progressTypeList, gapPositionList } from '@/components/DataView/common-option/common'
+import { progressTypeList, gapPositionList } from '@/components/DataView/common/common'
 
 export default {
   name: 'ProgressOption',

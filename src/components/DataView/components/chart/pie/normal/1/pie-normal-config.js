@@ -4,7 +4,7 @@ const PieNormalConfig = function() {
     y: 0,
     width: 350,
     height: 250,
-    chartName: '',
+    chartName: '标准饼图',
     chartType: 'PieNormal',
     chartVersion: 1,
     rotate: 0,
@@ -34,7 +34,7 @@ const PieNormalConfig = function() {
     interval: 8000,
     option: {
       title: {
-        text: '普通饼图',
+        text: '标准饼图',
         x: 'center',
         textStyle: {
           color: '#ffffff'

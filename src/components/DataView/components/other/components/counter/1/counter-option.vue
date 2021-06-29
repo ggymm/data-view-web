@@ -93,7 +93,7 @@
 </template>
 
 <script>
-import { fontWeightList, positionList } from '@/components/DataView/common-option/common'
+import { fontWeightList, positionList } from '@/components/DataView/common/common'
 
 export default {
   name: 'CounterOption',

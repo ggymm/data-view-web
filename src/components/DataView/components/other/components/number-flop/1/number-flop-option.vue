@@ -217,7 +217,7 @@
 
 <script>
 import UploadImage from '@/components/UploadImage'
-import { positionList, titlePositionList, fontWeightList, fontFamilyList } from '@/components/DataView/common-option/common'
+import { positionList, titlePositionList, fontWeightList, fontFamilyList } from '@/components/DataView/common/common'
 
 export default {
   name: 'CounterOption',

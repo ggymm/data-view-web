@@ -18,7 +18,7 @@ import { getGaugeConfig_1 } from './chart/other/gauge/1/gauge-config'
 import { getFunnelNormalConfig_1 } from './chart/other/funnel/1/funnel-normal-config'
 
 // ================================================== 场景 ==================================================
-import { getEarlyWarningConfig_1 } from './scene/operation/1/early-warning-config'
+import { getEarlyWarningConfig_1 } from './scene/operation/early-warning/1/early-warning-config'
 
 // ================================================== 3D ==================================================
 // ================================================== 其他 ==================================================

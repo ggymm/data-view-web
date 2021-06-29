@@ -4,7 +4,7 @@ const RadarNormalConfig = function() {
     y: 0,
     width: 350,
     height: 250,
-    chartName: '',
+    chartName: '标准雷达图',
     chartType: 'RadarNormal',
     chartVersion: 1,
     rotate: 0,

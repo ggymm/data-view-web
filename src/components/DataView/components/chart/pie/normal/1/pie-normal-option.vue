@@ -1,7 +1,7 @@
 <!--suppress JSUnresolvedVariable, JSUnusedLocalSymbols -->
 <template>
   <div>
-    <common-chart-option :item="item" />
+    <chart-option :item="item" />
     <a-collapse :bordered="false">
       <a-collapse-panel key="扇形配置" header="扇形配置">
         <a-form :model="item" layout="horizontal" :label-col="{span: 6}" :wrapper-col="{span: 14, offset: 1}">
@@ -74,13 +74,13 @@
 </template>
 
 <script>
-import CommonChartOption from '@/components/DataView/common-option/chart'
-import { labelPositionList } from '@/components/DataView/common-option/common'
+import ChartOption from '@/components/DataView/common/option/chart'
+import { labelPositionList } from '@/components/DataView/common/common'
 
 export default {
   name: 'PieNormalOption',
   components: {
-    CommonChartOption
+    ChartOption
   },
   props: {
     item: {

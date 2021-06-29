@@ -4,7 +4,7 @@ const MapChinaConfig = function() {
     y: 0,
     width: 350,
     height: 250,
-    chartName: '',
+    chartName: '地图',
     chartType: 'MapChina',
     chartVersion: 1,
     rotate: 0,
@@ -26,7 +26,7 @@ const MapChinaConfig = function() {
     option: {
       title: {
         show: true,
-        text: '中国地图',
+        text: '地图',
         left: 'center',
         textStyle: {
           color: '#ffffff'

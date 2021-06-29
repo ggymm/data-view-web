@@ -4,7 +4,7 @@ const PictorialBarConfig = function() {
     y: 0,
     width: 350,
     height: 250,
-    chartName: '',
+    chartName: '象形柱状图',
     chartType: 'PictorialBar',
     chartVersion: 1,
     rotate: 0,

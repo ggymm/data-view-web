@@ -1,18 +1,18 @@
 <template>
   <div>
-    <common-chart-option :item="item" />
+    <chart-option :item="item" />
     <coordinate-system-option :item="item" />
   </div>
 </template>
 
 <script>
-import CommonChartOption from '@/components/DataView/common-option/chart'
-import CoordinateSystemOption from '@/components/DataView/common-option/coordinate-system'
+import ChartOption from '@/components/DataView/common/option/chart'
+import CoordinateSystemOption from '@/components/DataView/common/option/coordinate-system'
 
 export default {
   name: 'ScatterNormalOption',
   components: {
-    CommonChartOption,
+    ChartOption,
     CoordinateSystemOption
   },
   props: {

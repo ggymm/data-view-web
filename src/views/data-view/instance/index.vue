@@ -112,7 +112,7 @@ import Layout from '@/components/DataView/layout/layout'
 import Item from '@/components/DataView/layout/item'
 import Chart from '@/components/DataView/common/chart'
 import Layer from '@/components/DataView/common/layer'
-import ChartOption from '@/components/DataView/common/chart-option'
+import ChartOption from '@/components/DataView/common/option'
 
 import { getDataSourceList } from '@/api/data-source'
 import { getImageList, saveThumbnail } from '@/api/image'

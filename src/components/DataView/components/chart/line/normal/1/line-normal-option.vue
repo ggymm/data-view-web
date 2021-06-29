@@ -1,7 +1,7 @@
 <!--suppress JSUnresolvedVariable, JSUnusedLocalSymbols -->
 <template>
   <div>
-    <common-chart-option :item="item" />
+    <chart-option :item="item" />
     <coordinate-system-option :item="item" />
     <a-collapse :bordered="false">
       <a-collapse-panel key="折线配置" header="折线配置">
@@ -32,14 +32,14 @@
 </template>
 
 <script>
-import CommonChartOption from '@/components/DataView/common-option/chart'
-import CoordinateSystemOption from '@/components/DataView/common-option/coordinate-system'
-import { lineTypeList } from '@/components/DataView/common-option/common'
+import ChartOption from '@/components/DataView/common/option/chart'
+import CoordinateSystemOption from '@/components/DataView/common/option/coordinate-system'
+import { lineTypeList } from '@/components/DataView/common/common'
 
 export default {
   name: 'LineNormalOption',
   components: {
-    CommonChartOption,
+    ChartOption,
     CoordinateSystemOption
   },
   props: {

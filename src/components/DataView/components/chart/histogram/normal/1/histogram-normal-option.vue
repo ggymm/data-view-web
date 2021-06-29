@@ -1,6 +1,6 @@
 <template>
   <div>
-    <common-chart-option :item="item" />
+    <chart-option :item="item" />
     <coordinate-system-option :item="item" />
     <a-collapse :bordered="false">
       <a-collapse-panel key="柱配置" header="柱配置">
@@ -54,14 +54,14 @@
 
 <script>
 import JsonEditor from '@/components/JsonEditor'
-import CommonChartOption from '@/components/DataView/common-option/chart'
-import CoordinateSystemOption from '@/components/DataView/common-option/coordinate-system'
+import ChartOption from '@/components/DataView/common/option/chart'
+import CoordinateSystemOption from '@/components/DataView/common/option/coordinate-system'
 
 export default {
   name: 'HistogramNormalOption',
   components: {
     JsonEditor,
-    CommonChartOption,
+    ChartOption,
     CoordinateSystemOption
   },
   props: {

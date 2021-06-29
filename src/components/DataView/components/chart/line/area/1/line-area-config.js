@@ -4,7 +4,7 @@ const LineAreaConfig = function() {
     y: 0,
     width: 350,
     height: 250,
-    chartName: '',
+    chartName: '标准折线面积图',
     chartType: 'LineArea',
     chartVersion: 1,
     rotate: 0,

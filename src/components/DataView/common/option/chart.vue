@@ -118,7 +118,7 @@
 </template>
 
 <script>
-import { positionList, positionTopList, legendTypeList, orientList } from './common'
+import { positionList, positionTopList, legendTypeList, orientList } from '../common'
 
 export default {
   name: 'CommonChartOption',

@@ -4,7 +4,7 @@ const LineNormalConfig = function() {
     y: 0,
     width: 350,
     height: 250,
-    chartName: '',
+    chartName: '标准折线图',
     chartType: 'LineNormal',
     chartVersion: 1,
     rotate: 0,

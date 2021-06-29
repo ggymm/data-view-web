@@ -1,7 +1,7 @@
 <!--suppress JSUnresolvedVariable, JSUnusedLocalSymbols -->
 <template>
   <div>
-    <common-chart-option :item="item" />
+    <chart-option :item="item" />
     <a-collapse :bordered="false">
       <a-collapse-panel key="雷达配置" header="雷达配置">
         <a-form :model="item" layout="horizontal" :label-col="{span: 6}" :wrapper-col="{span: 14, offset: 1}">
@@ -45,13 +45,13 @@
 </template>
 
 <script>
-import CommonChartOption from '@/components/DataView/common-option/chart'
-import { symbolTypeList } from '@/components/DataView/common-option/common'
+import ChartOption from '@/components/DataView/common/option/chart'
+import { symbolTypeList } from '@/components/DataView/common/common'
 
 export default {
   name: 'RadarNormalOption',
   components: {
-    CommonChartOption
+    ChartOption
   },
   props: {
     item: {
