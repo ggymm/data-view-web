@@ -95,14 +95,13 @@
             </a-form-item>
           </a-form>
         </div>
-        <chart-option v-else class="data-view-chart-option" :data-source-list="dataSourceList" />
+        <chart-option v-else class="data-view-chart-option dark-theme" :data-source-list="dataSourceList" />
       </a-layout-sider>
     </a-layout>
   </a-layout>
 </template>
 
 <script>
-import hotkeys from 'hotkeys-js'
 import html2canvas from 'html2canvas'
 import { mapState } from 'vuex'
 import { menus } from './menu'
@@ -180,22 +179,6 @@ export default {
       // 初始化默认缩放比例
       this.$store.commit('autoCanvasScale')
     }
-  },
-  mounted() {
-    const _this = this
-    hotkeys('ctrl+c, ctrl+v', function(event, handler) {
-      switch (handler.key) {
-        case 'ctrl+c':
-          _this.$store.commit('itemCopy')
-          break
-        case 'ctrl+v':
-          _this.$store.commit('itemPaste', { mouse: false })
-          break
-      }
-    })
-  },
-  beforeDestroy() {
-    hotkeys.unbind('ctrl+c, ctrl+v')
   },
   methods: {
     handleDragStart(event, key, version) {

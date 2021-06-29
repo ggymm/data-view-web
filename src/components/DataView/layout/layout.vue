@@ -17,6 +17,7 @@
 </template>
 
 <script>
+import hotkeys from 'hotkeys-js'
 import { mapState } from 'vuex'
 import defaultSettings from '@/config'
 import Ruler from './ruler/index'
@@ -45,9 +46,46 @@ export default {
     }
   },
   computed: mapState([
+    'currentItem',
     'canvasConfig',
     'screenConfig'
   ]),
+  mounted() {
+    const _this = this
+    // 复制粘贴功能
+    hotkeys('ctrl+c, ctrl+v', function(event, handler) {
+      switch (handler.key) {
+        case 'ctrl+c':
+          _this.$store.commit('itemCopy')
+          break
+        case 'ctrl+v':
+          _this.$store.commit('itemPaste', { mouse: false })
+          break
+      }
+    })
+    // 移动功能
+    hotkeys('up, down, left, right', function(event, handler) {
+      if (!_this.currentItem) return
+      switch (handler.key) {
+        case 'up':
+          _this.currentItem.y -= 1
+          break
+        case 'down':
+          _this.currentItem.y += 1
+          break
+        case 'left':
+          _this.currentItem.x -= 1
+          break
+        case 'right':
+          _this.currentItem.x += 1
+          break
+      }
+    })
+  },
+  beforeDestroy() {
+    hotkeys.unbind('ctrl+c, ctrl+v')
+    hotkeys.unbind('up, down, left, right')
+  },
   methods: {
     layoutStyle() {
       let style = {
