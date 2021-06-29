@@ -439,24 +439,39 @@
         }
 
         .info {
+          font-size: 12px;
+          padding: 0 20px;
           color: var(--text-2);
-          padding: 10px;
+
+          .ant-btn-sm {
+            font-size: 12px;
+            height: 20px;
+            padding: 0 4px;
+          }
 
           .title {
             display: flex;
             justify-content: space-between;
             font-size: 14px;
-            padding: 5px 20px;
+            padding-top: 16px;
 
-            .ant-btn-sm {
-              font-size: 12px;
+            .version {
+              color: var(--gray-4);
+            }
+
+            .update {
+              font-size: 13px;
+              cursor: pointer;
+
+              &:hover {
+                color: var(--primary-color);
+              }
             }
           }
 
-          .version {
+          .doc {
             display: flex;
-            padding: 0 20px;
-            font-size: 12px;
+            margin: 12px 0;
             color: var(--gray-4);
           }
         }

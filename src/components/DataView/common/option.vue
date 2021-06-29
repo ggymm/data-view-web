@@ -5,12 +5,19 @@
       <a-tab-pane key="style" tab="样式">
         <div class="info">
           <span class="title">
-            <span>{{ currentItem.chartName }}</span>
+            <span>{{ currentItem.chartName }}
+              <span class="version">[v{{ currentItem.chartVersion }}]</span>
+            </span>
             <span class="update">
-              <a-button size="small" type="primary" :ghost="true">更新版本</a-button>
+              更新版本
             </span>
           </span>
-          <span class="version">V{{ currentItem.chartVersion }}</span>
+          <span class="doc">
+            <a-space :size="20">
+              <a-button icon="question-circle" size="small" type="primary" :ghost="true">组件手册</a-button>
+              <a-button icon="search" size="small" type="primary" :ghost="true">搜索配置</a-button>
+            </a-space>
+          </span>
         </div>
         <a-collapse :bordered="false" default-active-key="基础配置">
           <a-collapse-panel key="基础配置" header="基础配置">

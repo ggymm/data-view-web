@@ -142,6 +142,35 @@ export const asyncRouterMap = [
             }
           }
         ]
+      },
+      {
+        path: '/data-report-instance',
+        redirect: '/data-report-instance/index',
+        component: RouteView,
+        hidden: true,
+        children: [
+          {
+            path: 'index',
+            component: () => import('@/views/data-report/instance/index'),
+            meta: {
+              title: '报表创建'
+            }
+          },
+          {
+            path: 'index/:instance_id/:is_copy',
+            component: () => import('@/views/data-report/instance/index'),
+            meta: {
+              title: '报表编辑'
+            }
+          },
+          {
+            path: 'preview/:instance_id',
+            component: () => import('@/views/data-report/instance/preview'),
+            meta: {
+              title: '报表预览'
+            }
+          }
+        ]
       }
     ]
   },

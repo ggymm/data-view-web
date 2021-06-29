@@ -12,7 +12,7 @@
 export default {
   routerBase: '/data-view-web/',
   navTheme: 'dark', // theme for nav menu
-  primaryColor: '#52C41A', // primary color of ant design
+  primaryColor: '#2491f7', // primary color of ant design
   layout: 'sidemenu', // nav menu position: `sidemenu` or `topmenu`
   contentWidth: 'Fluid', // layout of content: `Fluid` or `Fixed`, only works when layout is topmenu
   fixedHeader: true, // sticky header

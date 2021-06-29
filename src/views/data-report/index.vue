@@ -21,11 +21,14 @@
 </template>
 
 <script>
+import defaultSettings from '@/config'
+
 export default {
   name: 'Index',
   data() {
     return {
       query: {
+        routerBase: defaultSettings.routerBase,
         instanceName: null
       }
     }
@@ -36,7 +39,7 @@ export default {
     handleFilter() {
     },
     handleCreate() {
-      window.open('/data-view-web/data-view-instance/index')
+      window.open(this.routerBase + 'data-report-instance/index')
     }
   }
 }

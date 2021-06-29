@@ -233,7 +233,7 @@ export default {
       }
     },
     handleBack() {
-      window.open(this.routerBase + 'data-view/index')
+      this.$router.push('/data-view/index')
     },
     async handleSave() {
       const thumbnail = await this.screenshot()
