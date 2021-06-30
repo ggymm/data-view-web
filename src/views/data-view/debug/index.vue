@@ -1,8 +1,6 @@
 <template>
   <div class="debug-main">
-    <div class="option">
-      <json-editor :height="'100%'" :json="option" @editor="optionChange" />
-    </div>
+    <div class="option" />
     <div class="chart">
       <div class="chart-panel">
         <div class="chart-container">
@@ -20,12 +18,9 @@
 </template>
 
 <script>
-import JsonEditor from '@/components/JsonEditor'
-
 export default {
   name: 'Index',
   components: {
-    JsonEditor
   },
   data() {
     return {
@@ -39,9 +34,6 @@ export default {
   mounted() {
   },
   methods: {
-    optionChange(option) {
-      this.option = option
-    }
   }
 }
 </script>

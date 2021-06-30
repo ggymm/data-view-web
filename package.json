@@ -15,7 +15,6 @@
     "echarts-wordcloud": "^2.0.0",
     "hotkeys-js": "^3.8.7",
     "html2canvas": "^1.0.0-rc.7",
-    "jsoneditor": "^9.4.1",
     "lodash": "^4.17.21",
     "monaco-editor": "^0.25.2",
     "store": "^2.0.12",

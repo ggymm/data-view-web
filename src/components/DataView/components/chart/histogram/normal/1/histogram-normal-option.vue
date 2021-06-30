@@ -43,7 +43,7 @@
               </a-form-item>
             </template>
             <a-form-item :label="'颜色配置-' + i">
-              <json-editor :height="'200px'" :json="s.itemStyle.color" @editor="itemColorChange($event, s)" />
+              <a-textarea v-model="s.itemStyle.color" :rows="4" />
             </a-form-item>
           </div>
         </a-form>
@@ -53,14 +53,12 @@
 </template>
 
 <script>
-import JsonEditor from '@/components/JsonEditor'
 import ChartOption from '@/components/DataView/common/option/chart'
 import CoordinateSystemOption from '@/components/DataView/common/option/coordinate-system'
 
 export default {
   name: 'HistogramNormalOption',
   components: {
-    JsonEditor,
     ChartOption,
     CoordinateSystemOption
   },
