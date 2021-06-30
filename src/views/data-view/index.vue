@@ -22,7 +22,7 @@
       <!-- md: ≥768px; lg: ≥992px -->
       <!-- xl: ≥1200px; xxl: ≥1600px -->
       <a-list :grid="{ gutter: 36, xs: 1, sm: 2, md: 2, lg: 3, xl: 4, xxl: 6 }" :data-source="list">
-        <a-list-item slot="renderItem" slot-scope="item">
+        <a-list-item slot="renderItem" slot-scope="item" class="data-view-item">
           <a-card>
             <div slot="cover" class="thumbnails">
               <img :src="imageBasicUrl + item.instance_view_thumbnail" class="image" alt="">
@@ -103,46 +103,55 @@ export default {
 </script>
 
 <style lang="less">
-.thumbnails {
-  position: relative;
-  height: 180px;
+.data-view-item {
+  .ant-card-meta-title {
+    text-align: center;
+  }
+
+  .ant-card-body {
+    padding: 10px;
+  }
+
+  .thumbnails {
+    position: relative;
+    height: 180px;
+
+    &:hover {
+      .edit-shade {
+        display: block;
+      }
+
+      button {
+        display: block;
+      }
+    }
+
+    .edit-shade {
+      background: #000000 none repeat scroll 0 0;
+      opacity: 0.5;
+      height: 180px;
+      position: relative;
+      text-align: center;
+      top: -180px;
+      z-index: 99;
+      display: none;
+    }
+
+    button {
+      position: absolute;
+      z-index: 999;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      display: none;
+    }
+  }
+
+  .image {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
 }
 
-.thumbnails:hover .edit-shade {
-  display: block;
-}
-
-.thumbnails:hover button {
-  display: block;
-}
-
-.image {
-  width: 100%;
-  height: 100%;
-  display: block;
-}
-
-.thumbnails .edit-shade {
-  background: #000000 none repeat scroll 0 0;
-  opacity: 0.5;
-  height: 180px;
-  position: relative;
-  text-align: center;
-  top: -180px;
-  z-index: 99;
-  display: none;
-}
-
-.thumbnails button {
-  position: absolute;
-  z-index: 999;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  display: none;
-}
-
-.ant-card-meta-title {
-  text-align: center;
-}
 </style>
