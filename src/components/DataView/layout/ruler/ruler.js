@@ -1,4 +1,4 @@
-import { $, on, off, addClass } from '@/core/dom'
+import { $, on, off, addClass } from '@/utils/dom'
 
 // 创建高分辨率画布
 const createCanvas = (el, width, height, ratio) => {
@@ -168,7 +168,7 @@ export class RulerBuilder {
     width: 1000,
     height: 20,
     bgColor: '#0e1013',
-    fontFamily: 'sans-serif',
+    fontFamily: 'arial',
     fontSize: '10px',
     fontColor: '#90a0ae',
     strokeStyle: 'rgba(161, 174, 179, 0.8)',

@@ -1,9 +1,4 @@
-import { BasicLayout, BlankLayout } from '@/layouts'
-
-const RouteView = {
-  name: 'RouteView',
-  render: (h) => h('router-view')
-}
+import { BasicLayout, BlankLayout, RouteView } from '@/layouts'
 
 export const asyncRouterMap = [
   {
@@ -121,14 +116,14 @@ export const asyncRouterMap = [
         hidden: true,
         children: [
           {
-            path: 'index',
+            path: 'create',
             component: () => import('@/views/data-view/instance/index'),
             meta: {
               title: '可视化大屏创建'
             }
           },
           {
-            path: 'index/:instance_id/:is_copy',
+            path: 'edit/:instance_id/:is_copy',
             component: () => import('@/views/data-view/instance/index'),
             meta: {
               title: '可视化大屏编辑'

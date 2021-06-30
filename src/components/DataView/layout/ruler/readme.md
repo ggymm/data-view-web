@@ -6,7 +6,7 @@ https://github.com/pengxiaotian/datav-vue
 
 的/src/views/screen/canvas-main/ruler/目录
 
-具体参考代码
+使用的代码
 
 1. 标尺绘制逻辑，和UI
 2. 标尺相关事件（显示，删除，拖拽标尺参考线等）

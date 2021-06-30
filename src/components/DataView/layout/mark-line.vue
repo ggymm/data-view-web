@@ -13,7 +13,7 @@
 
 <script>
 import { mapState } from 'vuex'
-import { $ } from '@/core/dom'
+import { $ } from '@/utils/dom'
 import { getItemRotatedStyle } from './calculate'
 
 export default {

@@ -27,7 +27,6 @@ const vueConfig = {
   },
   productionSourceMap: false,
   configureWebpack: {
-    devtool: 'eval-source-map',
     plugins: [
       new HardSourceWebpackPlugin(),
       new MonacoWebpackPlugin(),

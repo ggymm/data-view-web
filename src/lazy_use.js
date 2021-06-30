@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import bus from '@/core/bus'
+import bus from '@/utils/bus'
 import scriptUrl from '@/assets/icon/iconfont.js'
 
 import {

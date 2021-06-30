@@ -10,7 +10,7 @@
 
 <script>
 import { mapState } from 'vuex'
-import { on, off, $ } from '@/core/dom'
+import { on, off, $ } from '@/utils/dom'
 import { RulerBuilder } from './ruler'
 
 export default {
@@ -162,8 +162,9 @@ export default {
       height: 100vw;
 
       .indicator-value {
-        left: 10px;
+        font-family: arial, sans-serif;
         top: 5px;
+        left: 10px;
       }
     }
   }

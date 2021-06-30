@@ -1,5 +1,5 @@
 import { v4 as uuidv4 } from 'uuid'
-import debounce from 'lodash/debounce'
+import debounce from '@/utils/debounce'
 
 export default {
   state: {

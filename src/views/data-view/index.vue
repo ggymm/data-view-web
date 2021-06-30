@@ -85,7 +85,7 @@ export default {
     handleFilter() {
     },
     handleCreate() {
-      window.open(this.routerBase + 'data-view-instance/index')
+      window.open(this.routerBase + 'data-view-instance/create')
     },
     handleDebug() {
       window.open(this.routerBase + 'data-view-debug/index')
@@ -94,7 +94,7 @@ export default {
       window.open(this.routerBase + 'data-view-instance/preview/' + instance_id)
     },
     handleEdit(instance_id) {
-      window.open(this.routerBase + 'data-view-instance/index/' + instance_id + '/0')
+      window.open(this.routerBase + 'data-view-instance/edit/' + instance_id + '/0')
     },
     handleDelete() {
     }

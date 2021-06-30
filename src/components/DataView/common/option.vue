@@ -106,7 +106,7 @@
               <a-textarea v-model="currentItem.chartData.sql" />
             </a-form-item>
             <a-form-item>
-              <a-button type="primary" size="small" @click="handleEditSQL">调试SQL</a-button>
+              <a-button type="primary" size="small">调试SQL</a-button>
             </a-form-item>
           </template>
           <template v-else-if="currentItem.chartData.dataSourceType === 'Rest'">

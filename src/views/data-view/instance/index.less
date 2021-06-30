@@ -273,6 +273,35 @@
                 }
               }
 
+              .support-lines {
+                .x-line {
+                  position: absolute;
+                  top: 0;
+                  border-top: 1px dashed var(--primary-color);
+                  height: 0;
+                  transform: translateX(-100%);
+                }
+
+                .y-line {
+                  position: absolute;
+                  left: 0;
+                  border-left: 1px dashed var(--primary-color);
+                  width: 0;
+                  transform: translateY(-100%);
+                }
+
+                .coordinate {
+                  top: -5px;
+                  left: -8px;
+                  position: absolute;
+                  padding: 5px;
+                  transform: translate(-100%, -100%);
+                  color: var(--primary-color);
+                  font-size: 18px;
+                  white-space: nowrap;
+                }
+              }
+
               .rotate-handler {
                 position: absolute;
                 top: -36px;

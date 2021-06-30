@@ -13,7 +13,9 @@
       @mouseenter="item.hover = true"
       @mouseleave="item.hover = false"
     >
+      <!-- 旋转 -->
       <a-icon v-show="isActive()" type="reload" class="rotate-handler" @mousedown.prevent.stop="handleRotate" />
+      <!-- 边框 -->
       <i
         v-for="(v, k) in points()"
         :key="k"
@@ -21,6 +23,12 @@
       >
         <span class="control-point" :style="v.style" @mousedown.prevent.stop="handleResize($event, k)" />
       </i>
+      <!-- 位置坐标 -->
+      <div v-show="isActive()" class="support-lines">
+        <span class="x-line" :style="lineXStyle()" />
+        <span class="y-line" :style="lineYStyle()" />
+        <span class="coordinate">{{ item.x }}，{{ item.y }}</span>
+      </div>
       <slot />
     </div>
   </div>
@@ -28,7 +36,7 @@
 
 <script>
 import { mapState } from 'vuex'
-import { on, off } from '@/core/dom'
+import { on, off } from '@/utils/dom'
 import { getCursors, calcResizeInfo } from './calculate'
 
 export default {
@@ -71,6 +79,18 @@ export default {
         width: `${this.item.width}px`,
         height: `${this.item.height}px`,
         transform: `translate(${this.item.x}px, ${this.item.y}px) rotate(${this.item.rotate}deg)`
+      }
+    },
+    lineXStyle() {
+      return {
+        width: `${this.item.x / this.canvasConfig.scale}px`,
+        borderWidth: `${1 / this.canvasConfig.scale}px`
+      }
+    },
+    lineYStyle() {
+      return {
+        height: `${this.item.y / this.canvasConfig.scale}px`,
+        borderWidth: `${1 / this.canvasConfig.scale}px`
       }
     },
     itemHandlerClass() {
