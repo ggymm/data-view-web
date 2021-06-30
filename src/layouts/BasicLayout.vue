@@ -1,7 +1,6 @@
 <template>
   <pro-layout
     :menus="menus"
-    :sider-width="200"
     :collapsed="collapsed"
     :media-query="query"
     :is-mobile="isMobile"

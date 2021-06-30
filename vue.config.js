@@ -10,7 +10,24 @@ function resolve(dir) {
 
 const vueConfig = {
   publicPath: '/data-view-web',
+  outputDir: 'build',
+  devServer: {
+    port: 8000
+  },
+  css: {
+    loaderOptions: {
+      less: {
+        modifyVars: {
+          'primary-color': '#2491f7',
+          'border-radius-base': '2px'
+        },
+        javascriptEnabled: true
+      }
+    }
+  },
+  productionSourceMap: false,
   configureWebpack: {
+    devtool: 'eval-source-map',
     plugins: [
       new HardSourceWebpackPlugin(),
       new MonacoWebpackPlugin(),
@@ -25,27 +42,7 @@ const vueConfig = {
         '@': resolve('src')
       }
     }
-  },
-
-  css: {
-    loaderOptions: {
-      less: {
-        modifyVars: {
-          'primary-color': '#2491f7',
-          'border-radius-base': '2px'
-        },
-        javascriptEnabled: true
-      }
-    }
-  },
-
-  devServer: {
-    port: 8000
-  },
-
-  productionSourceMap: false,
-  lintOnSave: undefined,
-  transpileDependencies: []
+  }
 }
 
 // noinspection JSPrimitiveTypeWrapperUsage
