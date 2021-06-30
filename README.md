@@ -11,27 +11,25 @@
 #### 依赖项
 
 ```JSON
-"dependencies": {
-    "@ant-design-vue/pro-layout": "^1.0.8",
-    "ant-design-vue": "^1.7.5",
-    "axios": "^0.21.1",
-    "core-js": "^3.6.5",
-    "echarts": "^5.1.2",
-    "echarts-wordcloud": "^2.0.0",
-    "html2canvas": "^1.0.0-rc.7",
-    "interactjs": "^1.10.11",
-    "jsoneditor": "^9.4.1",
-    "lodash": "^4.17.21",
-    "monaco-editor": "^0.25.2",
-    "store": "^2.0.12",
-    "uuid": "^8.3.2",
-    "vue": "^2.6.11",
-    "vue-echarts": "^6.0.0-rc.6",
-    "vue-router": "^3.2.0",
-    "vue-svg-component-runtime": "^1.0.1",
-    "vuescroll": "^4.17.3",
-    "vuex": "^3.4.0"
-  }
+"@ant-design-vue/pro-layout": "^1.0.8",
+"ant-design-vue": "^1.7.5",
+"axios": "^0.21.1",
+"core-js": "^3.6.5",
+"echarts": "^5.1.2",
+"echarts-wordcloud": "^2.0.0",
+"hotkeys-js": "^3.8.7",
+"html2canvas": "^1.0.0-rc.7",
+"jsoneditor": "^9.4.1",
+"lodash": "^4.17.21",
+"monaco-editor": "^0.25.2",
+"store": "^2.0.12",
+"uuid": "^8.3.2",
+"vue": "^2.6.11",
+"vue-echarts": "^6.0.0-rc.6",
+"vue-router": "^3.2.0",
+"vue-svg-component-runtime": "^1.0.1",
+"vuescroll": "^4.17.3",
+"vuex": "^3.4.0"
 ```
 
 
@@ -107,7 +105,9 @@
 
 5. 模板5
 
-&ensp;&ensp;&ensp;&ensp;
+![企业数字运维可视化监控平台-结果](https://user-images.githubusercontent.com/20694755/123599719-7d745700-d828-11eb-8dd1-150cd82f746e.png)
+
+6. 模板6
 
 #### 实现参考
 
