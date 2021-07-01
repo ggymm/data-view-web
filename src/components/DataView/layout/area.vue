@@ -34,7 +34,7 @@ export default {
 }
 </script>
 
-<style lang="less" scoped>
+<style lang="less">
 .area {
   border: 1px solid #70c0ff;
   position: absolute;
