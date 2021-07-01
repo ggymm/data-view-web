@@ -71,6 +71,9 @@ export default {
       state.currentItem = item
       state.currentIndex = index
     },
+    setMoveStatus(state, status) {
+      state.moving = status
+    },
     setResizeStatus(state, status) {
       state.resizing = status
     },

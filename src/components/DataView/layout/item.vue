@@ -24,7 +24,7 @@
         <span class="control-point" :style="v.style" @mousedown.prevent.stop="handleResize($event, k)" />
       </i>
       <!-- 位置坐标 -->
-      <div v-show="isActive()" class="support-lines">
+      <div v-show="isActive() && moving" class="support-lines">
         <span class="x-line" :style="lineXStyle()" />
         <span class="y-line" :style="lineYStyle()" />
         <span class="coordinate">{{ item.x }}，{{ item.y }}</span>
@@ -63,6 +63,7 @@ export default {
     return {}
   },
   computed: mapState([
+    'moving',
     'resizing',
     'canvasConfig',
     'screenConfig',
@@ -238,6 +239,7 @@ export default {
       const move = (e) => {
         moved = true
         this.setCursor('move')
+        this.$store.commit('setMoveStatus', true)
         const style = {
           x: moveInfo.x + Math.round((e.clientX - ev.clientX) / scale),
           y: moveInfo.y + Math.round((e.clientY - ev.clientY) / scale)
@@ -254,6 +256,7 @@ export default {
 
       const up = () => {
         this.setCursor('')
+        this.$store.commit('setMoveStatus', false)
         // 通知移动完毕，隐藏对齐线
         this.$bus.$emit('moved')
         // 保存快照
