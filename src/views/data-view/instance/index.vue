@@ -34,7 +34,8 @@
         <a-layout-content
           id="screenWrapper"
           class="data-view-screen-wrapper"
-          @mousedown="handleItemUnChoose"
+          @mousedown="handleItemUnClick"
+          @mouseup="handleItemUnChoose"
         >
           <layout @dragover.native="handleDragOver" @drop.native="handleDrop">
             <item
@@ -53,14 +54,17 @@
           </layout>
         </a-layout-content>
         <a-layout-footer class="data-view-screen-footer">
-          <a-button type="link" size="small" @click="$store.commit('autoCanvasScale')">自适应</a-button>
-          <a-slider
-            v-model="scale"
-            class="data-view-scale"
-            :min="20"
-            :max="200"
-            :marks="{ 100:{} }"
-          />
+          <a-space>
+            <a-button type="link" size="small" @click="$store.commit('autoCanvasScale')">自适应</a-button>
+            <a-button type="link" size="small" @click="scale = 100">正常大小</a-button>
+            <a-slider
+              v-model="scale"
+              class="data-view-scale"
+              :min="20"
+              :max="200"
+              :marks="{ 100:{} }"
+            />
+          </a-space>
         </a-layout-footer>
       </a-layout>
       <a-layout-sider
@@ -161,6 +165,7 @@ export default {
     ...mapState([
       'slices',
       'canvasConfig',
+      'clickItem',
       'currentItem'
     ])
   },
@@ -194,8 +199,16 @@ export default {
       newItem.y = event.offsetY - newItem.height / 2
       this.$store.commit('addItem', newItem)
     },
-    handleItemUnChoose() {
-      this.$store.commit('setCurrentItem', { item: null, index: -1 })
+    handleItemUnClick() {
+      this.$store.commit('setClickItem', false)
+    },
+    handleItemUnChoose(e) {
+      if (!this.clickItem) {
+        this.$store.commit('setCurrentItem', { item: null, index: -1 })
+      }
+      if (e.button !== 2) {
+        this.$store.commit('hideContextmenu')
+      }
     },
     async getDataSourceList() {
       const response = await getDataSourceList()

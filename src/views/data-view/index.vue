@@ -69,6 +69,9 @@ export default {
     }
   },
   mounted() {
+    // 动态计算元素高度
+  },
+  created() {
     this.getData()
   },
   methods: {

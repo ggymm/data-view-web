@@ -4,6 +4,7 @@ import debounce from '@/utils/debounce'
 export default {
   state: {
     slices: [],
+    clickItem: false,
     currentItem: null,
     currentIndex: 0,
 
@@ -70,6 +71,9 @@ export default {
       state.copyNum = 1
       state.currentItem = item
       state.currentIndex = index
+    },
+    setClickItem(state, status) {
+      state.clickItem = status
     },
     setMoveStatus(state, status) {
       state.moving = status

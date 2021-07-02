@@ -21,14 +21,13 @@ export default {
       newItem.hover = false
 
       if (mouse) {
-        newItem.x += state.copyNum * state.step
-        newItem.y += state.copyNum * state.step
+        newItem.x = state.contextmenuLeft
+        newItem.y = state.contextmenuTop
       } else {
         newItem.x += state.copyNum * state.step
         newItem.y += state.copyNum * state.step
+        state.copyNum += 1
       }
-
-      state.copyNum += 1
       store.commit('addItem', newItem)
     }
   },

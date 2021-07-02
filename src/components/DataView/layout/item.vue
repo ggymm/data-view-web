@@ -122,12 +122,17 @@ export default {
     handleItemClick(ev) {
       ev.stopPropagation()
       ev.preventDefault()
+
+      this.$store.commit('hideContextmenu')
     },
     handleItemChoose() {
+      this.$store.commit('setClickItem', true)
       this.$store.commit('setCurrentItem', { item: this.item, index: this.index })
       this.$bus.$emit('layer:itemChange')
     },
     handleRotate(ev) {
+      ev.preventDefault()
+      ev.stopPropagation()
       // 已经处于选中状态
       const rect = this.$el.getBoundingClientRect()
       const centerX = rect.left + rect.width / 2
@@ -169,6 +174,8 @@ export default {
       on(document, 'mouseup', up)
     },
     handleResize(ev, direction) {
+      ev.preventDefault()
+      ev.stopPropagation()
       // 可能没有处于选中状态
       // 需要设置选中状态
       this.handleItemChoose()
@@ -222,6 +229,8 @@ export default {
       on(document, 'mouseup', up)
     },
     handleMove(ev) {
+      ev.preventDefault()
+      ev.stopPropagation()
       // 设置选中状态
       this.handleItemChoose()
 

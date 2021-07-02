@@ -162,7 +162,7 @@
 
           .layer-item-icon {
             flex: none;
-            color: #409eff;
+            color: var(--primary-color);
             margin-right: 10px;
             width: 52px;
             height: 30px;
@@ -308,7 +308,7 @@
                 left: 50%;
                 transform: translateX(-50%);
                 cursor: grab;
-                color: #59c7f9;
+                color: var(--primary-color);
                 font-size: 20px;
               }
 
@@ -338,8 +338,7 @@
                 &::after {
                   content: "";
                   position: absolute;
-                  z-index: 1;
-                  background-color: #59c7f9;
+                  background-color: var(--primary-color);
                 }
 
                 &.top-handler {
@@ -745,6 +744,7 @@
     position: relative;
 
     &:hover {
+      color: var(--primary-color);
       background: var(--background-gray);
     }
   }
