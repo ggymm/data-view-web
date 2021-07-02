@@ -12,12 +12,12 @@
     >
       <slot />
       <!-- 对齐线 -->
-      <mark-line />
+      <refline />
       <!-- 选中区域 -->
       <choose-area v-show="isShowArea" :start="start" :width="width" :height="height" />
     </div>
     <!-- 右键菜单 -->
-    <contextmenu :left="position.left" :top="position.top" />
+    <contextmenu />
   </div>
 </template>
 
@@ -26,7 +26,7 @@ import hotkeys from 'hotkeys-js'
 import { mapState } from 'vuex'
 import defaultSettings from '@/config'
 import Ruler from './ruler/index'
-import MarkLine from './mark-line'
+import Refline from './refline'
 import ChooseArea from './area'
 import Contextmenu from './contextmenu'
 
@@ -34,7 +34,7 @@ export default {
   name: 'Layout',
   components: {
     Ruler,
-    MarkLine,
+    Refline,
     ChooseArea,
     Contextmenu
   },
@@ -44,10 +44,6 @@ export default {
       start: {
         x: 0,
         y: 0
-      },
-      position: {
-        top: 0,
-        left: 0
       },
       width: 0,
       height: 0,

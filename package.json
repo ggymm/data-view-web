@@ -16,6 +16,7 @@
     "hotkeys-js": "^3.8.7",
     "html2canvas": "^1.0.0-rc.7",
     "monaco-editor": "^0.25.2",
+    "refline.js": "^0.7.0",
     "uuid": "^8.3.2",
     "vue": "^2.6.11",
     "vue-echarts": "^6.0.0-rc.6",

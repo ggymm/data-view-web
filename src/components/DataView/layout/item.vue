@@ -67,6 +67,7 @@ export default {
     'resizing',
     'canvasConfig',
     'screenConfig',
+    'refline',
     'currentItem'
   ]),
   mounted() {
@@ -234,14 +235,23 @@ export default {
       // 设置选中状态
       this.handleItemChoose()
 
-      const moveInfo = {
-        x: this.item.x,
-        y: this.item.y,
-        width: this.item.width,
-        height: this.item.height,
-        sWidth: this.screenConfig.width,
-        sHeight: this.screenConfig.height
-      }
+      // 设置refline
+      this.$store.commit('setRefline')
+      const updater = this.refline.adsorbCreator({
+        current: {
+          key: this.index,
+          left: this.item.x,
+          top: this.item.y,
+          width: this.item.width,
+          height: this.item.height,
+          rotate: this.item.rotate
+        },
+        pageX: ev.clientX,
+        pageY: ev.clientY,
+        distance: 5,
+        disableAdsorb: false
+      })
+
       const scale = this.canvasConfig.scale
 
       let moved = false
@@ -249,25 +259,22 @@ export default {
         moved = true
         this.setCursor('move')
         this.$store.commit('setMoveStatus', true)
-        const style = {
-          x: moveInfo.x + Math.round((e.clientX - ev.clientX) / scale),
-          y: moveInfo.y + Math.round((e.clientY - ev.clientY) / scale)
-        }
-        // 更新组件位置信息
-        this.setItemStyle(style)
-        // 等更新完当前组件的样式并绘制到屏幕后再判断是否需要吸附
-        // 如果不使用 $nextTick，吸附后将无法移动
-        this.$nextTick(() => {
-          // 触发元素移动事件，用于显示标线、吸附功能
-          this.$bus.$emit('moving', this.item)
+
+        const { delta } = updater({
+          pageX: e.clientX,
+          pageY: e.clientY
         })
+
+        // this.item.x += Math.round((e.clientX - ev.clientX) / scale)
+        // this.item.y += Math.round((e.clientY - ev.clientY) / scale)
+        this.item.x += Math.round(delta.left / scale)
+        this.item.y += Math.round(delta.top / scale)
       }
 
       const up = () => {
         this.setCursor('')
         this.$store.commit('setMoveStatus', false)
-        // 通知移动完毕，隐藏对齐线
-        this.$bus.$emit('moved')
+        this.$store.commit('hideRefline')
         // 保存快照
         if (moved) {
           this.$store.dispatch('recordSnapshot')

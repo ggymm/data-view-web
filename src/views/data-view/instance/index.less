@@ -233,9 +233,10 @@
 
           .data-view-item {
             position: absolute;
+            will-change: transform;
 
             &.active {
-              z-index: 99;
+              z-index: 99 !important;
 
               .line-handler, .spot-handler {
                 display: flex !important;
