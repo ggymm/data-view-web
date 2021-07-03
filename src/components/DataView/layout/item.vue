@@ -239,7 +239,7 @@ export default {
       let updater
       let startX
       let startY
-      if (this.canvasConfig.referLine) {
+      if (this.canvasConfig.refLine) {
         this.$store.commit('setRefline')
         updater = this.refline.adsorbCreator({
           current: {
@@ -269,7 +269,7 @@ export default {
         this.setCursor('move')
         this.$store.commit('setMoveStatus', true)
 
-        if (this.canvasConfig.referLine) {
+        if (this.canvasConfig.refLine) {
           const { delta } = updater({
             pageX: e.clientX,
             pageY: e.clientY

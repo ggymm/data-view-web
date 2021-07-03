@@ -55,15 +55,6 @@
         </a-layout-content>
         <a-layout-footer class="data-view-screen-footer toolbox">
           <a-space>
-            <a-button type="link" size="small" @click="$store.commit('autoCanvasScale')">自适应</a-button>
-            <a-button type="link" size="small" @click="scale = 100">正常大小</a-button>
-            <a-slider
-              v-model="scale"
-              class="data-view-scale"
-              :min="20"
-              :max="200"
-              :marks="{ 100:{} }"
-            />
             <div class="tool-item">
               <span class="label">参考线</span>
               <a-switch v-model="refLine" />
@@ -71,6 +62,18 @@
             <div class="tool-item">
               <span class="label">指示线</span>
               <a-switch v-model="indicatorLine" />
+            </div>
+            <div class="tool-item">
+              <span class="label">缩放比例</span>
+              <a-slider
+                v-model="scale"
+                class="data-view-scale"
+                :min="20"
+                :max="200"
+                :marks="{ 100:{} }"
+              />
+              <span class="tool-btn" @click="$store.commit('autoCanvasScale')">自适应</span>
+              <span class="tool-btn" @click="scale = 100">正常大小</span>
             </div>
           </a-space>
         </a-layout-footer>
