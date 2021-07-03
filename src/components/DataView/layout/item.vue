@@ -24,7 +24,7 @@
         <span class="control-point" :style="v.style" @mousedown.prevent.stop="handleResize($event, k)" />
       </i>
       <!-- 位置坐标 -->
-      <div v-show="isActive() && moving" class="support-lines">
+      <div v-show="isActive() && canvasConfig.indicatorLine && moving" class="indicator-lines">
         <span class="x-line" :style="lineXStyle()" />
         <span class="y-line" :style="lineYStyle()" />
         <span class="coordinate">{{ item.x }}，{{ item.y }}</span>
@@ -236,21 +236,30 @@ export default {
       this.handleItemChoose()
 
       // 设置refline
-      this.$store.commit('setRefline')
-      const updater = this.refline.adsorbCreator({
-        current: {
-          key: this.index,
-          left: this.item.x,
-          top: this.item.y,
-          width: this.item.width,
-          height: this.item.height,
-          rotate: this.item.rotate
-        },
-        pageX: ev.clientX,
-        pageY: ev.clientY,
-        distance: 5,
-        disableAdsorb: false
-      })
+      let updater
+      let startX
+      let startY
+      if (this.canvasConfig.referLine) {
+        this.$store.commit('setRefline')
+        updater = this.refline.adsorbCreator({
+          current: {
+            key: this.index,
+            left: this.item.x,
+            top: this.item.y,
+            width: this.item.width,
+            height: this.item.height,
+            rotate: this.item.rotate
+          },
+          pageX: ev.clientX,
+          pageY: ev.clientY,
+          distance: 5,
+          // distance: 50,
+          disableAdsorb: false
+        })
+      } else {
+        startX = this.item.x
+        startY = this.item.y
+      }
 
       const scale = this.canvasConfig.scale
 
@@ -260,15 +269,17 @@ export default {
         this.setCursor('move')
         this.$store.commit('setMoveStatus', true)
 
-        const { delta } = updater({
-          pageX: e.clientX,
-          pageY: e.clientY
-        })
-
-        // this.item.x += Math.round((e.clientX - ev.clientX) / scale)
-        // this.item.y += Math.round((e.clientY - ev.clientY) / scale)
-        this.item.x += Math.round(delta.left / scale)
-        this.item.y += Math.round(delta.top / scale)
+        if (this.canvasConfig.referLine) {
+          const { delta } = updater({
+            pageX: e.clientX,
+            pageY: e.clientY
+          })
+          this.item.x += Math.round(delta.left / scale)
+          this.item.y += Math.round(delta.top / scale)
+        } else {
+          this.item.x = startX + Math.round((e.clientX - ev.clientX) / scale)
+          this.item.y = startY + Math.round((e.clientY - ev.clientY) / scale)
+        }
       }
 
       const up = () => {

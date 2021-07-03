@@ -7,7 +7,7 @@
           position: 'absolute',
           left: `${line.left}px`,
           top: `${line.top}px`,
-          width: '1px',
+          width: '0',
           height: `${line.size}px`,
           borderLeft: '1px dashed var(--primary-color)'
         }"
@@ -18,7 +18,7 @@
           position: 'absolute',
           left: `${line.left}px`,
           top: `${line.top}px`,
-          height: '1px',
+          height: '0',
           width: `${line.size}px`,
           borderTop: '1px dashed var(--primary-color)'
         }"
@@ -33,13 +33,20 @@ import { mapState } from 'vuex'
 export default {
   name: 'Refline',
   computed: mapState([
-    'refline',
-    'currentItem'
+    'refline'
   ]),
   methods: {
     lines() {
-      return (this.refline !== null && this.currentItem) ? this.refline.getAllRefLines() : []
+      if (this.refline !== null) {
+        // console.log(JSON.stringify(this.refline.getAllRefLines(), null, 2))
+      }
+      return this.refline !== null ? this.refline.getAllRefLines() : []
     }
   }
 }
 </script>
+<style lang="less">
+.refline {
+  border-color: var(--primary-color);
+}
+</style>

@@ -53,7 +53,7 @@
             </item>
           </layout>
         </a-layout-content>
-        <a-layout-footer class="data-view-screen-footer">
+        <a-layout-footer class="data-view-screen-footer toolbox">
           <a-space>
             <a-button type="link" size="small" @click="$store.commit('autoCanvasScale')">自适应</a-button>
             <a-button type="link" size="small" @click="scale = 100">正常大小</a-button>
@@ -64,6 +64,14 @@
               :max="200"
               :marks="{ 100:{} }"
             />
+            <div class="tool-item">
+              <span class="label">参考线</span>
+              <a-switch v-model="refLine" />
+            </div>
+            <div class="tool-item">
+              <span class="label">指示线</span>
+              <a-switch v-model="indicatorLine" />
+            </div>
           </a-space>
         </a-layout-footer>
       </a-layout>
@@ -152,6 +160,22 @@ export default {
       },
       set(val) {
         this.$store.commit('setCanvasScale', val)
+      }
+    },
+    refLine: {
+      get() {
+        return this.$store.state.canvasConfig.refLine
+      },
+      set(val) {
+        this.$store.commit('setRefLine', val)
+      }
+    },
+    indicatorLine: {
+      get() {
+        return this.$store.state.canvasConfig.indicatorLine
+      },
+      set(val) {
+        this.$store.commit('setIndicatorLine', val)
       }
     },
     screenConfig: {

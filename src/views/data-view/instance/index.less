@@ -274,7 +274,7 @@
                 }
               }
 
-              .support-lines {
+              .indicator-lines {
                 .x-line {
                   position: absolute;
                   top: 0;
@@ -418,11 +418,11 @@
         }
       }
 
-      .ant-layout-footer {
+      .data-view-screen-footer {
         height: 36px;
         line-height: 36px;
         padding: 0 40px;
-        background-color: #001529;
+        background-color: var(--background-2);
         display: flex;
         align-items: center;
         justify-content: flex-end;
@@ -431,6 +431,16 @@
           display: flex;
           margin: 0;
           width: 200px;
+        }
+
+        .tool-item {
+          display: flex;
+          align-items: center;
+
+          .label {
+            color: var(--text-2);
+            margin-right: 10px;
+          }
         }
       }
     }

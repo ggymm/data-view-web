@@ -15,7 +15,11 @@ export default {
     canvasConfig: {
       width: 1920,
       height: 1080,
-      scale: 0.2
+      scale: 0.2,
+      // 参考线
+      refLine: true,
+      // 指示线
+      indicatorLine: true
     },
     // 大屏宽高（设计）
     screenConfig: {
@@ -110,6 +114,12 @@ export default {
       state.canvasConfig.scale = scale
       state.canvasConfig.width = state.screenConfig.width * scale + 128
       state.canvasConfig.height = state.screenConfig.height * scale + 128
+    },
+    setRefLine(state, refLine) {
+      state.canvasConfig.refLine = refLine
+    },
+    setIndicatorLine(state, indicatorLine) {
+      state.canvasConfig.indicatorLine = indicatorLine
     },
 
     // 大屏配置相关
