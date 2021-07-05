@@ -39,7 +39,7 @@
         >
           <layout @dragover.native="handleDragOver" @drop.native="handleDrop">
             <item
-              v-for="(item, index) in slices"
+              v-for="(item, index) in items"
               :key="index"
               :item="item"
               :index="index"
@@ -192,7 +192,7 @@ export default {
       }
     },
     ...mapState([
-      'slices',
+      'items',
       'canvasConfig',
       'clickItem',
       'currentItem'
@@ -226,6 +226,7 @@ export default {
       const newItem = OptionConfigMap[type]()
       newItem.x = event.offsetX - newItem.width / 2
       newItem.y = event.offsetY - newItem.height / 2
+      newItem.hover = false
       this.$store.commit('addItem', newItem)
     },
     handleItemUnClick() {
@@ -284,7 +285,7 @@ export default {
         return
       }
 
-      const items = JSON.parse(JSON.stringify(this.slices))
+      const items = JSON.parse(JSON.stringify(this.items))
       items.map((item, index) => {
         item.index = index
         item.data = JSON.stringify(item.data)

@@ -268,7 +268,6 @@ export default {
         moved = true
         this.setCursor('move')
         this.$store.commit('setMoveStatus', true)
-
         if (this.canvasConfig.refLine) {
           const { delta } = updater({
             pageX: e.clientX,

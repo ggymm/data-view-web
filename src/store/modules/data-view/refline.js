@@ -30,8 +30,8 @@ export default {
       // }
 
       const rects = []
-      for (let i = 0; i < state.slices.length; i++) {
-        const item = state.slices[i]
+      for (let i = 0; i < state.items.length; i++) {
+        const item = state.items[i]
         rects.push({
           key: i,
           left: item.x,

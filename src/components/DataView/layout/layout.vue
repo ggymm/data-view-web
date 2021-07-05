@@ -19,14 +19,14 @@
     <!-- 右键菜单 -->
     <contextmenu />
     <!-- 选中区域 -->
-    <choose-area v-show="areaShow" :start="areaStart" :width="areaSize.width" :height="areaSize.height" />
+    <choose-area v-show="groupAreaShow" :start="areaStart" :width="areaSize.width" :height="areaSize.height" />
   </div>
 </template>
 
 <script>
 import hotkeys from 'hotkeys-js'
 import { mapState } from 'vuex'
-import { on, off } from '@/utils/dom'
+import { $, on, off } from '@/utils/dom'
 import defaultSettings from '@/config'
 import Ruler from './ruler/index'
 import Refline from './refline'
@@ -51,21 +51,42 @@ export default {
       areaSize: {
         width: 0,
         height: 0
-      },
-      areaShow: false
+      }
     }
   },
   computed: mapState([
+    'items',
     'currentItem',
     'canvasConfig',
-    'screenConfig'
+    'screenConfig',
+    'groupAreaShow'
   ]),
   watch: {
     areaSize: {
       deep: true,
       handler: function(val) {
-        console.log(val.width, val.height)
-        // 修改组件的hover状态
+        this.items.forEach((item, index) => {
+          if (item.lock === 'true') return
+          const layout = this.$refs.layout.getBoundingClientRect()
+          const itemRect = $(`[id='${item.elId}']`).getBoundingClientRect()
+
+          const x = itemRect.x - layout.x + this.canvasConfig.padding
+          const y = itemRect.y - layout.y + this.canvasConfig.padding
+          const { width, height } = itemRect
+
+          const top = this.areaStart.y <= y
+          const left = this.areaStart.x <= x
+          const right = (x + width) <= (this.areaStart.x + val.width)
+          const bottom = (y + height) <= (this.areaStart.y + val.height)
+
+          const inside = top && left && right && bottom
+          if (inside) {
+            this.$store.commit('addGroupIndex', index)
+          } else {
+            this.$store.commit('deleteGroupIndex', index)
+          }
+          this.$store.commit('setHoverItem', { index: index, status: inside })
+        })
       }
     }
   },
@@ -153,11 +174,9 @@ export default {
       const move = (e) => {
         this.areaSize.width = Math.abs(e.clientX - ev.clientX)
         this.areaSize.height = Math.abs(e.clientY - ev.clientY)
-
         if (e.clientX < ev.clientX) {
           this.areaStart.x = e.clientX - layout.x + this.canvasConfig.padding
         }
-
         if (e.clientY < ev.clientY) {
           this.areaStart.y = e.clientY - layout.y + this.canvasConfig.padding
         }
@@ -166,7 +185,7 @@ export default {
       const up = (e) => {
         off(document, 'mousemove', move)
         off(document, 'mouseup', up)
-        if (e.clientX === ev.clientX && e.clientY === ev.clientY) {
+        if (e.clientX - ev.clientX <= 10 && e.clientY - ev.clientY <= 10) {
           this.hideArea()
           return
         }
@@ -177,12 +196,12 @@ export default {
       on(document, 'mouseup', up)
     },
     showArea() {
-      this.areaShow = true
+      this.$store.commit('setGroupAreaShow', true)
     },
     hideArea() {
-      this.areaShow = false
       this.areaSize.width = 0
       this.areaSize.height = 0
+      this.$store.commit('setGroupAreaShow', false)
     },
     createGroup() {
       // this.hideArea()

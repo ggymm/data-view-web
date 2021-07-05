@@ -33,7 +33,8 @@ export default {
     }
   },
   methods: {
-    handleAreaChoose() {
+    handleAreaChoose(ev) {
+      console.log(ev)
     }
   }
 }
@@ -42,7 +43,7 @@ export default {
 <style lang="less">
 .area {
   position: absolute;
-  outline: 1px solid var(--primary-color);
+  outline: 1px dashed var(--primary-color);
   background-color: rgba(0, 132, 255, 0.15);
 }
 </style>

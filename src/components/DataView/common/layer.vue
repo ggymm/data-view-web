@@ -2,7 +2,7 @@
   <div class="data-view-layer">
     <div class="layer-header">图层</div>
     <div class="layer-wrapper">
-      <template v-for="(item, index) in slices">
+      <template v-for="(item, index) in items">
         <a-dropdown :key="index" :trigger="['contextmenu']">
           <div
             :id="`layer-${item.elId}`"
@@ -86,7 +86,7 @@ import { $ } from '@/utils/dom'
 export default {
   name: 'Layer',
   computed: mapState([
-    'slices',
+    'items',
     'currentItem'
   ]),
   mounted() {

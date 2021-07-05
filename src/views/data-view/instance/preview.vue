@@ -1,7 +1,7 @@
 <template>
   <div :style="layoutStyle()">
     <div
-      v-for="(item, index) in slices"
+      v-for="(item, index) in items"
       :key="index"
       :style="itemStyle(item)"
       class="data-view-item"
@@ -40,7 +40,7 @@ export default {
         theme: '',
         backgroundImg: ''
       },
-      slices: []
+      items: []
     }
   },
   created() {
@@ -84,7 +84,7 @@ export default {
             return item
           })
           this.instanceVersion = response.data.instance_version
-          this.slices = items
+          this.items = items
         }
       } catch (e) {
         console.log('获取大屏信息或解析大屏信息失败', e)
