@@ -64,7 +64,7 @@
               <a-switch v-model="indicatorLine" />
             </div>
             <div class="tool-item">
-              <span class="label">缩放比例</span>
+              <span class="label" style="margin-right: 15px">缩放比例</span>
               <a-slider
                 v-model="scale"
                 class="data-view-scale"
@@ -73,7 +73,7 @@
                 :marks="{ 100:{} }"
               />
               <span class="tool-btn" @click="$store.commit('autoCanvasScale')">自适应</span>
-              <span class="tool-btn" @click="scale = 100">正常大小</span>
+              <span class="tool-btn" @click="scale = 100">实际大小</span>
             </div>
           </a-space>
         </a-layout-footer>
@@ -162,7 +162,9 @@ export default {
         return this.$store.state.canvasConfig.scale * 100
       },
       set(val) {
-        this.$store.commit('setCanvasScale', val)
+        this.$store.commit('setCanvasScale', {
+          scale: val
+        })
       }
     },
     refLine: {

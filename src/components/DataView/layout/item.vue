@@ -15,14 +15,10 @@
     >
       <!-- 旋转 -->
       <a-icon v-show="isActive()" type="reload" class="rotate-handler" @mousedown.prevent.stop="handleRotate" />
-      <!-- 边框 -->
-      <i
-        v-for="(v, k) in points()"
-        :key="k"
-        :class="[`${v.name}-handler`, v.name.indexOf('-') > 0 ? 'spot-handler' : 'line-handler']"
-      >
-        <span class="control-point" :style="v.style" @mousedown.prevent.stop="handleResize($event, k)" />
-      </i>
+      <!-- 边界点和框线 -->
+      <div class="resize-handler">
+        <i v-for="(v, k) in points()" :key="k" class="drag-dot" :style="v.style" @mousedown.prevent.stop="handleResize($event, k)" />
+      </div>
       <!-- 位置坐标 -->
       <div v-show="isActive() && canvasConfig.indicatorLine && moving" class="indicator-lines">
         <span class="x-line" :style="lineXStyle()" />
@@ -110,14 +106,14 @@ export default {
       const cursor = getCursors(this.item.rotate)
       const transform = `scale(${1 / this.canvasConfig.scale}, ${1 / this.canvasConfig.scale})`
       return {
-        't': { name: 'top', style: { cursor: cursor.t, transform }},
-        'rt': { name: 'top-right', style: { cursor: cursor.rt, transform }},
-        'r': { name: 'right', style: { cursor: cursor.r, transform }},
-        'rb': { name: 'bottom-right', style: { cursor: cursor.rb, transform }},
-        'b': { name: 'bottom', style: { cursor: cursor.b, transform }},
-        'lb': { name: 'bottom-left', style: { cursor: cursor.lb, transform }},
-        'l': { name: 'left', style: { cursor: cursor.l, transform }},
-        'lt': { name: 'top-left', style: { cursor: cursor.lt, transform }}
+        't': { name: 'top', style: { top: '-4px', left: '50%', marginLeft: '-4px', cursor: cursor.t, transform }},
+        'rt': { name: 'top-right', style: { top: '-4px', right: '-4px', cursor: cursor.rt, transform }},
+        'r': { name: 'right', style: { top: '50%', right: '-4px', marginTop: '-4px', cursor: cursor.r, transform }},
+        'rb': { name: 'bottom-right', style: { right: '-4px', bottom: '-4px', cursor: cursor.rb, transform }},
+        'b': { name: 'bottom', style: { left: '50%', bottom: '-4px', marginLeft: '-4px', cursor: cursor.b, transform }},
+        'lb': { name: 'bottom-left', style: { left: '-4px', bottom: '-4px', cursor: cursor.lb, transform }},
+        'l': { name: 'left', style: { top: '50%', left: '-4px', marginTop: '-4px', cursor: cursor.l, transform }},
+        'lt': { name: 'top-left', style: { top: '-4px', left: '-4px', cursor: cursor.lt, transform }}
       }
     },
     handleItemClick(ev) {
@@ -160,14 +156,16 @@ export default {
       }
 
       const up = () => {
+        // 移除监听
+        off(document, 'mousemove', move)
+        off(document, 'mouseup', up)
+
+        // 重置光标样式
         this.setCursor('')
         // 保存快照
         if (moved) {
           this.$store.dispatch('recordSnapshot')
         }
-        // 移除监听
-        off(document, 'mousemove', move)
-        off(document, 'mouseup', up)
       }
 
       // 添加监听
@@ -214,15 +212,17 @@ export default {
       }
 
       const up = () => {
+        // 移除监听
+        off(document, 'mousemove', move)
+        off(document, 'mouseup', up)
+        // 重置光标样式
         this.setCursor('')
+        // 设置组件缩放状态
         this.$store.commit('setResizeStatus', false)
         // 保存快照
         if (moved) {
           this.$store.dispatch('recordSnapshot')
         }
-        // 移除监听
-        off(document, 'mousemove', move)
-        off(document, 'mouseup', up)
       }
 
       // 添加监听
@@ -283,16 +283,19 @@ export default {
       }
 
       const up = () => {
+        // 移除监听
+        off(document, 'mousemove', move)
+        off(document, 'mouseup', up)
+        // 重置光标样式
         this.setCursor('')
+        // 设置组件移动状态
         this.$store.commit('setMoveStatus', false)
+        // 隐藏参考线
         this.$store.commit('hideRefline')
         // 保存快照
         if (moved) {
           this.$store.dispatch('recordSnapshot')
         }
-        // 移除监听
-        off(document, 'mousemove', move)
-        off(document, 'mouseup', up)
       }
 
       // 添加监听

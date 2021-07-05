@@ -1,5 +1,8 @@
 <template>
-  <div :style="screenWrapperStyle()">
+  <div
+    :style="screenWrapperStyle()"
+    @mousedown="handleMousedown"
+  >
     <!-- 标尺 -->
     <ruler />
     <div
@@ -8,22 +11,22 @@
       class="data-view-layout"
       :style="layoutStyle()"
       @contextmenu="handleContextmenu"
-      @mousedown="handleMousedown"
     >
       <slot />
       <!-- 对齐线 -->
       <refline />
-      <!-- 选中区域 -->
-      <choose-area v-show="isShowArea" :start="start" :width="width" :height="height" />
     </div>
     <!-- 右键菜单 -->
     <contextmenu />
+    <!-- 选中区域 -->
+    <choose-area v-show="areaShow" :start="areaStart" :width="areaSize.width" :height="areaSize.height" />
   </div>
 </template>
 
 <script>
 import hotkeys from 'hotkeys-js'
 import { mapState } from 'vuex'
+import { on, off } from '@/utils/dom'
 import defaultSettings from '@/config'
 import Ruler from './ruler/index'
 import Refline from './refline'
@@ -41,13 +44,15 @@ export default {
   data() {
     return {
       imageBasicUrl: defaultSettings.imageBasicUrl,
-      start: {
+      areaStart: {
         x: 0,
         y: 0
       },
-      width: 0,
-      height: 0,
-      isShowArea: false
+      areaSize: {
+        width: 0,
+        height: 0
+      },
+      areaShow: false
     }
   },
   computed: mapState([
@@ -55,6 +60,15 @@ export default {
     'canvasConfig',
     'screenConfig'
   ]),
+  watch: {
+    areaSize: {
+      deep: true,
+      handler: function(val) {
+        console.log(val.width, val.height)
+        // 修改组件的hover状态
+      }
+    }
+  },
   mounted() {
     const _this = this
     // 复制粘贴功能
@@ -120,12 +134,58 @@ export default {
       const layout = this.$refs.layout.getBoundingClientRect()
 
       this.$store.commit('showContextmenu', {
-        top: e.clientY - layout.y + 64,
-        left: e.clientX - layout.x + 64
+        top: e.clientY - layout.y + this.canvasConfig.padding,
+        left: e.clientX - layout.x + this.canvasConfig.padding
       })
     },
-    handleMousedown(e) {
+    handleMousedown(ev) {
+      if (!this.currentItem) {
+        ev.preventDefault()
+      }
+      this.hideArea()
 
+      const layout = this.$refs.layout.getBoundingClientRect()
+
+      this.areaStart.x = ev.clientX - layout.x + this.canvasConfig.padding
+      this.areaStart.y = ev.clientY - layout.y + this.canvasConfig.padding
+      this.showArea()
+
+      const move = (e) => {
+        this.areaSize.width = Math.abs(e.clientX - ev.clientX)
+        this.areaSize.height = Math.abs(e.clientY - ev.clientY)
+
+        if (e.clientX < ev.clientX) {
+          this.areaStart.x = e.clientX - layout.x + this.canvasConfig.padding
+        }
+
+        if (e.clientY < ev.clientY) {
+          this.areaStart.y = e.clientY - layout.y + this.canvasConfig.padding
+        }
+      }
+
+      const up = (e) => {
+        off(document, 'mousemove', move)
+        off(document, 'mouseup', up)
+        if (e.clientX === ev.clientX && e.clientY === ev.clientY) {
+          this.hideArea()
+          return
+        }
+        this.createGroup()
+      }
+
+      on(document, 'mousemove', move)
+      on(document, 'mouseup', up)
+    },
+    showArea() {
+      this.areaShow = true
+    },
+    hideArea() {
+      this.areaShow = false
+      this.areaSize.width = 0
+      this.areaSize.height = 0
+    },
+    createGroup() {
+      // this.hideArea()
     }
   }
 }

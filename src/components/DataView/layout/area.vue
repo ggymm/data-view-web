@@ -7,6 +7,7 @@
       height: height + 'px',
     }"
     class="area"
+    @mousedown="handleAreaChoose"
   />
 </template>
 
@@ -30,13 +31,18 @@ export default {
       type: Number,
       default: 0
     }
+  },
+  methods: {
+    handleAreaChoose() {
+    }
   }
 }
 </script>
 
 <style lang="less">
 .area {
-  border: 1px solid #70c0ff;
   position: absolute;
+  outline: 1px solid var(--primary-color);
+  background-color: rgba(0, 132, 255, 0.15);
 }
 </style>

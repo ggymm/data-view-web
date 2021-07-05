@@ -13,6 +13,7 @@ export default {
     resizing: false,
     // 画布宽高
     canvasConfig: {
+      padding: 64,
       width: 1920,
       height: 1080,
       scale: 0.2,
@@ -92,15 +93,19 @@ export default {
         const screenWrapper = document.getElementById('screenWrapper')
         let width = screenWrapper.clientWidth
         let height = screenWrapper.clientHeight
-        width = width - 128
-        height = height - 128
+        width = width - state.canvasConfig.padding * 2
+        height = height - state.canvasConfig.padding * 2
         let scale
         if ((state.screenConfig.width / state.screenConfig.height) >= (width / height)) {
           scale = width / state.screenConfig.width * 100
         } else {
           scale = height / state.screenConfig.height * 100
         }
-        this.commit('setCanvasScale', scale)
+        this.commit('setCanvasScale', {
+          scale,
+          width: screenWrapper.clientWidth,
+          height: screenWrapper.clientHeight
+        })
       }, 200)
 
       if (!window.onresize) {
@@ -109,11 +114,22 @@ export default {
 
       resize()
     },
-    setCanvasScale(state, scale) {
+    setCanvasScale(state, { scale, width, height }) {
       scale = Math.min(Math.max(scale, 20), 200) / 100
       state.canvasConfig.scale = scale
-      state.canvasConfig.width = state.screenConfig.width * scale + 128
-      state.canvasConfig.height = state.screenConfig.height * scale + 128
+      if (!width || !height) {
+        const screenWrapper = document.getElementById('screenWrapper')
+        width = screenWrapper.clientWidth
+        height = screenWrapper.clientHeight
+      }
+      const resolution = state.screenConfig.width / state.screenConfig.height
+      if (resolution >= (width / height)) {
+        state.canvasConfig.width = state.screenConfig.width * scale + state.canvasConfig.padding * 2
+        state.canvasConfig.height = height
+      } else {
+        state.canvasConfig.width = width
+        state.canvasConfig.height = state.screenConfig.height * scale + state.canvasConfig.padding * 2
+      }
     },
     setRefLine(state, refLine) {
       state.canvasConfig.refLine = refLine

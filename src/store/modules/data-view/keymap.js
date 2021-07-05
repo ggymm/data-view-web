@@ -21,8 +21,8 @@ export default {
       newItem.hover = false
 
       if (mouse) {
-        newItem.x = state.contextmenuLeft
-        newItem.y = state.contextmenuTop
+        newItem.x = state.contextmenuLeft - state.canvasConfig.padding
+        newItem.y = state.contextmenuTop - state.canvasConfig.padding
       } else {
         newItem.x += state.copyNum * state.step
         newItem.y += state.copyNum * state.step

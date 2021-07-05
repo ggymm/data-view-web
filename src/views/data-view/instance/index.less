@@ -1,5 +1,6 @@
 :root {
   --primary-color: #409eff;
+  --primary-color-a: rgba(64, 158, 255, 0.4);
   --background-2: #22242b;
   --background-4: #2d2f38;
   --background-5: #313239;
@@ -231,6 +232,13 @@
           transition: 0.2s all ease-in-out;
           transform-origin: 0 0;
 
+          * {
+            -moz-user-select: none;
+            -webkit-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+          }
+
           .data-view-item {
             position: absolute;
             will-change: transform;
@@ -238,8 +246,12 @@
             &.active {
               z-index: 99 !important;
 
-              .line-handler, .spot-handler {
-                display: flex !important;
+              .resize-handler {
+                border: 1px solid var(--primary-color);
+
+                .drag-dot {
+                  display: block !important;
+                }
               }
             }
 
@@ -252,25 +264,19 @@
               box-sizing: border-box;
 
               &.hover {
-                .line-handler {
-                  display: flex;
-
-                  .control-point {
-                    //display: none;
-                  }
-                }
-              }
-
-              .data-view-chart {
-                pointer-events: none !important;
-                width: 100%;
-                height: 100%;
-                transform-origin: 50% 50%;
-                transform: scaleX(1) scaleY(1) rotateZ(360deg);
-
-                .chart {
-                  width: 100%;
-                  height: 100%;
+                .resize-handler::after {
+                  content: ' ';
+                  position: absolute;
+                  top: 0;
+                  bottom: 0;
+                  left: 0;
+                  right: 0;
+                  display: block;
+                  background-color: var(--primary-color-a);;
+                  border: 1px solid var(--primary-color);
+                  box-shadow: 0 2px 4px 0 rgb(0 0 0 / 50%);
+                  box-sizing: border-box;
+                  pointer-events: none;
                 }
               }
 
@@ -313,104 +319,34 @@
                 font-size: 20px;
               }
 
-              .control-point {
-                z-index: 999;
-                display: flex;
-                width: 8px;
-                height: 8px;
-                justify-content: center;
-                align-items: center;
+              .resize-handler {
+                width: 100%;
+                height: 100%;
 
-                &::after {
+                .drag-dot {
+                  display: none;
+                  position: absolute;
                   width: 8px;
                   height: 8px;
-                  background-color: var(--text-2);
-                  border-radius: 100%;
-                  content: '';
+                  border: 1px solid var(--primary-color);
+                  background-color: #ffffff;
+                  z-index: 999;
                 }
               }
 
-              .line-handler {
-                display: none;
+              .data-view-chart {
                 position: absolute;
-                justify-content: center;
-                align-items: center;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                transform-origin: 50% 50%;
+                transform: scaleX(1) scaleY(1) rotateZ(360deg);
+                pointer-events: none !important;
 
-                &::after {
-                  content: "";
-                  position: absolute;
-                  background-color: var(--primary-color);
-                }
-
-                &.top-handler {
-                  top: -4px;
+                .chart {
                   width: 100%;
-
-                  &::after {
-                    width: 100%;
-                    height: 1px;
-                  }
-                }
-
-                &.bottom-handler {
-                  bottom: -4px;
-                  width: 100%;
-
-                  &::after {
-                    width: 100%;
-                    height: 1px;
-                  }
-                }
-
-                &.left-handler {
-                  top: 0;
-                  left: -4px;
                   height: 100%;
-
-                  &::after {
-                    width: 1px;
-                    height: 100%;
-                  }
-                }
-
-                &.right-handler {
-                  top: 0;
-                  right: -4px;
-                  height: 100%;
-
-                  &::after {
-                    width: 1px;
-                    height: 100%;
-                  }
-                }
-              }
-
-              .spot-handler {
-                display: none;
-                position: absolute;
-                width: 8px;
-                height: 8px;
-                justify-content: center;
-                align-items: center;
-
-                &.top-left-handler {
-                  top: -4px;
-                  left: -4px;
-                }
-
-                &.top-right-handler {
-                  top: -4px;
-                  right: -4px;
-                }
-
-                &.bottom-left-handler {
-                  bottom: -4px;
-                  left: -4px;
-                }
-
-                &.bottom-right-handler {
-                  bottom: -4px;
-                  right: -4px;
                 }
               }
             }
@@ -438,17 +374,30 @@
           align-items: center;
 
           .label {
+            font-size: 13px;
             color: var(--text-2);
             margin: 0 10px;
           }
 
           .tool-btn {
+            font-size: 13px;
             cursor: pointer;
             color: var(--text-2);
             margin: 0 5px;
 
             &:hover {
               color: var(--primary-color);
+            }
+          }
+
+          .ant-switch {
+            height: 18px;
+
+            &::after {
+              top: 0;
+              margin: 0 !important;
+              width: 16px;
+              height: 16px;
             }
           }
         }
