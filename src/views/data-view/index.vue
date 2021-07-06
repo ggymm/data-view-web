@@ -21,12 +21,12 @@
       <!-- xs: <576px; sm: ≥576px -->
       <!-- md: ≥768px; lg: ≥992px -->
       <!-- xl: ≥1200px; xxl: ≥1600px -->
-      <a-list :grid="{ gutter: 36, xs: 1, sm: 2, md: 2, lg: 3, xl: 4, xxl: 6 }" :data-source="list">
+      <a-list :grid="{ gutter: 36, xs: 1, sm: 2, md: 2, lg: 3, xl: 4, xxl: 4 }" :data-source="list">
         <a-list-item slot="renderItem" slot-scope="item" class="data-view-item">
           <a-card>
-            <div slot="cover" class="thumbnails">
+            <div slot="cover" class="thumbnails" :style="{height: `${itemHeight}px`}">
               <img :src="imageBasicUrl + item.instance_view_thumbnail" class="image" alt="">
-              <div class="edit-shade" />
+              <div class="edit-shade" :style="{top: `-${itemHeight}px`, height: `${itemHeight}px`}" />
               <a-button type="primary" @click="handleEdit(item.instance_id)">编辑</a-button>
             </div>
             <template slot="actions">
@@ -65,14 +65,17 @@ export default {
       },
       query: {
         instanceName: null
-      }
+      },
+      ratio: (1920 / 1080),
+      itemHeight: 0
     }
   },
-  mounted() {
+  async created() {
+    await this.getData()
+
     // 动态计算元素高度
-  },
-  created() {
-    this.getData()
+    const rect = document.querySelector('.thumbnails').getBoundingClientRect()
+    this.itemHeight = rect.width / this.ratio
   },
   methods: {
     async getData() {
@@ -117,7 +120,6 @@ export default {
 
   .thumbnails {
     position: relative;
-    height: 180px;
 
     &:hover {
       .edit-shade {
@@ -132,10 +134,8 @@ export default {
     .edit-shade {
       background: #000000 none repeat scroll 0 0;
       opacity: 0.5;
-      height: 180px;
       position: relative;
       text-align: center;
-      top: -180px;
       z-index: 99;
       display: none;
     }
