@@ -162,7 +162,7 @@ export default {
 
         // 重置光标样式
         this.setCursor('')
-        // 保存快照
+        // 保存快照, 用于撤销重做
         if (moved) {
           this.$store.dispatch('recordSnapshot')
         }
@@ -219,7 +219,7 @@ export default {
         this.setCursor('')
         // 设置组件缩放状态
         this.$store.commit('setResizeStatus', false)
-        // 保存快照
+        // 保存快照, 用于撤销重做
         if (moved) {
           this.$store.dispatch('recordSnapshot')
         }
@@ -237,15 +237,15 @@ export default {
 
       // 设置refline
       let updater
-      let startX
-      let startY
+      const startX = this.item.x
+      const startY = this.item.y
       if (this.canvasConfig.refLine) {
         this.$store.commit('setRefline')
         updater = this.refline.adsorbCreator({
           current: {
             key: this.index,
-            left: this.item.x,
-            top: this.item.y,
+            left: startX,
+            top: startY,
             width: this.item.width,
             height: this.item.height,
             rotate: this.item.rotate
@@ -256,9 +256,6 @@ export default {
           // distance: 50,
           disableAdsorb: false
         })
-      } else {
-        startX = this.item.x
-        startY = this.item.y
       }
 
       const scale = this.canvasConfig.scale
@@ -291,7 +288,7 @@ export default {
         this.$store.commit('setMoveStatus', false)
         // 隐藏参考线
         this.$store.commit('hideRefline')
-        // 保存快照
+        // 保存快照, 用于撤销重做
         if (moved) {
           this.$store.dispatch('recordSnapshot')
         }
