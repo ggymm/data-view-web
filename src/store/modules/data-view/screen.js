@@ -118,6 +118,9 @@ export default {
       resize()
     },
     setCanvasScale(state, { scale, width, height }) {
+      // 隐藏框选
+      this.commit('setGroupAreaShow', false)
+      // 计算设计器面板大小
       scale = Math.min(Math.max(scale, 20), 200) / 100
       state.canvasConfig.scale = scale
       if (!width || !height) {

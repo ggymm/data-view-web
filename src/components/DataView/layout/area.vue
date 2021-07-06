@@ -60,8 +60,9 @@ export default {
           this.items[i].y += moveY
         }
         // 移动框选区域的位置信息
-        this.start.x += moveX
-        this.start.y += moveY
+        // fix: Math.round误差问题
+        this.start.x += Math.round((e.clientX - clientX) / scale) * scale
+        this.start.y += Math.round((e.clientY - clientY) / scale) * scale
         // 更新起始点
         clientX = e.clientX
         clientY = e.clientY
