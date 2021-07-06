@@ -5,8 +5,6 @@
 </template>
 
 <script>
-import * as monaco from 'monaco-editor'
-
 export default {
   name: 'Index',
   props: {
@@ -33,7 +31,7 @@ export default {
   },
   methods: {
     initEditor() {
-      this.editor = monaco.editor.create(this.$refs.editor, {
+      this.editor = window.monaco.editor.create(this.$refs.editor, {
         value: this.value,
         language: this.language,
         automaticLayout: true,

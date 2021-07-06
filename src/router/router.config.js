@@ -145,14 +145,14 @@ export const asyncRouterMap = [
         hidden: true,
         children: [
           {
-            path: 'index',
+            path: 'create',
             component: () => import('@/views/data-report/instance/index'),
             meta: {
               title: '报表创建'
             }
           },
           {
-            path: 'index/:instance_id/:is_copy',
+            path: 'edit/:instance_id/:is_copy',
             component: () => import('@/views/data-report/instance/index'),
             meta: {
               title: '报表编辑'
