@@ -1,6 +1,7 @@
 const path = require('path')
 const webpack = require('webpack')
 const MonacoWebpackPlugin = require('monaco-editor-webpack-plugin')
+const CompressionWebpackPlugin = require('compression-webpack-plugin')
 const buildDate = JSON.stringify(new Date().toLocaleString())
 
 function resolve(dir) {
@@ -28,6 +29,13 @@ const vueConfig = {
   configureWebpack: {
     plugins: [
       new MonacoWebpackPlugin(),
+      new CompressionWebpackPlugin({
+        algorithm: 'gzip',
+        test: new RegExp('\\.(js|css)$'),
+        threshold: 10240,
+        minRatio: 0.8,
+        deleteOriginalAssets: false
+      }),
       new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
       new webpack.DefinePlugin({
         APP_VERSION: `"${require('./package.json').version}"`,
