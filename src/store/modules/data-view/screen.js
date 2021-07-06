@@ -3,12 +3,12 @@ import debounce from '@/utils/debounce'
 
 export default {
   state: {
-    slices: [],
+    items: [],
     clickItem: false,
     currentItem: null,
     currentIndex: 0,
 
-    // 图表状态
+    // 设计器状态
     moving: false,
     resizing: false,
     // 画布宽高
@@ -35,38 +35,38 @@ export default {
     }
   },
   mutations: {
-    SET_SLICES(state, payload) {
-      const slices = []
+    SET_ITEMS(state, payload) {
+      const items = []
       payload.forEach(c => {
         c.hover = false
-        slices.push(c)
+        items.push(c)
       })
-      state.slices = slices
+      state.items = items
     },
     addItem(state, item) {
       item.elId = uuidv4()
-      state.slices.push(item)
+      state.items.push(item)
     },
     moveItem(state, { i, type }) {
       switch (type) {
         case 'up':
           if (i > 0) {
-            state.slices.splice(i - 1, 0, ...state.slices.splice(i, 1))
+            state.items.splice(i - 1, 0, ...state.items.splice(i, 1))
           }
           break
         case 'down':
-          if (i + 1 < state.slices.length) {
-            state.slices.splice(i + 1, 0, ...state.slices.splice(i, 1))
+          if (i + 1 < state.items.length) {
+            state.items.splice(i + 1, 0, ...state.items.splice(i, 1))
           }
           break
         case 'top':
           if (i > 0) {
-            state.slices.unshift(...state.slices.splice(i, 1))
+            state.items.unshift(...state.items.splice(i, 1))
           }
           break
         case 'bottom':
-          if (i + 1 < state.slices.length) {
-            state.slices.push(...state.slices.splice(i, 1))
+          if (i + 1 < state.items.length) {
+            state.items.push(...state.items.splice(i, 1))
           }
           break
       }
@@ -79,6 +79,9 @@ export default {
     },
     setClickItem(state, status) {
       state.clickItem = status
+    },
+    setHoverItem(state, { index, status }) {
+      state.items[index].hover = status
     },
     setMoveStatus(state, status) {
       state.moving = status
@@ -141,17 +144,11 @@ export default {
     // 大屏配置相关
     setScreenConfig(state, style) {
       state.screenConfig = style
-    },
-
-    RECORD_SNAPSHOT(state) {
     }
   },
   actions: {
     async setCharts({ commit }, charts) {
-      commit('SET_SLICES', charts)
-    },
-    recordSnapshot({ commit }) {
-      commit('RECORD_SNAPSHOT')
+      commit('SET_ITEMS', charts)
     }
   }
 }

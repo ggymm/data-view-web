@@ -12,6 +12,9 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
+import { on, off } from '@/utils/dom'
+
 export default {
   props: {
     start: {
@@ -32,9 +35,55 @@ export default {
       default: 0
     }
   },
+  computed: mapState([
+    'items',
+    'groupIndex',
+    'canvasConfig'
+  ]),
   methods: {
     handleAreaChoose(ev) {
-      console.log(ev)
+      ev.preventDefault()
+      ev.stopPropagation()
+
+      const scale = this.canvasConfig.scale
+
+      let { clientX, clientY } = ev
+      let moved = false
+      const move = (e) => {
+        moved = true
+        this.setCursor('move')
+        const moveX = Math.round((e.clientX - clientX) / scale)
+        const moveY = Math.round((e.clientY - clientY) / scale)
+        // 更新所有的选中组件位置信息
+        for (const i of this.groupIndex) {
+          this.items[i].x += moveX
+          this.items[i].y += moveY
+        }
+        // 移动框选区域的位置信息
+        this.start.x += moveX
+        this.start.y += moveY
+        // 更新起始点
+        clientX = e.clientX
+        clientY = e.clientY
+      }
+
+      const up = () => {
+        // 移除监听
+        off(document, 'mousemove', move)
+        off(document, 'mouseup', up)
+        // 重置光标样式
+        this.setCursor('')
+        // 保存快照, 用于撤销重做
+        if (moved) {
+          this.$store.dispatch('recordSnapshot')
+        }
+      }
+
+      on(document, 'mousemove', move)
+      on(document, 'mouseup', up)
+    },
+    setCursor(cursor) {
+      document.body.style.cursor = cursor
     }
   }
 }
@@ -42,6 +91,7 @@ export default {
 
 <style lang="less">
 .area {
+  z-index: 99999;
   position: absolute;
   outline: 1px dashed var(--primary-color);
   background-color: rgba(0, 132, 255, 0.15);
