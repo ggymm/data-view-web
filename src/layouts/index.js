@@ -1,5 +1,5 @@
 import AdminLayout from './AdminLayout'
 import BlankLayout from './BlankLayout'
-import RouterView from './RouterView'
+import RouteView from './RouteView'
 
-export { AdminLayout, BlankLayout, RouterView }
+export { AdminLayout, BlankLayout, RouteView }

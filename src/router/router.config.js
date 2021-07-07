@@ -1,4 +1,4 @@
-import { AdminLayout, BlankLayout, RouterView } from '@/layouts'
+import { AdminLayout, BlankLayout, RouteView } from '@/layouts'
 
 export const asyncRouterMap = [
   {
@@ -11,7 +11,7 @@ export const asyncRouterMap = [
         path: '/dashboard',
         redirect: '/dashboard/index',
         name: 'Dashboard',
-        component: RouterView,
+        component: RouteView,
         hideChildrenInMenu: true,
         meta: {
           title: '首页',
@@ -29,7 +29,7 @@ export const asyncRouterMap = [
         path: '/data-source',
         redirect: '/data-source/index',
         name: 'DataSource',
-        component: RouterView,
+        component: RouteView,
         hideChildrenInMenu: true,
         meta: {
           title: '数据源管理',
@@ -50,7 +50,7 @@ export const asyncRouterMap = [
         path: '/data-view',
         redirect: '/data-view/index',
         name: 'DataView',
-        component: RouterView,
+        component: RouteView,
         hideChildrenInMenu: true,
         meta: {
           title: '可视化大屏管理',
@@ -71,7 +71,7 @@ export const asyncRouterMap = [
         path: '/data-report',
         redirect: '/data-report/index',
         name: 'DataReport',
-        component: RouterView,
+        component: RouteView,
         hideChildrenInMenu: true,
         meta: {
           title: '报表管理',
@@ -97,7 +97,7 @@ export const asyncRouterMap = [
       {
         path: '/data-view-debug',
         redirect: '/data-view-debug/index',
-        component: RouterView,
+        component: RouteView,
         hidden: true,
         children: [
           {
@@ -112,7 +112,7 @@ export const asyncRouterMap = [
       {
         path: '/data-view-instance',
         redirect: '/data-view-instance/index',
-        component: RouterView,
+        component: RouteView,
         hidden: true,
         children: [
           {
@@ -141,7 +141,7 @@ export const asyncRouterMap = [
       {
         path: '/data-report-instance',
         redirect: '/data-report-instance/index',
-        component: RouterView,
+        component: RouteView,
         hidden: true,
         children: [
           {
