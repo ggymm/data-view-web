@@ -6,7 +6,9 @@ import store from './store'
 import ProLayout, { PageHeaderWrapper } from '@ant-design-vue/pro-layout'
 import GlobalComponents from '@/components/DataView/global-components'
 
-import './lazy_use'
+import '@/lazy_use'
+import '@/permission'
+
 import '@/styles/animate.css'
 import '@/styles/global.less'
 
