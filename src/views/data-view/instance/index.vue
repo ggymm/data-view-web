@@ -118,6 +118,7 @@
 
 <script>
 import html2canvas from 'html2canvas'
+import { message } from 'ant-design-vue'
 import { mapState } from 'vuex'
 import { menus } from './menu'
 import defaultSettings from '@/config'
@@ -282,7 +283,7 @@ export default {
     async handleSave() {
       const thumbnail = await this.screenshot()
       if (!thumbnail.success) {
-        this.$message.error('保存缩略图失败')
+        message.error('保存缩略图失败')
         return
       }
 
@@ -313,19 +314,19 @@ export default {
         // 更新
         const response = await updateDataView(screenInstance)
         if (response.success) {
-          this.$message.success('更新成功')
+          message.success('更新成功')
           window.location.href = this.routerBase + 'data-view-instance/index/' + this.instanceId + '/0'
         } else {
-          this.$message.success('更新失败, ' + response.data)
+          message.success('更新失败, ' + response.data)
         }
       } else {
         const response = await saveDataView(screenInstance)
         if (response.success) {
           const instanceId = response.data
-          this.$message.success('保存成功')
+          message.success('保存成功')
           window.location.href = this.routerBase + 'data-view-instance/index/' + instanceId + '/0'
         } else {
-          this.$message.success('保存失败, ' + response.data)
+          message.success('保存失败, ' + response.data)
         }
       }
     },
@@ -364,7 +365,7 @@ export default {
       if (this.instanceId) {
         window.open(this.routerBase + 'data-view-instance/preview/' + this.instanceId)
       } else {
-        this.$message.info('请先保存图表后预览')
+        message.info('请先保存图表后预览')
       }
     },
     async handleDebug() {

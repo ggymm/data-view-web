@@ -1,22 +1,28 @@
 import Vue from 'vue'
-import App from './App.vue'
-import router from './router'
-import store from './store'
+import App from '@/App.vue'
+import router from '@/router'
+import store from '@/store'
+import '@/permission'
 
 import ProLayout, { PageHeaderWrapper } from '@ant-design-vue/pro-layout'
-
-import '@/lazy_use'
-import '@/permission'
+import IconSvg from '@/components/IconSvg'
+import antd from 'ant-design-vue'
+import bus from '@/utils/bus'
 
 import '@/styles/animate.css'
 import '@/styles/global.less'
 
-Vue.config.productionTip = false
-
-// use pro-layout config
 Vue.component('pro-layout', ProLayout)
 Vue.component('page-container', PageHeaderWrapper)
 Vue.component('page-header-wrapper', PageHeaderWrapper)
+
+Vue.component('icon', IconSvg)
+
+Vue.use(antd)
+
+Vue.prototype.$bus = bus
+
+Vue.config.productionTip = false
 
 window.Vue = Vue
 
