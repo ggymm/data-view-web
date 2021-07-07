@@ -82,6 +82,7 @@
 <script>
 import { mapState } from 'vuex'
 import { $ } from '@/utils/dom'
+import { EventBus } from '@/utils/event-bus'
 
 export default {
   name: 'Layer',
@@ -90,7 +91,7 @@ export default {
     'currentItem'
   ]),
   mounted() {
-    this.$bus.$on('layer:itemChange', () => {
+    EventBus.$on('layer:itemChange', () => {
       if (this.currentItem !== null) {
         $(`#layer-${this.currentItem.elId}`).scrollIntoView({ behavior: 'smooth' })
       }

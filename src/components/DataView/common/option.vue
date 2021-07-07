@@ -122,11 +122,9 @@
 <script>
 import { mapState } from 'vuex'
 import '../components/index'
+import { EventBus } from '@/utils/event-bus'
 import CodeEditor from '@/components/CodeEditor'
-import {
-  dataSourceTypeList, positionList,
-  positionTopList, legendTypeList, orientList
-} from '../common/common'
+import { dataSourceTypeList, positionList, positionTopList, legendTypeList, orientList } from '../common/common.js'
 
 const coordinateSystemParams = [
   {
@@ -246,13 +244,13 @@ export default {
     },
     handleConfigChange() {
       if (this.currentItem.chartData.dataSourceType === 'Static') {
-        this.$bus.$emit('handleStaticData')
+        EventBus.$emit('handleStaticData')
       } else if (this.currentItem.chartData.dataSourceType === 'DataBase') {
-        this.$bus.$emit('handleDataBaseData')
+        EventBus.$emit('handleDataBaseData')
       } else if (this.currentItem.chartData.dataSourceType === 'Rest') {
-        this.$bus.$emit('handleRestData')
+        EventBus.$emit('handleRestData')
       } else if (this.currentItem.chartData.dataSourceType === 'File') {
-        this.$bus.$emit('handleFileData')
+        EventBus.$emit('handleFileData')
       }
     },
     handleStaticDataChange(value) {

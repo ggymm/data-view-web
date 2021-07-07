@@ -12,6 +12,7 @@
 <!--suppress JSUnresolvedVariable -->
 <script>
 import '../components/index'
+import { EventBus } from '@/utils/event-bus'
 import ThemeConfigMap from '@/components/DataView/themes/theme-config-map'
 import { getChartData } from '@/api/data-view'
 
@@ -83,10 +84,10 @@ export default {
         this.handleFileData()
       }
     }
-    this.$bus.$on('handleStaticData', this.handleStaticData)
-    this.$bus.$on('handleDataBaseData', this.handleDataBaseData)
-    this.$bus.$on('handleRestData', this.handleRestData)
-    this.$bus.$on('handleFileData', this.handleFileData)
+    EventBus.$on('handleStaticData', this.handleStaticData)
+    EventBus.$on('handleDataBaseData', this.handleDataBaseData)
+    EventBus.$on('handleRestData', this.handleRestData)
+    EventBus.$on('handleFileData', this.handleFileData)
   },
   methods: {
     setTimer: function(interval) {

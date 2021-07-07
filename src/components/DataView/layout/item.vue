@@ -33,6 +33,7 @@
 <script>
 import { mapState } from 'vuex'
 import { on, off } from '@/utils/dom'
+import { EventBus } from '@/utils/event-bus'
 import { getCursors, calcResizeInfo } from './calculate'
 
 export default {
@@ -125,7 +126,7 @@ export default {
     handleItemChoose() {
       this.$store.commit('setClickItem', true)
       this.$store.commit('setCurrentItem', { item: this.item, index: this.index })
-      this.$bus.$emit('layer:itemChange')
+      EventBus.$emit('layer:itemChange')
     },
     handleRotate(ev) {
       ev.preventDefault()

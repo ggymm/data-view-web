@@ -7,7 +7,6 @@ import '@/permission'
 import ProLayout, { PageHeaderWrapper } from '@ant-design-vue/pro-layout'
 import IconSvg from '@/components/IconSvg'
 import antd from 'ant-design-vue'
-import bus from '@/utils/bus'
 
 import '@/styles/animate.css'
 import '@/styles/global.less'
@@ -19,8 +18,6 @@ Vue.component('page-header-wrapper', PageHeaderWrapper)
 Vue.component('icon', IconSvg)
 
 Vue.use(antd)
-
-Vue.prototype.$bus = bus
 
 Vue.config.productionTip = false
 
