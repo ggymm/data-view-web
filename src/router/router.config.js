@@ -1,17 +1,17 @@
-import { BasicLayout, BlankLayout, RouteView } from '@/layouts'
+import { AdminLayout, BlankLayout, RouterView } from '@/layouts'
 
 export const asyncRouterMap = [
   {
     path: '/',
     name: 'index',
-    component: BasicLayout,
+    component: AdminLayout,
     redirect: '/dashboard',
     children: [
       {
         path: '/dashboard',
         redirect: '/dashboard/index',
         name: 'Dashboard',
-        component: RouteView,
+        component: RouterView,
         hideChildrenInMenu: true,
         meta: {
           title: '首页',
@@ -29,7 +29,7 @@ export const asyncRouterMap = [
         path: '/data-source',
         redirect: '/data-source/index',
         name: 'DataSource',
-        component: RouteView,
+        component: RouterView,
         hideChildrenInMenu: true,
         meta: {
           title: '数据源管理',
@@ -50,7 +50,7 @@ export const asyncRouterMap = [
         path: '/data-view',
         redirect: '/data-view/index',
         name: 'DataView',
-        component: RouteView,
+        component: RouterView,
         hideChildrenInMenu: true,
         meta: {
           title: '可视化大屏管理',
@@ -71,7 +71,7 @@ export const asyncRouterMap = [
         path: '/data-report',
         redirect: '/data-report/index',
         name: 'DataReport',
-        component: RouteView,
+        component: RouterView,
         hideChildrenInMenu: true,
         meta: {
           title: '报表管理',
@@ -97,7 +97,7 @@ export const asyncRouterMap = [
       {
         path: '/data-view-debug',
         redirect: '/data-view-debug/index',
-        component: RouteView,
+        component: RouterView,
         hidden: true,
         children: [
           {
@@ -112,7 +112,7 @@ export const asyncRouterMap = [
       {
         path: '/data-view-instance',
         redirect: '/data-view-instance/index',
-        component: RouteView,
+        component: RouterView,
         hidden: true,
         children: [
           {
@@ -141,7 +141,7 @@ export const asyncRouterMap = [
       {
         path: '/data-report-instance',
         redirect: '/data-report-instance/index',
-        component: RouteView,
+        component: RouterView,
         hidden: true,
         children: [
           {

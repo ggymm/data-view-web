@@ -1,12 +1,12 @@
 <template>
-  <page-header-wrapper>
-    <router-view />
-  </page-header-wrapper>
+  <router-view />
 </template>
 
 <script>
-
 export default {
   name: 'PageView'
 }
 </script>
+
+<style lang="less">
+</style>

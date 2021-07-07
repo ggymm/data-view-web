@@ -315,7 +315,7 @@ export default {
         const response = await updateDataView(screenInstance)
         if (response.success) {
           message.success('更新成功')
-          window.location.href = this.routerBase + 'data-view-instance/index/' + this.instanceId + '/0'
+          window.location.href = this.routerBase + 'data-view-instance/edit/' + this.instanceId + '/0'
         } else {
           message.success('更新失败, ' + response.data)
         }
@@ -324,7 +324,7 @@ export default {
         if (response.success) {
           const instanceId = response.data
           message.success('保存成功')
-          window.location.href = this.routerBase + 'data-view-instance/index/' + instanceId + '/0'
+          window.location.href = this.routerBase + 'data-view-instance/edit/' + instanceId + '/0'
         } else {
           message.success('保存失败, ' + response.data)
         }
