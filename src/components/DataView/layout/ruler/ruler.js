@@ -1,3 +1,4 @@
+import store from '@/store'
 import { $, on, off, addClass } from '@/utils/dom'
 
 // 创建高分辨率画布
@@ -99,7 +100,10 @@ class GuideLine {
       off(document, 'mouseup', up)
 
       const { coor } = this
-      if (coor < 0) {
+
+      const min = 0 - store.state.canvasConfig.padding
+      if (coor < min) {
+        this.destroy()
         this.coorChange('delete', oldCoor, oldCoor)
       } else {
         this.coorChange('update', coor, oldCoor)

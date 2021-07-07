@@ -89,6 +89,10 @@
   .data-view-main {
     flex-direction: row;
 
+    .ant-layout-sider {
+      z-index: 9;
+    }
+
     .ant-layout-sider-zero-width-trigger {
       top: unset;
       bottom: 0;
@@ -98,7 +102,6 @@
     }
 
     .data-view-layer {
-      z-index: 9;
       flex: auto;
       display: flex;
       height: 100%;
@@ -405,7 +408,6 @@
     }
 
     .data-view-option-panel {
-      z-index: 9;
       border-top: var(--border-black);
       border-left: var(--border-black);
       background-color: var(--background-2);
