@@ -25,6 +25,12 @@ const assetsCDN = {
     'moment': 'moment',
     'ant-design-vue': 'antd'
   },
+  monaco: {
+    'loader': '/data-view-web/static/monaco/min/vs/loader.js',
+    // 'loader': 'https://cdn.jsdelivr.net/npm/monaco-editor@0.25.2/min/vs/loader.js',
+    'vs': '/data-view-web/static/monaco/min/vs'
+    // 'vs': 'https://cdn.jsdelivr.net/npm/monaco-editor@0.25.2/min/vs'
+  },
   css: [
     'https://cdn.jsdelivr.net/npm/ant-design-vue@1.7.5/dist/antd.css'
   ],
