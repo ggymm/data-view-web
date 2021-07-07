@@ -1,3 +1,4 @@
+import Vue from 'vue'
 // 全量引入echarts
 import * as echarts from 'echarts'
 
@@ -9,11 +10,4 @@ import chinaMapNew from './map/china-new.json'
 echarts.registerMap('china', chinaMap)
 echarts.registerMap('china-new', chinaMapNew)
 
-const GlobalComponents = {}
-
-GlobalComponents.install = (Vue) => {
-  Vue.prototype.theme = 'darkTheme'
-  Vue.component('echarts', VueECharts)
-}
-
-export default GlobalComponents
+Vue.component('echarts', VueECharts)

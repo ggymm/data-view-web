@@ -122,6 +122,7 @@ import { mapState } from 'vuex'
 import { menus } from './menu'
 import defaultSettings from '@/config'
 
+import '@/components/DataView/global-components'
 import OptionConfigMap from '@/components/DataView/components/config'
 import Layout from '@/components/DataView/layout/layout'
 import Item from '@/components/DataView/layout/item'

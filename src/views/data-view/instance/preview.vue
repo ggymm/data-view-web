@@ -16,6 +16,7 @@
 </template>
 
 <script>
+import '@/components/DataView/global-components'
 import defaultSettings from '@/config'
 import Chart from '@/components/DataView/common/chart'
 import { getDataView } from '@/api/data-view'

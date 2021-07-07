@@ -4,7 +4,6 @@ import router from './router'
 import store from './store'
 
 import ProLayout, { PageHeaderWrapper } from '@ant-design-vue/pro-layout'
-import GlobalComponents from '@/components/DataView/global-components'
 
 import '@/lazy_use'
 import '@/permission'
@@ -18,8 +17,6 @@ Vue.config.productionTip = false
 Vue.component('pro-layout', ProLayout)
 Vue.component('page-container', PageHeaderWrapper)
 Vue.component('page-header-wrapper', PageHeaderWrapper)
-
-Vue.use(GlobalComponents)
 
 window.Vue = Vue
 
