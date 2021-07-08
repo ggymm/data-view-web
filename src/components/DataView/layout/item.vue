@@ -10,6 +10,7 @@
     <div
       class="data-view-item-handler"
       :class="itemHandlerClass()"
+      :style="{ transform: `rotate(${item.rotate}deg)` }"
       @mouseenter="item.hover = true"
       @mouseleave="item.hover = false"
     >
@@ -19,13 +20,13 @@
       <div class="resize-handler">
         <i v-for="(v, k) in points()" :key="k" class="drag-dot" :style="v.style" @mousedown.prevent.stop="handleResize($event, k)" />
       </div>
-      <!-- 位置坐标 -->
-      <div v-show="isActive() && canvasConfig.indicatorLine && moving" class="indicator-lines">
-        <span class="x-line" :style="lineXStyle()" />
-        <span class="y-line" :style="lineYStyle()" />
-        <span class="coordinate">{{ item.x }}，{{ item.y }}</span>
-      </div>
       <slot />
+    </div>
+    <!-- 位置坐标 -->
+    <div v-show="isActive() && canvasConfig.indicatorLine && moving" class="indicator-lines">
+      <span class="x-line" :style="lineXStyle()" />
+      <span class="y-line" :style="lineYStyle()" />
+      <span class="coordinate">{{ item.x }}，{{ item.y }}</span>
     </div>
   </div>
 </template>
@@ -77,7 +78,7 @@ export default {
         left: 0,
         width: `${this.item.width}px`,
         height: `${this.item.height}px`,
-        transform: `translate(${this.item.x}px, ${this.item.y}px) rotate(${this.item.rotate}deg)`
+        transform: `translate(${this.item.x}px, ${this.item.y}px)`
       }
     },
     lineXStyle() {
