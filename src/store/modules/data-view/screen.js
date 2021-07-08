@@ -25,7 +25,7 @@ export default {
     // 大屏宽高（设计）
     screenConfig: {
       title: '',
-      diff: 3,
+      diff: 5,
       width: 1920,
       height: 1080,
       theme: '',

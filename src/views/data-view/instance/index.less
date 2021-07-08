@@ -421,12 +421,24 @@
           display: none;
         }
 
-        .ant-form {
-          padding: 20px;
+        .screen-option-header {
+          position: fixed;
+          top: 48px;
+          width: 400px;
+          margin-top: 1px;
+          z-index: 99;
 
-          .ant-form-item-label {
-            padding: 0 10px 0 0 !important;
+          span {
+            display: flex;
+            justify-content: center;
+            padding: 12px;
+            color: var(--text-2);
+            background-color: var(--background-4);
           }
+        }
+
+        .screen-option-body {
+          margin-top: 46px;
         }
       }
 
@@ -481,10 +493,6 @@
           width: 100%;
           color: var(--text-2);
           background-color: var(--background-4);
-
-          .ant-tabs-tab {
-            padding: 8px 16px;
-          }
         }
 
         &.two {
@@ -526,9 +534,9 @@
               cursor: pointer;
               display: flex;
               align-items: center;
-              height: 36px;
-              line-height: 36px;
-              padding: 0 12px 0 36px;
+              height: 40px;
+              line-height: 40px;
+              padding: 0 12px 0 40px;
               color: var(--text-2);
               background-color: var(--background-4);
               border-bottom: 1px solid var(--border-color-3);
@@ -644,7 +652,7 @@
   line-height: 40px;
   font-size: 25px !important;
   margin-right: 10px;
-  transition: font-size .15s cubic-bezier(.215,.61,.355,1),margin .3s cubic-bezier(.645,.045,.355,1);
+  transition: font-size .15s cubic-bezier(.215, .61, .355, 1), margin .3s cubic-bezier(.645, .045, .355, 1);
 }
 
 .ant-menu-item, .ant-menu-submenu-title {

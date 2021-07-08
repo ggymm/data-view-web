@@ -87,28 +87,40 @@
         collapsible
       >
         <div v-if="currentItem === null" class="data-view-screen-option dark-theme">
-          <a-form class="dark" :model="screenConfig" layout="horizontal" :label-col="{span: 6}" :wrapper-col="{span: 14}">
-            <a-form-item label="大屏标题">
-              <a-input v-model="screenConfig.title" />
-            </a-form-item>
-            <a-form-item label="画板宽度">
-              <a-input-number v-model="screenConfig.width" :min="1" :step="10" />
-            </a-form-item>
-            <a-form-item label="画板高度">
-              <a-input-number v-model="screenConfig.height" :min="1" :step="10" />
-            </a-form-item>
-            <a-form-item label="背景图">
-              <a-select v-model="screenConfig.backgroundImg">
-                <a-select-option
-                  v-for="image in backgroundImgList"
-                  :key="image.image_path"
-                  :value="image.image_path"
-                >
-                  {{ image.image_name }}
-                </a-select-option>
-              </a-select>
-            </a-form-item>
-          </a-form>
+          <div class="screen-option-header">
+            <span>页面设置</span>
+          </div>
+          <div class="screen-option-body">
+            <a-form class="dark" :model="screenConfig" layout="horizontal" :label-col="{span: 6}" :wrapper-col="{span: 14, offset: 1}">
+              <a-form-item label="大屏标题">
+                <a-input v-model="screenConfig.title" />
+              </a-form-item>
+              <a-form-item label="画板大小">
+                <a-row :gutter="20">
+                  <a-col :span="12">
+                    <a-input-number v-model="screenConfig.width" :min="1" :step="10" />
+                  </a-col>
+                  <a-col :span="12">
+                    <a-input-number v-model="screenConfig.height" :min="1" :step="10" />
+                  </a-col>
+                </a-row>
+              </a-form-item>
+              <a-form-item label="背景图">
+                <a-select v-model="screenConfig.backgroundImg">
+                  <a-select-option
+                    v-for="image in backgroundImgList"
+                    :key="image.image_path"
+                    :value="image.image_path"
+                  >
+                    {{ image.image_name }}
+                  </a-select-option>
+                </a-select>
+              </a-form-item>
+              <a-form-item label="吸附距离">
+                <a-input-number v-model="screenConfig.diff" :min="1" :precision="0" />
+              </a-form-item>
+            </a-form>
+          </div>
         </div>
         <chart-option v-else class="data-view-chart-option dark-theme" :data-source-list="dataSourceList" />
       </a-layout-sider>
@@ -348,18 +360,15 @@ export default {
       const canvas = await html2canvas(container, params)
 
       container.style.transform = transform
-      const blob = this.dataURLtoBlob(canvas.toDataURL('image/png'))
-      const formData = new FormData()
-      formData.append('file', blob, `${new Date().getTime()}_thumbnail.png`)
-      return saveThumbnail(formData)
-    },
-    dataURLtoBlob(dataURL) {
-      const data = window.atob(dataURL.split(',')[1])
+
+      const data = window.atob(canvas.toDataURL('image/png').split(',')[1])
       const ia = new Uint8Array(data.length)
       for (let i = 0; i < data.length; i++) {
         ia[i] = data.charCodeAt(i)
       }
-      return new Blob([ia], { type: 'image/png' })
+      const formData = new FormData()
+      formData.append('file', new Blob([ia], { type: 'image/png' }), `${new Date().getTime()}_thumbnail.png`)
+      return saveThumbnail(formData)
     },
     handlePreview() {
       if (this.instanceId) {

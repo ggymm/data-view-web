@@ -35,7 +35,6 @@ export default {
       },
       screenConfig: {
         title: '',
-        diff: 3,
         width: 1920,
         height: 1080,
         theme: '',

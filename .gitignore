@@ -1,6 +1,5 @@
 .vscode
 .idea
 node_modules
-dist
 build
 public/static/monaco/min-maps

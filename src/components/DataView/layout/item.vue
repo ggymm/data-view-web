@@ -253,8 +253,7 @@ export default {
           },
           pageX: ev.clientX,
           pageY: ev.clientY,
-          distance: 5,
-          // distance: 50,
+          distance: this.screenConfig.diff,
           disableAdsorb: false
         })
       }
