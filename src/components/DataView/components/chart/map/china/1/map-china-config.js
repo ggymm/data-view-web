@@ -16,10 +16,13 @@ const MapChinaConfig = function() {
       dataSourceType: '',
       staticData: '{}',
       database: '',
-      fileName: '',
       name: 'name',
       value: 'value',
-      sql: 'select * from map_china_new'
+      sql: 'select * from map_china_new',
+      restUrl: '',
+      restHeader: '',
+      restBody: '',
+      fileName: ''
     },
     data: [],
     interval: 8000,

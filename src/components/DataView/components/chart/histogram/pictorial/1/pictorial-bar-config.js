@@ -16,11 +16,14 @@ const PictorialBarConfig = function() {
       dataSourceType: '',
       staticData: '{}',
       database: '',
-      fileName: '',
       dimension: '无',
       name: 'name',
       value: 'value',
-      sql: 'select * from pictorial_bar'
+      sql: 'select * from pictorial_bar',
+      restUrl: '',
+      restHeader: '',
+      restBody: '',
+      fileName: ''
     },
     data: {
       'source': [

@@ -16,12 +16,15 @@ const RadarNormalConfig = function() {
       dataSourceType: '',
       staticData: '{}',
       database: '',
-      fileName: '',
       name: 'name',
       value: 'value',
       max: 'max',
       dimension: 'legend',
-      sql: 'select * from radar'
+      sql: 'select * from radar',
+      restUrl: '',
+      restHeader: '',
+      restBody: '',
+      fileName: ''
     },
     data: {
       'data': [

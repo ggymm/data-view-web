@@ -16,9 +16,12 @@ const ProgressConfig = function() {
       dataSourceType: '',
       staticData: '{}',
       database: '',
-      fileName: '',
       value: 'value',
-      sql: 'select * from progress'
+      sql: 'select * from progress',
+      restUrl: '',
+      restHeader: '',
+      restBody: '',
+      fileName: ''
     },
     data: {},
     interval: 8000,

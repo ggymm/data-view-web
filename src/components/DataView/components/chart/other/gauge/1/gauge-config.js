@@ -15,10 +15,13 @@ const GaugeConfig = function() {
       dataSourceType: '',
       staticData: '{}',
       database: '',
-      fileName: '',
       sql: 'select name,value from gauge',
       name: 'name',
-      value: 'value'
+      value: 'value',
+      restUrl: '',
+      restHeader: '',
+      restBody: '',
+      fileName: ''
     },
     data: [],
     interval: 8000,

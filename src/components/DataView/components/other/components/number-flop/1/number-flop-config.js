@@ -16,9 +16,12 @@ const NumberFlopConfig = function() {
       dataSourceType: '',
       staticData: '{"value": 100}',
       database: '',
-      fileName: '',
       value: 'data',
-      sql: 'select data from counter'
+      sql: 'select data from counter',
+      restUrl: '',
+      restHeader: '',
+      restBody: '',
+      fileName: ''
     },
     data: {
       value: 100

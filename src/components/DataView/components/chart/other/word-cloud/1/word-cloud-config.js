@@ -15,10 +15,13 @@ const WordCloudConfig = function() {
       dataSourceType: '',
       staticData: '{}',
       database: '',
-      fileName: '',
-      sql: 'select * from pie',
+      name: 'name',
       value: 'value',
-      name: 'name'
+      sql: 'select * from pie',
+      restUrl: '',
+      restHeader: '',
+      restBody: '',
+      fileName: ''
     },
     data: [],
     interval: 8000,

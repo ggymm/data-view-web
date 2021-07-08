@@ -16,8 +16,11 @@ const CarouselListConfig = function() {
       dataSourceType: '',
       staticData: '{}',
       database: '',
-      fileName: '',
-      sql: 'select * from carousel_list'
+      sql: 'select * from carousel_list',
+      restUrl: '',
+      restHeader: '',
+      restBody: '',
+      fileName: ''
     },
     data: {
       'body': [

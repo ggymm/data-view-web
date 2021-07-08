@@ -16,11 +16,14 @@ const HistogramNormalConfig = function() {
       dataSourceType: '',
       staticData: '{}',
       database: '',
-      fileName: '',
       dimension: '无',
       name: 'product',
       value: 'amount',
-      sql: 'select * from histogram_normal'
+      sql: 'select * from histogram_normal',
+      restUrl: '',
+      restHeader: '',
+      restBody: '',
+      fileName: ''
     },
     data: {
       'source': [

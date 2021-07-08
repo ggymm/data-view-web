@@ -16,9 +16,12 @@ const EarlyWarningConfig = function() {
       dataSourceType: '',
       staticData: '{}',
       database: '',
-      fileName: '',
       value: 'value',
-      sql: 'select value from early_warning'
+      sql: 'select value from early_warning',
+      restUrl: '',
+      restHeader: '',
+      restBody: '',
+      fileName: ''
     },
     data: {
       value: '0'

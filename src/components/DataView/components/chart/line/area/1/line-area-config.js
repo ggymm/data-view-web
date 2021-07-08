@@ -16,11 +16,14 @@ const LineAreaConfig = function() {
       dataSourceType: '',
       staticData: '{}',
       database: '',
-      fileName: '',
       dimension: '无',
       name: 'x',
       value: 'y',
-      sql: 'select * from line_normal'
+      sql: 'select * from line_normal',
+      restUrl: '',
+      restHeader: '',
+      restBody: '',
+      fileName: ''
     },
     data: {
       'source': [

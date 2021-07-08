@@ -16,10 +16,13 @@ const FunnelNormalConfig = function() {
       dataSourceType: '',
       staticData: '{}',
       database: '',
-      fileName: '',
       name: 'name',
       value: 'value',
-      sql: 'select * from pie_normal'
+      sql: 'select * from pie_normal',
+      restUrl: '',
+      restHeader: '',
+      restBody: '',
+      fileName: ''
     },
     data: [],
     interval: 8000,
