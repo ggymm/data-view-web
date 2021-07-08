@@ -4,6 +4,7 @@ const webpack = require('webpack')
 const CompressionWebpackPlugin = require('compression-webpack-plugin')
 const buildDate = JSON.stringify(new Date().toLocaleString())
 
+// 如果没有网络，改为false
 const isCdn = true
 
 function resolve(dir) {
@@ -11,7 +12,6 @@ function resolve(dir) {
 }
 
 const assetsCDN = {
-  // webpack build externals
   externals: {
     'vue': 'Vue',
     'vue-router': 'VueRouter',
@@ -25,28 +25,22 @@ const assetsCDN = {
     'moment': 'moment',
     'ant-design-vue': 'antd'
   },
-  monaco: {
-    'loader': '/data-view-web/static/monaco/min/vs/loader.js',
-    // 'loader': 'https://cdn.jsdelivr.net/npm/monaco-editor@0.25.2/min/vs/loader.js',
-    'vs': '/data-view-web/static/monaco/min/vs'
-    // 'vs': 'https://cdn.jsdelivr.net/npm/monaco-editor@0.25.2/min/vs'
-  },
   css: [
     'https://cdn.jsdelivr.net/npm/ant-design-vue@1.7.5/dist/antd.css'
   ],
   js: [
-    'https://cdn.jsdelivr.net/npm/vue@2.6.11/dist/vue.min.js',
-    'https://cdn.jsdelivr.net/npm/vue-router@3.2.0/dist/vue-router.min.js',
-    'https://cdn.jsdelivr.net/npm/vuex@3.4.0/dist/vuex.min.js',
+    'https://cdn.jsdelivr.net/npm/vue@latest/dist/vue.min.js',
+    'https://cdn.jsdelivr.net/npm/vue-router@latest/dist/vue-router.min.js',
+    'https://cdn.jsdelivr.net/npm/vuex@latest/dist/vuex.min.js',
 
-    'https://cdn.jsdelivr.net/npm/axios@0.21.1/dist/axios.min.js',
+    'https://cdn.jsdelivr.net/npm/axios@latest/dist/axios.min.js',
 
     'https://cdn.jsdelivr.net/npm/@vue/composition-api@1.0.0-rc.8',
-    'https://cdn.jsdelivr.net/npm/echarts@5.1.2',
-    'https://cdn.jsdelivr.net/npm/vue-echarts@6.0.0-rc.6',
+    'https://cdn.jsdelivr.net/npm/echarts@latest',
+    'https://cdn.jsdelivr.net/npm/vue-echarts@latest',
 
     'https://cdn.jsdelivr.net/npm/moment@2.24.0/min/moment.min.js',
-    'https://cdn.jsdelivr.net/npm/ant-design-vue@1.7.5/dist/antd.min.js'
+    'https://cdn.jsdelivr.net/npm/ant-design-vue@1.7.6/dist/antd.min.js'
   ]
 }
 

@@ -7,7 +7,6 @@
   <meta name="viewport" content="width=device-width,initial-scale=1.0">
   <link rel="icon" href="<%= BASE_URL %>logo.png">
   <title>数据可视化设计器</title>
-  <!-- require cdn assets css -->
   <% for (var i in htmlWebpackPlugin.options.cdn && htmlWebpackPlugin.options.cdn.css) { %>
   <link rel="stylesheet" href="<%= htmlWebpackPlugin.options.cdn.css[i] %>" />
   <% } %>
@@ -18,18 +17,16 @@
 </noscript>
 <div id="app"></div>
 <script src="/data-view-web/static/icon/iconfont.js"></script>
-<!-- require cdn assets js -->
 <% for (var i in htmlWebpackPlugin.options.cdn && htmlWebpackPlugin.options.cdn.js) { %>
 <script type="text/javascript" src="<%= htmlWebpackPlugin.options.cdn.js[i] %>"></script>
 <% } %>
 
-<% if (htmlWebpackPlugin.options.cdn) { %>
-<script src="<%= htmlWebpackPlugin.options.cdn.monaco.loader %>"></script>
+<!--https://cdn.jsdelivr.net/npm/monaco-editor@latest/min/vs/loader.js-->
+<script src="/data-view-web/static/monaco/min/vs/loader.js"></script>
 <script>
-  require.config({ paths: { 'vs': '<%= htmlWebpackPlugin.options.cdn.monaco.vs %>' } })
+  require.config({ paths: { 'vs': '/data-view-web/static/monaco/min/vs' } })
   require(['vs/editor/editor.main'], function() {
   })
 </script>
-<% } %>
 </body>
 </html>
