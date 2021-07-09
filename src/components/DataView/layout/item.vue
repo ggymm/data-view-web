@@ -190,12 +190,18 @@ export default {
         rotate: this.item.rotate,
         scale: this.canvasConfig.scale
       }
+      // 当前点的和点击位置的距离
+      const pointRect = ev.target.getBoundingClientRect()
+      const dotDist = {
+        x: Math.round(pointRect.left + pointRect.width / 2 - ev.clientX),
+        y: Math.round(pointRect.top + pointRect.height / 2 - ev.clientY)
+      }
       // 组件中心点
       const center = { x: style.x + style.width / 2, y: style.y + style.height / 2 }
       // 获取画布位移信息
       const layoutRect = document.querySelector('#data-view-layout').getBoundingClientRect()
       // 当前点击坐标
-      const startPoint = { x: ev.clientX - layoutRect.left, y: ev.clientY - layoutRect.top }
+      const startPoint = { x: ev.clientX - layoutRect.left + dotDist.x, y: ev.clientY - layoutRect.top + dotDist.y }
       // 获取对称点的坐标
       const symmetricPoint = { x: center.x - (startPoint.x - center.x), y: center.y - (startPoint.y - center.y) }
 
@@ -206,8 +212,8 @@ export default {
         this.$store.commit('setResizeStatus', true)
         // 计算新的位置
         const newStyle = calcResizeInfo(direction, style, startPoint, symmetricPoint, {
-          x: e.clientX - layoutRect.left,
-          y: e.clientY - layoutRect.top
+          x: e.clientX - layoutRect.left + dotDist.x,
+          y: e.clientY - layoutRect.top + dotDist.y
         })
         // 更新组件大小，位置信息
         this.setItemStyle(newStyle)
