@@ -8,24 +8,22 @@ export default {
   mutations: {
     setRefline(state) {
       // 获取横向标尺线
-      const hLines = []
-      // const hLineList = $$('.h-container .ruler-line')
-      // for (let i = 0; i < hLineList.length; i++) {
-      //   const offset = hLineList[i].style.left.replaceAll('px', '')
-      //   hLines.push({
-      //     key: i + 'line',
-      //     offset: parseInt(offset)
+      const vLines = []
+      // const vLineList = $$('.h-container .line-value')
+      // for (let i = 0; i < vLineList.length; i++) {
+      //   vLines.push({
+      //     key: i + '',
+      //     offset: parseInt(vLineList[i].innerText)
       //   })
       // }
 
       // 获取纵向标尺线
-      const vLines = []
-      // const vLineList = $$('.v-container .ruler-line')
-      // for (let i = 0; i < vLineList.length; i++) {
-      //   const offset = vLineList[i].style.top.replaceAll('px', '')
-      //   vLines.push({
-      //     key: i + 'line',
-      //     offset: parseInt(offset)
+      const hLines = []
+      // const hLineList = $$('.v-container .line-value')
+      // for (let i = 0; i < hLineList.length; i++) {
+      //   hLines.push({
+      //     key: i + '',
+      //     offset: parseInt(hLineList[i].innerText)
       //   })
       // }
 
