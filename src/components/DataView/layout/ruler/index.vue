@@ -171,7 +171,6 @@ export default {
 
   .v-container {
     cursor: row-resize;
-    transform: rotate(90deg) translateX(0);
     transform-origin: 0 100% 0;
 
     .lines-wrapper {
