@@ -1,28 +1,36 @@
 :root {
-  --primary-color: #409eff;
-  --primary-color-a: rgba(64, 158, 255, 0.4);
-  --background-2: #22242b;
-  --background-4: #2d2f38;
-  --background-5: #313239;
-  --text-1: #ffffff;
-  --text-2: #fafafa;
-  --border-color-2: #22242b;
-  --border-color-3: #393b4a;
-  --border-black-color: #0d0e10;
-  --border-black: 1px solid var(--border-black-color);
-  --input-background: #181b24;
-  --input-text-color: #bfbfbf;
-  --input-arrow-color: #acb7bd;
+  --color-primary: #04a9f5;
 
-  --gray-0: #000000;
-  --gray-2: #fafafa;
-  --gray-4: #bfbfbf;
-  --gray-8: #333333;
-  --gray-13: #181b24;
-  --background-gray: #393e49;
-  --text-color: var(--gray-4);
-  --text-active: var(--gray-2);
-  --switch-background: var(--gray-13);
+  --header-color: #ccc;
+  --header-color-f: #fafafa;
+  --header-color-hover: #fff;
+  --header-bg: #151c1f;
+  --header-bg-hover: #272d30;
+
+  --sider-border: 1px solid #0d0e10;
+  --sider-color: #fafafa;
+  --sider-color-1: #bfbfbf;
+  --sider-color-f: #fff;
+  --sider-bg: var(--header-bg);
+  --sider-bg-hover: var(--header-bg-hover);
+  --sider-header-bg: #303134;
+  --sider-header-border: 1px solid #343434;
+
+  --footer-color: #fafafa;
+  --footer-bg: var(--header-bg);
+
+  --form-bg: var(--header-bg);
+  --form-label: #fafafa;
+  --form-item-color: rgba(255, 255, 255, .85);
+  --form-item-bg: #202124;
+  --form-item-border: 1px solid #22242b;
+  --form-select-hover: #3c4043;
+
+  --color-primary-a: rgba(64, 158, 255, 0.4);
+  --modal-bg: #282c34;
+  --contextmenu-bg: #282c34;
+  --contextmenu-bg-hover: #393e49;
+  --contextmenu-divider-color: #22242b;
 }
 
 .data-view-container {
@@ -37,8 +45,7 @@
     padding: 0 20px;
     display: flex;
     align-items: center;
-    color: var(--text-2);
-    background-color: var(--background-2);
+    background-color: var(--header-bg);
     transition: all linear 500ms;
 
     .back {
@@ -49,11 +56,11 @@
       align-items: center;
       justify-content: center;
       margin-left: -20px;
-      color: var(--text-2);
+      color: var(--header-color-f);
       cursor: pointer;
 
       &:hover {
-        background: var(--background-4);
+        background: var(--header-bg-hover);
       }
     }
 
@@ -61,6 +68,21 @@
       display: flex;
       height: 48px;
       line-height: 48px;
+      background-color: var(--header-bg);
+
+      .ant-menu-submenu-active {
+        color: var(--header-color-hover);
+        background-color: var(--header-bg-hover);
+      }
+
+      .ant-menu-submenu-title {
+        color: var(--header-color);
+
+        &:hover {
+          color: var(--header-color-hover);
+          background-color: var(--header-bg-hover);
+        }
+      }
     }
 
     .handler {
@@ -76,11 +98,11 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        color: var(--text-2);
+        color: var(--header-color-f);
         cursor: pointer;
 
         &:hover {
-          background: var(--background-4);
+          background: var(--header-bg-hover);
         }
       }
     }
@@ -108,9 +130,9 @@
       overflow: hidden;
       transition: 0.3s ease;
       flex-direction: column;
-      border-top: var(--border-black);
-      border-right: var(--border-black);
-      background-color: #1d1f26;
+      border-top: var(--sider-border);
+      border-right: var(--sider-border);
+      background-color: var(--sider-bg);
 
       .layer-header {
         position: sticky;
@@ -119,12 +141,12 @@
         font-size: 13px;
         height: 36px;
         line-height: 36px;
-        color: var(--text-2);
+        color: var(--sider-color);
         text-align: center;
         text-indent: 2px;
         letter-spacing: 2px;
         padding: 0 20px;
-        background-color: #2d343c;
+        background-color: var(--sider-header-bg);
       }
 
       .layer-wrapper {
@@ -147,26 +169,25 @@
           height: 48px;
           padding: 0 5px;
           position: relative;
-          color: #bcc8d4;
-          background-color: #1b1f25;
+          color: var(--sider-color);
           cursor: pointer;
           align-items: center;
           margin-bottom: 1px;
 
           &.active {
-            color: var(--text-1) !important;
-            background-color: var(--primary-color) !important;
+            color: var(--sider-color-f) !important;
+            background-color: var(--color-primary) !important;
           }
 
           &:hover {
-            color: var(--text-2);
-            background-color: var(--background-5);
+            color: var(--sider-color-f);
+            background-color: var(--sider-bg-hover);
             cursor: pointer;
           }
 
           .layer-item-icon {
             flex: none;
-            color: var(--primary-color);
+            color: var(--color-primary);
             margin-right: 10px;
             width: 52px;
             height: 30px;
@@ -250,7 +271,7 @@
               z-index: 99 !important;
 
               .resize-handler {
-                border: 1px solid var(--primary-color);
+                border: 1px solid var(--color-primary);
 
                 .drag-dot {
                   display: block !important;
@@ -275,8 +296,8 @@
                   left: 0;
                   right: 0;
                   display: block;
-                  background-color: var(--primary-color-a);;
-                  border: 1px solid var(--primary-color);
+                  background-color: var(--color-primary-a);;
+                  border: 1px solid var(--color-primary);
                   box-shadow: 0 2px 4px 0 rgb(0 0 0 / 50%);
                   box-sizing: border-box;
                   pointer-events: none;
@@ -289,7 +310,7 @@
                 left: 50%;
                 transform: translateX(-50%);
                 cursor: grab;
-                color: var(--primary-color);
+                color: var(--color-primary);
                 font-size: 20px;
               }
 
@@ -302,7 +323,7 @@
                   position: absolute;
                   width: 8px;
                   height: 8px;
-                  border: 1px solid var(--primary-color);
+                  border: 1px solid var(--color-primary);
                   background-color: #ffffff;
                   z-index: 999;
                 }
@@ -335,7 +356,7 @@
               .x-line {
                 position: absolute;
                 top: 0;
-                border-top: 1px dashed var(--primary-color);
+                border-top: 1px dashed var(--color-primary);
                 height: 0;
                 transform: translateX(-100%);
               }
@@ -344,7 +365,7 @@
                 position: absolute;
                 top: 0;
                 left: 0;
-                border-left: 1px dashed var(--primary-color);
+                border-left: 1px dashed var(--color-primary);
                 width: 0;
                 transform: translateY(-100%);
               }
@@ -355,7 +376,7 @@
                 position: absolute;
                 padding: 5px;
                 transform: translate(-100%, -100%);
-                color: var(--primary-color);
+                color: var(--color-primary);
                 font-size: 18px;
                 white-space: nowrap;
               }
@@ -368,7 +389,7 @@
         height: 36px;
         line-height: 36px;
         padding: 0 40px;
-        background-color: var(--background-2);
+        background-color: var(--footer-bg);
         display: flex;
         align-items: center;
         justify-content: flex-end;
@@ -385,18 +406,18 @@
 
           .label {
             font-size: 13px;
-            color: var(--text-2);
+            color: var(--footer-color);
             margin: 0 10px;
           }
 
           .tool-btn {
             font-size: 13px;
             cursor: pointer;
-            color: var(--text-2);
+            color: var(--footer-color);
             margin: 0 5px;
 
             &:hover {
-              color: var(--primary-color);
+              color: var(--color-primary);
             }
           }
 
@@ -415,9 +436,9 @@
     }
 
     .data-view-option-panel {
-      border-top: var(--border-black);
-      border-left: var(--border-black);
-      background-color: var(--background-2);
+      border-top: var(--sider-border);
+      border-left: var(--sider-border);
+      background-color: var(--sider-bg);
 
       .data-view-screen-option {
         height: 100%;
@@ -438,20 +459,20 @@
             display: flex;
             justify-content: center;
             padding: 12px;
-            color: var(--text-2);
-            background-color: var(--background-4);
+            color: var(--sider-color);
+            background-color: var(--sider-header-bg);
           }
         }
 
         .screen-option-body {
-          margin-top: 46px;
+          margin-top: 40px;
         }
       }
 
       .data-view-chart-option {
         height: 100%;
         overflow: auto;
-        background-color: var(--background-2);
+        background-color: var(--sider-bg);
 
         &::-webkit-scrollbar {
           display: none;
@@ -460,7 +481,7 @@
         .info {
           font-size: 12px;
           padding: 0 20px;
-          color: var(--text-2);
+          color: var(--sider-color);
 
           .ant-btn-sm {
             font-size: 12px;
@@ -475,7 +496,7 @@
             padding-top: 16px;
 
             .version {
-              color: var(--gray-4);
+              color: var(--sider-color-1);
             }
 
             .update {
@@ -483,7 +504,7 @@
               cursor: pointer;
 
               &:hover {
-                color: var(--primary-color);
+                color: var(--color-primary);
               }
             }
           }
@@ -491,14 +512,14 @@
           .doc {
             display: flex;
             margin: 12px 0;
-            color: var(--gray-4);
+            color: var(--sider-color-1);
           }
         }
 
         .ant-tabs-nav {
           width: 100%;
-          color: var(--text-2);
-          background-color: var(--background-4);
+          color: var(--sider-color);
+          background-color: var(--sider-header-bg);
         }
 
         &.two {
@@ -530,7 +551,7 @@
 
           .ant-collapse {
             font-size: 12px;
-            background-color: var(--background-2);
+            background-color: var(--sider-bg);
 
             & > .ant-collapse-item {
               border: none;
@@ -543,9 +564,9 @@
               height: 40px;
               line-height: 40px;
               padding: 0 12px 0 40px;
-              color: var(--text-2);
-              background-color: var(--background-4);
-              border-bottom: 1px solid var(--border-color-3);
+              color: var(--sider-color);
+              background-color: var(--sider-header-bg);
+              border-bottom: var(--sider-header-border);
             }
 
             .ant-collapse-content {
@@ -554,7 +575,7 @@
               }
 
               .ant-collapse-borderless > .ant-collapse-item > .ant-collapse-content {
-                background-color: var(--text-2);
+                background-color: var(--sider-color);
               }
 
               .ant-collapse-borderless > .ant-collapse-item {
@@ -568,44 +589,103 @@
   }
 }
 
+/*========== 顶部下拉弹出菜单相关 ==========*/
+.ant-menu-dark.ant-menu-submenu-popup {
+  .ant-menu-sub {
+    color: var(--header-color);
+    background-color: var(--header-bg);
+
+    .ant-menu-submenu-active {
+      color: var(--header-color-hover);
+      background-color: var(--header-bg-hover);
+    }
+  }
+
+  .ant-menu-submenu-title, .ant-menu-item {
+    margin: 0;
+    height: 48px;
+    line-height: 48px;
+    cursor: default;
+    color: var(--header-color);
+    user-select: none;
+
+    &:active {
+      background-color: var(--header-bg) !important;
+    }
+
+    &:hover {
+      color: var(--header-color-hover);
+      background-color: var(--header-bg-hover);
+    }
+  }
+}
+
+/*========== 右键弹出菜单相关 ==========*/
+.ant-dropdown-menu {
+  width: 120px;
+  color: var(--form-label);
+  background: var(--contextmenu-bg);
+
+  .ant-dropdown-menu-item {
+    font-size: 12px;
+    height: 25px;
+    color: var(--form-label);
+    padding: 0 12px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    position: relative;
+
+    &:hover {
+      color: var(--color-primary);
+      background: var(--contextmenu-bg-hover);
+    }
+  }
+
+  .ant-dropdown-menu-item-divider {
+    background-color: var(--contextmenu-divider-color);
+  }
+}
+
+/*========== form相关 ==========*/
 .dark-theme {
   .ant-form {
     padding: 20px;
-    color: var(--text-2);
-    background-color: var(--background-2);
+    color: var(--form-label);
+    background-color: var(--form-bg);
 
     label {
-      color: var(--text-2);
+      color: var(--form-label);
     }
 
     .ant-input,
     .ant-switch,
     .ant-input-number,
     .ant-select-selection {
-      color: var(--input-text-color);
-      background-color: var(--input-background);
+      color: var(--form-item-color);
+      background-color: var(--form-item-bg);
       border: 1px solid #5a5a5a;
     }
 
     .ant-switch-checked {
-      background-color: var(--primary-color);
+      background-color: var(--color-primary);
     }
 
     .ant-select-arrow {
-      color: var(--text-2);
+      color: var(--form-label);
     }
 
     .ant-input-number-handler-wrap {
       border: none;
-      background-color: var(--input-background);
+      background-color: var(--form-item-bg);
 
       .ant-input-number-handler {
         &:active {
-          background-color: var(--input-background);
+          background-color: var(--form-item-bg);
         }
 
         i {
-          color: var(--text-2);
+          color: var(--form-label);
         }
 
         border: 1px solid #0b0c0d;
@@ -614,92 +694,25 @@
   }
 }
 
-.ant-btn {
-  line-height: 1;
-}
-
-.ant-menu-dark, .ant-menu-dark .ant-menu-sub {
-  color: var(--text-2);
-  background-color: var(--background-2);
-}
-
-.ant-menu-dark .ant-menu-item {
-  &:hover {
-    color: var(--text-2);
-    background-color: var(--background-4);
-  }
-}
-
-.ant-menu-submenu {
-  color: var(--text-2) !important;
-  background-color: var(--background-2);
-
-  &:hover {
-    color: var(--text-2);
-    background-color: var(--background-4);
-  }
-
-  .ant-menu-submenu-active {
-    .ant-menu-submenu-title {
-      background-color: var(--background-4) !important;
-    }
-  }
-
-  .ant-menu-submenu-title {
-    &:hover {
-      color: var(--text-2);
-      background-color: var(--background-4) !important;
-    }
-  }
-}
-
-.chart-type-icon {
-  vertical-align: middle;
-  line-height: 40px;
-  font-size: 25px !important;
-  margin-right: 10px;
-  transition: font-size .15s cubic-bezier(.215, .61, .355, 1), margin .3s cubic-bezier(.645, .045, .355, 1);
-}
-
-.ant-menu-item, .ant-menu-submenu-title {
-  cursor: default;
-  -webkit-touch-callout: none;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-
-  &:active {
-    background-color: var(--background-4) !important;
-  }
-}
-
-
-.ant-menu-submenu {
-  svg {
-    fill: white;
-  }
-}
-
 .ant-select-dropdown {
-  background-color: #2d343c;
+  background-color: var(--form-item-bg);
 }
 
 .ant-select-dropdown-menu-item {
-  color: var(--text-2);
+  color: var(--form-label);
 
   &:hover {
-    background-color: var(--background-4) !important;
+    background-color: var(--form-select-hover) !important;
   }
 }
 
 .ant-select-dropdown-menu-item-selected {
-  color: var(--text-2);
-  background-color: var(--background-4) !important;
+  color: var(--form-label);
+  background-color: var(--form-select-hover) !important;
 }
 
 .ant-select-dropdown-menu-item-active:not(.ant-select-dropdown-menu-item-disabled) {
-  background-color: var(--background-4) !important;
+  background-color: var(--form-select-hover) !important;
 }
 
 .ant-select-dropdown-menu {
@@ -717,32 +730,22 @@
   }
 }
 
+
+.ant-btn {
+  line-height: 1;
+}
+
+
+.chart-type-icon {
+  vertical-align: middle;
+  line-height: 40px;
+  font-size: 25px !important;
+  margin-right: 10px;
+  transition: font-size .15s cubic-bezier(.215, .61, .355, 1), margin .3s cubic-bezier(.645, .045, .355, 1);
+}
+
+
 .ant-tabs-nav-wrap {
   margin-bottom: 0;
 }
 
-.ant-dropdown-menu {
-  width: 120px;
-  color: var(--text-2);
-  background: var(--background-4);
-
-  .ant-dropdown-menu-item {
-    font-size: 12px;
-    height: 25px;
-    color: var(--text-2);
-    padding: 0 12px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    position: relative;
-
-    &:hover {
-      color: var(--primary-color);
-      background: var(--background-gray);
-    }
-  }
-
-  .ant-dropdown-menu-item-divider {
-    background-color: var(--border-color-2);
-  }
-}

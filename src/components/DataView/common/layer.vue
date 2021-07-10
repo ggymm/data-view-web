@@ -11,10 +11,10 @@
             @mouseenter="item.hover = true"
             @mouseleave="item.hover = false"
           >
-            <span class="layer-item-icon">
+            <div class="layer-item-icon">
               <icon :type="`icon-${item.chartType}New`" />
-            </span>
-            <span class="layer-item-label">
+            </div>
+            <div class="layer-item-label">
               <span v-if="item.chartType === 'TitleText'">{{ item.option.title }}</span>
               <span v-else-if="item.chartType === 'ImageChart'">{{ item.chartName }}</span>
               <span v-else-if="item.chartType === 'CarouselList'">{{ item.chartName }}</span>
@@ -27,7 +27,7 @@
                   {{ item.option.title.text }}
                 </span>
               </span>
-            </span>
+            </div>
           </div>
           <a-menu slot="overlay">
             <a-menu-item @click="handleTop(index)">

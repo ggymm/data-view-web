@@ -55,7 +55,7 @@ const vueConfig = {
     loaderOptions: {
       less: {
         modifyVars: {
-          'primary-color': '#409eff',
+          'primary-color': '#8ab4f8',
           'border-radius-base': '2px'
         },
         javascriptEnabled: true
