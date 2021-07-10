@@ -4,22 +4,26 @@
   --header-color: #ccc;
   --header-color-f: #fafafa;
   --header-color-hover: #fff;
-  --header-bg: #151c1f;
+  --header-bg: #1e2427;
   --header-bg-hover: #272d30;
 
-  --sider-border: 1px solid #0d0e10;
+  --sider-border: 1px solid #181818;
   --sider-color: #fafafa;
   --sider-color-1: #bfbfbf;
   --sider-color-f: #fff;
   --sider-bg: var(--header-bg);
-  --sider-bg-hover: var(--header-bg-hover);
-  --sider-header-bg: #303134;
-  --sider-header-border: 1px solid #343434;
+  --sider-header-bg: var(--header-bg-hover);
+  --sider-collapse-header-bg: var(--header-bg);
+  --sider-header-border: 1px solid var(--header-bg);
+
+  --layer-bg: var(--header-bg);
+  --layer-bg-hover: var(--header-bg-hover);
+  --layer-header-bg: var(--header-bg-hover);
 
   --footer-color: #fafafa;
   --footer-bg: var(--header-bg);
 
-  --form-bg: var(--header-bg);
+  --form-bg: #181818;
   --form-label: #fafafa;
   --form-item-color: rgba(255, 255, 255, .85);
   --form-item-bg: #202124;
@@ -130,9 +134,8 @@
       overflow: hidden;
       transition: 0.3s ease;
       flex-direction: column;
-      border-top: var(--sider-border);
       border-right: var(--sider-border);
-      background-color: var(--sider-bg);
+      background-color: var(--layer-bg);
 
       .layer-header {
         position: sticky;
@@ -146,7 +149,7 @@
         text-indent: 2px;
         letter-spacing: 2px;
         padding: 0 20px;
-        background-color: var(--sider-header-bg);
+        background-color: var(--layer-header-bg);
       }
 
       .layer-wrapper {
@@ -181,7 +184,7 @@
 
           &:hover {
             color: var(--sider-color-f);
-            background-color: var(--sider-bg-hover);
+            background-color: var(--layer-bg-hover);
             cursor: pointer;
           }
 
@@ -436,7 +439,6 @@
     }
 
     .data-view-option-panel {
-      border-top: var(--sider-border);
       border-left: var(--sider-border);
       background-color: var(--sider-bg);
 
@@ -449,11 +451,12 @@
         }
 
         .screen-option-header {
+          z-index: 99;
           position: fixed;
           top: 48px;
           width: 400px;
           margin-top: 1px;
-          z-index: 99;
+          line-height: 1.5;
 
           span {
             display: flex;
@@ -465,7 +468,7 @@
         }
 
         .screen-option-body {
-          margin-top: 40px;
+          margin-top: 45px;
         }
       }
 
@@ -565,7 +568,7 @@
               line-height: 40px;
               padding: 0 12px 0 40px;
               color: var(--sider-color);
-              background-color: var(--sider-header-bg);
+              background-color: var(--sider-collapse-header-bg);
               border-bottom: var(--sider-header-border);
             }
 
