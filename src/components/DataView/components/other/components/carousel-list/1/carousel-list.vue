@@ -142,6 +142,7 @@ export default {
   width: 100%;
   position: relative;
   overflow: hidden;
+
   .carousel-list {
     position: absolute;
     width: 100%;
@@ -149,10 +150,12 @@ export default {
     top: 0;
     margin: 0;
     padding: 0;
+
     li {
       list-style: none;
       margin: 0;
       padding: 0;
+
       span {
         display: inline-block;
         text-align: center;

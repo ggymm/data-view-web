@@ -3,7 +3,7 @@
     <span v-if="item.option.title.show" class="number-flop-title" :style="titleStyle()">
       {{ item.option.title.text }}
     </span>
-    <span class="number-flop-number" :style="numberStyle()">
+    <div class="number-flop-number" :style="numberStyle()">
       <span v-if="item.option.prefix.show" :style="prefixStyle()">
         {{ item.option.prefix.text }}
       </span>
@@ -15,7 +15,7 @@
       <span v-if="item.option.suffix.show" :style="suffixStyle()">
         {{ item.option.suffix.text }}
       </span>
-    </span>
+    </div>
   </div>
 </template>
 
