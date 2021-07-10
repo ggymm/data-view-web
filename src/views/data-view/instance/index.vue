@@ -91,7 +91,7 @@
             <span>页面设置</span>
           </div>
           <div class="screen-option-body">
-            <a-form class="dark" :model="screenConfig" layout="horizontal" :label-col="{span: 6}" :wrapper-col="{span: 14, offset: 1}">
+            <a-form class="dark" layout="horizontal" :label-col="{span: 6}" :wrapper-col="{span: 14, offset: 1}">
               <a-form-item label="大屏标题">
                 <a-input v-model="screenConfig.title" />
               </a-form-item>

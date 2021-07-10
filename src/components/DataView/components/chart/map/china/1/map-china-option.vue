@@ -4,7 +4,7 @@
     <chart-option :item="item" />
     <a-collapse :bordered="false">
       <a-collapse-panel key="视觉映射配置" header="视觉映射配置">
-        <a-form :model="item" layout="horizontal" :label-col="{span: 6}" :wrapper-col="{span: 14, offset: 1}">
+        <a-form layout="horizontal" :label-col="{span: 6}" :wrapper-col="{span: 14, offset: 1}">
           <a-form-item label="显示">
             <a-switch v-model="item.option.visualMap.show" checked-children="显示" un-checked-children="不显示" />
           </a-form-item>
@@ -68,7 +68,7 @@
         </a-form>
       </a-collapse-panel>
       <a-collapse-panel key="地图配置" header="地图配置">
-        <a-form :model="item" layout="horizontal" :label-col="{span: 6}" :wrapper-col="{span: 14, offset: 1}">
+        <a-form layout="horizontal" :label-col="{span: 6}" :wrapper-col="{span: 14, offset: 1}">
           <a-form-item label="颜色">
             <a-input v-model="item.option.series[0].itemStyle.color" />
           </a-form-item>

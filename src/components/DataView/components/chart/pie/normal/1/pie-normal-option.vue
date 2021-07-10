@@ -4,7 +4,7 @@
     <chart-option :item="item" />
     <a-collapse :bordered="false">
       <a-collapse-panel key="扇形配置" header="扇形配置">
-        <a-form :model="item" layout="horizontal" :label-col="{span: 6}" :wrapper-col="{span: 14, offset: 1}">
+        <a-form layout="horizontal" :label-col="{span: 6}" :wrapper-col="{span: 14, offset: 1}">
           <a-form-item label="圆心坐标">
             <a-space>
               <a-input v-model="item.option.series[0].center[0]" />
@@ -37,7 +37,7 @@
         </a-form>
       </a-collapse-panel>
       <a-collapse-panel key="标签配置" header="标签配置">
-        <a-form :model="item" layout="horizontal" :label-col="{span: 6}" :wrapper-col="{span: 14, offset: 1}">
+        <a-form layout="horizontal" :label-col="{span: 6}" :wrapper-col="{span: 14, offset: 1}">
           <a-form-item label="显示">
             <a-switch v-model="item.option.series[0].label.show" checked-children="显示" un-checked-children="不显示" />
           </a-form-item>

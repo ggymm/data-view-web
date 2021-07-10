@@ -4,7 +4,7 @@
     <chart-option :item="item" />
     <a-collapse :bordered="false">
       <a-collapse-panel key="雷达配置" header="雷达配置">
-        <a-form :model="item" layout="horizontal" :label-col="{span: 6}" :wrapper-col="{span: 14, offset: 1}">
+        <a-form layout="horizontal" :label-col="{span: 6}" :wrapper-col="{span: 14, offset: 1}">
           <a-form-item label="中心坐标">
             <a-space>
               <a-input v-model="item.option.radar.center[0]" />
@@ -26,7 +26,7 @@
         </a-form>
       </a-collapse-panel>
       <a-collapse-panel key="线配置" header="线配置">
-        <a-form :model="item" layout="horizontal" :label-col="{span: 6}" :wrapper-col="{span: 14, offset: 1}">
+        <a-form layout="horizontal" :label-col="{span: 6}" :wrapper-col="{span: 14, offset: 1}">
           <a-form-item label="标记图形">
             <a-select v-model="item.option.series[0].symbol">
               <a-select-option

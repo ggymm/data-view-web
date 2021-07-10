@@ -18,7 +18,7 @@
       </a-form>
     </a-collapse-panel>
     <a-collapse-panel key="横坐标轴配置" header="横坐标轴配置">
-      <a-form :model="item" layout="horizontal" :label-col="{span: 6}" :wrapper-col="{span: 14, offset: 1}">
+      <a-form layout="horizontal" :label-col="{span: 6}" :wrapper-col="{span: 14, offset: 1}">
         <a-form-item label="显示">
           <a-switch v-model="item.option.xAxis.show" checked-children="显示" un-checked-children="不显示" />
         </a-form-item>
@@ -70,7 +70,7 @@
       </a-form>
     </a-collapse-panel>
     <a-collapse-panel key="纵坐标轴配置" header="纵坐标轴配置">
-      <a-form :model="item" layout="horizontal" :label-col="{span: 6}" :wrapper-col="{span: 14, offset: 1}">
+      <a-form layout="horizontal" :label-col="{span: 6}" :wrapper-col="{span: 14, offset: 1}">
         <a-form-item label="显示">
           <a-switch v-model="item.option.yAxis.show" checked-children="显示" un-checked-children="不显示" />
         </a-form-item>

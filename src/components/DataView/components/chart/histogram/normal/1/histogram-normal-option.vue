@@ -4,7 +4,7 @@
     <coordinate-system-option :item="item" />
     <a-collapse :bordered="false">
       <a-collapse-panel key="柱配置" header="柱配置">
-        <a-form :model="item" layout="horizontal" :label-col="{span: 6}" :wrapper-col="{span: 14, offset: 1}">
+        <a-form layout="horizontal" :label-col="{span: 6}" :wrapper-col="{span: 14, offset: 1}">
           <div v-for="(s, i) in item.option.series" :key="i">
             <a-form-item :label="'类型-' + i">
               <a-radio-group v-model="s.type">
