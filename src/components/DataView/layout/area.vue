@@ -94,7 +94,7 @@ export default {
 .area {
   z-index: 99999;
   position: absolute;
-  outline: 1px dashed var(--primary-color);
+  outline: 1px dashed var(--color-primary);
   background-color: rgba(0, 132, 255, 0.15);
 }
 </style>

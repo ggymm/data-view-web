@@ -9,7 +9,7 @@
           top: `${line.top}px`,
           width: '0',
           height: `${line.size}px`,
-          borderLeft: '1px dashed var(--primary-color)'
+          borderLeft: '1px dashed var(--color-primary)'
         }"
       />
       <div
@@ -20,7 +20,7 @@
           top: `${line.top}px`,
           height: '0',
           width: `${line.size}px`,
-          borderTop: '1px dashed var(--primary-color)'
+          borderTop: '1px dashed var(--color-primary)'
         }"
       />
     </div>
@@ -47,6 +47,6 @@ export default {
 </script>
 <style lang="less">
 .refline {
-  border-color: var(--primary-color);
+  border-color: var(--color-primary);
 }
 </style>

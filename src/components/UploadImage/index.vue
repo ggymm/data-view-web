@@ -88,7 +88,7 @@ export default {
   }
 
   &:hover {
-    outline-color: var(--primary-color) !important;
+    outline-color: var(--color-primary) !important;
 
     .upload-button {
       display: block;
@@ -118,7 +118,7 @@ export default {
     margin: 0 4px;
 
     &:hover {
-      color: var(--primary-color);
+      color: var(--color-primary);
     }
   }
 
