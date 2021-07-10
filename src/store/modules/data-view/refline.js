@@ -1,5 +1,5 @@
 import { RefLine } from 'refline.js'
-// import { $$ } from '@/utils/dom'
+import { $$ } from '@/utils/dom'
 
 export default {
   state: {
@@ -9,23 +9,23 @@ export default {
     setRefline(state) {
       // 获取横向标尺线
       const vLines = []
-      // const vLineList = $$('.h-container .line-value')
-      // for (let i = 0; i < vLineList.length; i++) {
-      //   vLines.push({
-      //     key: i + '',
-      //     offset: parseInt(vLineList[i].innerText)
-      //   })
-      // }
+      const vLineList = $$('.h-container .line-value')
+      for (let i = 0; i < vLineList.length; i++) {
+        vLines.push({
+          key: i + '',
+          offset: parseInt(vLineList[i].innerText)
+        })
+      }
 
       // 获取纵向标尺线
       const hLines = []
-      // const hLineList = $$('.v-container .line-value')
-      // for (let i = 0; i < hLineList.length; i++) {
-      //   hLines.push({
-      //     key: i + '',
-      //     offset: parseInt(hLineList[i].innerText)
-      //   })
-      // }
+      const hLineList = $$('.v-container .line-value')
+      for (let i = 0; i < hLineList.length; i++) {
+        hLines.push({
+          key: i + '',
+          offset: parseInt(hLineList[i].innerText)
+        })
+      }
 
       const rects = []
       for (let i = 0; i < state.items.length; i++) {
