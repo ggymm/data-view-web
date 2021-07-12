@@ -37,7 +37,7 @@ export function updateDataView(params) {
 export function getChartData(params) {
   return request({
     url: baseUrl + 'data-view/chart-data',
-    method: 'get',
-    params
+    method: 'post',
+    data: params
   })
 }

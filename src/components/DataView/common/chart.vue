@@ -12,6 +12,7 @@
 <!--suppress JSUnresolvedVariable -->
 <script>
 import '../components/index'
+import axios from 'axios'
 import { EventBus } from '@/utils/event-bus'
 import ThemeConfigMap from '@/components/DataView/themes/theme-config-map'
 import { getChartData } from '@/api/data-view'
@@ -101,13 +102,6 @@ export default {
         index++
       }, 2000)
     },
-    handleDataBaseData() {
-      const config = this.item.chartData
-      config.chartType = this.item.chartType
-      getChartData(config).then(response => {
-        this.item.data = response.data
-      })
-    },
     handleStaticData() {
       let staticData
       try {
@@ -119,7 +113,30 @@ export default {
         this.item.data = JSON.parse(JSON.stringify(staticData))
       }
     },
+    handleDataBaseData() {
+      const config = this.item.chartData
+      config.chartType = this.item.chartType
+      getChartData(config).then(response => {
+        this.item.data = response.data
+      })
+    },
     handleRestData() {
+      const headers = this.item.chartData.restHeader || {}
+      const body = this.item.chartData.restBody || {}
+      if (headers) {
+        headers['Content-Type'] = 'application/json'
+      }
+      if (body) {
+        body['chartType'] = this.item.chartType
+      }
+      axios({
+        url: this.item.chartData.restUrl,
+        headers: headers,
+        method: 'post',
+        data: body
+      }).then(response => {
+        console.log(response)
+      })
     },
     handleFileData() {
     },
