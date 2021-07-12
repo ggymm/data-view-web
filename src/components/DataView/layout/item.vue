@@ -35,7 +35,7 @@
 import { mapState } from 'vuex'
 import { on, off } from '@/utils/dom'
 import { EventBus } from '@/utils/event-bus'
-import { getCursors, calcResizeInfo } from './calculate'
+import { getCursors, calcResizeSimple, calcResizeWithRotate } from './calculate'
 
 export default {
   name: 'Item',
@@ -154,7 +154,7 @@ export default {
 
         const rotate = Math.round(angle % 360)
         // 更新组件旋转信息
-        this.setItemStyle({ rotate: rotate < 0 ? rotate + 360 : rotate })
+        this.setItemPosition({ rotate: rotate < 0 ? rotate + 360 : rotate })
       }
 
       const up = () => {
@@ -182,41 +182,59 @@ export default {
       this.handleItemChoose()
 
       const cursor = getCursors(this.item.rotate)
-      const style = {
-        x: Math.round(this.item.x * this.canvasConfig.scale),
-        y: Math.round(this.item.y * this.canvasConfig.scale),
-        width: Math.round(this.item.width * this.canvasConfig.scale),
-        height: Math.round(this.item.height * this.canvasConfig.scale),
+      const currPosition = {
+        x: this.item.x,
+        y: this.item.y,
+        width: this.item.width,
+        height: this.item.height,
         rotate: this.item.rotate,
         scale: this.canvasConfig.scale
       }
-      // 当前点的和点击位置的距离
-      const pointRect = ev.target.getBoundingClientRect()
-      const dotDist = {
-        x: Math.round(pointRect.left + pointRect.width / 2 - ev.clientX),
-        y: Math.round(pointRect.top + pointRect.height / 2 - ev.clientY)
-      }
-      // 组件中心点
-      const center = { x: style.x + style.width / 2, y: style.y + style.height / 2 }
-      // 获取画布位移信息
-      const layoutRect = document.querySelector('#data-view-layout').getBoundingClientRect()
-      // 当前点击坐标
-      const startPoint = { x: ev.clientX - layoutRect.left + dotDist.x, y: ev.clientY - layoutRect.top + dotDist.y }
-      // 获取对称点的坐标
-      const symmetricPoint = { x: center.x - (startPoint.x - center.x), y: center.y - (startPoint.y - center.y) }
 
       let moved = false
-      const move = (e) => {
-        moved = true
-        this.setCursor(cursor[direction])
-        this.$store.commit('setResizeStatus', true)
-        // 计算新的位置
-        const newStyle = calcResizeInfo(direction, style, startPoint, symmetricPoint, {
-          x: e.clientX - layoutRect.left + dotDist.x,
-          y: e.clientY - layoutRect.top + dotDist.y
-        })
-        // 更新组件大小，位置信息
-        this.setItemStyle(newStyle)
+      let move
+      if (this.item.rotate === 0 || this.item.rotate === 360) {
+        move = (e) => {
+          moved = true
+          this.setCursor(cursor[direction])
+          this.$store.commit('setResizeStatus', true)
+          // 计算新的位置
+          const position = calcResizeSimple(direction, currPosition,
+            { x: ev.clientX, y: ev.clientY },
+            { x: e.clientX, y: e.clientY })
+          // 更新组件大小，位置信息
+          this.setItemPosition(position)
+        }
+      } else {
+        // 组件中心点
+        const center = {
+          x: (currPosition.x + currPosition.width / 2) * currPosition.scale,
+          y: (currPosition.y + currPosition.height / 2) * currPosition.scale
+        }
+        // 获取画布位移信息
+        const layoutRect = document.querySelector('#data-view-layout').getBoundingClientRect()
+        // 当前点的和点击位置的距离
+        const pointRect = ev.target.getBoundingClientRect()
+        // 当前点击坐标
+        const startPoint = {
+          x: Math.round(pointRect.left - layoutRect.left + ev.target.offsetWidth / 2),
+          y: Math.round(pointRect.top - layoutRect.top + ev.target.offsetHeight / 2)
+        }
+        // 获取对称点的坐标
+        const symmetricPoint = { x: center.x - (startPoint.x - center.x), y: center.y - (startPoint.y - center.y) }
+
+        move = (e) => {
+          moved = true
+          this.setCursor(cursor[direction])
+          this.$store.commit('setResizeStatus', true)
+          // 计算新的位置
+          const position = calcResizeWithRotate(direction, currPosition, startPoint, symmetricPoint, {
+            x: e.clientX - layoutRect.left,
+            y: e.clientY - layoutRect.top
+          })
+          // 更新组件大小，位置信息
+          this.setItemPosition(position)
+        }
       }
 
       const up = () => {
@@ -305,12 +323,12 @@ export default {
       on(document, 'mousemove', move)
       on(document, 'mouseup', up)
     },
-    setItemStyle(style) {
-      if (style.x) this.item.x = style.x
-      if (style.y) this.item.y = style.y
-      if (style.width) this.item.width = style.width
-      if (style.height) this.item.height = style.height
-      if (style.rotate) this.item.rotate = style.rotate
+    setItemPosition(position) {
+      if (position.x) this.item.x = position.x
+      if (position.y) this.item.y = position.y
+      if (position.width) this.item.width = position.width
+      if (position.height) this.item.height = position.height
+      if (position.rotate) this.item.rotate = position.rotate
     },
     setCursor(cursor) {
       document.body.style.cursor = cursor
