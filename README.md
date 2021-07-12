@@ -1,5 +1,8 @@
 # README
 
+## Demo
+[Demo Create](http://49.233.166.224/data-view-web/data-view-instance/create)
+
 ## 数据可视化平台
 
 ### 前端
