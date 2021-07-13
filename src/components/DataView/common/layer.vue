@@ -1,9 +1,9 @@
 <template>
   <div class="data-view-layer">
     <div class="layer-header">图层</div>
-    <div class="layer-wrapper">
+    <transition-group name="drag" class="layer-wrapper" tag="div">
       <template v-for="(item, index) in items">
-        <a-dropdown :key="index" :trigger="['contextmenu']">
+        <a-dropdown :key="item.elId" :trigger="['contextmenu']">
           <div
             :id="`layer-${item.elId}`"
             :class="['layer-item', {'active': item === currentItem}]"
@@ -11,9 +11,10 @@
             @mousedown="handleSelect(item, index)"
             @mouseenter="item.hover = true"
             @mouseleave="item.hover = false"
-            @dragenter="dragenter($event, index)"
-            @dragover="dragover($event)"
             @dragstart="dragstart(index)"
+            @dragenter="dragenter($event, index, item.elId)"
+            @dragend="dragend($event)"
+            @dragover="dragover($event)"
           >
             <div class="layer-item-icon">
               <icon :type="`icon-${item.chartType}New`" />
@@ -79,7 +80,8 @@
           </a-menu>
         </a-dropdown>
       </template>
-    </div>
+    </transition-group>
+    <div id="indicator" />
   </div>
 </template>
 
@@ -111,22 +113,25 @@ export default {
     dragstart(index) {
       this.dragIndex = index
     },
-    dragenter(e, index) {
+    dragenter(e, index, elId) {
       e.preventDefault()
-      // 避免源对象触发自身的dragenter事件
-      if (this.dragIndex !== index) {
-        // 避免重复触发目标对象的dragenter事件
-        if (this.enterIndex !== index) {
-          this.$store.commit('exchangeItem', {
-            start: this.dragIndex,
-            end: index
-          })
-          // 排序变化后目标对象的索引变成源对象的索引
-          this.dragIndex = index
-        } else {
-          this.enterIndex = index
-        }
-      }
+      this.enterIndex = index
+      const header = document.querySelector('.data-view-header').getBoundingClientRect()
+      const item = $(`#layer-${elId}`).getBoundingClientRect()
+
+      const indicator = $('#indicator')
+      indicator.style.display = 'block'
+      indicator.style.top = `${item.top - header.height}px`
+      e.dataTransfer.setDragImage(indicator, 30, 15)
+    },
+    dragend(e) {
+      e.preventDefault()
+      this.$store.commit('exchangeItem', {
+        start: this.dragIndex,
+        end: this.enterIndex
+      })
+      const indicator = $('#indicator')
+      indicator.style.display = 'none'
     },
     dragover(e) {
       e.preventDefault()
@@ -154,4 +159,19 @@ export default {
   }
 }
 </script>
+<style lang="less">
+.layer-wrapper {
+  .drag-move {
+    transition: transform .3s;
+  }
+}
+
+#indicator {
+  display: none;
+  position: absolute;
+  width: 100%;
+  transition: top .3s;
+  border-top: 1px solid var(--color-primary);
+}
+</style>
 
