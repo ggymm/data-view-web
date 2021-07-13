@@ -121,21 +121,26 @@ export default {
       })
     },
     handleRestData() {
+      const url = this.item.chartData.restUrl
+      if (!url) return
       const headers = this.item.chartData.restHeader || {}
       const body = this.item.chartData.restBody || {}
       if (headers) {
         headers['Content-Type'] = 'application/json'
       }
       if (body) {
+        body['dataSourceType'] = 'Rest'
         body['chartType'] = this.item.chartType
       }
       axios({
-        url: this.item.chartData.restUrl,
+        url: url,
         headers: headers,
         method: 'post',
         data: body
       }).then(response => {
-        console.log(response)
+        if (response.status === 200) {
+          this.item.data = response.data.data
+        }
       })
     },
     handleFileData() {

@@ -1,5 +1,5 @@
 <template>
-  <div ref="editor" :style="{height: height}">
+  <div :id="id" :style="{height: height}">
     <slot />
   </div>
 </template>
@@ -8,6 +8,10 @@
 export default {
   name: 'Index',
   props: {
+    id: {
+      type: String,
+      required: true
+    },
     value: {
       type: String,
       required: true
@@ -31,7 +35,7 @@ export default {
   },
   methods: {
     initEditor() {
-      this.editor = window.monaco.editor.create(this.$refs.editor, {
+      this.editor = window.monaco.editor.create(document.getElementById(this.id), {
         value: this.value,
         language: this.language,
         automaticLayout: true,
