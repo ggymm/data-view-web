@@ -135,7 +135,7 @@ import { mapState } from 'vuex'
 import { menus } from './menu'
 import defaultSettings from '@/config'
 
-import '@/components/DataView/global-components'
+import '@/components/DataView/index.js'
 import OptionConfigMap from '@/components/DataView/components/config'
 import Layout from '@/components/DataView/layout/layout'
 import Item from '@/components/DataView/layout/item'
@@ -237,6 +237,7 @@ export default {
     },
     handleDrop(event) {
       const type = event.dataTransfer.getData('type')
+      if (!type) return
       const newItem = OptionConfigMap[type]()
       newItem.x = event.offsetX - newItem.width / 2
       newItem.y = event.offsetY - newItem.height / 2
