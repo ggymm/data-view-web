@@ -71,6 +71,15 @@ export default {
           break
       }
     },
+    exchangeItem(state, { start, end }) {
+      // 交换两个元素位置
+      const source = state.items[start]
+      state.items.splice(start, 1)
+      state.items.splice(end, 0, source)
+      // 设置选中
+      state.currentItem = state.items[end]
+      state.currentIndex = end
+    },
     setCurrentItem(state, { item, index }) {
       // 每次选中，重置复制次数
       state.copyNum = 1

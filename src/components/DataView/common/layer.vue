@@ -7,9 +7,13 @@
           <div
             :id="`layer-${item.elId}`"
             :class="['layer-item', {'active': item === currentItem}]"
+            :draggable="true"
             @mousedown="handleSelect(item, index)"
             @mouseenter="item.hover = true"
             @mouseleave="item.hover = false"
+            @dragenter="dragenter($event, index)"
+            @dragover="dragover($event)"
+            @dragstart="dragstart(index)"
           >
             <div class="layer-item-icon">
               <icon :type="`icon-${item.chartType}New`" />
@@ -86,6 +90,12 @@ import { EventBus } from '@/utils/event-bus'
 
 export default {
   name: 'Layer',
+  data() {
+    return {
+      dragIndex: '',
+      enterIndex: ''
+    }
+  },
   computed: mapState([
     'items',
     'currentItem'
@@ -98,6 +108,29 @@ export default {
     })
   },
   methods: {
+    dragstart(index) {
+      this.dragIndex = index
+    },
+    dragenter(e, index) {
+      e.preventDefault()
+      // 避免源对象触发自身的dragenter事件
+      if (this.dragIndex !== index) {
+        // 避免重复触发目标对象的dragenter事件
+        if (this.enterIndex !== index) {
+          this.$store.commit('exchangeItem', {
+            start: this.dragIndex,
+            end: index
+          })
+          // 排序变化后目标对象的索引变成源对象的索引
+          this.dragIndex = index
+        } else {
+          this.enterIndex = index
+        }
+      }
+    },
+    dragover(e) {
+      e.preventDefault()
+    },
     handleSelect(item, index) {
       this.$store.commit('setCurrentItem', { item: item, index: index })
     },
@@ -121,3 +154,4 @@ export default {
   }
 }
 </script>
+
