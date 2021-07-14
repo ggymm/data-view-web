@@ -19,6 +19,7 @@ const MapChinaConfig = function() {
       name: 'name',
       value: 'value',
       sql: 'select * from map_china_new',
+      restType: 'GET',
       restUrl: '',
       restHeader: '',
       restBody: '',

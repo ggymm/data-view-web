@@ -20,6 +20,7 @@ const LineNormalConfig = function() {
       name: 'x',
       value: 'y',
       sql: 'select * from line_normal',
+      restType: 'GET',
       restUrl: '',
       restHeader: '',
       restBody: '',

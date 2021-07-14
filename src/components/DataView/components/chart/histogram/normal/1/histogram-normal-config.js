@@ -20,6 +20,7 @@ const HistogramNormalConfig = function() {
       name: 'product',
       value: 'amount',
       sql: 'select * from histogram_normal',
+      restType: 'GET',
       restUrl: '',
       restHeader: '',
       restBody: '',

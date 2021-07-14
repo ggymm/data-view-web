@@ -18,6 +18,7 @@ const CounterConfig = function() {
       database: '',
       value: 'data',
       sql: 'select data from counter',
+      restType: 'GET',
       restUrl: '',
       restHeader: '',
       restBody: '',

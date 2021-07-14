@@ -18,6 +18,7 @@ const ProgressConfig = function() {
       database: '',
       value: 'value',
       sql: 'select * from progress',
+      restType: 'GET',
       restUrl: '',
       restHeader: '',
       restBody: '',

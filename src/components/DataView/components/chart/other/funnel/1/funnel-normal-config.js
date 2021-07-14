@@ -19,6 +19,7 @@ const FunnelNormalConfig = function() {
       name: 'name',
       value: 'value',
       sql: 'select * from pie_normal',
+      restType: 'GET',
       restUrl: '',
       restHeader: '',
       restBody: '',

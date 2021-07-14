@@ -20,6 +20,7 @@ const ScatterNormalConfig = function() {
       name: 'x',
       value: 'y',
       sql: 'select * from scatter_normal',
+      restType: 'GET',
       restUrl: '',
       restHeader: '',
       restBody: '',

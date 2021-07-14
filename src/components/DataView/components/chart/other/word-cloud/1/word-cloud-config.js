@@ -18,6 +18,7 @@ const WordCloudConfig = function() {
       name: 'name',
       value: 'value',
       sql: 'select * from pie',
+      restType: 'GET',
       restUrl: '',
       restHeader: '',
       restBody: '',

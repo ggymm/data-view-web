@@ -17,6 +17,7 @@ const CarouselListConfig = function() {
       staticData: '{}',
       database: '',
       sql: 'select * from carousel_list',
+      restType: 'GET',
       restUrl: '',
       restHeader: '',
       restBody: '',

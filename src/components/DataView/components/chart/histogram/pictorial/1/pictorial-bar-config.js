@@ -20,6 +20,7 @@ const PictorialBarConfig = function() {
       name: 'name',
       value: 'value',
       sql: 'select * from pictorial_bar',
+      restType: 'GET',
       restUrl: '',
       restHeader: '',
       restBody: '',

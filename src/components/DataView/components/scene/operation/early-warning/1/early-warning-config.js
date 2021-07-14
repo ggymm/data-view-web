@@ -18,6 +18,7 @@ const EarlyWarningConfig = function() {
       database: '',
       value: 'value',
       sql: 'select value from early_warning',
+      restType: 'GET',
       restUrl: '',
       restHeader: '',
       restBody: '',

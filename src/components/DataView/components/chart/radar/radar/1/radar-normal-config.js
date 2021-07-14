@@ -21,6 +21,7 @@ const RadarNormalConfig = function() {
       max: 'max',
       dimension: 'legend',
       sql: 'select * from radar',
+      restType: 'GET',
       restUrl: '',
       restHeader: '',
       restBody: '',

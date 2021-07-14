@@ -18,6 +18,7 @@ const GaugeConfig = function() {
       sql: 'select name,value from gauge',
       name: 'name',
       value: 'value',
+      restType: 'GET',
       restUrl: '',
       restHeader: '',
       restBody: '',
