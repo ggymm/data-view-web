@@ -81,8 +81,13 @@ export default {
       state.currentIndex = end
     },
     setCurrentItem(state, { item, index }) {
-      // 每次选中，重置复制次数
+      // 重置复制次数
       state.copyNum = 1
+      if (item && index !== -1) {
+        // 隐藏框选组件
+        state.groupAreaShow = false
+      }
+      // 设置当前选中组件
       state.currentItem = item
       state.currentIndex = index
     },
