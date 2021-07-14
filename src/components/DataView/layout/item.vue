@@ -295,8 +295,8 @@ export default {
             pageX: e.clientX,
             pageY: e.clientY
           })
-          this.item.x += delta.left
-          this.item.y += delta.top
+          this.item.x += Math.round(delta.left / scale)
+          this.item.y += Math.round(delta.top / scale)
         } else {
           this.item.x = startX + Math.round((e.clientX - ev.clientX) / scale)
           this.item.y = startY + Math.round((e.clientY - ev.clientY) / scale)
