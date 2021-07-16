@@ -81,9 +81,9 @@ export default {
       state.currentIndex = end
     },
     setCurrentItem(state, { item, index }) {
-      // 重置复制次数
-      state.copyNum = 1
       if (item && index !== -1) {
+        // 重置复制次数
+        state.copyNum = 1
         // 隐藏框选组件
         state.groupAreaShow = false
       }

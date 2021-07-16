@@ -99,7 +99,7 @@ export default {
           _this.$store.commit('itemCopy')
           break
         case 'ctrl+v':
-          _this.$store.commit('itemPaste', { mouse: false })
+          _this.$store.commit('itemPaste', false)
           break
       }
     })

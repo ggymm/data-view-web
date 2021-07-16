@@ -109,8 +109,18 @@
             </a-form-item>
           </template>
           <template v-else-if="currentItem.chartData.dataSourceType === 'Rest'">
+            <a-form-item label="请求类型">
+              <a-radio-group v-model="currentItem.chartData.restType">
+                <a-radio :style="{width: '100%', height: '35px', lineHeight: '35px'}" value="GET">
+                  <span style="word-break: break-all;white-space: pre-wrap;">GET</span>
+                </a-radio>
+                <a-radio :style="{width: '100%', height: '35px', lineHeight: '35px'}" value="POST">
+                  <span style="word-break: break-all;white-space: pre-wrap;">POST</span>
+                </a-radio>
+              </a-radio-group>
+            </a-form-item>
             <a-form-item label="接口地址">
-              <a-input v-model="currentItem.chartData.restUrl" @change="handleConfigChange" />
+              <a-input v-model="currentItem.chartData.restUrl" @blur="handleConfigChange" />
             </a-form-item>
             <a-button type="primary" size="small" @click="handleEditRest">调试API</a-button>
           </template>
@@ -309,7 +319,9 @@ export default {
       } else if (this.currentItem.chartData.dataSourceType === 'DataBase') {
         EventBus.$emit('handleDataBaseData')
       } else if (this.currentItem.chartData.dataSourceType === 'Rest') {
-        this.currentItem.chartData.restUrl = `${this.serviceBaseUrl}data-view/chart-data`
+        if (!this.currentItem.chartData.restUrl) {
+          this.currentItem.chartData.restUrl = `${this.serviceBaseUrl}data-view/test-chart-data?chartType=`
+        }
         EventBus.$emit('handleRestData')
       } else if (this.currentItem.chartData.dataSourceType === 'File') {
         EventBus.$emit('handleFileData')

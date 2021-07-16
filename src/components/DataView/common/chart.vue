@@ -132,16 +132,28 @@ export default {
         body['dataSourceType'] = 'Rest'
         body['chartType'] = this.item.chartType
       }
-      axios({
-        url: url,
-        headers: headers,
-        method: 'post',
-        data: body
-      }).then(response => {
-        if (response.status === 200) {
-          this.item.data = response.data.data
-        }
-      })
+      if (this.item.chartData.restType === 'POST') {
+        axios({
+          url: url,
+          headers: headers,
+          method: 'post',
+          data: body
+        }).then(response => {
+          if (response.status === 200) {
+            this.item.data = response.data.data
+          }
+        })
+      } else {
+        axios({
+          url: url,
+          headers: headers,
+          method: 'get'
+        }).then(response => {
+          if (response.status === 200) {
+            this.item.data = response.data.data
+          }
+        })
+      }
     },
     handleFileData() {
     },
