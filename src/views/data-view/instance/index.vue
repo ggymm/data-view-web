@@ -344,6 +344,9 @@ export default {
       }
     },
     async screenshot() {
+      // 清除选中和hover状态
+      this.$store.commit('setCurrentItem', { item: null, index: -1 })
+
       const container = document.getElementById('data-view-layout')
       // 需要移除transform属性
       const { transform } = container.style

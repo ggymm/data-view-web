@@ -104,6 +104,7 @@ export default {
         justifyContent: 'center',
         color: number.color,
         fontSize: `${number.fontSize}px`,
+        fontWeight: number.fontWeight,
         fontFamily: number.fontFamily
       }
     },

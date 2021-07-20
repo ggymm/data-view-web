@@ -13,6 +13,7 @@
 <script>
 import '../components/index'
 import axios from 'axios'
+import { mapState } from 'vuex'
 import { EventBus } from '@/utils/event-bus'
 import ThemeConfigMap from '@/components/DataView/themes/theme-config-map'
 import { getChartData } from '@/api/data-view'
@@ -48,7 +49,10 @@ export default {
   computed: {
     refresh() {
       return this.item.refresh
-    }
+    },
+    ...mapState([
+      'currentItem'
+    ])
   },
   watch: {
     refresh: function(newVal) {
@@ -103,6 +107,9 @@ export default {
       }, 2000)
     },
     handleStaticData() {
+      if (this.item !== this.currentItem) {
+        return
+      }
       let staticData
       try {
         staticData = JSON.parse(this.item.chartData.staticData)
@@ -114,6 +121,9 @@ export default {
       }
     },
     handleDataBaseData() {
+      if (this.item !== this.currentItem) {
+        return
+      }
       const config = this.item.chartData
       config.chartType = this.item.chartType
       getChartData(config).then(response => {
@@ -121,6 +131,9 @@ export default {
       })
     },
     handleRestData() {
+      if (this.item !== this.currentItem) {
+        return
+      }
       const url = this.item.chartData.restUrl
       if (!url) return
       const headers = this.item.chartData.restHeader || {}
