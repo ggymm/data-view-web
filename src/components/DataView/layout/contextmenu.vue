@@ -28,7 +28,7 @@
           <a-icon type="copy" />
           复制
         </li>
-        <li class="ant-dropdown-menu-item">
+        <li class="ant-dropdown-menu-item" @click="deleteItem">
           <a-icon type="delete" />
           删除
         </li>
@@ -72,6 +72,9 @@ export default {
     },
     paste() {
       this.$store.commit('itemPaste', true)
+    },
+    deleteItem() {
+      this.$store.commit('deleteItem')
     }
   }
 }

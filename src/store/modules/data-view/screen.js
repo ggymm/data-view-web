@@ -80,6 +80,12 @@ export default {
       state.currentItem = state.items[end]
       state.currentIndex = end
     },
+    deleteItem(state) {
+      if (state.currentIndex === -1) {
+        return
+      }
+      state.items.splice(state.currentIndex, 1)
+    },
     setCurrentItem(state, { item, index }) {
       if (item && index !== -1) {
         // 重置复制次数
