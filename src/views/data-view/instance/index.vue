@@ -27,7 +27,7 @@
       </div>
     </a-layout-header>
     <a-layout class="data-view-main">
-      <a-layout-sider v-model="layerCollapsed" collapsed-width="0" collapsible>
+      <a-layout-sider v-model="layerCollapsed" collapsed-width="0" collapsible="true">
         <layer />
       </a-layout-sider>
       <a-layout class="data-view-screen">
@@ -84,7 +84,7 @@
         width="400"
         collapsed-width="0"
         :reverse-arrow="true"
-        collapsible
+        collapsible="true"
       >
         <div v-if="currentItem === null" class="data-view-screen-option dark-theme">
           <div class="screen-option-header">
@@ -116,6 +116,14 @@
                   </a-select-option>
                 </a-select>
               </a-form-item>
+              <a-form-item label="上传图片">
+                <upload-image
+                  height="120px"
+                  :image-type="'screen_background'"
+                  :image-url="screenConfig.backgroundImg"
+                  @uploaded="handleImageUploaded"
+                />
+              </a-form-item>
               <a-form-item label="吸附距离">
                 <a-input-number v-model="screenConfig.diff" :min="1" :precision="0" />
               </a-form-item>
@@ -142,6 +150,7 @@ import Item from '@/components/DataView/layout/item'
 import Chart from '@/components/DataView/common/chart'
 import Layer from '@/components/DataView/common/layer'
 import ChartOption from '@/components/DataView/common/option'
+import UploadImage from '@/components/UploadImage'
 
 import { getDataSourceList } from '@/api/data-source'
 import { getImageList, saveThumbnail } from '@/api/image'
@@ -154,7 +163,8 @@ export default {
     Item,
     Chart,
     Layer,
-    ChartOption
+    ChartOption,
+    UploadImage
   },
   data() {
     return {
@@ -254,6 +264,9 @@ export default {
       if (e.button !== 2) {
         this.$store.commit('hideContextmenu')
       }
+    },
+    handleImageUploaded() {
+      this.getImageList()
     },
     async getDataSourceList() {
       const response = await getDataSourceList()
