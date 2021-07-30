@@ -76,8 +76,8 @@ export default {
 .upload-container {
   position: relative;
   border-radius: 2px;
-  background: var(--input-background);
-  outline: 1px solid var(--input-background);
+  background: var(--form-item-bg);
+  outline: var(--form-item-border);
   transition: border 0.3s;
 
   .upload-image {
