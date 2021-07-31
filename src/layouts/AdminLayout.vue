@@ -1,9 +1,17 @@
 <template>
-  <a-layout>
+  <a-layout style="height: 100vh">
     <a-layout-sider>
-      <a-button type="primary" @click="dataSource()">数据源</a-button>
-      <a-button type="primary" @click="dataView()">大屏设计</a-button>
-      <a-button type="primary" @click="dataReport()">报表设计</a-button>
+      <a-menu mode="inline" theme="dark">
+        <a-menu-item key="dataSource" @click="dataSource()">
+          <span>数据源</span>
+        </a-menu-item>
+        <a-menu-item key="dataView" @click="dataView()">
+          <span>大屏设计</span>
+        </a-menu-item>
+        <a-menu-item key="dataReport" @click="dataReport()">
+          <span>报表设计</span>
+        </a-menu-item>
+      </a-menu>
     </a-layout-sider>
     <a-layout>
       <router-view />

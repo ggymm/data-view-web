@@ -116,7 +116,7 @@
                   </a-select-option>
                 </a-select>
               </a-form-item>
-              <a-form-item label="上传图片">
+              <a-form-item label="上传背景图">
                 <upload-image
                   height="120px"
                   :image-type="'screen_background'"
