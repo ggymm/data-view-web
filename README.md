@@ -1,5 +1,10 @@
 # README
 
+## 项目地址
+
+[GITHUB](https://github.com/ggymm/data-view-web)
+[GITEE](https://gitee.com/1967988842/data_view_web)
+
 ## Demo
 [Demo Create](http://49.233.166.224/data-view-web/data-view-instance/create)
 
