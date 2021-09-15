@@ -150,12 +150,18 @@ export const menus = [
             'key': 'ImageChart',
             'icon': 'ImageChartNew',
             'title': '图片'
-          },
+          }
+        ]
+      },
+      {
+        'key': 'Border',
+        'title': '边框',
+        'children': [
           {
             'version': 1,
-            'key': 'Frame',
-            'icon': 'FrameNew',
-            'title': '边框'
+            'key': 'Border1',
+            'icon': 'Border',
+            'title': '边框1'
           }
         ]
       },

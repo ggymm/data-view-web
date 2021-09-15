@@ -25,6 +25,8 @@ import { getEarlyWarningConfig_1 } from './scene/operation/early-warning/1/early
 import { getTitleTextConfig_1 } from './other/auxiliary/title-text/1/title-text-config'
 import { getImageChartConfig_1 } from './other/auxiliary/image/1/image-config'
 
+import { getBorder1Config_1 } from './other/border/border1/1/border1-config'
+
 import { getCarouselListConfig_1 } from './other/components/carousel-list/1/carousel-list-config'
 import { getCarouselListConfig_2 } from './other/components/carousel-list/2/carousel-list-config'
 import { getCounterConfig_1 } from './other/components/counter/1/counter-config'
@@ -54,6 +56,8 @@ const OptionConfigMap = {
 
   'TitleText_1': getTitleTextConfig_1,
   'ImageChart_1': getImageChartConfig_1,
+
+  'Border1_1': getBorder1Config_1,
 
   'CarouselList_1': getCarouselListConfig_1,
   'CarouselList_2': getCarouselListConfig_2,

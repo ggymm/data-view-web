@@ -260,6 +260,7 @@ const paramsMap = {
   'EarlyWarning_1': valueParams,
   'TitleText_1': null,
   'ImageChart_1': null,
+  'Border1_1': null,
   'CarouselList_1': [],
   'CarouselList_2': [],
   'Counter_1': valueParams,

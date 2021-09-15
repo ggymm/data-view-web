@@ -104,6 +104,13 @@ import ImageChartOption_1 from './other/auxiliary/image/1/image-option'
 Vue.component('ImageChart_1', ImageChart_1)
 Vue.component('ImageChartOption_1', ImageChartOption_1)
 
+// 边框1
+import Border1_1 from './other/border/border1/1/border1'
+import Border1Option_1 from './other/border/border1/1/border1-option'
+
+Vue.component('Border1_1', Border1_1)
+Vue.component('Border1Option_1', Border1Option_1)
+
 // 轮播列表
 import CarouselList_1 from './other/components/carousel-list/1/carousel-list'
 import CarouselListOption_1 from './other/components/carousel-list/1/carousel-list-option'
