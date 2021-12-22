@@ -37,10 +37,7 @@ export default {
   ]),
   methods: {
     lines() {
-      if (this.refline !== null) {
-        // console.log(JSON.stringify(this.refline.getAllRefLines(), null, 2))
-      }
-      return this.refline !== null ? this.refline.getAllRefLines() : []
+      return []
     }
   }
 }

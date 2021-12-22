@@ -87,8 +87,7 @@ export default {
       'moving',
       'resizing',
       'canvasConfig',
-      'screenConfig',
-      'refline'
+      'screenConfig'
     ])
   },
   mounted() {
@@ -124,7 +123,6 @@ export default {
       ev.preventDefault()
 
       this.$store.commit('hideContextmenu')
-      this.$store.commit('setRefline')
     },
     handleItemChoose() {
       this.$store.commit('setClickItem', true)
@@ -188,7 +186,7 @@ export default {
         ...this.item.style,
         scale: this.canvasConfig.scale
       }
-      console.log(currPosition)
+
       let moved = false
       let move
       if (this.item.style.rotate === 0 || this.item.style.rotate === 360) {
@@ -283,7 +281,6 @@ export default {
         // 设置组件移动状态
         this.$store.commit('setMoveStatus', false)
         // 隐藏参考线
-        this.$store.commit('hideRefline')
         // 保存快照, 用于撤销重做
         if (moved) {
           this.$store.dispatch('recordSnapshot')

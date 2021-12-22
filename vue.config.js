@@ -5,7 +5,7 @@ const CompressionWebpackPlugin = require('compression-webpack-plugin')
 const buildDate = JSON.stringify(new Date().toLocaleString())
 
 // 如果没有网络，改为false
-const isCdn = true
+const isCdn = false
 
 function resolve(dir) {
   return path.join(__dirname, dir)
