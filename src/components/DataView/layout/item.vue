@@ -2,7 +2,7 @@
   <div
     v-show="item.show === 'true'"
     :class="{ active }"
-    :style="itemStyle()"
+    :style="itemStyle"
     class="data-view-item"
     @click="handleItemClick"
     @mousedown.prevent.stop="handleMove"
@@ -10,7 +10,7 @@
     <div
       class="data-view-item-handler"
       :class="itemHandlerClass()"
-      :style="{ transform: `rotate(${item.rotate}deg)` }"
+      :style="{ transform: `rotate(${item.style.rotate}deg)` }"
       @mouseenter="item.hover = true"
       @mouseleave="item.hover = false"
     >
@@ -24,9 +24,9 @@
     </div>
     <!-- 位置坐标 -->
     <div v-show="isActive() && canvasConfig.indicatorLine && moving" class="indicator-lines">
-      <span class="x-line" :style="lineXStyle()" />
-      <span class="y-line" :style="lineYStyle()" />
-      <span class="coordinate">{{ item.x }}，{{ item.y }}</span>
+      <span class="x-line" :style="lineXStyle" />
+      <span class="y-line" :style="lineYStyle" />
+      <span class="coordinate">{{ item.style.x }}，{{ item.style.y }}</span>
     </div>
   </div>
 </template>
@@ -60,39 +60,40 @@ export default {
   data() {
     return {}
   },
-  computed: mapState([
-    'moving',
-    'resizing',
-    'canvasConfig',
-    'screenConfig',
-    'refline',
-    'currentItem'
-  ]),
-  mounted() {
-  },
-  methods: {
+  computed: {
     itemStyle() {
       return {
         zIndex: this.index + 9,
         top: 0,
         left: 0,
-        width: `${this.item.width}px`,
-        height: `${this.item.height}px`,
-        transform: `translate(${this.item.x}px, ${this.item.y}px)`
+        width: `${this.item.style.width}px`,
+        height: `${this.item.style.height}px`,
+        transform: `translate(${this.item.style.x}px, ${this.item.style.y}px)`
       }
     },
     lineXStyle() {
       return {
-        width: `${this.item.x / this.canvasConfig.scale}px`,
+        width: `${this.item.style.x / this.canvasConfig.scale}px`,
         borderWidth: `${1 / this.canvasConfig.scale}px`
       }
     },
     lineYStyle() {
       return {
-        height: `${this.item.y / this.canvasConfig.scale}px`,
+        height: `${this.item.style.y / this.canvasConfig.scale}px`,
         borderWidth: `${1 / this.canvasConfig.scale}px`
       }
     },
+    ...mapState([
+      'moving',
+      'resizing',
+      'canvasConfig',
+      'screenConfig',
+      'refline'
+    ])
+  },
+  mounted() {
+  },
+  methods: {
     itemHandlerClass() {
       // 当前组件不是选中的
       // 当前组件没有正在进行拖拽
@@ -105,7 +106,7 @@ export default {
       return this.active
     },
     points() {
-      const cursor = getCursors(this.item.rotate)
+      const cursor = getCursors(this.item.style.rotate)
       const transform = `scale(${1 / this.canvasConfig.scale}, ${1 / this.canvasConfig.scale})`
       return {
         't': { name: 'top', style: { top: '-4px', left: '50%', marginLeft: '-4px', cursor: cursor.t, transform }},
@@ -123,6 +124,7 @@ export default {
       ev.preventDefault()
 
       this.$store.commit('hideContextmenu')
+      this.$store.commit('setRefline')
     },
     handleItemChoose() {
       this.$store.commit('setClickItem', true)
@@ -140,7 +142,7 @@ export default {
       const startAngle = Math.atan2(
         centerY - ev.clientY,
         centerX - ev.clientX
-      ) * 180 / Math.PI - this.item.rotate
+      ) * 180 / Math.PI - this.item.style.rotate
 
       let moved = false
       const move = (e) => {
@@ -181,19 +183,15 @@ export default {
       // 需要设置选中状态
       this.handleItemChoose()
 
-      const cursor = getCursors(this.item.rotate)
+      const cursor = getCursors(this.item.style.rotate)
       const currPosition = {
-        x: this.item.x,
-        y: this.item.y,
-        width: this.item.width,
-        height: this.item.height,
-        rotate: this.item.rotate,
+        ...this.item.style,
         scale: this.canvasConfig.scale
       }
-
+      console.log(currPosition)
       let moved = false
       let move
-      if (this.item.rotate === 0 || this.item.rotate === 360) {
+      if (this.item.style.rotate === 0 || this.item.style.rotate === 360) {
         move = (e) => {
           moved = true
           this.setCursor(cursor[direction])
@@ -262,45 +260,18 @@ export default {
       this.handleItemChoose()
 
       const scale = this.canvasConfig.scale
-      // 设置refline
-      let updater
-      const startX = this.item.x
-      const startY = this.item.y
-      if (this.canvasConfig.refLine) {
-        this.$store.commit('setRefline')
-        updater = this.refline.adsorbCreator({
-          current: {
-            key: this.index,
-            left: startX,
-            top: startY,
-            width: this.item.width,
-            height: this.item.height,
-            rotate: this.item.rotate,
-            scale: scale
-          },
-          pageX: ev.clientX,
-          pageY: ev.clientY,
-          distance: this.screenConfig.diff,
-          disableAdsorb: false
-        })
-      }
+      const itemStyle = { ...this.item.style }
+      const position = {}
 
       let moved = false
       const move = (e) => {
         moved = true
         this.setCursor('move')
         this.$store.commit('setMoveStatus', true)
-        if (this.canvasConfig.refLine) {
-          const { delta } = updater({
-            pageX: e.clientX,
-            pageY: e.clientY
-          })
-          this.item.x += Math.round(delta.left / scale)
-          this.item.y += Math.round(delta.top / scale)
-        } else {
-          this.item.x = startX + Math.round((e.clientX - ev.clientX) / scale)
-          this.item.y = startY + Math.round((e.clientY - ev.clientY) / scale)
-        }
+        position.x = itemStyle.x + Math.round((e.clientX - ev.clientX) / scale)
+        position.y = itemStyle.y + Math.round((e.clientY - ev.clientY) / scale)
+
+        this.item.style = { ...this.item.style, ...position }
       }
 
       const up = () => {
@@ -324,11 +295,11 @@ export default {
       on(document, 'mouseup', up)
     },
     setItemPosition(position) {
-      if (position.x) this.item.x = position.x
-      if (position.y) this.item.y = position.y
-      if (position.width) this.item.width = position.width
-      if (position.height) this.item.height = position.height
-      if (position.rotate) this.item.rotate = position.rotate
+      if (position.x) this.item.style.x = position.x
+      if (position.y) this.item.style.y = position.y
+      if (position.width) this.item.style.width = position.width
+      if (position.height) this.item.style.height = position.height
+      if (position.rotate) this.item.style.rotate = position.rotate
     },
     setCursor(cursor) {
       document.body.style.cursor = cursor

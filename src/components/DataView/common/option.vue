@@ -5,8 +5,8 @@
       <a-tab-pane key="style" tab="样式">
         <div class="info">
           <span class="title">
-            <span>{{ currentItem.chartName }}
-              <span class="version">[v{{ currentItem.chartVersion }}]</span>
+            <span>{{ currentItem.name }}
+              <span class="version">[v{{ currentItem.version }}]</span>
             </span>
             <span class="update">更新版本</span>
           </span>
@@ -23,31 +23,31 @@
               <a-form-item label="位置">
                 <a-row :gutter="20">
                   <a-col :span="12">
-                    <a-input-number v-model="currentItem.x" :min="0" :precision="0" />
+                    <a-input-number v-model="currentItem.style.x" :min="0" :precision="0" />
                   </a-col>
                   <a-col :span="12">
-                    <a-input-number v-model="currentItem.y" :min="0" :precision="0" />
+                    <a-input-number v-model="currentItem.style.y" :min="0" :precision="0" />
                   </a-col>
                 </a-row>
               </a-form-item>
               <a-form-item label="大小">
                 <a-row :gutter="20">
                   <a-col :span="12">
-                    <a-input-number v-model="currentItem.width" :min="0" :precision="0" />
+                    <a-input-number v-model="currentItem.style.width" :min="0" :precision="0" />
                   </a-col>
                   <a-col :span="12">
-                    <a-input-number v-model="currentItem.height" :min="0" :precision="0" />
+                    <a-input-number v-model="currentItem.style.height" :min="0" :precision="0" />
                   </a-col>
                 </a-row>
               </a-form-item>
               <a-form-item label="旋转角度">
-                <a-input-number v-model="currentItem.rotate" :min="0" :max="360" :precision="0" />
+                <a-input-number v-model="currentItem.style.rotate" :min="0" :max="360" :precision="0" />
               </a-form-item>
             </a-form>
           </a-collapse-panel>
         </a-collapse>
         <component
-          :is="currentItem.chartType + 'Option_' + currentItem.chartVersion"
+          :is="currentItem.type + 'Option_' + currentItem.version"
           :item="currentItem"
         />
       </a-tab-pane>
@@ -170,14 +170,7 @@
           <a-col :span="24">
             <div class="modal-form-item">
               <div class="label">请求结果(JSON)</div>
-              <div class="control-wrapper">
-                <code-editor
-                  id="rest-data-result"
-                  language="json"
-                  height="250px"
-                  :value="currentItem.chartData.rest"
-                />
-              </div>
+              <div class="control-wrapper" />
             </div>
           </a-col>
         </a-row>
@@ -312,7 +305,7 @@ export default {
       return this.params() !== null
     },
     params() {
-      return paramsMap[`${this.currentItem.chartType}_${this.currentItem.chartVersion}`]
+      return paramsMap[`${this.currentItem.type}_${this.currentItem.version}`]
     },
     handleConfigChange() {
       if (this.currentItem.chartData.dataSourceType === 'Static') {

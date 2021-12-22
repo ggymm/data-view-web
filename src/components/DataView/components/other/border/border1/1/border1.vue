@@ -1,16 +1,16 @@
 <template>
   <div class="border-box-1">
-    <svg class="border" :width="item.width" :height="item.height">
+    <svg class="border" :width="itemStyle.width" :height="itemStyle.height">
       <polygon
         :fill="item.option.backgroundColor"
-        :points="`10, 27 10, ${item.height - 27} 13, ${item.height - 24} 13, ${item.height - 21} 24, ${item.height - 11}
-      38, ${item.height - 11} 41, ${item.height - 8} 73, ${item.height - 8} 75, ${item.height - 10} 81, ${item.height - 10}
-      85, ${item.height - 6} ${item.width - 85}, ${item.height - 6} ${item.width - 81}, ${item.height - 10} ${item.width - 75}, ${item.height - 10}
-      ${item.width - 73}, ${item.height - 8} ${item.width - 41}, ${item.height - 8} ${item.width - 38}, ${item.height - 11}
-      ${item.width - 24}, ${item.height - 11} ${item.width - 13}, ${item.height - 21} ${item.width - 13}, ${item.height - 24}
-      ${item.width - 10}, ${item.height - 27} ${item.width - 10}, 27 ${item.width - 13}, 25 ${item.width - 13}, 21
-      ${item.width - 24}, 11 ${item.width - 38}, 11 ${item.width - 41}, 8 ${item.width - 73}, 8 ${item.width - 75}, 10
-      ${item.width - 81}, 10 ${item.width - 85}, 6 85, 6 81, 10 75, 10 73, 8 41, 8 38, 11 24, 11 13, 21 13, 24`"
+        :points="`10, 27 10, ${itemStyle.height - 27} 13, ${itemStyle.height - 24} 13, ${itemStyle.height - 21} 24, ${itemStyle.height - 11}
+      38, ${itemStyle.height - 11} 41, ${itemStyle.height - 8} 73, ${itemStyle.height - 8} 75, ${itemStyle.height - 10} 81, ${itemStyle.height - 10}
+      85, ${itemStyle.height - 6} ${itemStyle.width - 85}, ${itemStyle.height - 6} ${itemStyle.width - 81}, ${itemStyle.height - 10} ${itemStyle.width - 75}, ${itemStyle.height - 10}
+      ${itemStyle.width - 73}, ${itemStyle.height - 8} ${itemStyle.width - 41}, ${itemStyle.height - 8} ${itemStyle.width - 38}, ${itemStyle.height - 11}
+      ${itemStyle.width - 24}, ${itemStyle.height - 11} ${itemStyle.width - 13}, ${itemStyle.height - 21} ${itemStyle.width - 13}, ${itemStyle.height - 24}
+      ${itemStyle.width - 10}, ${itemStyle.height - 27} ${itemStyle.width - 10}, 27 ${itemStyle.width - 13}, 25 ${itemStyle.width - 13}, 21
+      ${itemStyle.width - 24}, 11 ${itemStyle.width - 38}, 11 ${itemStyle.width - 41}, 8 ${itemStyle.width - 73}, 8 ${itemStyle.width - 75}, 10
+      ${itemStyle.width - 81}, 10 ${itemStyle.width - 85}, 6 85, 6 81, 10 75, 10 73, 8 41, 8 38, 11 24, 11 13, 21 13, 24`"
       />
     </svg>
 
@@ -74,7 +74,9 @@ export default {
     }
   },
   data() {
-    return {}
+    return {
+      itemStyle: this.item.style
+    }
   }
 }
 </script>

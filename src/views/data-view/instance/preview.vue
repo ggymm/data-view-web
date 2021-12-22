@@ -61,10 +61,10 @@ export default {
     },
     itemStyle(item) {
       return {
-        top: `${item.y}px`,
-        left: `${item.x}px`,
-        width: `${item.width}px`,
-        height: `${item.height}px`
+        top: `${item.style.y}px`,
+        left: `${item.style.x}px`,
+        width: `${item.style.width}px`,
+        height: `${item.style.height}px`
       }
     },
     async getDataView(instanceId) {

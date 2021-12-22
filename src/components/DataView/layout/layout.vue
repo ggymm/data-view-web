@@ -108,16 +108,16 @@ export default {
       if (!_this.currentItem) return
       switch (handler.key) {
         case 'up':
-          _this.currentItem.y -= 1
+          _this.currentItem.style.y -= 1
           break
         case 'down':
-          _this.currentItem.y += 1
+          _this.currentItem.style.y += 1
           break
         case 'left':
-          _this.currentItem.x -= 1
+          _this.currentItem.style.x -= 1
           break
         case 'right':
-          _this.currentItem.x += 1
+          _this.currentItem.style.x += 1
           break
       }
     })

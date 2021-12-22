@@ -32,11 +32,11 @@ export default {
         const item = state.items[i]
         rects.push({
           key: i,
-          left: item.x,
-          top: item.y,
-          width: item.width,
-          height: item.height,
-          rotate: item.rotate
+          left: item.style.x,
+          top: item.style.y,
+          width: item.style.width,
+          height: item.style.height,
+          rotate: item.style.rotate
         })
       }
       state.refline = new RefLine({

@@ -1,16 +1,18 @@
 const WordCloudConfig = function() {
   this.config = {
-    x: 0,
-    y: 0,
-    width: 350,
-    height: 250,
-    chartName: '词云',
-    chartType: 'wordCloud',
-    chartVersion: 1,
-    rotate: 0,
+    name: '词云',
+    type: 'wordCloud',
+    version: 1,
     show: 'true',
     choose: 'false',
     refresh: 'false',
+    style: {
+      x: 0,
+      y: 0,
+      width: 350,
+      height: 250,
+      rotate: 0
+    },
     chartData: {
       dataSourceType: '',
       staticData: '{}',

@@ -1,16 +1,18 @@
 const GaugeConfig = function() {
   this.config = {
-    x: 0,
-    y: 0,
-    width: 350,
-    height: 250,
-    chartName: '',
-    chartType: 'gauge',
-    chartVersion: 1,
-    rotate: 0,
+    name: '',
+    type: 'gauge',
+    version: 1,
     show: 'true',
     choose: 'false',
     refresh: 'false',
+    style: {
+      x: 0,
+      y: 0,
+      width: 350,
+      height: 250,
+      rotate: 0
+    },
     chartData: {
       dataSourceType: '',
       staticData: '{}',

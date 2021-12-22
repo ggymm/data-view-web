@@ -41,8 +41,8 @@ export default {
   methods: {
     itemStyle() {
       return {
-        top: `${(this.item.height - this.item.option.boundary) / 2}px`,
-        left: `${(this.item.width - this.item.option.boundary) / 2}px`
+        top: `${(this.item.style.height - this.item.option.boundary) / 2}px`,
+        left: `${(this.item.style.width - this.item.option.boundary) / 2}px`
       }
     },
     symbolStyle() {

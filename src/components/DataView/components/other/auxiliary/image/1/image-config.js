@@ -1,17 +1,19 @@
 const ImageChartConfig = function() {
   this.config = {
-    x: 0,
-    y: 0,
-    width: 350,
-    height: 250,
-    chartName: '图片',
-    chartType: 'ImageChart',
-    lock: 'false',
-    chartVersion: 1,
-    rotate: 0,
+    name: '图片',
+    type: 'ImageChart',
+    version: 1,
     show: 'true',
+    lock: 'false',
     choose: 'false',
     refresh: 'false',
+    style: {
+      x: 0,
+      y: 0,
+      width: 350,
+      height: 250,
+      rotate: 0
+    },
     chartData: {},
     data: [],
     interval: 8000,

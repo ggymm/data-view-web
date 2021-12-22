@@ -1,17 +1,19 @@
 const FunnelNormalConfig = function() {
   this.config = {
-    x: 0,
-    y: 0,
-    width: 350,
-    height: 250,
-    chartName: '普通漏斗图',
-    chartType: 'FunnelNormal',
-    chartVersion: 1,
-    rotate: 0,
+    name: '普通漏斗图',
+    type: 'FunnelNormal',
+    version: 1,
     show: 'true',
     lock: 'false',
     choose: 'false',
     refresh: 'false',
+    style: {
+      x: 0,
+      y: 0,
+      width: 350,
+      height: 250,
+      rotate: 0
+    },
     chartData: {
       dataSourceType: '',
       staticData: '{}',

@@ -1,17 +1,19 @@
 const ProgressConfig = function() {
   this.config = {
-    x: 0,
-    y: 0,
-    width: 350,
-    height: 50,
-    chartName: '进度条',
-    chartType: 'Progress',
-    chartVersion: 1,
-    rotate: 0,
+    name: '进度条',
+    type: 'Progress',
+    version: 1,
     show: 'true',
     lock: 'false',
     choose: 'false',
     refresh: 'false',
+    style: {
+      x: 0,
+      y: 0,
+      width: 350,
+      height: 50,
+      rotate: 0
+    },
     chartData: {
       dataSourceType: '',
       staticData: '{}',

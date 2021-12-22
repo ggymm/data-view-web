@@ -1,17 +1,19 @@
 const EarlyWarningConfig = function() {
   this.config = {
-    x: 0,
-    y: 0,
-    width: 200,
-    height: 50,
-    chartName: '预警点滴',
-    chartType: 'EarlyWarning',
-    chartVersion: 1,
-    rotate: 0,
+    name: '预警点滴',
+    type: 'EarlyWarning',
+    version: 1,
     show: 'true',
     lock: 'false',
     choose: 'false',
     refresh: 'false',
+    style: {
+      x: 0,
+      y: 0,
+      width: 200,
+      height: 50,
+      rotate: 0
+    },
     chartData: {
       dataSourceType: '',
       staticData: '{}',

@@ -17,16 +17,16 @@
               @dragend="dragend($event)"
             >
               <div class="layer-item-icon">
-                <icon :type="`icon-${item.chartType}New`" />
+                <icon :type="`icon-${item.type}New`" />
               </div>
               <div class="layer-item-label">
-                <span v-if="item.chartType === 'TitleText'">{{ item.option.title }}</span>
-                <span v-else-if="item.chartType === 'ImageChart'">{{ item.chartName }}</span>
-                <span v-else-if="item.chartType === 'CarouselList'">{{ item.chartName }}</span>
-                <span v-else-if="item.chartType === 'Counter'">{{ item.chartName }}</span>
+                <span v-if="item.type === 'TitleText'">{{ item.option.title }}</span>
+                <span v-else-if="item.type === 'ImageChart'">{{ item.name }}</span>
+                <span v-else-if="item.type === 'CarouselList'">{{ item.name }}</span>
+                <span v-else-if="item.type === 'Counter'">{{ item.name }}</span>
                 <span v-else>
-                  <span v-if="item.chartName.length !== 0">
-                    {{ item.chartName }}
+                  <span v-if="item.name.length !== 0">
+                    {{ item.name }}
                   </span>
                   <span v-else>
                     {{ item.option.title.text }}

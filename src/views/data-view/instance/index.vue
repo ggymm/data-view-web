@@ -27,7 +27,7 @@
       </div>
     </a-layout-header>
     <a-layout class="data-view-main">
-      <a-layout-sider v-model="layerCollapsed" collapsed-width="0" collapsible="true">
+      <a-layout-sider v-model="layerCollapsed" collapsed-width="0" :collapsible="true">
         <layer />
       </a-layout-sider>
       <a-layout class="data-view-screen">
@@ -84,7 +84,7 @@
         width="400"
         collapsed-width="0"
         :reverse-arrow="true"
-        collapsible="true"
+        :collapsible="true"
       >
         <div v-if="currentItem === null" class="data-view-screen-option dark-theme">
           <div class="screen-option-header">
@@ -249,8 +249,8 @@ export default {
       const type = event.dataTransfer.getData('type')
       if (!type) return
       const newItem = OptionConfigMap[type]()
-      newItem.x = event.offsetX - newItem.width / 2
-      newItem.y = event.offsetY - newItem.height / 2
+      newItem.style.x = event.offsetX - newItem.style.width / 2
+      newItem.style.y = event.offsetY - newItem.style.height / 2
       newItem.hover = false
       this.$store.commit('addItem', newItem)
     },
@@ -291,6 +291,13 @@ export default {
         const items = response.data.chart_items
         if (items !== null && items !== undefined && items.length > 0) {
           items.map((item) => {
+            item.style = {
+              x: item.x,
+              y: item.y,
+              width: item.width,
+              height: item.height,
+              rotate: item.rotate
+            }
             item.data = JSON.parse(item.data)
             item.chartData = JSON.parse(item.chartData)
             item.option = JSON.parse(item.option)
@@ -316,6 +323,11 @@ export default {
       const items = JSON.parse(JSON.stringify(this.items))
       items.map((item, index) => {
         item.index = index
+        item.x = item.style.x
+        item.y = item.style.y
+        item.width = item.style.width
+        item.height = item.style.height
+        item.rotate = item.style.rotate
         item.data = JSON.stringify(item.data)
         item.chartData = JSON.stringify(item.chartData)
         item.option = JSON.stringify(item.option)

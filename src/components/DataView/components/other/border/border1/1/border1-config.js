@@ -1,17 +1,19 @@
 const Border1Config = function() {
   this.config = {
-    x: 0,
-    y: 0,
-    width: 200,
-    height: 50,
-    chartName: '边框1',
-    chartType: 'Border1',
-    chartVersion: 1,
-    rotate: 0,
+    name: '边框1',
+    type: 'Border1',
+    version: 1,
     show: 'true',
     lock: 'false',
     choose: 'false',
     refresh: 'false',
+    style: {
+      x: 0,
+      y: 0,
+      width: 200,
+      height: 50,
+      rotate: 0
+    },
     chartData: {},
     data: {},
     interval: 8000,

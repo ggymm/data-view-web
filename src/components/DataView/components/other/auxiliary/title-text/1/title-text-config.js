@@ -1,17 +1,19 @@
 const TitleTextConfig = function() {
   this.config = {
-    x: 0,
-    y: 0,
-    width: 200,
-    height: 50,
-    chartName: '标题文本',
-    chartType: 'TitleText',
-    chartVersion: 1,
-    rotate: 0,
+    name: '标题文本',
+    type: 'TitleText',
+    version: 1,
     show: 'true',
     lock: 'false',
     choose: 'false',
     refresh: 'false',
+    style: {
+      x: 0,
+      y: 0,
+      width: 200,
+      height: 50,
+      rotate: 0
+    },
     chartData: {},
     data: {},
     interval: 8000,

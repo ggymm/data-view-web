@@ -59,8 +59,8 @@ export default {
       const align = this.item.option.align
       const position = this.item.option.title.position
       const style = {
-        width: `${this.item.width}px`,
-        height: `${this.item.height}px`,
+        width: `${this.item.style.width}px`,
+        height: `${this.item.style.height}px`,
         padding: `${this.item.option.padding}px`,
         flexDirection: position
       }

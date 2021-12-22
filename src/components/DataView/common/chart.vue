@@ -1,7 +1,7 @@
 <template>
   <div class="data-view-chart">
     <component
-      :is="item.chartType + '_' + item.chartVersion"
+      :is="item.type + '_' + item.version"
       :item="item"
       :update-options="updateOptions"
       :theme="ThemeConfigMap[theme]"
@@ -125,7 +125,7 @@ export default {
         return
       }
       const config = this.item.chartData
-      config.chartType = this.item.chartType
+      config.chartType = this.item.type
       getChartData(config).then(response => {
         this.item.data = response.data
       })
@@ -143,7 +143,7 @@ export default {
       }
       if (body) {
         body['dataSourceType'] = 'Rest'
-        body['chartType'] = this.item.chartType
+        body['chartType'] = this.item.type
       }
       if (this.item.chartData.restType === 'POST') {
         axios({

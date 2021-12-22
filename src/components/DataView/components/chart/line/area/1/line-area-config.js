@@ -1,17 +1,19 @@
 const LineAreaConfig = function() {
   this.config = {
-    x: 0,
-    y: 0,
-    width: 350,
-    height: 250,
-    chartName: '标准折线面积图',
-    chartType: 'LineArea',
-    chartVersion: 1,
-    rotate: 0,
+    name: '标准折线面积图',
+    type: 'LineArea',
+    version: 1,
     show: 'true',
     lock: 'false',
     choose: 'false',
     refresh: 'false',
+    style: {
+      x: 0,
+      y: 0,
+      width: 350,
+      height: 250,
+      rotate: 0
+    },
     chartData: {
       dataSourceType: '',
       staticData: '{}',

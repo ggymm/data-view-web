@@ -46,8 +46,8 @@ export default {
     },
     defaultImageStyle() {
       return {
-        width: `${this.item.width}px`,
-        height: `${this.item.height}px`,
+        width: `${this.item.style.width}px`,
+        height: `${this.item.style.height}px`,
         fontSize: '36px',
         display: 'flex',
         alignContent: 'center',
