@@ -6,7 +6,12 @@
 [GITEE](https://gitee.com/1967988842/data_view_web)
 
 ## Demo
-[Demo Create](http://49.233.166.224/data-view-web/data-view-instance/create)
+[Demo Create](https://ggymm.github.io/data-view-web/)
+
+## 下阶段目标
+1. 更新版本为 vue3.0
+2. 重构数据源逻辑
+3. 添加报表管理器
 
 ## 数据可视化平台
 
